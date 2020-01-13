@@ -35,11 +35,13 @@ function ready() {
 	// Toggle Developer Mode
 	const ret = globalShortcut.register('Ctrl+Shift+I', () => {
 		loginWindow.toggleDevTools();
+		console.log('DevTools opened.');
 	});
 
 	// Receive confirmation
 	ipcMain.on('loginConfirmation', function() {
 		createMainWindow();
+		console.log('loggged in successfully.');
 	});
 }
 
@@ -70,6 +72,7 @@ function createMainWindow() {
 	// Receive logout confirmation
 	ipcMain.on('logoutConfirmation', function() {
 		ready();
+		console.log('loggged out successfully.');
 		mainWindow.on('close', function() {
 			mainWindow = null;
 		});

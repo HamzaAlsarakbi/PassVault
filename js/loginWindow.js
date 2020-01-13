@@ -57,7 +57,6 @@ function submit() {
 		submitButton.textContent = 'Login Successful';
 		// send confirmation
 		ipcRenderer.send('loginConfirmation');
-		ipcRenderer.send('loginWindowKill');
 		win.close();
 	} else if (password == '' || typeof password == undefined) {
 		// If password is empty
