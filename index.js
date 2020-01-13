@@ -32,11 +32,20 @@ function ready() {
 	);
 
 	// Toggle Developer Mode
-	const ret = globalShortcut.register('Ctrl+Shift+I', () => {
+	const devTools = globalShortcut.register('Ctrl+Shift+I', () => {
 		if(mainWindowOn == 0) {
 			loginWindow.webContents.toggleDevTools();
 		} else {
 			mainWindow.webContents.toggleDevTools();
+		}
+	});
+
+	// Refresh page
+	const refresh = globalShortcut.register('Ctrl+R', () => {
+		if(mainWindowOn == 0) {
+			loginWindow.webContents.reloadIgnoringCache();
+		} else {
+			mainWindow.webContents.reloadIgnoringCache();
 		}
 	});
 
