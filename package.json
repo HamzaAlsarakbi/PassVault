@@ -1,0 +1,14 @@
+{
+  "name": "passvault",
+  "version": "1.0.0",
+  "description": "Password Vault.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Hamza",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^7.1.7"
+  }
+}

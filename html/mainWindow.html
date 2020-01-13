@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Vault</title>
+    <link rel="stylesheet" type="text/css" href="../css/windowBar.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mainWindow.css" />
+  </head>
+  <body>
+    <!--Window Controls-->
+    <header id="titlebar">
+      <div id="drag-region">
+        <div id="window-title">
+          <span>Vault</span>
+        </div>
+
+        <div id="window-controls">
+          <div class="button" id="min-button">
+            <span>&#xE921;</span>
+          </div>
+          <div class="button" id="max-button">
+            <span>&#xE922;</span>
+          </div>
+          <div class="button" id="restore-button">
+            <span>&#xE923;</span>
+          </div>
+          <div class="button" id="close-button">
+            <span>&#xE8BB;</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!--Contents-->
+    <!--Controls-->
+    <div class="container">
+      <div></div>
+      <controls>
+        <div class="controls">
+          <div class="control" id="add" onclick="addFunc()">
+            +
+          </div>
+          <div class="control" id="settings" onclick="settingsFunc()">
+            &#x2699;
+          </div>
+        </div>
+        <div class="parameters">
+          <div class="settings">
+            <div class="settings-buttons">
+              <div class="settings-header">Settings</div>
+              <button class="change-password" onclick="togglePassParam();">
+                Change Password
+              </button>
+              <button class="change-theme" onclick="themeswitch()">
+                Change Theme
+              </button>
+              <button class="lock" onclick="lockVault()">Lock Vault</button>
+              <button class="gridlines" onclick="toggleGridlines()">
+                Show Gridlines
+              </button>
+            </div>
+            <div class="settings-parameters"></div>
+          </div>
+        </div>
+      </controls>
+      <table>
+        <tr>
+          <td class="header" id="type">Type</td>
+          <td class="header" id="service">Service</td>
+          <td class="header" id="email">Email</td>
+          <td class="header" id="password">Password</td>
+          <td class="header" id="hide-show">Hide/Show</td>
+        </tr>
+        <tr>
+          <td class="cell0" id="type">School</td>
+          <td class="cell0" id="service">Gmail</td>
+          <td class="cell0" id="email">hamzaa@ocsb.ca</td>
+          <td class="cell0" id="password" type="password">hehehaha</td>
+          <td class="cell0" id="hide-show"></td>
+        </tr>
+      </table>
+    </div>
+
+    <script src="../js/windowControls.js"></script>
+    <script src="../js/mainWindow.js"></script>
+  </body>
+</html>
