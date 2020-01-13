@@ -6,7 +6,6 @@
   outline: none;
   user-select: none;
   color: white;
-  overflow: hidden;
 }
 center {
   font-family: "Segoe UI", sans-serif;
@@ -16,6 +15,7 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
+  overflow: unset;
 }
 html,
 body {
@@ -31,6 +31,7 @@ body {
   width: 100%;
   flex-direction: column;
   margin-top: 30px;
+  overflow: visible;
 }
 
 controls {
@@ -41,6 +42,7 @@ controls {
   max-width: 900px;
   min-width: 600px;
   border-radius: 10px;
+  overflow: hidden;
 }
 .controls {
   margin: 15px;
@@ -85,10 +87,11 @@ controls {
 }
 
 .settings {
+  padding: 20px;
   margin-bottom: 30px;
   border-radius: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   transition: 0.2s ease-out;
 }
@@ -100,7 +103,10 @@ controls {
   border-right: 1px solid white;
   transition: 0.2s ease-out;
 }
-.settings-buttons,
+.settings-buttons {
+  display: flex;
+  flex-direction: row;
+}
 .password-parameters {
   display: flex;
   flex-direction: column;
@@ -117,8 +123,20 @@ button {
   background-color: rgb(52, 99, 202);
   margin: 10px;
   border-radius: 5px;
-  width: 95%;
+  width: 25%;
   height: 30px;
+}
+.button-header {
+  background-color: transparent;
+  border-bottom: 2px solid transparent;
+  margin: 0;
+  border-radius: 0;
+  transition: 0.1s;
+}
+
+.button-header-active {
+  border-bottom: 2px solid rgb(52, 99, 202);
+  transition: 0.1s;
 }
 button:hover {
   cursor: pointer;
@@ -126,18 +144,13 @@ button:hover {
 }
 
 .settings-parameters {
-  margin-top: 60px;
-  margin-left: 30%;
-  width: 180px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
-.pass-parameters {
-  height: 100%;
-  width: 100%;
+.params {
+  width: 200px;
+  margin-right: 150px;
 }
 
 input.password {
@@ -168,10 +181,6 @@ input.password {
   align-items: center;
   justify-content: center;
   width: 180px;
-}
-
-.lock-param {
-  width: 95%;
 }
 
 .disabled {

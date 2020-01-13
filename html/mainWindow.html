@@ -43,24 +43,26 @@
             &#x2699;
           </div>
         </div>
-        <div class="parameters">
           <div class="settings">
+            <div class="settings-header">Settings</div>
             <div class="settings-buttons">
-              <div class="settings-header">Settings</div>
-              <button class="change-password" onclick="togglePassParam();">
+
+              <button class="button-header" id="change-password" onclick="togglePassParam();">
                 Change Password
               </button>
-              <button class="change-theme" onclick="themeswitch()">
+              <button class="button-header" id="change-theme" onclick="themeswitch()">
                 Change Theme
               </button>
-              <button class="lock" onclick="lockVault()">Lock Vault</button>
-              <button class="gridlines" onclick="toggleGridlines()">
+              <button class="button-header" id="lock" onclick="lockVault()">Lock Vault</button>
+              <button class="button-header" id="gridlines" onclick="toggleGridlines()">
                 Show Gridlines
               </button>
             </div>
-            <div class="settings-parameters"></div>
+            <div class="settings-parameters">
+              <div class="params" id="pass-parameters"></div>
+              <div class="params" id="lock-parameters"></div>
+            </div>
           </div>
-        </div>
       </controls>
       <table>
         <tr>
@@ -69,6 +71,27 @@
           <td class="header" id="email">Email</td>
           <td class="header" id="password">Password</td>
           <td class="header" id="hide-show">Hide/Show</td>
+        </tr>
+        <tr>
+          <td class="cell0" id="type">School</td>
+          <td class="cell0" id="service">Gmail</td>
+          <td class="cell0" id="email">hamzaa@ocsb.ca</td>
+          <td class="cell0" id="password" type="password">hehehaha</td>
+          <td class="cell0" id="hide-show"></td>
+        </tr>
+        <tr>
+          <td class="cell0" id="type">School</td>
+          <td class="cell0" id="service">Gmail</td>
+          <td class="cell0" id="email">hamzaa@ocsb.ca</td>
+          <td class="cell0" id="password" type="password">hehehaha</td>
+          <td class="cell0" id="hide-show"></td>
+        </tr>
+        <tr>
+          <td class="cell0" id="type">School</td>
+          <td class="cell0" id="service">Gmail</td>
+          <td class="cell0" id="email">hamzaa@ocsb.ca</td>
+          <td class="cell0" id="password" type="password">hehehaha</td>
+          <td class="cell0" id="hide-show"></td>
         </tr>
         <tr>
           <td class="cell0" id="type">School</td>

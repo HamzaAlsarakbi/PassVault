@@ -8,7 +8,6 @@ var addOn = false;
 var saved = true;
 
 toggleParameters();
-
 function settingsFunc() {
 	document.querySelector('#settings').classList.toggle('rotate');
 }
@@ -19,29 +18,21 @@ function addFunc() {
 
 // Toggle parameters
 function toggleParameters() {
-	// Slide right
-	// All of div
-	document.querySelector('.settings').classList.toggle('settingsToggle');
-
 	// Parameters
 	document.querySelector('.settings-parameters').classList.toggle('settingsToggle');
-	// Right border
-	document.querySelector('.settings-buttons').classList.toggle('settingsButtonsToggle');
 }
 
 // Password
 var passParam = false;
-var parentElement = document.querySelector('.settings-parameters');
+
 
 function togglePassParam() {
 	// Animation
 	toggleParameters();
-
+	var parentElement = document.querySelector('#pass-parameters');
 	if (!passParam) {
+		document.querySelector('#change-password').classList.toggle('button-header-active');
 		// Creating children
-		// Create div for grand-children
-		var div = document.createElement('div');
-		div.setAttribute('class', 'pass-parameters');
 		// Create old Password
 		var oldPassChild = document.createElement('input');
 		oldPassChild.setAttribute('class', 'password');
@@ -76,15 +67,16 @@ function togglePassParam() {
 		button.textContent = 'Change';
 
 		// Packaging children
-		appendChildElement = parentElement.appendChild(div);
-		appendChildElement = div.appendChild(oldPassChild);
-		appendChildElement = div.appendChild(newPassChild);
-		appendChildElement = div.appendChild(ConfirmPassChild);
-		appendChildElement = div.appendChild(span);
-		appendChildElement = div.appendChild(button);
+		appendChildElement = parentElement.appendChild(oldPassChild);
+		appendChildElement = parentElement.appendChild(newPassChild);
+		appendChildElement = parentElement.appendChild(ConfirmPassChild);
+		appendChildElement = parentElement.appendChild(span);
+		appendChildElement = parentElement.appendChild(button);
 
 		passParam = true;
 	} else {
+		document.querySelector('#change-password').classList.toggle('button-header-active');
+
 		setTimeout(function() {
 			var first = parentElement.firstElementChild;
 			while (first) {
@@ -101,17 +93,16 @@ var lockVaultOn = false;
 function lockVault() {
 	// Animation
 	toggleParameters();
-
+	var parentElement = document.querySelector('#lock-parameters');
 	if (!lockVaultOn) {
-		// Create div for grand-children
-		var parentDiv = document.createElement('div');
-		parentDiv.setAttribute('class', 'lock-parameters');
+		document.querySelector('#lock').classList.toggle('button-header-active');
+
 		// Are you sure?
 		var p = document.createElement('p');
 		p.setAttribute('class', 'lock-param');
 		p.setAttribute('id', 'confirmation');
 		p.textContent = 'Quit Vault?';
-		appendChildElement = parentDiv.appendChild(p);
+		appendChildElement = parentElement.appendChild(p);
 
 		// confimation div **div class="yesno"**
 		var div = document.createElement('div');
@@ -123,7 +114,7 @@ function lockVault() {
 			saveQuitButton.setAttribute('class', 'lock-param');
 			saveQuitButton.setAttribute('id', 'save-quit-button');
 			saveQuitButton.textContent = 'Save and quit';
-			appendChildElement = parentDiv.appendChild(saveQuitButton);
+			appendChildElement = parentElement.appendChild(saveQuitButton);
 		}
 
 		// Quit
@@ -139,12 +130,13 @@ function lockVault() {
 		}
 
 		// Package Elements
-		appendChildElement = parentElement.appendChild(parentDiv);
-		appendChildElement = parentDiv.appendChild(quitButton);
+		appendChildElement = parentElement.appendChild(quitButton);
 
 		// Variable manipulation
 		lockVaultOn = true;
 	} else {
+		document.querySelector('#lock').classList.toggle('button-header-active');
+
 		setTimeout(function() {
 			var first = parentElement.firstElementChild;
 			while (first) {
@@ -169,7 +161,7 @@ function quit() {
 var gridlinesButton, gridlines, td;
 td = document.querySelectorAll('td');
 gridlines = false;
-gridlinesButton = document.querySelector('.gridlines');
+gridlinesButton = document.querySelector('#gridlines');
 
 function toggleGridlines() {
 	// Toggle gridlines
