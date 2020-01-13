@@ -6,7 +6,7 @@ const path = require('path');
 let loginWindow;
 let mainWindow;
 var mainWindowOn = 0;
-
+let win = 'loginWindow';
 // Listen for app to be ready
 app.on('ready', ready);
 
@@ -33,8 +33,11 @@ function ready() {
 
 	// Toggle Developer Mode
 	const ret = globalShortcut.register('Ctrl+Shift+I', () => {
-		loginWindow.toggleDevTools();
-		console.log('DevTools opened.');
+		if(mainWindowOn == 0) {
+			loginWindow.webContents.toggleDevTools();
+		} else {
+			mainWindow.webContents.toggleDevTools();
+		}
 	});
 
 	// Receive confirmation
@@ -52,6 +55,7 @@ Menu.setApplicationMenu(false);
 
 // mainWindow function
 function createMainWindow() {
+	win = 'mainWindow';
 	mainWindow = new BrowserWindow({
 		frame: false,
 		height: 500,
