@@ -1,12 +1,11 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain } = electron;
-const url = require('url');
+const url =require('url');
 const path = require('path');
 
 let loginWindow;
 let mainWindow;
-var loginWindowOn = false;
-var mainWinowOn = false;
+var mainWindowOn = 0;
 
 // Listen for app to be ready
 app.on('ready', ready);
@@ -40,9 +39,12 @@ function ready() {
 
 	// Receive confirmation
 	ipcMain.on('loginConfirmation', function() {
-		createMainWindow();
-		console.log('loggged in successfully.');
-	});
+		console.log('received login request.');
+		// If mainWinow is opened
+		if(mainWindowOn == 0) {
+			mainWindowOn = 1;
+			createMainWindow();
+		}});
 }
 
 // app properties
@@ -71,10 +73,14 @@ function createMainWindow() {
 	);
 	// Receive logout confirmation
 	ipcMain.on('logoutConfirmation', function() {
-		ready();
-		console.log('loggged out successfully.');
-		mainWindow.on('close', function() {
-			mainWindow = null;
-		});
+		console.log('received logout request.');
+		// If mainWinow is opened
+		if (mainWindowOn == 1) {
+			mainWindowOn = 0;
+			ready();
+			mainWindow.on('close', function() {
+				mainWindow = null;
+			});
+		}
 	});
 }

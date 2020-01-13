@@ -12,7 +12,13 @@ button#maximize {background-color: rgb(90, 251, 90);}
     outline: none;
     user-select: none;
 }
-center {font-family: "Segoe UI", sans-serif;}
+.container {
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 body {
     background-color: rgb(42, 42, 42);
     color: white;
