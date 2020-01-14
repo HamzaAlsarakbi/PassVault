@@ -14,7 +14,6 @@ body {
 	background-color: rgb(42, 42, 42);
 	display: flex;
 	justify-content: center;
-	width: 100%;
 	overflow: unset;
 }
 html,
@@ -105,6 +104,7 @@ controls {
 }
 
 .settings-body {
+  display: flex;
 	flex-direction: row;
 }
 .settings-buttons {
@@ -112,7 +112,9 @@ controls {
 	flex-direction: column;
 	padding: 20px;
 	transition: 0.2s ease-out;
-	border-right: none;
+  border-right: none;
+  width: 180px;
+  margin-right: 40px;
 }
 .password-parameters {
 	display: flex;
@@ -124,19 +126,22 @@ button {
 	background-color: rgb(52, 99, 202);
 	margin: 10px;
 	border-radius: 5px;
-	width: 25%;
 	height: 30px;
 }
 .button-header {
 	background-color: transparent;
-	border-bottom: 2px solid transparent;
+	border-left: 4px solid transparent;
 	margin: 0;
 	border-radius: 0;
-	transition: 0.1s;
+  transition: 0.1s;
+  width: 100%;
+  text-align: left;
+  height: 30px;
+  margin-bottom: 10px;
 }
 
 .button-header-active {
-	border-bottom: 2px solid rgb(52, 99, 202);
+	border-left: 4px solid rgb(52, 99, 202);
 	transition: 0.1s;
 }
 button:hover {
@@ -147,19 +152,16 @@ button:hover {
 .settings-parameters {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+  justify-content: center;
+  width: 180px;
 }
-.params {
-	width: 200px;
-	margin-right: 150px;
-}
+
 
 input.password {
 	margin: 5px;
 	padding: 5px;
 	background-color: transparent;
 	height: 30px;
-	width: 95%;
 	color: white;
 	border: 2px solid rgb(80, 80, 80);
 	border-radius: 5px;
@@ -181,7 +183,6 @@ input.password {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 180px;
 }
 
 .disabled {
