@@ -33,6 +33,7 @@ body {
 }
 
 controls {
+	margin-top: 0px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 10px;
@@ -125,6 +126,7 @@ menu {
 	background-color: rgb(50, 50, 50);
 	height: 311px;
 	transition: 0.25s ease-out;
+	margin-top: 20px;
 }
 
 .password-parameters {
