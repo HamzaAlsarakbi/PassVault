@@ -2,17 +2,111 @@
 const electron = require('electron');
 const { ipcRenderer } = electron;
 let win = electron.remote.getCurrentWindow();
-
+var parentElement;
 var settingsOn = false;
 var addOn = false;
 var saved = true;
+var settingsOn = false;
 
+// Toggle Settings Menu
 function settingsFunc() {
+	toggleMenus();
+	document.querySelector('controls').classList.toggle('toggleSettings');
+	// rotate icon
+	var parentElement = document.querySelector('.settings');
 	document.querySelector('#settings').classList.toggle('rotate');
+	if (!settingsOn) {
+		// Create header
+		var header = document.createElement('div');
+		header.setAttribute('class', 'settings-header');
+		header.textContent = 'Settings';
+
+		// create settingsBody
+		settingsBody = document.createElement('div');
+		settingsBody.setAttribute('class', 'settings-body');
+
+		// create settingsButton
+		settingsButtons = document.createElement('div');
+		settingsButtons.setAttribute('class', 'settings-buttons');
+
+		// create change password button
+		changePassword = document.createElement('button');
+		changePassword.setAttribute('class', 'button-header');
+		changePassword.setAttribute('id', 'change-password');
+		changePassword.setAttribute('onclick', 'togglePassParam()');
+		changePassword.textContent = 'Change Password';
+
+		// create change theme button
+		changeTheme = document.createElement('button');
+		changeTheme.setAttribute('class', 'button-header');
+		changeTheme.setAttribute('id', 'change-theme');
+		changeTheme.setAttribute('onclick', 'switchTheme()');
+		changeTheme.textContent = 'Change Theme';
+
+		// create lock vault button
+		lockVaultButton = document.createElement('button');
+		lockVaultButton.setAttribute('class', 'button-header');
+		lockVaultButton.setAttribute('id', 'lock');
+		lockVaultButton.setAttribute('onclick', 'lockVault()');
+		lockVaultButton.textContent = 'Lock Vault';
+
+		// create toggle gridlines button
+		toggleGridlinesButton = document.createElement('button');
+		toggleGridlinesButton.setAttribute('class', 'button-header');
+		toggleGridlinesButton.setAttribute('id', 'gridliens');
+		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
+		toggleGridlinesButton.textContent = 'Show Gridlines';
+
+		// create div for parameters
+		settingsParameters = document.createElement('div');
+		settingsParameters.setAttribute('class', 'settings-parameters');
+
+		// create div for parameters
+		settingsParameters = document.createElement('div');
+		settingsParameters.setAttribute('class', 'settings-parameters');
+
+		// create password parameters for parameters
+		passParameters = document.createElement('div');
+		passParameters.setAttribute('class', 'params');
+		passParameters.setAttribute('id', 'pass-parameters');
+
+		// create lock parameters for parameters
+		lockParameters = document.createElement('div');
+		lockParameters.setAttribute('class', 'params');
+		lockParameters.setAttribute('id', 'lock-parameters');
+
+		// Packaging
+		parentElement.appendChild(header);
+		parentElement.appendChild(settingsBody);
+		settingsBody.appendChild(settingsButtons);
+		settingsButtons.appendChild(changePassword);
+		settingsButtons.appendChild(changeTheme);
+		settingsButtons.appendChild(lockVaultButton);
+		settingsButtons.appendChild(toggleGridlinesButton);
+		settingsBody.appendChild(settingsParameters);
+		settingsParameters.appendChild(passParameters);
+		settingsParameters.appendChild(lockParameters);
+
+		settingsOn = true;
+	} else {
+		setTimeout(function() {
+			var first = parentElement.firstElementChild;
+			while (first) {
+				first.remove();
+				first = parentElement.firstElementChild;
+			}
+		}, 200);
+		settingsOn = false;
+	}
 }
 
 function addFunc() {
 	document.querySelector('#add').classList.toggle('rotate');
+}
+
+// Toggle menus
+function toggleMenus() {
+	document.querySelector('menu').classList.toggle('togglemenus');
 }
 // Toggle parameters
 function toggleParameters() {
@@ -26,7 +120,7 @@ var passParam = false;
 function togglePassParam() {
 	// Animation
 	toggleParameters();
-	var parentElement = document.querySelector('#pass-parameters');
+	parentElement = document.querySelector('#pass-parameters');
 	if (lockVaultOn) {
 		console.log('lockvault is already on');
 		lockVault();
@@ -97,7 +191,7 @@ var lockVaultOn = false;
 function lockVault() {
 	// Animation
 	toggleParameters();
-	var parentElement = document.querySelector('#lock-parameters');
+	parentElement = document.querySelector('#lock-parameters');
 	if (passParam) {
 		console.log('PassParam is already on');
 		togglePassParam();
