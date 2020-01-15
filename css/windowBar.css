@@ -136,13 +136,11 @@ html {
 /* Track */
 ::-webkit-scrollbar-track {
 	background: rgb(29, 29, 29);
-	border-radius: 3px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
 	background: rgb(70, 70, 70);
-	border-radius: 3px;
 }
 
 /* Handle on hover */

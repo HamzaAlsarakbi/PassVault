@@ -11,6 +11,7 @@ body {
 	display: flex;
   justify-content: center;
   user-select: none;
+  
 }
 html,
 body {
@@ -26,7 +27,7 @@ body {
 	width: 100%;
 	flex-direction: column;
 	margin-top: 30px;
-	overflow: auto;
+	overflow: visible;
 }
 
 controls {
