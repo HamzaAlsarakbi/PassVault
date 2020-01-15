@@ -7,7 +7,6 @@ var settingsOn = false;
 var addOn = false;
 var saved = true;
 
-toggleParameters();
 function settingsFunc() {
 	document.querySelector('#settings').classList.toggle('rotate');
 }
@@ -15,7 +14,6 @@ function settingsFunc() {
 function addFunc() {
 	document.querySelector('#add').classList.toggle('rotate');
 }
-
 // Toggle parameters
 function toggleParameters() {
 	// Parameters
@@ -25,12 +23,18 @@ function toggleParameters() {
 // Password
 var passParam = false;
 
-
 function togglePassParam() {
 	// Animation
 	toggleParameters();
 	var parentElement = document.querySelector('#pass-parameters');
-	if (!passParam) {
+	if (lockVaultOn) {
+		console.log('lockvault is already on');
+		lockVault();
+		toggleParameters();
+		setTimeout(function() {
+			togglePassParam();
+		}, 400);
+	} else if (!passParam) {
 		document.querySelector('#change-password').classList.toggle('button-header-active');
 		// Creating children
 		// Create old Password
@@ -94,7 +98,14 @@ function lockVault() {
 	// Animation
 	toggleParameters();
 	var parentElement = document.querySelector('#lock-parameters');
-	if (!lockVaultOn) {
+	if (passParam) {
+		console.log('PassParam is already on');
+		togglePassParam();
+		toggleParameters();
+		setTimeout(function() {
+			lockVault();
+		}, 400);
+	} else if (!lockVaultOn) {
 		document.querySelector('#lock').classList.toggle('button-header-active');
 
 		// Are you sure?

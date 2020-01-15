@@ -94,17 +94,14 @@ controls {
 	justify-content: center;
 	transition: 0.2s ease-out;
 }
-.settingsToggle {
-	transform: translateX(30%);
-	transition: 0.2s ease-out;
-}
-.settingsButtonsToggle {
+
+.settings-buttonsToggle {
 	border-right: 1px solid white;
 	transition: 0.2s ease-out;
 }
 
 .settings-body {
-  display: flex;
+	display: flex;
 	flex-direction: row;
 }
 .settings-buttons {
@@ -112,9 +109,12 @@ controls {
 	flex-direction: column;
 	padding: 20px;
 	transition: 0.2s ease-out;
-  border-right: none;
-  width: 180px;
-  margin-right: 40px;
+	border-right: none;
+	width: 180px;
+	margin-right: 40px;
+	z-index: 4;
+	transition: 0.5s ease-out;
+	background-color: rgb(61, 61, 61);
 }
 .password-parameters {
 	display: flex;
@@ -133,11 +133,11 @@ button {
 	border-left: 4px solid transparent;
 	margin: 0;
 	border-radius: 0;
-  transition: 0.1s;
-  width: 100%;
-  text-align: left;
-  height: 30px;
-  margin-bottom: 10px;
+	transition: 0.1s;
+	width: 100%;
+	text-align: left;
+	height: 30px;
+	margin-bottom: 10px;
 }
 
 .button-header-active {
@@ -152,11 +152,17 @@ button:hover {
 .settings-parameters {
 	display: flex;
 	align-items: center;
-  justify-content: center;
-  width: 180px;
+	justify-content: center;
+	width: 180px;
+	transform: translateX(-100%);
+	transition: 0.3s;
+	opacity: 0;
 }
-
-
+.settingsToggle {
+	opacity: 1;
+	transform: translateX(0%);
+	transition: 0.2s ease-out;
+}
 input.password {
 	margin: 5px;
 	padding: 5px;
