@@ -15,12 +15,16 @@ function settingsFunc() {
 	// rotate icon
 	var parentElement = document.querySelector('.settings');
 	document.querySelector('#settings').classList.toggle('rotate');
-	
+
 	// if one of the windows is open
 	if (passParam || lockVaultOn) {
-		console.log('passParam already on')
-		if(passParam) {togglePassParam();}
-		if(lockVaultOn) {lockVault();}
+		console.log('passParam already on');
+		if (passParam) {
+			togglePassParam();
+		}
+		if (lockVaultOn) {
+			lockVault();
+		}
 		setTimeout(function() {
 			settingsFunc();
 			document.querySelector('menu').classList.toggle('togglemenus');
@@ -29,6 +33,8 @@ function settingsFunc() {
 
 		// If add icon is already on
 	} else if (addOn) {
+		document.querySelector('#settings').classList.toggle('rotate');
+
 		addFunc();
 		toggleMenus();
 		document.querySelector('controls').classList.toggle('toggleSettings');
@@ -36,7 +42,7 @@ function settingsFunc() {
 		setTimeout(function() {
 			settingsFunc();
 		}, 500);
-	}else if (!settingsOn) {
+	} else if (!settingsOn) {
 		// Create header
 		var header = document.createElement('div');
 		header.setAttribute('class', 'settings-header');
@@ -121,7 +127,6 @@ function settingsFunc() {
 	}
 }
 
-
 // Toggle add icon
 function addFunc() {
 	toggleMenus();
@@ -133,59 +138,72 @@ function addFunc() {
 		settingsFunc();
 		toggleMenus();
 		document.querySelector('controls').classList.toggle('toggleAdd');
+		document.querySelector('#add').classList.toggle('rotate');
 
 		setTimeout(function() {
 			addFunc();
 		}, 500);
-	}else if (!addOn) {
-	// create header
-	var header = document.createElement('div');
-	header.setAttribute('class', 'settings-header');
-	header.textContent = 'Add';
+	} else if (!addOn) {
+		// create header
+		var header = document.createElement('div');
+		header.setAttribute('class', 'settings-header');
+		header.textContent = 'Add';
 
-	// Create div for input
-	div = document.createElement('div');
-	div.setAttribute('class', 'add-div');
+		// Create div for input
+		div = document.createElement('div');
+		div.setAttribute('class', 'add-div');
 
-	// create type input
-	var typeInput = document.createElement('input');
-	typeInput.setAttribute('class', 'add-input');
-	typeInput.setAttribute('id', 'add-type');
-	typeInput.setAttribute('placeholder', 'Type');
+		// create type input
+		var typeInput = document.createElement('input');
+		typeInput.setAttribute('class', 'add-input');
+		typeInput.setAttribute('id', 'add-type');
+		typeInput.setAttribute('placeholder', 'Type');
 
-	// create service input
-	var serviceInput = document.createElement('input');
-	serviceInput.setAttribute('class', 'add-input');
-	serviceInput.setAttribute('id', 'add-type');
-	serviceInput.setAttribute('placeholder', 'Service');
-	
-	// create email input
-	var emailInput = document.createElement('input');
-	emailInput.setAttribute('class', 'add-input');
-	emailInput.setAttribute('id', 'add-type');
-	emailInput.setAttribute('placeholder', 'Email');
-	
-	// create password input
-	var passwordInput = document.createElement('input');
-	passwordInput.setAttribute('class', 'add-input');
-	passwordInput.setAttribute('id', 'add-type');
-	passwordInput.setAttribute('placeholder', 'Password');
-	passwordInput.setAttribute('type', 'password');
-	
-	// create add button
-	var addButton = document.createElement('button');
-	addButton.setAttribute('class', 'add-button')
-	addButton.textContent = 'Add';
+		// create service input
+		var serviceInput = document.createElement('input');
+		serviceInput.setAttribute('class', 'add-input');
+		serviceInput.setAttribute('id', 'add-service');
+		serviceInput.setAttribute('placeholder', 'Service');
 
-	// Packaging Children
-	parentElement.appendChild(header);
-	parentElement.appendChild(div);
-	div.appendChild(typeInput)
-	div.appendChild(serviceInput)
-	div.appendChild(emailInput)
-	div.appendChild(passwordInput)
-	div.appendChild(addButton)
-	addOn = true
+		// create email input
+		var emailInput = document.createElement('input');
+		emailInput.setAttribute('class', 'add-input');
+		emailInput.setAttribute('id', 'add-email');
+		emailInput.setAttribute('placeholder', 'Email');
+
+		// create password input
+		var passwordInput = document.createElement('input');
+		passwordInput.setAttribute('class', 'add-input');
+		passwordInput.setAttribute('id', 'add-password');
+		passwordInput.setAttribute('placeholder', 'Password');
+		passwordInput.setAttribute('type', 'password');
+
+		// create add button
+		var addButton = document.createElement('button');
+		addButton.setAttribute('class', 'add-button');
+		addButton.setAttribute('onclick', 'submission.func()');
+		addButton.textContent = 'Add';
+
+		// Packaging Children
+		parentElement.appendChild(header);
+		parentElement.appendChild(div);
+		div.appendChild(typeInput);
+		div.appendChild(serviceInput);
+		div.appendChild(emailInput);
+		div.appendChild(passwordInput);
+		div.appendChild(addButton);
+		addOn = true;
+
+		// submission
+		var submission = {
+			type: document.getElementById('add-type').value,
+			service: document.getElementById('add-service').value,
+			email: document.getElementById('add-type').value,
+			password: document.getElementById('add-type').value,
+			func: function() {
+				console.log(this.type);
+			}
+		};
 	} else {
 		setTimeout(function() {
 			var first = parentElement.firstElementChild;
