@@ -14,7 +14,6 @@ body {
 	background-color: rgb(42, 42, 42);
 	display: flex;
 	justify-content: center;
-	overflow: unset;
 }
 html,
 body {
@@ -30,7 +29,7 @@ body {
 	width: 100%;
 	flex-direction: column;
 	margin-top: 30px;
-	overflow: visible;
+	overflow: auto;
 }
 
 controls {
@@ -41,14 +40,12 @@ controls {
 	max-width: 900px;
 	min-width: 600px;
 	border-radius: 10px;
-	overflow: hidden;
 }
 .controls {
 	margin: 15px;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	height: 30px;
 }
 
 .control,
@@ -86,8 +83,8 @@ controls {
 }
 
 .settings {
-	padding: 20px;
-	margin-bottom: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -108,7 +105,6 @@ controls {
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
-	transition: 0.2s ease-out;
 	border-right: none;
 	width: 180px;
 	margin-right: 40px;
@@ -133,20 +129,22 @@ button {
 	border-left: 4px solid transparent;
 	margin: 0;
 	border-radius: 0;
-	transition: 0.1s;
+	transition: 0.2s;
 	width: 100%;
 	text-align: left;
 	height: 30px;
 	margin-bottom: 10px;
+	color: rgb(200, 200, 200);
 }
 
 .button-header-active {
 	border-left: 4px solid rgb(52, 99, 202);
 	transition: 0.1s;
+	color: white;
 }
 button:hover {
 	cursor: pointer;
-	opacity: 0.8;
+	color: white;
 }
 
 .settings-parameters {

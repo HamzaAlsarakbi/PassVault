@@ -1,135 +1,151 @@
 /* Styling of window frame and titlebar */
 
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
-}
-
-body {
-  border: 1px solid #202020;
+	box-sizing: inherit;
 }
 
 #titlebar {
-  display: block;
-  position: fixed;
-  height: 30px;
-  width: calc(100% - 2px);
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(4px);
+	display: block;
+	position: fixed;
+	height: 30px;
+	width: calc(100% - 2px);
+	background: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(5px);
+	z-index: 999;
 }
 
 .maximized #titlebar {
-  width: 100%;
-  padding: 0;
-}
-
-#titlebar {
-  padding: 4px;
+	width: 100%;
+	padding: 0;
 }
 
 #titlebar #drag-region {
-  width: 100%;
-  height: 100%;
-  -webkit-app-region: drag;
+	width: 100%;
+	height: 100%;
+	-webkit-app-region: drag;
 }
 
 #titlebar #drag-region {
-  display: grid;
-  grid-template-columns: auto 138px;
+	display: grid;
+	grid-template-columns: auto 138px;
 }
 
 #window-title {
-  grid-column: 1;
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
-  overflow-x: hidden;
-  font-family: "Segoe UI", sans-serif;
-  font-size: 12px;
+	grid-column: 1;
+	display: flex;
+	align-items: center;
+	margin-left: 8px;
+	overflow-x: hidden;
+	font-family: "Segoe UI", sans-serif;
+	font-size: 12px;
 }
 
 .maximized #window-title {
-  margin-left: 12px;
+	margin-left: 12px;
 }
 
 #window-title span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.5;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 1.5;
 }
 
 #window-controls {
-  display: grid;
-  grid-template-columns: repeat(3, 30px);
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  font-family: "Segoe MDL2 Assets";
-  font-size: 10px;
+	display: grid;
+	grid-template-columns: repeat(3, 30px);
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	font-family: "Segoe MDL2 Assets";
+	font-size: 10px;
 }
 
 #window-controls {
-  -webkit-app-region: no-drag;
+	-webkit-app-region: no-drag;
 }
 
 #window-controls .button {
-  grid-row: 1 / span 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  transition: 0.4s;
+	grid-row: 1 / span 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	transition: 0.4s;
 }
 
 #window-controls .button {
-  user-select: none;
-  cursor: default;
+	user-select: none;
+	cursor: default;
 }
 
 /*** Hover over buttons */
 #window-controls .button:hover {
-  opacity: 0.8;
-  transition: 0.2s;
-  background-color: rgb(70, 70, 70);
+	opacity: 0.8;
+	transition: 0.2s;
+	background-color: rgb(70, 70, 70);
 }
 
 .button#close-button:hover {
-  background-color: rgb(238, 37, 30);
+	background-color: rgb(238, 37, 30);
 }
 
 #min-button {
-  grid-column: 1;
+	grid-column: 1;
 }
 #max-button,
 #restore-button {
-  grid-column: 2;
+	grid-column: 2;
 }
 #close-button:active {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 
 #close-button {
-  grid-column: 3;
+	grid-column: 3;
 }
 
 #close-button {
-  grid-column: 3;
+	grid-column: 3;
 }
 
 #restore-button {
-  display: none !important;
+	display: none !important;
 }
 
 .maximized #restore-button {
-  display: flex !important;
+	display: flex !important;
 }
 
 .maximized #max-button {
-  display: none;
+	display: none;
+}
+
+/***** Scrollbar*/
+
+::-webkit-scrollbar {
+	width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: rgb(29, 29, 29);
+	border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(70, 70, 70);
+	border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(73, 73, 73);
 }
