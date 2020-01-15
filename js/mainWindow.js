@@ -63,7 +63,7 @@ function settingsFunc() {
 		// create toggle gridlines button
 		toggleGridlinesButton = document.createElement('button');
 		toggleGridlinesButton.setAttribute('class', 'button-header');
-		toggleGridlinesButton.setAttribute('id', 'gridliens');
+		toggleGridlinesButton.setAttribute('id', 'gridlines');
 		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
 		toggleGridlinesButton.textContent = 'Show Gridlines';
 
@@ -110,8 +110,74 @@ function settingsFunc() {
 	}
 }
 
+
+// Toggle add icon
+addFunc();
 function addFunc() {
+	toggleMenus();
 	document.querySelector('#add').classList.toggle('rotate');
+	document.querySelector('controls').classList.toggle('toggleAdd');
+	var parentElement = document.querySelector('.add');
+
+	if (!addOn) {
+	// create header
+	var header = document.createElement('div');
+	header.setAttribute('class', 'settings-header');
+	header.textContent = 'Add';
+
+	// Create div for input
+	div = document.createElement('div');
+	div.setAttribute('class', 'add-div');
+
+	// create type input
+	var typeInput = document.createElement('input');
+	typeInput.setAttribute('class', 'add-input');
+	typeInput.setAttribute('id', 'add-type');
+	typeInput.setAttribute('placeholder', 'Type');
+
+	// create service input
+	var serviceInput = document.createElement('input');
+	serviceInput.setAttribute('class', 'add-input');
+	serviceInput.setAttribute('id', 'add-type');
+	serviceInput.setAttribute('placeholder', 'Service');
+	
+	// create email input
+	var emailInput = document.createElement('input');
+	emailInput.setAttribute('class', 'add-input');
+	emailInput.setAttribute('id', 'add-type');
+	emailInput.setAttribute('placeholder', 'Email');
+	
+	// create password input
+	var passwordInput = document.createElement('input');
+	passwordInput.setAttribute('class', 'add-input');
+	passwordInput.setAttribute('id', 'add-type');
+	passwordInput.setAttribute('placeholder', 'Password');
+	passwordInput.setAttribute('type', 'password');
+	
+	// create add button
+	var addButton = document.createElement('button');
+	addButton.setAttribute('class', 'add-button')
+	addButton.textContent = 'Add';
+
+	// Packaging Children
+	parentElement.appendChild(header);
+	parentElement.appendChild(div);
+	div.appendChild(typeInput)
+	div.appendChild(serviceInput)
+	div.appendChild(emailInput)
+	div.appendChild(passwordInput)
+	div.appendChild(addButton)
+	addOn = true
+	} else {
+		setTimeout(function() {
+			var first = parentElement.firstElementChild;
+			while (first) {
+				first.remove();
+				first = parentElement.firstElementChild;
+			}
+		}, 200);
+		addOn = false;
+	}
 }
 
 // Toggle menus
@@ -276,7 +342,6 @@ function quit() {
 var gridlinesButton, gridlines, td;
 td = document.querySelectorAll('td');
 gridlines = false;
-gridlinesButton = document.querySelector('#gridlines');
 
 function toggleGridlines() {
 	// Toggle gridlines
@@ -286,13 +351,13 @@ function toggleGridlines() {
 
 	if (!gridlines) {
 		// Change Button content
-		gridlinesButton.textContent = 'Hide Gridlines';
+		document.querySelector('#gridlines').textContent = 'Hide Gridlines';
 
 		// set gridlines to false
 		gridlines = true;
 	} else if (gridlines) {
 		// Change Button content
-		gridlinesButton.textContent = 'Show Gridlines';
+		document.querySelector('#gridlines').textContent = 'Show Gridlines';
 
 		// set gridlines to false
 		gridlines = false;
