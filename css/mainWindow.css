@@ -11,12 +11,11 @@ body {
 	display: flex;
   justify-content: center;
   user-select: none;
-  
 }
 html,
 body {
 	height: 100%;
-	margin: 0;
+  margin: 0;
 }
 
 .container {
@@ -27,7 +26,7 @@ body {
 	width: 100%;
 	flex-direction: column;
 	margin-top: 30px;
-	overflow: visible;
+	overflow: auto;
 }
 
 controls {
