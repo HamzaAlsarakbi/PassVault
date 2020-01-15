@@ -15,7 +15,17 @@ function settingsFunc() {
 	// rotate icon
 	var parentElement = document.querySelector('.settings');
 	document.querySelector('#settings').classList.toggle('rotate');
-	if (!settingsOn) {
+	
+	if (passParam || lockVaultOn) {
+		console.log('passParam already on')
+		if(passParam) {togglePassParam();}
+		if(lockVaultOn) {lockVault();}
+		setTimeout(function() {
+			settingsFunc();
+			document.querySelector('menu').classList.toggle('togglemenus');
+			document.querySelector('controls').classList.toggle('toggleSettings');
+		}, 100);
+	} else if (!settingsOn) {
 		// Create header
 		var header = document.createElement('div');
 		header.setAttribute('class', 'settings-header');
