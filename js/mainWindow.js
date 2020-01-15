@@ -16,6 +16,7 @@ function settingsFunc() {
 	var parentElement = document.querySelector('.settings');
 	document.querySelector('#settings').classList.toggle('rotate');
 	
+	// if one of the windows is open
 	if (passParam || lockVaultOn) {
 		console.log('passParam already on')
 		if(passParam) {togglePassParam();}
@@ -25,7 +26,17 @@ function settingsFunc() {
 			document.querySelector('menu').classList.toggle('togglemenus');
 			document.querySelector('controls').classList.toggle('toggleSettings');
 		}, 100);
-	} else if (!settingsOn) {
+
+		// If add icon is already on
+	} else if (addOn) {
+		addFunc();
+		toggleMenus();
+		document.querySelector('controls').classList.toggle('toggleSettings');
+
+		setTimeout(function() {
+			settingsFunc();
+		}, 500);
+	}else if (!settingsOn) {
 		// Create header
 		var header = document.createElement('div');
 		header.setAttribute('class', 'settings-header');
@@ -112,14 +123,21 @@ function settingsFunc() {
 
 
 // Toggle add icon
-addFunc();
 function addFunc() {
 	toggleMenus();
 	document.querySelector('#add').classList.toggle('rotate');
 	document.querySelector('controls').classList.toggle('toggleAdd');
 	var parentElement = document.querySelector('.add');
 
-	if (!addOn) {
+	if (settingsOn) {
+		settingsFunc();
+		toggleMenus();
+		document.querySelector('controls').classList.toggle('toggleAdd');
+
+		setTimeout(function() {
+			addFunc();
+		}, 500);
+	}else if (!addOn) {
 	// create header
 	var header = document.createElement('div');
 	header.setAttribute('class', 'settings-header');
