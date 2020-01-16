@@ -7,6 +7,12 @@ var settingsOn = false;
 var addOn = false;
 var saved = true;
 var settingsOn = false;
+const typeDOM = document.getElementById('add-type');
+const serviceDOM = document.getElementById('add-service');
+const emailDOM = document.getElementById('add-email');
+const passwordDOM = document.getElementById('add-password');
+
+
 
 // Toggle Settings Menu
 function settingsFunc() {
@@ -128,6 +134,7 @@ function settingsFunc() {
 }
 
 // Toggle add icon
+var submission;
 function addFunc() {
 	toggleMenus();
 	document.querySelector('#add').classList.toggle('rotate');
@@ -181,7 +188,7 @@ function addFunc() {
 		// create add button
 		var addButton = document.createElement('button');
 		addButton.setAttribute('class', 'add-button');
-		addButton.setAttribute('onclick', 'submission.func()');
+		addButton.setAttribute('onclick', 'addData()');
 		addButton.textContent = 'Add';
 
 		// Packaging Children
@@ -195,15 +202,36 @@ function addFunc() {
 		addOn = true;
 
 		// submission
-		var submission = {
-			type: document.getElementById('add-type').value,
+		submission = {
+			type: '',
 			service: document.getElementById('add-service').value,
-			email: document.getElementById('add-type').value,
-			password: document.getElementById('add-type').value,
-			func: function() {
+			email: document.getElementById('add-email').value,
+			password: document.getElementById('add-password').value,
+			func: () => {
 				console.log(this.type);
 			}
 		};
+		document.querySelector('#add-type').addEventListener('input', function() {
+			submission.type = typeDOM.value;
+		});
+		document.querySelector('#add-service').addEventListener('input', function() {
+			submission.service = serviceDOM.value;
+		});
+		document.querySelector('#add-email').addEventListener('input', function() {
+			submission.email = emailDOM.value;
+		});
+		document.querySelector('#add-password').addEventListener('input', function() {
+			submission.password = passwordDOM.value;
+		});
+
+
+		
+
+/*
+		document.querySelector('#add-type').addEventListener('input', function() {
+			submission
+		})
+*/
 	} else {
 		setTimeout(function() {
 			var first = parentElement.firstElementChild;
@@ -215,6 +243,24 @@ function addFunc() {
 		addOn = false;
 	}
 }
+
+
+function addData() {
+	console.log(submission);
+	const parentElement = document.querySelector('.data');
+	// verify that all entries are full
+	if (
+		typeDOM.value = ''
+	
+		){
+			console.log('empty');
+	}
+}
+
+
+
+
+
 
 // Toggle menus
 function toggleMenus() {

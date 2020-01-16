@@ -2,13 +2,10 @@ const electron = require('electron');
 const remote = electron.remote;
 const { ipcRenderer } = electron;
 
-// Variable declarations
-var passDOM, incorrectTries, submitButton;
-
 // Assigning variables
-submitButton = document.querySelector('.submit');
-passDOM = document.querySelector('#password');
-password = passDOM.value;
+const submitButton = document.querySelector('.submit');
+const passDOM = document.querySelector('#password');
+var password = passDOM.value;
 
 // Window controls
 let win = remote.getCurrentWindow();
