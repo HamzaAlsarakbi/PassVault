@@ -210,10 +210,16 @@ input:hover, input:focus {
 	border-color: rgb(52, 99, 202);
 	transition: 0.2s;
 }
-
+.noerror {
+	font-size: 14px;
+	color: transparent;
+	transition: 0.2s;
+	height: 0px;
+}
 .error {
 	color: rgb(252, 61, 61);
-	font-size: 12px;
+	transition: 0.2s;
+	height: 18px;
 }
 
 /**** Lock */

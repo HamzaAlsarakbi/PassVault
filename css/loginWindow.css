@@ -47,7 +47,7 @@ input {
     border-radius: 5px;
     transition: 0.4s;
 }
-input:hover, input:active {
+input:hover, input:focus {
     border-color: rgb(52, 99, 202);
     transition: 0.2s;
 }
@@ -71,9 +71,14 @@ button.submit:hover {
     cursor: pointer;
     transition: 0.2s;
 }
+.noerror {
+    color: transparent;
+    height: 0px;
+    transition: 0.2s;
+}
 .error {
     color: rgb(252, 61, 61);
-    display: none;
+    height: 21px;
     transition: 0.2s;
 }
 

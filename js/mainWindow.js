@@ -179,6 +179,13 @@ function addFunc() {
 		passwordInput.setAttribute('placeholder', 'Password');
 		passwordInput.setAttribute('type', 'password');
 
+		// create error message
+		var span = document.createElement('span');
+		span.setAttribute('class', 'noerror');
+		span.setAttribute('id', 'add-error');
+		span.textContent = 'One or more of the fields is empty.';
+
+
 		// create add button
 		var addButton = document.createElement('button');
 		addButton.setAttribute('class', 'add-button');
@@ -192,6 +199,7 @@ function addFunc() {
 		div.appendChild(serviceInput);
 		div.appendChild(emailInput);
 		div.appendChild(passwordInput);
+		div.appendChild(span)
 		div.appendChild(addButton);
 		addOn = true;
 
@@ -206,18 +214,7 @@ function addFunc() {
 		const serviceDOM = document.getElementById('add-service');
 		const emailDOM = document.getElementById('add-email');
 		const passwordDOM = document.getElementById('add-password');
-		document.querySelector('#add-type').addEventListener('input', function() {
-			submission.type = typeDOM.value;
-		});
-		document.querySelector('#add-service').addEventListener('input', function() {
-			submission.service = serviceDOM.value;
-		});
-		document.querySelector('#add-email').addEventListener('input', function() {
-			submission.email = emailDOM.value;
-		});
-		document.querySelector('#add-password').addEventListener('input', function() {
-			submission.password = passwordDOM.value;
-		});
+
 
 		/*
 		document.querySelector('#add-type').addEventListener('input', function() {
@@ -237,17 +234,70 @@ function addFunc() {
 }
 
 function addData() {
+	const parentElement = document.querySelector('.data');
 	const typeDOM = document.getElementById('add-type');
 	const serviceDOM = document.getElementById('add-service');
 	const emailDOM = document.getElementById('add-email');
 	const passwordDOM = document.getElementById('add-password');
+	const span = document.getElementById('add-error');
+	const table = document.querySelector('.data');
+	submission.type = typeDOM.value;
+	submission.service = serviceDOM.value;
+	submission.email = emailDOM.value;
+	submission.password = passwordDOM.value;
 	console.log(submission);
-	const parentElement = document.querySelector('.data');
 	// verify that all entries are full
-	if ((typeDOM.value = '')) {
-		console.log('empty');
+	if ((
+		typeDOM.value == ''
+	||
+	serviceDOM.value == ''
+	||
+	emailDOM.value == ''
+	||
+	passwordDOM.value == ''
+	)) {
+		console.log('one of the fields is empty');
+		span.classList.add('error');
+	} else {
+		// remove error if it were correct
+		span.classList.remove('error');
+		// create table row
+		tr = document.createElement('tr');
+		// create td type
+		tdType = document.createElement('td');
+		tdType.setAttribute('class', 'cell1'); // must be changed later on
+		tdType.setAttribute('id', 'type');
+		tdType.textContent = submission.type;
+
+		// create td service
+		tdService = document.createElement('td');
+		tdService.setAttribute('class', 'cell1'); // must be changed later on
+		tdService.setAttribute('id', 'service');
+		tdService.textContent = submission.service;
+
+		// create td email
+		tdEmail = document.createElement('td');
+		tdEmail.setAttribute('class', 'cell1'); // must be changed later on
+		tdEmail.setAttribute('id', 'email');
+		tdEmail.textContent = submission.email;
+
+		// create td pass
+		tdPassword = document.createElement('td');
+		tdPassword.setAttribute('class', 'cell1'); // must be changed later on
+		tdPassword.setAttribute('id', 'password');
+		tdPassword.textContent = submission.password;
+
+		// package children
+		table.appendChild(tr);
+		tr.appendChild(tdType);
+		tr.appendChild(tdService);
+		tr.appendChild(tdEmail);
+		tr.appendChild(tdPassword);
 	}
 }
+
+
+
 
 // Toggle menus
 function toggleMenus() {
@@ -299,7 +349,7 @@ function togglePassParam() {
 
 		// Create span
 		var span = document.createElement('span');
-		span.setAttribute('class', 'error');
+		span.setAttribute('class', 'noerror');
 		span.setAttribute('id', 'pass-error');
 		span.textContent = 'ERROR';
 

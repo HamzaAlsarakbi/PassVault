@@ -43,10 +43,10 @@ passDOM.addEventListener('keyup', function() {
 
 // Password verification
 function submit() {
-	var errorSpan = document.querySelector('.error');
+	const errorSpan = document.querySelector('.noerror');
 	if (password == CPassword) {
 		// Hide span if it were activated
-		errorSpan.style = 'display: none;';
+		errorSpan.classList.remove('error');
 
 		// Change style of login button
 		submitButton.classList.add('login-successful');
@@ -58,8 +58,8 @@ function submit() {
 	} else if (password == '' || typeof password == undefined) {
 		// If password is empty
 		// Display span
+		errorSpan.classList.add('error');
 		errorSpan.textContent = 'Enter Password.';
-		errorSpan.style = 'display: inline;';
 	} else {
 		// If password is wrong
 		// Display span
