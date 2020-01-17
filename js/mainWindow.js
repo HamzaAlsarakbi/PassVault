@@ -230,7 +230,7 @@ function addFunc() {
 		addOn = false;
 	}
 }
-
+var cellIndex = 1; // must be changed later on
 function addData() {
 	const parentElement = document.querySelector('.data');
 	const typeDOM = document.getElementById('add-type');
@@ -257,31 +257,32 @@ function addData() {
 		tr = document.createElement('tr');
 		// create td type
 		tdType = document.createElement('td');
-		tdType.setAttribute('class', 'cell1'); // must be changed later on
+		tdType.setAttribute('class', 'cell' + cellIndex); // must be changed later on
 		tdType.setAttribute('id', 'type');
 		tdType.textContent = submission.type;
 
 		// create td service
 		tdService = document.createElement('td');
-		tdService.setAttribute('class', 'cell1'); // must be changed later on
+		tdService.setAttribute('class', 'cell' + cellIndex); // must be changed later on
 		tdService.setAttribute('id', 'service');
 		tdService.textContent = submission.service;
 
 		// create td email
 		tdEmail = document.createElement('td');
-		tdEmail.setAttribute('class', 'cell1'); // must be changed later on
+		tdEmail.setAttribute('class', 'cell' + cellIndex); // must be changed later on
 		tdEmail.setAttribute('id', 'email');
+		// tdEmail.setAttribute('onclick', 'copyText(document.querySelector(".cell1#email").innerText);');
 		tdEmail.textContent = submission.email;
 
 		// create td pass
 		tdPassword = document.createElement('td');
-		tdPassword.setAttribute('class', 'cell1'); // must be changed later on
+		tdPassword.setAttribute('class', 'cell' + cellIndex); // must be changed later on
 		tdPassword.setAttribute('id', 'password');
 		tdPassword.textContent = submission.password;
 
 		// create controls
 		tdControls = document.createElement('td');
-		tdControls.setAttribute('class', 'cell1'); // must be changed later on
+		tdControls.setAttribute('class', 'cell' + cellIndex); // must be changed later on
 		tdControls.setAttribute('id', 'controls');
 
 		// package children
@@ -297,6 +298,8 @@ function addData() {
 		serviceDOM.value = '';
 		emailDOM.value = '';
 		passwordDOM.value = '';
+		console.log(cellIndex);
+		cellIndex++;
 	}
 }
 
