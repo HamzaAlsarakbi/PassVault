@@ -9,13 +9,13 @@
 body {
 	background-color: rgb(42, 42, 42);
 	display: flex;
-  justify-content: center;
-  user-select: none;
+	justify-content: center;
+	user-select: none;
 }
 html,
 body {
 	height: 100%;
-  margin: 0;
+	margin: 0;
 }
 
 .container {
@@ -34,10 +34,10 @@ controls {
 	border-radius: 10px;
 	transition: 0.5s;
 	width: 100px;
-  height: 50px;
-  width: 75%;
-  max-width: 1000px;
-  min-width: 600px;
+	height: 50px;
+	width: 75%;
+	max-width: 1000px;
+	min-width: 600px;
 }
 .controls {
 	margin: 15px;
@@ -82,19 +82,21 @@ controls {
 
 /**** Add icon*/
 .add {
-  padding-left: 20px;
+	padding-left: 20px;
 	padding-right: 20px;
+	padding-bottom: 10px;
 }
 .add-div {
-  display: flex;
-  flex-direction: row;
-  padding: 20px;
+	display: flex;
+	flex-direction: row;
+	padding: 20px;
+	padding-bottom: 5px;
 }
 .settings {
 	padding-left: 20px;
 	padding-right: 20px;
 	border-radius: 10px;
-  display: flex;
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	transition: 0.2s ease-out;
@@ -134,16 +136,15 @@ menu {
 	background-color: rgb(50, 50, 50);
 	height: 311px;
 	transition: 0.25s ease-out;
-  margin-top: 20px;
-  width: 500px;
+	margin-top: 20px;
+	width: 500px;
 }
 .toggleAdd {
-  background-color: rgb(50, 50, 50);
-	height: 190px;
+	background-color: rgb(50, 50, 50);
+	height: 210px;
 	transition: 0.25s ease-out;
-  margin-top: 20px;
-  min-width: 500px;
-
+	margin-top: 20px;
+	min-width: 500px;
 }
 
 /***** password */
@@ -196,7 +197,7 @@ button:hover {
 	transform: translateX(0%);
 	transition: 0.2s ease-out;
 }
-input { 
+input {
 	margin: 5px;
 	padding: 5px;
 	background-color: transparent;
@@ -206,7 +207,8 @@ input {
 	border-radius: 5px;
 	transition: 0.4s;
 }
-input:hover, input:focus {
+input:hover,
+input:focus {
 	border-color: rgb(52, 99, 202);
 	transition: 0.2s;
 }
@@ -238,8 +240,7 @@ table {
 	margin-top: 30px;
 	width: 75%;
 	max-width: 1000px;
-  min-width: 600px;
-  user-select: auto;
+	min-width: 600px;
 }
 table,
 td {
@@ -250,6 +251,7 @@ td {
 }
 td {
 	padding: 5px;
+	transition: 0.2s;
 }
 
 .header {
@@ -262,27 +264,41 @@ td {
 	margin: 5px;
 }
 #password {
-  user-select: none;
+	user-select: none;
 }
 
 /******** Add input*/
 
 /*** Add button*/
 .add-button {
-  margin: 5px;
-  padding: 5px;
-  width: 100%
+	margin: 5px;
+	padding: 5px;
+	width: 100%;
 }
 
 /**** Responsive */
 @media only screen and (max-width: 1200px) {
-  .toggleAdd {
-    height: 500px;
-    width: 25%;
-    transition: 0.2s;
-  }
-  .add-div {
-    flex-direction: column;
-    transition: 0.2s;
-  }
+	.toggleAdd {
+		height: 340px;
+		width: 25%;
+		transition: 0.2s;
+	}
+	.add-div {
+		flex-direction: column;
+		transition: 0.2s;
+	}
+	.controlsSpan {
+		height: 370px;
+		transition: 0.2s;
+	}
+}
+
+table tr:not(:first-child):hover {
+	background-color: rgb(59, 59, 59);
+	box-shadow: 4px 1px 5px rgb(37, 37, 37);
+	transition: 0.2s;
+}
+table tr:not(:first-child) td:hover {
+	background-color: rgb(87, 87, 87);
+	transition: 0.2s;
 }

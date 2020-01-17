@@ -185,7 +185,6 @@ function addFunc() {
 		span.setAttribute('id', 'add-error');
 		span.textContent = 'One or more of the fields is empty.';
 
-
 		// create add button
 		var addButton = document.createElement('button');
 		addButton.setAttribute('class', 'add-button');
@@ -199,7 +198,7 @@ function addFunc() {
 		div.appendChild(serviceInput);
 		div.appendChild(emailInput);
 		div.appendChild(passwordInput);
-		div.appendChild(span)
+		document.querySelector('.add').appendChild(span);
 		div.appendChild(addButton);
 		addOn = true;
 
@@ -214,7 +213,6 @@ function addFunc() {
 		const serviceDOM = document.getElementById('add-service');
 		const emailDOM = document.getElementById('add-email');
 		const passwordDOM = document.getElementById('add-password');
-
 
 		/*
 		document.querySelector('#add-type').addEventListener('input', function() {
@@ -247,20 +245,14 @@ function addData() {
 	submission.password = passwordDOM.value;
 	console.log(submission);
 	// verify that all entries are full
-	if ((
-		typeDOM.value == ''
-	||
-	serviceDOM.value == ''
-	||
-	emailDOM.value == ''
-	||
-	passwordDOM.value == ''
-	)) {
+	if (typeDOM.value == '' || serviceDOM.value == '' || emailDOM.value == '' || passwordDOM.value == '') {
 		console.log('one of the fields is empty');
 		span.classList.add('error');
+		document.querySelector('controls').classList.add('controlsSpan');
 	} else {
 		// remove error if it were correct
 		span.classList.remove('error');
+		document.querySelector('controls').classList.remove('controlsSpan');
 		// create table row
 		tr = document.createElement('tr');
 		// create td type
@@ -287,17 +279,26 @@ function addData() {
 		tdPassword.setAttribute('id', 'password');
 		tdPassword.textContent = submission.password;
 
+		// create controls
+		tdControls = document.createElement('td');
+		tdControls.setAttribute('class', 'cell1'); // must be changed later on
+		tdControls.setAttribute('id', 'controls');
+
 		// package children
 		table.appendChild(tr);
 		tr.appendChild(tdType);
 		tr.appendChild(tdService);
 		tr.appendChild(tdEmail);
 		tr.appendChild(tdPassword);
+		tr.appendChild(tdControls);
+
+		// empty out input fields
+		typeDOM.value = '';
+		serviceDOM.value = '';
+		emailDOM.value = '';
+		passwordDOM.value = '';
 	}
 }
-
-
-
 
 // Toggle menus
 function toggleMenus() {
