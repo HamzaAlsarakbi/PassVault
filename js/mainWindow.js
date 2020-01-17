@@ -7,12 +7,6 @@ var settingsOn = false;
 var addOn = false;
 var saved = true;
 var settingsOn = false;
-const typeDOM = document.getElementById('add-type');
-const serviceDOM = document.getElementById('add-service');
-const emailDOM = document.getElementById('add-email');
-const passwordDOM = document.getElementById('add-password');
-
-
 
 // Toggle Settings Menu
 function settingsFunc() {
@@ -204,13 +198,14 @@ function addFunc() {
 		// submission
 		submission = {
 			type: '',
-			service: document.getElementById('add-service').value,
-			email: document.getElementById('add-email').value,
-			password: document.getElementById('add-password').value,
-			func: () => {
-				console.log(this.type);
-			}
+			service: '',
+			email: '',
+			password: ''
 		};
+		const typeDOM = document.getElementById('add-type');
+		const serviceDOM = document.getElementById('add-service');
+		const emailDOM = document.getElementById('add-email');
+		const passwordDOM = document.getElementById('add-password');
 		document.querySelector('#add-type').addEventListener('input', function() {
 			submission.type = typeDOM.value;
 		});
@@ -224,10 +219,7 @@ function addFunc() {
 			submission.password = passwordDOM.value;
 		});
 
-
-		
-
-/*
+		/*
 		document.querySelector('#add-type').addEventListener('input', function() {
 			submission
 		})
@@ -244,23 +236,18 @@ function addFunc() {
 	}
 }
 
-
 function addData() {
+	const typeDOM = document.getElementById('add-type');
+	const serviceDOM = document.getElementById('add-service');
+	const emailDOM = document.getElementById('add-email');
+	const passwordDOM = document.getElementById('add-password');
 	console.log(submission);
 	const parentElement = document.querySelector('.data');
 	// verify that all entries are full
-	if (
-		typeDOM.value = ''
-	
-		){
-			console.log('empty');
+	if ((typeDOM.value = '')) {
+		console.log('empty');
 	}
 }
-
-
-
-
-
 
 // Toggle menus
 function toggleMenus() {
