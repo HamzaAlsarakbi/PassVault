@@ -7,6 +7,8 @@ var settingsOn = false;
 var addOn = false;
 var saved = true;
 var settingsOn = false;
+var td = document.querySelectorAll('td');
+var gridlines = false;
 
 // Toggle Settings Menu
 function settingsFunc() {
@@ -232,7 +234,7 @@ function addFunc() {
 }
 var cellIndex = 1; // must be changed later on
 function addData() {
-	const parentElement = document.querySelector('.data');
+	const parentElement = document.querySelector('.table-contents');
 	const typeDOM = document.getElementById('add-type');
 	const serviceDOM = document.getElementById('add-service');
 	const emailDOM = document.getElementById('add-email');
@@ -257,32 +259,46 @@ function addData() {
 		tr = document.createElement('tr');
 		// create td type
 		tdType = document.createElement('td');
-		tdType.setAttribute('class', 'cell' + cellIndex); // must be changed later on
+		tdType.setAttribute('class', 'cell' + cellIndex);
+		if (gridlines) {
+			tdType.setAttribute('class', 'gridlinesOn');
+		}
 		tdType.setAttribute('id', 'type');
 		tdType.textContent = submission.type;
 
 		// create td service
 		tdService = document.createElement('td');
-		tdService.setAttribute('class', 'cell' + cellIndex); // must be changed later on
+		tdService.setAttribute('class', 'cell' + cellIndex);
+		if (gridlines) {
+			tdService.setAttribute('class', 'gridlinesOn');
+		}
 		tdService.setAttribute('id', 'service');
 		tdService.textContent = submission.service;
-
 		// create td email
 		tdEmail = document.createElement('td');
-		tdEmail.setAttribute('class', 'cell' + cellIndex); // must be changed later on
+		tdEmail.setAttribute('class', 'cell' + cellIndex);
+		if (gridlines) {
+			tdEmail.setAttribute('class', 'gridlinesOn');
+		}
 		tdEmail.setAttribute('id', 'email');
-		// tdEmail.setAttribute('onclick', 'copyText(document.querySelector(".cell1#email").innerText);');
+		tdEmail.setAttribute('onclick', 'copyText(document.querySelector(".cell' + cellIndex + '#email").innerText);');
 		tdEmail.textContent = submission.email;
 
 		// create td pass
 		tdPassword = document.createElement('td');
-		tdPassword.setAttribute('class', 'cell' + cellIndex); // must be changed later on
+		tdPassword.setAttribute('class', 'cell' + cellIndex);
+		if (gridlines) {
+			tdPassword.setAttribute('class', 'gridlinesOn');
+		}
 		tdPassword.setAttribute('id', 'password');
 		tdPassword.textContent = submission.password;
 
 		// create controls
 		tdControls = document.createElement('td');
-		tdControls.setAttribute('class', 'cell' + cellIndex); // must be changed later on
+		tdControls.setAttribute('class', 'cell' + cellIndex);
+		if (gridlines) {
+			tdControls.setAttribute('class', 'gridlinesOn');
+		}
 		tdControls.setAttribute('id', 'controls');
 
 		// package children
@@ -300,7 +316,16 @@ function addData() {
 		passwordDOM.value = '';
 		console.log(cellIndex);
 		cellIndex++;
+		if (gridlines) {
+			for (i = 0; i < td.length; i++) {
+				td[i].classList.add('gridlinesOn');
+			}
+		}
 	}
+}
+
+function copyText() {
+	console.log('copy');
 }
 
 // Toggle menus
@@ -462,11 +487,9 @@ function quit() {
 }
 
 // Gridlines
-var gridlinesButton, gridlines, td;
-td = document.querySelectorAll('td');
-gridlines = false;
 
 function toggleGridlines() {
+	td = document.querySelectorAll('td');
 	// Toggle gridlines
 	for (i = 0; i < td.length; i++) {
 		td[i].classList.toggle('gridlinesOn');

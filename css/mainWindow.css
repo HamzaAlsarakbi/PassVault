@@ -302,3 +302,6 @@ table tr:not(:first-child) td:hover {
 	background-color: rgb(87, 87, 87);
 	transition: 0.2s;
 }
+table.data:not(.tr-header) {
+	flex-direction: column-reverse;
+}
