@@ -222,6 +222,7 @@ function addFunc() {
 		})
 */
 	} else {
+		document.querySelector('controls').classList.remove('controlsSpan');
 		setTimeout(function() {
 			var first = parentElement.firstElementChild;
 			while (first) {
@@ -281,7 +282,7 @@ function addData() {
 			tdEmail.setAttribute('class', 'gridlinesOn');
 		}
 		tdEmail.setAttribute('id', 'email');
-		tdEmail.setAttribute('onclick', 'copyText(document.querySelector(".cell' + cellIndex + '#email").innerText);');
+		tdEmail.setAttribute('onclick', 'copyText(this)');
 		tdEmail.textContent = submission.email;
 
 		// create td pass
@@ -300,6 +301,11 @@ function addData() {
 			tdControls.setAttribute('class', 'gridlinesOn');
 		}
 		tdControls.setAttribute('id', 'controls');
+		var pencil = document.createElement('span');
+		var pencilIcon = '✎';
+		pencil.setAttribute('class', 'cell' + cellIndex);
+		pencil.setAttribute('id', 'pencil');
+		pencil.innerText = pencilIcon;
 
 		// package children
 		table.appendChild(tr);
@@ -308,6 +314,7 @@ function addData() {
 		tr.appendChild(tdEmail);
 		tr.appendChild(tdPassword);
 		tr.appendChild(tdControls);
+		tdControls.appendChild(pencil);
 
 		// empty out input fields
 		typeDOM.value = '';
@@ -316,16 +323,24 @@ function addData() {
 		passwordDOM.value = '';
 		console.log(cellIndex);
 		cellIndex++;
-		if (gridlines) {
-			for (i = 0; i < td.length; i++) {
-				td[i].classList.add('gridlinesOn');
-			}
-		}
 	}
 }
 
-function copyText() {
-	console.log('copy');
+function copyText(properties) {
+	var d = properties.id;
+	var c = properties.classList;
+	var querySelect = '.' + c + '#' + d;
+	console.log(querySelect);
+	var copyText = document.querySelector(querySelect);
+	copyText.focus();
+	copyText.select();
+	try {
+		var successful = document.execCommand('copy');
+		var msg = successful ? 'successful' : 'unsuccessful';
+		console.log('Copying text command was ' + msg);
+	} catch (err) {
+		console.log('Oops, unable to copy');
+	}
 }
 
 // Toggle menus
