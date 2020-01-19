@@ -3,86 +3,90 @@ button#minimize {background-color: rgb(255, 217, 0);}
 button#maximize {background-color: rgb(90, 251, 90);}
 */
 
-
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    outline: none;
-    user-select: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	outline: none;
+	user-select: none;
+	transition: 0.2s;
 }
 .container {
-    font-family: "Segoe UI", sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	font-family: "Segoe UI", sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 body {
-    background-color: rgb(42, 42, 42);
-    color: white;
+	background-color: rgb(42, 42, 42);
+	color: white;
 }
-html, body {
-    height: 100%; margin: 0;
+html,
+body {
+	height: 100%;
+	margin: 0;
 }
 
 .h1 {
-    margin: 10px;
-    margin-top: 80px;
-    font-size: 24px;
-
+	margin: 10px;
+	margin-top: 80px;
+	font-size: 24px;
 }
 .h2 {
-    margin: 10px;
-    font-size: 12px;
+	margin: 10px;
+	font-size: 12px;
 }
 input {
-    padding: 5px 5px 5px 5px;
-    background-color: transparent;
-    height: 30px;
-    width: 80%;
-    color: white;
-    border: 2px solid rgb(80, 80, 80);
-    border-radius: 5px;
-    transition: 0.4s;
+	padding: 5px 5px 5px 5px;
+	background-color: transparent;
+	height: 30px;
+	width: 80%;
+	color: white;
+	border: 2px solid rgb(80, 80, 80);
+	border-radius: 5px;
+	transition: 0.4s;
 }
-input:hover, input:focus {
-    border-color: rgb(52, 99, 202);
-    transition: 0.2s;
+input:hover,
+input:focus {
+	border-color: rgb(52, 99, 202);
 }
 input#password {
-    margin: 10px;
+	margin: 10px;
 }
 
-.pending {background-color: rgb(52, 99, 202);}
+.pending {
+	background-color: rgb(52, 99, 202);
+}
 button.submit {
-    margin: 10px;
-    height: 30px;
-    width: 60%;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    transition: 0.4s;
+	margin: 10px;
+	height: 30px;
+	width: 60%;
+	color: white;
+	border-radius: 5px;
+	border: none;
+	transition: 0.4s;
 }
 button.submit:hover {
-    opacity: 0.8;
-    transform: 0.2s;
-    cursor: pointer;
-    transition: 0.2s;
+	opacity: 0.8;
+	transform: 0.2s;
+	cursor: pointer;
 }
 .noerror {
-    color: transparent;
-    height: 0px;
-    transition: 0.2s;
+	color: transparent;
+	height: 0px;
 }
 .error {
-    color: rgb(252, 61, 61);
-    height: 21px;
-    transition: 0.2s;
+	color: rgb(252, 61, 61);
+	height: 21px;
 }
 
 .login-successful {
-    background-color: rgb(45, 182, 45);
-    transition: 0.2s;
+	background-color: rgb(45, 182, 45);
+}
+
+button:active {
+	transform: scale(0.97);
+	transition: 0.1s;
 }

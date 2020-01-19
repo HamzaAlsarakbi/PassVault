@@ -5,6 +5,7 @@
 	vertical-align: baseline;
 	outline: none;
 	color: white;
+	transition: 0.2s;
 }
 body {
 	background-color: rgb(42, 42, 42);
@@ -57,10 +58,10 @@ controls {
 .control {
 	display: flex;
 	padding: 4px;
-	height: 100%;
-	width: 30px;
-	border-radius: 15px;
-	transition: 0.2s;
+	height: 31px;
+	width: 31px;
+	border-radius: 15.5px;
+	font-size: 20px;
 }
 .control:hover {
 	background-color: rgb(60, 60, 60);
@@ -76,8 +77,8 @@ controls {
 }
 
 .rotate {
+	font-size: 20px;
 	transform: rotate(45deg);
-	transition: 0.2s;
 }
 
 /**** Add icon*/
@@ -165,14 +166,17 @@ button {
 	border-left: 4px solid transparent;
 	margin: 0;
 	border-radius: 0;
-	transition: 0.2s;
+
 	width: 100%;
 	text-align: left;
 	height: 30px;
 	margin-bottom: 10px;
 	color: rgb(200, 200, 200);
 }
-
+button:active {
+	transform: scale(0.97);
+	transition: 0.1s;
+}
 .button-header-active {
 	border-left: 4px solid rgb(52, 99, 202);
 	transition: 0.1s;
@@ -210,17 +214,15 @@ input {
 input:hover,
 input:focus {
 	border-color: rgb(52, 99, 202);
-	transition: 0.2s;
 }
 .noerror {
 	font-size: 14px;
 	color: transparent;
-	transition: 0.2s;
+
 	height: 0px;
 }
 .error {
 	color: rgb(252, 61, 61);
-	transition: 0.2s;
 	height: 18px;
 }
 
@@ -251,7 +253,6 @@ td {
 }
 td {
 	padding: 5px;
-	transition: 0.2s;
 }
 
 .header {
@@ -281,26 +282,21 @@ td {
 	.toggleAdd {
 		height: 340px;
 		width: 25%;
-		transition: 0.2s;
 	}
 	.add-div {
 		flex-direction: column;
-		transition: 0.2s;
 	}
 	.controlsSpan {
 		height: 370px;
-		transition: 0.2s;
 	}
 }
 
 table tr:not(:first-child):hover {
 	background-color: rgb(59, 59, 59);
 	box-shadow: 4px 1px 5px rgb(37, 37, 37);
-	transition: 0.2s;
 }
 table tr:not(:first-child) td:hover {
 	background-color: rgb(87, 87, 87);
-	transition: 0.2s;
 }
 table.data:not(.tr-header) {
 	flex-direction: column-reverse;

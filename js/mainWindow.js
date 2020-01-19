@@ -84,7 +84,11 @@ function settingsFunc() {
 		toggleGridlinesButton.setAttribute('class', 'button-header');
 		toggleGridlinesButton.setAttribute('id', 'gridlines');
 		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
-		toggleGridlinesButton.textContent = 'Show Gridlines';
+		if (!gridlines) {
+			toggleGridlinesButton.textContent = 'Show Gridlines';
+		} else {
+			toggleGridlinesButton.textContent = 'Hide Gridlines';
+		}
 
 		// create div for parameters
 		settingsParameters = document.createElement('div');
