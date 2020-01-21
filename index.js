@@ -1,6 +1,6 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain } = electron;
-const url =require('url');
+const url = require('url');
 const path = require('path');
 
 let loginWindow;
@@ -33,7 +33,7 @@ function ready() {
 
 	// Toggle Developer Mode
 	const devTools = globalShortcut.register('Ctrl+Shift+I', () => {
-		if(mainWindowOn == 0) {
+		if (mainWindowOn == 0) {
 			loginWindow.webContents.toggleDevTools();
 		} else {
 			mainWindow.webContents.toggleDevTools();
@@ -42,7 +42,7 @@ function ready() {
 
 	// Refresh page
 	const refresh = globalShortcut.register('Ctrl+R', () => {
-		if(mainWindowOn == 0) {
+		if (mainWindowOn == 0) {
 			loginWindow.webContents.reloadIgnoringCache();
 		} else {
 			mainWindow.webContents.reloadIgnoringCache();
@@ -53,10 +53,11 @@ function ready() {
 	ipcMain.on('loginConfirmation', function() {
 		console.log('received login request.');
 		// If mainWinow is opened
-		if(mainWindowOn == 0) {
+		if (mainWindowOn == 0) {
 			mainWindowOn = 1;
 			createMainWindow();
-		}});
+		}
+	});
 }
 
 // app properties

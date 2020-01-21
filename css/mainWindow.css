@@ -93,6 +93,12 @@ controls {
 	padding: 20px;
 	padding-bottom: 5px;
 }
+
+#pass-div {
+	display: flex;
+	flex-direction: row;
+	margin: 0;
+}
 .settings {
 	padding-left: 20px;
 	padding-right: 20px;
@@ -283,11 +289,17 @@ td {
 		height: 340px;
 		width: 25%;
 	}
+
 	.add-div {
 		flex-direction: column;
+		width: 100%;
 	}
+	input {
+		width: 100%;
+	}
+
 	.controlsSpan {
-		height: 370px;
+		height: 360px;
 	}
 }
 
@@ -300,4 +312,45 @@ table tr:not(:first-child) td:hover {
 }
 table.data:not(.tr-header) {
 	flex-direction: column-reverse;
+}
+.hide-show {
+	text-align: center;
+	cursor: pointer;
+	padding: 2px;
+	border-radius: 0 2px 2px 0;
+	height: 26px;
+	width: 26px;
+}
+.hide-show:hover {
+	background-color: rgb(60, 60, 60);
+}
+.hide-show:active {
+	transform: scale(0.97);
+}
+#add-password {
+	width: 95%;
+	border: 0;
+	margin: 0;
+}
+#add-pass {
+	width: 100%;
+	margin: 5px;
+	border: 2px solid rgb(80, 80, 80);
+	border-radius: 5px;
+	height: 30px;
+	display: flex;
+	flex-direction: row;
+}
+
+#cell-control {
+	padding: 2px;
+	cursor: pointer;
+	height: 28px;
+	width: 28px;
+}
+#cell-control:hover {
+	background-color: rgb(87, 87, 87);
+}
+td#controls:hover {
+	background-color: transparent;
 }

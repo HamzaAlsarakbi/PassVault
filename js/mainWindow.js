@@ -9,7 +9,7 @@ var saved = true;
 var settingsOn = false;
 var td = document.querySelectorAll('td');
 var gridlines = false;
-
+var cellPass = [];
 // Toggle Settings Menu
 function settingsFunc() {
 	toggleMenus();
@@ -112,10 +112,10 @@ function settingsFunc() {
 		parentElement.appendChild(header);
 		parentElement.appendChild(settingsBody);
 		settingsBody.appendChild(settingsButtons);
-		settingsButtons.appendChild(changePassword);
-		settingsButtons.appendChild(changeTheme);
-		settingsButtons.appendChild(lockVaultButton);
 		settingsButtons.appendChild(toggleGridlinesButton);
+		settingsButtons.appendChild(changeTheme);
+		settingsButtons.appendChild(changePassword);
+		settingsButtons.appendChild(lockVaultButton);
 		settingsBody.appendChild(settingsParameters);
 		settingsParameters.appendChild(passParameters);
 		settingsParameters.appendChild(lockParameters);
@@ -178,6 +178,11 @@ function addFunc() {
 		emailInput.setAttribute('id', 'add-email');
 		emailInput.setAttribute('placeholder', 'Email');
 
+		// create password div
+		var passwordDiv = document.createElement('div');
+		passwordDiv.setAttribute('class', 'pass-div');
+		passwordDiv.setAttribute('id', 'add-pass');
+
 		// create password input
 		var passwordInput = document.createElement('input');
 		passwordInput.setAttribute('class', 'add-input');
@@ -185,6 +190,12 @@ function addFunc() {
 		passwordInput.setAttribute('placeholder', 'Password');
 		passwordInput.setAttribute('type', 'password');
 
+		// create password hide/show switch
+		var hideShow = document.createElement('div');
+		hideShow.setAttribute('class', 'hide-show');
+		hideShow.setAttribute('id', 'add-switch');
+		hideShow.setAttribute('onclick', 'hideShow(this)');
+		hideShow.textContent = '\u{1F441}';
 		// create error message
 		var span = document.createElement('span');
 		span.setAttribute('class', 'noerror');
@@ -203,7 +214,9 @@ function addFunc() {
 		div.appendChild(typeInput);
 		div.appendChild(serviceInput);
 		div.appendChild(emailInput);
-		div.appendChild(passwordInput);
+		div.appendChild(passwordDiv);
+		passwordDiv.appendChild(passwordInput);
+		passwordDiv.appendChild(hideShow);
 		document.querySelector('.add').appendChild(span);
 		div.appendChild(addButton);
 		addOn = true;
@@ -296,7 +309,8 @@ function addData() {
 			tdPassword.setAttribute('class', 'gridlinesOn');
 		}
 		tdPassword.setAttribute('id', 'password');
-		tdPassword.textContent = submission.password;
+		tdPassword.textContent = '\u{2022}'.repeat(submission.password.length);
+		cellPass[cellIndex] = submission.password;
 
 		// create controls
 		tdControls = document.createElement('td');
@@ -305,11 +319,19 @@ function addData() {
 			tdControls.setAttribute('class', 'gridlinesOn');
 		}
 		tdControls.setAttribute('id', 'controls');
+
+		// create edit button
 		var pencil = document.createElement('span');
-		var pencilIcon = '✎';
 		pencil.setAttribute('class', 'cell' + cellIndex);
-		pencil.setAttribute('id', 'pencil');
-		pencil.innerText = pencilIcon;
+		pencil.setAttribute('id', 'cell-control');
+		pencil.textContent = '\u{270E}';
+
+		// create show/hide button
+		var showHideButton = document.createElement('span');
+		showHideButton.setAttribute('class', 'cell' + cellIndex);
+		showHideButton.setAttribute('id', 'cell-control');
+		showHideButton.setAttribute('onclick', 'hideShow(this)');
+		showHideButton.textContent = '\u{1F441}';
 
 		// package children
 		table.appendChild(tr);
@@ -319,6 +341,7 @@ function addData() {
 		tr.appendChild(tdPassword);
 		tr.appendChild(tdControls);
 		tdControls.appendChild(pencil);
+		tdControls.appendChild(showHideButton);
 
 		// empty out input fields
 		typeDOM.value = '';
@@ -329,7 +352,27 @@ function addData() {
 		cellIndex++;
 	}
 }
-
+var addHideShow = false;
+function hideShow(pro, value) {
+	var d = pro.id;
+	var c = pro.classList;
+	console.log('class: ' + c + ' | ' + 'id: ' + d);
+	if (d == 'add-switch') {
+		if (!addHideShow) {
+			document.querySelector('#add-password').setAttribute('type', 'text');
+			console.log('has');
+			addHideShow = true;
+		} else {
+			document.querySelector('#add-password').setAttribute('type', 'password');
+			console.log('had');
+			addHideShow = false;
+		}
+	} else {
+		document.querySelector('.' + c + '#password').textContent = cellPass[c[5]];
+		console.log(cellPass[c[5]]);
+		console.log(c[5]);
+	}
+}
 function copyText(properties) {
 	var d = properties.id;
 	var c = properties.classList;
