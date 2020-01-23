@@ -54,7 +54,9 @@ controls {
 	align-items: center;
 	flex-direction: row;
 }
-
+img {
+	-webkit-user-drag: none;
+}
 .control {
 	display: flex;
 	padding: 4px;
@@ -180,7 +182,7 @@ button {
 	color: rgb(200, 200, 200);
 }
 button:active {
-	transform: scale(0.97);
+	transform: scale(0.95);
 	transition: 0.1s;
 }
 .button-header-active {

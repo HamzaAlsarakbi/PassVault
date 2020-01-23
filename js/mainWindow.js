@@ -2,14 +2,23 @@
 const electron = require('electron');
 const { ipcRenderer } = electron;
 let win = electron.remote.getCurrentWindow();
+
 var parentElement;
+
+// settings
 var settingsOn = false;
 var addOn = false;
-var saved = true;
+var saved = true; // to be changed later
 var settingsOn = false;
 var td = document.querySelectorAll('td');
 var gridlines = false;
-var cellPass = [];
+
+// icons
+const eye = '\u{1F441}';
+const pencilIcon = '\u{270E}';
+const crossedEye = '';
+const bullet = '\u{2022}';
+
 // Toggle Settings Menu
 function settingsFunc() {
 	toggleMenus();
@@ -132,6 +141,10 @@ function settingsFunc() {
 		settingsOn = false;
 	}
 }
+// data constructor
+var data = {};
+
+// function dataFunc(cellIndex, type, service, email, password) {}
 
 // Toggle add icon
 var submission;
@@ -195,7 +208,7 @@ function addFunc() {
 		hideShow.setAttribute('class', 'hide-show');
 		hideShow.setAttribute('id', 'add-switch');
 		hideShow.setAttribute('onclick', 'hideShow(this)');
-		hideShow.textContent = '\u{1F441}';
+		hideShow.textContent = eye;
 		// create error message
 		var span = document.createElement('span');
 		span.setAttribute('class', 'noerror');
@@ -309,8 +322,7 @@ function addData() {
 			tdPassword.setAttribute('class', 'gridlinesOn');
 		}
 		tdPassword.setAttribute('id', 'password');
-		tdPassword.textContent = '\u{2022}'.repeat(submission.password.length);
-		cellPass[cellIndex] = submission.password;
+		tdPassword.textContent = bullet.repeat(submission.password.length);
 
 		// create controls
 		tdControls = document.createElement('td');
@@ -324,7 +336,7 @@ function addData() {
 		var pencil = document.createElement('span');
 		pencil.setAttribute('class', 'cell' + cellIndex);
 		pencil.setAttribute('id', 'cell-control');
-		pencil.textContent = '\u{270E}';
+		pencil.textContent = pencilIcon;
 
 		// create show/hide button
 		var showHideButton = document.createElement('span');
@@ -342,6 +354,16 @@ function addData() {
 		tr.appendChild(tdControls);
 		tdControls.appendChild(pencil);
 		tdControls.appendChild(showHideButton);
+		data['cell' + cellIndex] = {
+			type: typeDOM.value,
+			service: serviceDOM.value,
+			email: emailDOM.value,
+			password: passwordDOM.value,
+			index: cellIndex,
+			class: 'cell' + cellIndex,
+			hidden: true
+		};
+		console.log(data);
 
 		// empty out input fields
 		typeDOM.value = '';
@@ -356,6 +378,7 @@ var addHideShow = false;
 function hideShow(pro, value) {
 	var d = pro.id;
 	var c = pro.classList;
+	var querySelect = '#password' + '.' + c;
 	console.log('class: ' + c + ' | ' + 'id: ' + d);
 	if (d == 'add-switch') {
 		if (!addHideShow) {
@@ -368,9 +391,19 @@ function hideShow(pro, value) {
 			addHideShow = false;
 		}
 	} else {
-		document.querySelector('.' + c + '#password').textContent = cellPass[c[5]];
-		console.log(cellPass[c[5]]);
-		console.log(c[5]);
+		// if it is table
+		console.log('table');
+		console.log(data[c].password);
+		console.log(data[c].hidden);
+		if (data[c].hidden) {
+			document.querySelector(querySelect).textContent = data[c].password;
+			data[c].hidden = false;
+			console.log('data has: ' + data[c]);
+		} else {
+			document.querySelector(querySelect).textContent = bullet.repeat(data[c].password.length);
+			data[c].hidden = true;
+			console.log('data had: ' + data[c]);
+		}
 	}
 }
 function copyText(properties) {
