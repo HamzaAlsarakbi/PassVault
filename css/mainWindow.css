@@ -5,10 +5,10 @@
 	vertical-align: baseline;
 	outline: none;
 	color: white;
-	transition: 0.2s;
+	transition: 0.2s ease-out;
 }
 body {
-	background-color: rgb(42, 42, 42);
+	background-color: rgb(32, 32, 32);
 	display: flex;
 	justify-content: center;
 	user-select: none;
@@ -261,6 +261,7 @@ table {
 	width: 75%;
 	max-width: 1000px;
 	min-width: 600px;
+	table-layout: fixed;
 }
 table,
 td {
@@ -328,6 +329,9 @@ table tr:not(:first-child) td:hover {
 table.data:not(.tr-header) {
 	flex-direction: column-reverse;
 }
+#hide-show {
+	width: 100px;
+}
 .hide-show {
 	text-align: center;
 	cursor: pointer;
@@ -357,24 +361,38 @@ table.data:not(.tr-header) {
 	flex-direction: row;
 }
 
-span#cell-control {
+#cell-edit,
+#cell-showHide,
+#cell-delete {
 	padding: 6px;
 	cursor: pointer;
 	height: 28px;
-	width: 28px;
 }
 #cell-control:hover {
 	background-color: rgb(87, 87, 87);
 }
+#controls {
+	display: flex;
+	flex-direction: row;
+}
 td#controls:hover {
 	background-color: transparent;
 }
-.table-input {
-	border: none;
-	height: 100%;
-	width: 100%;
-	margin: 0;
+
+.padding-zero {
+	padding: 0;
 }
-.table-input:focus {
-	background-color: rgb(87, 87, 87);
+table:not(:first-child) {
+	animation: slide-in 0.15s ease-out;
+}
+@keyframes slide-in {
+	0% {
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+}
+.tbody-data {
+}
+.tbody-data td {
+	animation: slide-in 0.15s ease-out;
 }

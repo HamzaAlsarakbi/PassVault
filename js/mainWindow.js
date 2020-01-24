@@ -9,15 +9,34 @@ var parentElement;
 var settingsOn = false;
 var addOn = false;
 var saved = false; // to be changed later
+var theme = 'dark'; // to be changed later
 var settingsOn = false;
 var td = document.querySelectorAll('td');
 var gridlines = false;
 
 // icons
 const eye = '\u{1F441}';
-const pencilIcon = '\u{270E}';
+const pencilIcon = '../assets/img/' + theme + '/pencil.png';
 const crossedEye = '';
 const bullet = '\u{2022}';
+const trashcan = '../assets/img/' + theme + '/trashcan.png';
+const remove = '../assets/img/' + theme + '/remove.png';
+
+// initialization
+init();
+// add icons
+function init() {
+	var addIcon = document.createElement('img');
+	addIcon.setAttribute('src', '../assets/img/' + theme + '/add.png');
+	addIcon.setAttribute('height', '15px');
+	document.querySelector('#add').appendChild(addIcon);
+
+	// settings Icon
+	var settingsIcon = document.createElement('img');
+	settingsIcon.setAttribute('src', '../assets/img/' + theme + '/gear.png');
+	settingsIcon.setAttribute('height', '23px');
+	document.querySelector('#settings').appendChild(settingsIcon);
+}
 
 // Toggle Settings Menu
 function settingsFunc() {
@@ -278,7 +297,7 @@ function addData() {
 	const emailDOM = document.getElementById('add-email');
 	const passwordDOM = document.getElementById('add-password');
 	const span = document.getElementById('add-error');
-	const table = document.querySelector('.data');
+	const table = document.querySelector('.tbody-data');
 	submission.type = typeDOM.value;
 	submission.service = serviceDOM.value;
 	submission.email = emailDOM.value;
@@ -299,6 +318,8 @@ function addData() {
 		// create td type
 		tdType = document.createElement('td');
 		tdType.setAttribute('class', 'cell' + cellIndex);
+		tdType.setAttribute('onclick', 'copyText(this)');
+
 		if (gridlines) {
 			tdType.setAttribute('class', 'gridlinesOn');
 		}
@@ -308,6 +329,8 @@ function addData() {
 		// create td service
 		tdService = document.createElement('td');
 		tdService.setAttribute('class', 'cell' + cellIndex);
+		tdService.setAttribute('onclick', 'copyText(this)');
+
 		if (gridlines) {
 			tdService.setAttribute('class', 'gridlinesOn');
 		}
@@ -341,25 +364,37 @@ function addData() {
 		tdControls.setAttribute('id', 'controls');
 
 		// create edit button
-		var pencil = document.createElement('span');
+		var edit = document.createElement('div');
+		edit.setAttribute('class', 'cell' + cellIndex);
+		edit.setAttribute('id', 'cell-edit');
+		edit.setAttribute('onclick', 'editRow(this)');
+
+		// create edit icon
+		var pencil = document.createElement('img');
 		pencil.setAttribute('class', 'cell' + cellIndex);
-		pencil.setAttribute('id', 'cell-control');
-		pencil.setAttribute('onclick', 'editRow(this)');
-		pencil.textContent = pencilIcon;
+		pencil.setAttribute('id', 'cell-icon');
+		pencil.setAttribute('src', pencilIcon);
+		pencil.setAttribute('height', '15px');
 
 		// create show/hide button
-		var showHideButton = document.createElement('span');
+		var showHideButton = document.createElement('div');
 		showHideButton.setAttribute('class', 'cell' + cellIndex);
-		showHideButton.setAttribute('id', 'cell-control');
+		showHideButton.setAttribute('id', 'cell-showHide');
 		showHideButton.setAttribute('onclick', 'hideShow(this)');
 		showHideButton.textContent = eye;
 
 		// create delete button
-		var deleteButton = document.createElement('span');
+		var deleteButton = document.createElement('div');
 		deleteButton.setAttribute('class', 'cell' + cellIndex);
-		deleteButton.setAttribute('id', 'cell-control');
+		deleteButton.setAttribute('id', 'cell-delete');
 		deleteButton.setAttribute('onclick', 'deleteFunc(this)');
-		deleteButton.textContent = '\u{1F5D1}';
+
+		// create delete icon
+		var deleteIcon = document.createElement('img');
+		deleteIcon.setAttribute('class', 'cell' + cellIndex);
+		deleteIcon.setAttribute('id', 'delete-icon');
+		deleteIcon.setAttribute('src', trashcan);
+		deleteIcon.setAttribute('height', '15px');
 
 		// package children
 		table.appendChild(tr);
@@ -368,9 +403,12 @@ function addData() {
 		tr.appendChild(tdEmail);
 		tr.appendChild(tdPassword);
 		tr.appendChild(tdControls);
-		tdControls.appendChild(pencil);
+		tdControls.appendChild(edit);
+		edit.appendChild(pencil);
 		tdControls.appendChild(showHideButton);
 		tdControls.appendChild(deleteButton);
+		deleteButton.appendChild(deleteIcon);
+
 		data['cell' + cellIndex] = {
 			type: typeDOM.value,
 			service: serviceDOM.value,
@@ -395,31 +433,35 @@ var addHideShow = false;
 function hideShow(pro, value) {
 	var d = pro.id;
 	var c = pro.classList;
+
 	var querySelect = '#password' + '.' + c;
-	console.log('class: ' + c + ' | ' + 'id: ' + d);
 	if (d == 'add-switch') {
 		if (!addHideShow) {
 			document.querySelector('#add-password').setAttribute('type', 'text');
-			console.log('has');
 			addHideShow = true;
 		} else {
 			document.querySelector('#add-password').setAttribute('type', 'password');
-			console.log('had');
 			addHideShow = false;
 		}
 	} else {
 		// if it is table
-		console.log('table');
-		console.log(data[c].password);
-		console.log(data[c].hidden);
-		if (data[c].hidden) {
-			document.querySelector(querySelect).textContent = data[c].password;
-			data[c].hidden = false;
-			console.log('data has: ' + data[c]);
+		var querySelectInput = '#table-password' + '.input-' + data[c].index;
+		if (!editOn) {
+			if (data[c].hidden) {
+				document.querySelector(querySelect).textContent = data[c].password;
+				data[c].hidden = false;
+			} else {
+				document.querySelector(querySelect).textContent = bullet.repeat(data[c].password.length);
+				data[c].hidden = true;
+			}
 		} else {
-			document.querySelector(querySelect).textContent = bullet.repeat(data[c].password.length);
-			data[c].hidden = true;
-			console.log('data had: ' + data[c]);
+			if (data[c].hidden) {
+				document.querySelector(querySelectInput).setAttribute('type', 'text');
+				data[c].hidden = false;
+			} else {
+				document.querySelector(querySelectInput).setAttribute('type', 'password');
+				data[c].hidden = true;
+			}
 		}
 	}
 }
@@ -439,6 +481,7 @@ function copyText(properties) {
 		console.log('Oops, unable to copy');
 	}*/
 }
+
 // edit row function
 var editOn = false;
 function editRow(properties) {
@@ -446,57 +489,85 @@ function editRow(properties) {
 	var c = properties.classList;
 	var tr = 'row' + data[c].index;
 	var typeDOM = document.querySelector('#type.' + c);
-	var servicesDOM = document.querySelector('#service.' + c);
+	var serviceDOM = document.querySelector('#service.' + c);
 	var emailDOM = document.querySelector('#email.' + c);
 	var passwordDOM = document.querySelector('#password.' + c);
+	console.log(data[c].class);
 	console.log('class: ' + c + ' | id: ' + d);
+	// remove onclick
+	typeDOM.toggleAttribute('onclick');
+	serviceDOM.toggleAttribute('onclick');
+	emailDOM.toggleAttribute('onclick');
+
 	if (!editOn) {
 		// when edit is toggled
+		// change icons
+		document.querySelector('#delete-icon.' + c).setAttribute('src', remove);
 		// remove text
 		typeDOM.textContent = '';
-		servicesDOM.textContent = '';
+		serviceDOM.textContent = '';
 		emailDOM.textContent = '';
 		passwordDOM.textContent = '';
+
 		// add input
 		// create type input
 		var typeInput = document.createElement('input');
-		typeInput.setAttribute('class', 'table-input');
-		typeInput.setAttribute('id', 'add-type');
+		typeInput.setAttribute('class', 'input-' + data[c].index);
+		typeInput.setAttribute('id', 'table-type');
 		typeInput.setAttribute('placeholder', 'Type');
 		typeInput.value = data[c].type;
 
 		// create service input
 		var serviceInput = document.createElement('input');
-		serviceInput.setAttribute('class', 'table-input');
-		serviceInput.setAttribute('id', 'add-service');
+		serviceInput.setAttribute('class', 'input-' + data[c].index);
+		serviceInput.setAttribute('id', 'table-service');
 		serviceInput.setAttribute('placeholder', 'Service');
 		serviceInput.value = data[c].service;
 
 		// create email input
 		var emailInput = document.createElement('input');
-		emailInput.setAttribute('class', 'table-input');
-		emailInput.setAttribute('id', 'add-email');
+		emailInput.setAttribute('class', 'input-' + data[c].index);
+		emailInput.setAttribute('id', 'table-email');
 		emailInput.setAttribute('placeholder', 'Email');
 		emailInput.value = data[c].email;
 
 		// create password input
 		var passwordInput = document.createElement('input');
-		passwordInput.setAttribute('class', 'table-input');
-		passwordInput.setAttribute('id', 'add-password');
+		passwordInput.setAttribute('class', 'input-' + data[c].index);
+		passwordInput.setAttribute('id', 'table-password');
 		passwordInput.setAttribute('placeholder', 'Password');
-		passwordInput.setAttribute('type', 'password');
+		if (!data[c].hidden) {
+			passwordInput.setAttribute('type', 'text');
+		} else {
+			passwordInput.setAttribute('type', 'password');
+		}
 		passwordInput.value = data[c].password;
 
 		// package children
 		typeDOM.appendChild(typeInput);
-		servicesDOM.appendChild(serviceInput);
+		serviceDOM.appendChild(serviceInput);
 		emailDOM.appendChild(emailInput);
 		passwordDOM.appendChild(passwordInput);
 		editOn = true;
 	} else {
+		// reset icons
+		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
 		// when confirm button is clicked
-
+		data[c].type = document.querySelector('#table-type.input-' + data[c].index).value;
+		data[c].service = document.querySelector('#table-service.input-' + data[c].index).value;
+		data[c].email = document.querySelector('#table-email.input-' + data[c].index).value;
+		data[c].password = document.querySelector('#table-password.input-' + data[c].index).value;
+		console.log('data row changed');
 		editOn = false;
+		// add td text
+		typeDOM.textContent = data[c].type;
+		serviceDOM.textContent = data[c].service;
+		emailDOM.textContent = data[c].email;
+		if (!data[c].hidden) {
+			passwordDOM.textContent = data[c].password;
+		} else {
+			passwordDOM.textContent = bullet.repeat(data[c].password.length);
+		}
 	}
 }
 
@@ -507,8 +578,22 @@ function deleteFunc(properties) {
 	console.log('class: ' + c + ' | id: ' + d);
 	var index = data[c].index;
 	console.log(index);
-	tr = document.querySelector('tr.row' + index);
-	tr.remove();
+	if (!editOn) {
+		tr = document.querySelector('tr.row' + index);
+		tr.remove();
+	} else {
+		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
+		document.querySelector('#type.' + c).textContent = data[c].type;
+		document.querySelector('#service.' + c).textContent = data[c].service;
+		document.querySelector('#email.' + c).textContent = data[c].email;
+
+		if (!data[c].hidden) {
+			document.querySelector('#password.' + c).textContent = data[c].password;
+		} else {
+			document.querySelector('#password.' + c).textContent = bullet.repeat(data[c].password.length);
+		}
+		editOn = false;
+	}
 }
 // Toggle menus
 function toggleMenus() {

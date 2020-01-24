@@ -36,10 +36,8 @@
       <controls>
         <div class="controls">
           <div class="control" id="add" onclick="addFunc()">
-            <img src="../assets/img/add.png" height="15px">
           </div>
           <div class="control" id="settings" onclick="settingsFunc()">
-            <img src="../assets/img/gear.png" height="23px">
           </div>
         </div>
         <menu>
@@ -48,13 +46,16 @@
         </menu>
       </controls>
       <table class="data">
-        <tr>
-          <td class="header" id="type">Type</td>
-          <td class="header" id="service">Service</td>
-          <td class="header" id="email">Email</td>
-          <td class="header" id="password">Password</td>
-          <td class="header" id="hide-show">Controls</td>
-        </tr>
+        <thead>
+          <tr>
+            <td class="header" id="type">Type</td>
+            <td class="header" id="service">Service</td>
+            <td class="header" id="email">Email</td>
+            <td class="header" id="password">Password</td>
+            <td class="header" id="hide-show">Controls</td>
+          </tr>
+        </thead>
+        <tbody class="tbody-data"></tbody>
         
       </table>
     </div>
