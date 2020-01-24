@@ -39,6 +39,9 @@ controls {
 	width: 75%;
 	max-width: 1000px;
 	min-width: 600px;
+	position: fixed;
+	z-index: 2;
+	backdrop-filter: blur(5px);
 }
 .controls {
 	margin: 15px;
@@ -53,6 +56,13 @@ controls {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
+}
+
+.margin-settings {
+	margin-top: 350px;
+}
+.margin-add {
+	margin-top: 250px;
 }
 img {
 	-webkit-user-drag: none;
@@ -142,14 +152,14 @@ menu {
 	transition: 0.3s ease-out;
 }
 .toggleSettings {
-	background-color: rgb(50, 50, 50);
+	background-color: rgb(50, 50, 50, 0.4);
 	height: 311px;
 	transition: 0.25s ease-out;
 	margin-top: 20px;
 	width: 500px;
 }
 .toggleAdd {
-	background-color: rgb(50, 50, 50);
+	background-color: rgb(50, 50, 50, 0.4);
 	height: 210px;
 	transition: 0.25s ease-out;
 	margin-top: 20px;
@@ -247,7 +257,7 @@ input:focus {
 }
 
 table {
-	margin-top: 30px;
+	margin-top: 50px;
 	width: 75%;
 	max-width: 1000px;
 	min-width: 600px;
@@ -303,6 +313,9 @@ td {
 	.controlsSpan {
 		height: 360px;
 	}
+	.margin-add {
+		margin-top: 375px;
+	}
 }
 
 table tr:not(:first-child):hover {
@@ -344,8 +357,8 @@ table.data:not(.tr-header) {
 	flex-direction: row;
 }
 
-#cell-control {
-	padding: 2px;
+span#cell-control {
+	padding: 6px;
 	cursor: pointer;
 	height: 28px;
 	width: 28px;
@@ -355,4 +368,13 @@ table.data:not(.tr-header) {
 }
 td#controls:hover {
 	background-color: transparent;
+}
+.table-input {
+	border: none;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+.table-input:focus {
+	background-color: rgb(87, 87, 87);
 }

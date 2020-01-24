@@ -8,7 +8,7 @@ var parentElement;
 // settings
 var settingsOn = false;
 var addOn = false;
-var saved = true; // to be changed later
+var saved = false; // to be changed later
 var settingsOn = false;
 var td = document.querySelectorAll('td');
 var gridlines = false;
@@ -22,6 +22,7 @@ const bullet = '\u{2022}';
 // Toggle Settings Menu
 function settingsFunc() {
 	toggleMenus();
+	document.querySelector('.data').classList.toggle('margin-settings');
 	document.querySelector('controls').classList.toggle('toggleSettings');
 	// rotate icon
 	var parentElement = document.querySelector('.settings');
@@ -40,6 +41,7 @@ function settingsFunc() {
 			settingsFunc();
 			document.querySelector('menu').classList.toggle('togglemenus');
 			document.querySelector('controls').classList.toggle('toggleSettings');
+			document.querySelector('.data').classList.toggle('margin-settings');
 		}, 100);
 
 		// If add icon is already on
@@ -49,6 +51,7 @@ function settingsFunc() {
 		addFunc();
 		toggleMenus();
 		document.querySelector('controls').classList.toggle('toggleSettings');
+		document.querySelector('.data').classList.toggle('margin-settings');
 
 		setTimeout(function() {
 			settingsFunc();
@@ -141,6 +144,8 @@ function settingsFunc() {
 		settingsOn = false;
 	}
 }
+// save button
+
 // data constructor
 var data = {};
 
@@ -152,13 +157,15 @@ function addFunc() {
 	toggleMenus();
 	document.querySelector('#add').classList.toggle('rotate');
 	document.querySelector('controls').classList.toggle('toggleAdd');
+	document.querySelector('.data').classList.toggle('margin-add');
 	var parentElement = document.querySelector('.add');
 
 	if (settingsOn) {
 		settingsFunc();
 		toggleMenus();
-		document.querySelector('controls').classList.toggle('toggleAdd');
 		document.querySelector('#add').classList.toggle('rotate');
+		document.querySelector('controls').classList.toggle('toggleAdd');
+		document.querySelector('.data').classList.toggle('margin-add');
 
 		setTimeout(function() {
 			addFunc();
@@ -288,6 +295,7 @@ function addData() {
 		document.querySelector('controls').classList.remove('controlsSpan');
 		// create table row
 		tr = document.createElement('tr');
+		tr.setAttribute('class', 'row' + cellIndex);
 		// create td type
 		tdType = document.createElement('td');
 		tdType.setAttribute('class', 'cell' + cellIndex);
@@ -336,6 +344,7 @@ function addData() {
 		var pencil = document.createElement('span');
 		pencil.setAttribute('class', 'cell' + cellIndex);
 		pencil.setAttribute('id', 'cell-control');
+		pencil.setAttribute('onclick', 'editRow(this)');
 		pencil.textContent = pencilIcon;
 
 		// create show/hide button
@@ -343,7 +352,14 @@ function addData() {
 		showHideButton.setAttribute('class', 'cell' + cellIndex);
 		showHideButton.setAttribute('id', 'cell-control');
 		showHideButton.setAttribute('onclick', 'hideShow(this)');
-		showHideButton.textContent = '\u{1F441}';
+		showHideButton.textContent = eye;
+
+		// create delete button
+		var deleteButton = document.createElement('span');
+		deleteButton.setAttribute('class', 'cell' + cellIndex);
+		deleteButton.setAttribute('id', 'cell-control');
+		deleteButton.setAttribute('onclick', 'deleteFunc(this)');
+		deleteButton.textContent = '\u{1F5D1}';
 
 		// package children
 		table.appendChild(tr);
@@ -354,6 +370,7 @@ function addData() {
 		tr.appendChild(tdControls);
 		tdControls.appendChild(pencil);
 		tdControls.appendChild(showHideButton);
+		tdControls.appendChild(deleteButton);
 		data['cell' + cellIndex] = {
 			type: typeDOM.value,
 			service: serviceDOM.value,
@@ -409,20 +426,90 @@ function hideShow(pro, value) {
 function copyText(properties) {
 	var d = properties.id;
 	var c = properties.classList;
-	var querySelect = '.' + c + '#' + d;
-	console.log(querySelect);
-	var copyText = document.querySelector(querySelect);
-	copyText.focus();
+	console.log('class: ' + c + ' | id: ' + d);
+	var copyText = data[c][d];
+	console.log(copyText);
 	copyText.select();
+	/*
 	try {
 		var successful = document.execCommand('copy');
 		var msg = successful ? 'successful' : 'unsuccessful';
 		console.log('Copying text command was ' + msg);
 	} catch (err) {
 		console.log('Oops, unable to copy');
+	}*/
+}
+// edit row function
+var editOn = false;
+function editRow(properties) {
+	var d = properties.id;
+	var c = properties.classList;
+	var tr = 'row' + data[c].index;
+	var typeDOM = document.querySelector('#type.' + c);
+	var servicesDOM = document.querySelector('#service.' + c);
+	var emailDOM = document.querySelector('#email.' + c);
+	var passwordDOM = document.querySelector('#password.' + c);
+	console.log('class: ' + c + ' | id: ' + d);
+	if (!editOn) {
+		// when edit is toggled
+		// remove text
+		typeDOM.textContent = '';
+		servicesDOM.textContent = '';
+		emailDOM.textContent = '';
+		passwordDOM.textContent = '';
+		// add input
+		// create type input
+		var typeInput = document.createElement('input');
+		typeInput.setAttribute('class', 'table-input');
+		typeInput.setAttribute('id', 'add-type');
+		typeInput.setAttribute('placeholder', 'Type');
+		typeInput.value = data[c].type;
+
+		// create service input
+		var serviceInput = document.createElement('input');
+		serviceInput.setAttribute('class', 'table-input');
+		serviceInput.setAttribute('id', 'add-service');
+		serviceInput.setAttribute('placeholder', 'Service');
+		serviceInput.value = data[c].service;
+
+		// create email input
+		var emailInput = document.createElement('input');
+		emailInput.setAttribute('class', 'table-input');
+		emailInput.setAttribute('id', 'add-email');
+		emailInput.setAttribute('placeholder', 'Email');
+		emailInput.value = data[c].email;
+
+		// create password input
+		var passwordInput = document.createElement('input');
+		passwordInput.setAttribute('class', 'table-input');
+		passwordInput.setAttribute('id', 'add-password');
+		passwordInput.setAttribute('placeholder', 'Password');
+		passwordInput.setAttribute('type', 'password');
+		passwordInput.value = data[c].password;
+
+		// package children
+		typeDOM.appendChild(typeInput);
+		servicesDOM.appendChild(serviceInput);
+		emailDOM.appendChild(emailInput);
+		passwordDOM.appendChild(passwordInput);
+		editOn = true;
+	} else {
+		// when confirm button is clicked
+
+		editOn = false;
 	}
 }
 
+// delete row function
+function deleteFunc(properties) {
+	var d = properties.id;
+	var c = properties.classList;
+	console.log('class: ' + c + ' | id: ' + d);
+	var index = data[c].index;
+	console.log(index);
+	tr = document.querySelector('tr.row' + index);
+	tr.remove();
+}
 // Toggle menus
 function toggleMenus() {
 	document.querySelector('menu').classList.toggle('togglemenus');
