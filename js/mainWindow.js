@@ -503,6 +503,10 @@ function editRow(properties) {
 		// when edit is toggled
 		// change icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', remove);
+
+		// tr effects
+		console.log(tr);
+		document.querySelector('.' + tr).classList.toggle('tr-edit');
 		// remove text
 		typeDOM.textContent = '';
 		serviceDOM.textContent = '';
@@ -550,6 +554,8 @@ function editRow(properties) {
 		passwordDOM.appendChild(passwordInput);
 		editOn = true;
 	} else {
+		document.querySelector('.' + tr).classList.toggle('tr-edit');
+
 		// reset icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
 		// when confirm button is clicked
@@ -575,6 +581,7 @@ function editRow(properties) {
 function deleteFunc(properties) {
 	var d = properties.id;
 	var c = properties.classList;
+	var tr = 'row' + data[c].index;
 	console.log('class: ' + c + ' | id: ' + d);
 	var index = data[c].index;
 	console.log(index);
@@ -593,6 +600,8 @@ function deleteFunc(properties) {
 			document.querySelector('#password.' + c).textContent = bullet.repeat(data[c].password.length);
 		}
 		editOn = false;
+		document.querySelector('.' + tr).classList.toggle('tr-edit');
+
 	}
 }
 // Toggle menus

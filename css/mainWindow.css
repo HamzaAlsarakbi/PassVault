@@ -270,8 +270,12 @@ td {
 .gridlinesOn {
 	border: 1px solid white;
 }
-td {
+tbody tr {
 	padding: 5px;
+	height: 35px;
+}
+.tr-edit {
+	height: 55px;
 }
 
 .header {
@@ -319,15 +323,12 @@ td {
 	}
 }
 
-table tr:not(:first-child):hover {
+.tbody-data tr:hover {
 	background-color: rgb(59, 59, 59);
 	box-shadow: 4px 1px 5px rgb(37, 37, 37);
 }
-table tr:not(:first-child) td:hover {
+.tbody-data tr td:hover {
 	background-color: rgb(87, 87, 87);
-}
-table.data:not(.tr-header) {
-	flex-direction: column-reverse;
 }
 #hide-show {
 	width: 100px;
@@ -391,8 +392,16 @@ table:not(:first-child) {
 		opacity: 0;
 	}
 }
-.tbody-data {
-}
 .tbody-data td {
 	animation: slide-in 0.15s ease-out;
+	padding: 5px;
+}
+#table-type,
+#table-service,
+#table-email,
+#table-password {
+	width: calc(100% - 5px);
+}
+theader {
+	text-align: center;
 }
