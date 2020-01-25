@@ -41,7 +41,7 @@ controls {
 	min-width: 600px;
 	position: fixed;
 	z-index: 2;
-	backdrop-filter: blur(5px);
+	backdrop-filter: blur(10px);
 }
 .controls {
 	margin: 15px;
@@ -57,12 +57,19 @@ controls {
 	align-items: center;
 	flex-direction: row;
 }
-
+#table {
+	width: 75%;
+	max-width: 1000px;
+	min-width: 600px;
+	display: flex;
+	flex-direction: column;
+	animation: slide-in 0.15s ease-out;
+}
 .margin-settings {
-	margin-top: 350px;
+	padding-top: 350px !important;
 }
 .margin-add {
-	margin-top: 250px;
+	padding-top: 250px !important;
 }
 img {
 	-webkit-user-drag: none;
@@ -256,23 +263,15 @@ input:focus {
 	background-color: rgb(252, 61, 61);
 }
 
-table {
-	margin-top: 50px;
-	width: 75%;
-	max-width: 1000px;
-	min-width: 600px;
-	table-layout: fixed;
-}
-table,
-td {
-	border-collapse: collapse;
-}
 .gridlinesOn {
 	border: 1px solid white;
 }
-tbody tr {
+#tbody cell {
 	padding: 5px;
 	height: 35px;
+}
+#tbody {
+	margin-top: 95px;
 }
 .tr-edit {
 	height: 55px;
@@ -299,7 +298,12 @@ tbody tr {
 	padding: 5px;
 	width: 100%;
 }
-
+.body-margin-add {
+	margin-top: 285px !important;
+}
+.body-margin-settings {
+	margin-top: 385px !important;
+}
 /**** Responsive */
 @media only screen and (max-width: 1200px) {
 	.toggleAdd {
@@ -319,16 +323,18 @@ tbody tr {
 		height: 360px;
 	}
 	.margin-add {
-		margin-top: 375px;
+		padding-top: 390px !important;
+	}
+	.body-margin-add {
+		margin-top: 425px !important;
 	}
 }
-
-.tbody-data tr:hover {
-	background-color: rgb(59, 59, 59);
-	box-shadow: 4px 1px 5px rgb(37, 37, 37);
+.tbody-data {
+	display: flex;
+	flex-direction: column-reverse;
 }
-.tbody-data tr td:hover {
-	background-color: rgb(87, 87, 87);
+.tbody-data div:hover {
+	background-color: rgb(59, 59, 59);
 }
 #hide-show {
 	width: 100px;
@@ -369,22 +375,14 @@ tbody tr {
 	cursor: pointer;
 	height: 28px;
 }
-#cell-control:hover {
-	background-color: rgb(87, 87, 87);
-}
+
 #controls {
 	display: flex;
 	flex-direction: row;
 }
-td#controls:hover {
-	background-color: transparent;
-}
 
 .padding-zero {
 	padding: 0;
-}
-table:not(:first-child) {
-	animation: slide-in 0.15s ease-out;
 }
 @keyframes slide-in {
 	0% {
@@ -392,8 +390,8 @@ table:not(:first-child) {
 		opacity: 0;
 	}
 }
-.tbody-data td {
-	animation: slide-in 0.15s ease-out;
+.tbody-data div {
+	animation: slide-in 0.25s ease-out;
 	padding: 5px;
 }
 #table-type,
@@ -402,6 +400,37 @@ table:not(:first-child) {
 #table-password {
 	width: calc(100% - 5px);
 }
-theader {
+#thead {
+	padding-top: 60px;
+	position: fixed;
+	width: 75%;
+	max-width: 1000px;
+	min-width: 600px;
+	backdrop-filter: blur(5px);
+}
+#type,
+#service,
+#email,
+#password {
+	width: calc(25%);
 	text-align: center;
+}
+.header {
+	padding: 5px;
+	height: 35px;
+}
+
+#type:hover:not(.header),
+#service:hover:not(.header),
+#email:hover:not(.header),
+#password:hover:not(.header),
+#cell-edit:hover,
+#cell-showHide:hover,
+#delete:hover {
+	background-color: rgb(87, 87, 87);
+}
+#tr {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
 }

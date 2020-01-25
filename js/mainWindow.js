@@ -15,12 +15,13 @@ var td = document.querySelectorAll('td');
 var gridlines = false;
 
 // icons
-const eye = '\u{1F441}';
+const eye = '../assets/img/' + theme + '/eye.png';
+const crossedEye = '../assets/img/' + theme + '/crossed-eye.png';
 const pencilIcon = '../assets/img/' + theme + '/pencil.png';
-const crossedEye = '';
 const bullet = '\u{2022}';
 const trashcan = '../assets/img/' + theme + '/trashcan.png';
 const remove = '../assets/img/' + theme + '/remove.png';
+const confirm = '../assets/img/' + theme + '/confirm.png';
 
 // initialization
 init();
@@ -41,7 +42,9 @@ function init() {
 // Toggle Settings Menu
 function settingsFunc() {
 	toggleMenus();
-	document.querySelector('.data').classList.toggle('margin-settings');
+	document.querySelector('#thead').classList.toggle('margin-settings');
+	document.querySelector('#tbody').classList.toggle('body-margin-settings');
+
 	document.querySelector('controls').classList.toggle('toggleSettings');
 	// rotate icon
 	var parentElement = document.querySelector('.settings');
@@ -60,7 +63,8 @@ function settingsFunc() {
 			settingsFunc();
 			document.querySelector('menu').classList.toggle('togglemenus');
 			document.querySelector('controls').classList.toggle('toggleSettings');
-			document.querySelector('.data').classList.toggle('margin-settings');
+			document.querySelector('#thead').classList.toggle('margin-settings');
+			document.querySelector('#tbody').classList.toggle('body-margin-settings');
 		}, 100);
 
 		// If add icon is already on
@@ -70,7 +74,8 @@ function settingsFunc() {
 		addFunc();
 		toggleMenus();
 		document.querySelector('controls').classList.toggle('toggleSettings');
-		document.querySelector('.data').classList.toggle('margin-settings');
+		document.querySelector('#thead').classList.toggle('margin-settings');
+		document.querySelector('#tbody').classList.toggle('body-margin-settings');
 
 		setTimeout(function() {
 			settingsFunc();
@@ -176,7 +181,8 @@ function addFunc() {
 	toggleMenus();
 	document.querySelector('#add').classList.toggle('rotate');
 	document.querySelector('controls').classList.toggle('toggleAdd');
-	document.querySelector('.data').classList.toggle('margin-add');
+	document.querySelector('#thead').classList.toggle('margin-add');
+	document.querySelector('#tbody').classList.toggle('body-margin-add');
 	var parentElement = document.querySelector('.add');
 
 	if (settingsOn) {
@@ -184,7 +190,8 @@ function addFunc() {
 		toggleMenus();
 		document.querySelector('#add').classList.toggle('rotate');
 		document.querySelector('controls').classList.toggle('toggleAdd');
-		document.querySelector('.data').classList.toggle('margin-add');
+		document.querySelector('#thead').classList.toggle('margin-add');
+		document.querySelector('#tbody').classList.toggle('body-margin-add');
 
 		setTimeout(function() {
 			addFunc();
@@ -234,7 +241,14 @@ function addFunc() {
 		hideShow.setAttribute('class', 'hide-show');
 		hideShow.setAttribute('id', 'add-switch');
 		hideShow.setAttribute('onclick', 'hideShow(this)');
-		hideShow.textContent = eye;
+
+		// create eye icon
+		var eyeIcon = document.createElement('img');
+		eyeIcon.setAttribute('class', 'eye-icon');
+		eyeIcon.setAttribute('id', 'add-icon');
+		eyeIcon.setAttribute('height', '10px');
+		eyeIcon.setAttribute('src', eye);
+
 		// create error message
 		var span = document.createElement('span');
 		span.setAttribute('class', 'noerror');
@@ -256,6 +270,7 @@ function addFunc() {
 		div.appendChild(passwordDiv);
 		passwordDiv.appendChild(passwordInput);
 		passwordDiv.appendChild(hideShow);
+		hideShow.appendChild(eyeIcon);
 		document.querySelector('.add').appendChild(span);
 		div.appendChild(addButton);
 		addOn = true;
@@ -291,7 +306,6 @@ function addFunc() {
 }
 var cellIndex = 1; // must be changed later on
 function addData() {
-	const parentElement = document.querySelector('.table-contents');
 	const typeDOM = document.getElementById('add-type');
 	const serviceDOM = document.getElementById('add-service');
 	const emailDOM = document.getElementById('add-email');
@@ -313,10 +327,11 @@ function addData() {
 		span.classList.remove('error');
 		document.querySelector('controls').classList.remove('controlsSpan');
 		// create table row
-		tr = document.createElement('tr');
+		tr = document.createElement('div');
 		tr.setAttribute('class', 'row' + cellIndex);
+		tr.setAttribute('id', 'tr');
 		// create td type
-		tdType = document.createElement('td');
+		tdType = document.createElement('div');
 		tdType.setAttribute('class', 'cell' + cellIndex);
 		tdType.setAttribute('onclick', 'copyText(this)');
 
@@ -327,7 +342,7 @@ function addData() {
 		tdType.textContent = submission.type;
 
 		// create td service
-		tdService = document.createElement('td');
+		tdService = document.createElement('div');
 		tdService.setAttribute('class', 'cell' + cellIndex);
 		tdService.setAttribute('onclick', 'copyText(this)');
 
@@ -337,7 +352,7 @@ function addData() {
 		tdService.setAttribute('id', 'service');
 		tdService.textContent = submission.service;
 		// create td email
-		tdEmail = document.createElement('td');
+		tdEmail = document.createElement('div');
 		tdEmail.setAttribute('class', 'cell' + cellIndex);
 		if (gridlines) {
 			tdEmail.setAttribute('class', 'gridlinesOn');
@@ -347,7 +362,7 @@ function addData() {
 		tdEmail.textContent = submission.email;
 
 		// create td pass
-		tdPassword = document.createElement('td');
+		tdPassword = document.createElement('div');
 		tdPassword.setAttribute('class', 'cell' + cellIndex);
 		if (gridlines) {
 			tdPassword.setAttribute('class', 'gridlinesOn');
@@ -356,7 +371,7 @@ function addData() {
 		tdPassword.textContent = bullet.repeat(submission.password.length);
 
 		// create controls
-		tdControls = document.createElement('td');
+		tdControls = document.createElement('div');
 		tdControls.setAttribute('class', 'cell' + cellIndex);
 		if (gridlines) {
 			tdControls.setAttribute('class', 'gridlinesOn');
@@ -372,7 +387,7 @@ function addData() {
 		// create edit icon
 		var pencil = document.createElement('img');
 		pencil.setAttribute('class', 'cell' + cellIndex);
-		pencil.setAttribute('id', 'cell-icon');
+		pencil.setAttribute('id', 'edit-icon');
 		pencil.setAttribute('src', pencilIcon);
 		pencil.setAttribute('height', '15px');
 
@@ -381,7 +396,14 @@ function addData() {
 		showHideButton.setAttribute('class', 'cell' + cellIndex);
 		showHideButton.setAttribute('id', 'cell-showHide');
 		showHideButton.setAttribute('onclick', 'hideShow(this)');
-		showHideButton.textContent = eye;
+
+
+		// create eye icon
+		var eyeIcon = document.createElement('img');
+		eyeIcon.setAttribute('class', 'cell' + cellIndex);
+		eyeIcon.setAttribute('id', 'eye-icon');
+		eyeIcon.setAttribute('height', '15px');
+		eyeIcon.setAttribute('src', eye);
 
 		// create delete button
 		var deleteButton = document.createElement('div');
@@ -406,6 +428,7 @@ function addData() {
 		tdControls.appendChild(edit);
 		edit.appendChild(pencil);
 		tdControls.appendChild(showHideButton);
+		showHideButton.appendChild(eyeIcon);
 		tdControls.appendChild(deleteButton);
 		deleteButton.appendChild(deleteIcon);
 
@@ -433,13 +456,17 @@ var addHideShow = false;
 function hideShow(pro, value) {
 	var d = pro.id;
 	var c = pro.classList;
+	console.log('#eye-icon.' + c);
 
 	var querySelect = '#password' + '.' + c;
 	if (d == 'add-switch') {
 		if (!addHideShow) {
 			document.querySelector('#add-password').setAttribute('type', 'text');
+			document.querySelector('.eye-icon').setAttribute('src', crossedEye);
 			addHideShow = true;
 		} else {
+			document.querySelector('.eye-icon').setAttribute('src', eye);
+
 			document.querySelector('#add-password').setAttribute('type', 'password');
 			addHideShow = false;
 		}
@@ -448,17 +475,22 @@ function hideShow(pro, value) {
 		var querySelectInput = '#table-password' + '.input-' + data[c].index;
 		if (!editOn) {
 			if (data[c].hidden) {
+				document.querySelector('#eye-icon.' + c).setAttribute('src', crossedEye);
 				document.querySelector(querySelect).textContent = data[c].password;
 				data[c].hidden = false;
 			} else {
+				document.querySelector('#eye-icon.' + c).setAttribute('src', eye);
 				document.querySelector(querySelect).textContent = bullet.repeat(data[c].password.length);
 				data[c].hidden = true;
 			}
 		} else {
 			if (data[c].hidden) {
+				document.querySelector('#eye-icon.' + c).setAttribute('src', crossedEye);
+
 				document.querySelector(querySelectInput).setAttribute('type', 'text');
 				data[c].hidden = false;
 			} else {
+				document.querySelector('#eye-icon.' + c).setAttribute('src', eye);
 				document.querySelector(querySelectInput).setAttribute('type', 'password');
 				data[c].hidden = true;
 			}
@@ -503,6 +535,7 @@ function editRow(properties) {
 		// when edit is toggled
 		// change icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', remove);
+		document.querySelector('#edit-icon.' + c).setAttribute('src', confirm);
 
 		// tr effects
 		console.log(tr);
@@ -558,6 +591,8 @@ function editRow(properties) {
 
 		// reset icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
+		document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
+
 		// when confirm button is clicked
 		data[c].type = document.querySelector('#table-type.input-' + data[c].index).value;
 		data[c].service = document.querySelector('#table-service.input-' + data[c].index).value;
@@ -586,10 +621,13 @@ function deleteFunc(properties) {
 	var index = data[c].index;
 	console.log(index);
 	if (!editOn) {
-		tr = document.querySelector('tr.row' + index);
+		tr = document.querySelector('.row' + index);
 		tr.remove();
 	} else {
+		// reset icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
+		document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
+
 		document.querySelector('#type.' + c).textContent = data[c].type;
 		document.querySelector('#service.' + c).textContent = data[c].service;
 		document.querySelector('#email.' + c).textContent = data[c].email;
@@ -601,7 +639,6 @@ function deleteFunc(properties) {
 		}
 		editOn = false;
 		document.querySelector('.' + tr).classList.toggle('tr-edit');
-
 	}
 }
 // Toggle menus
@@ -765,7 +802,8 @@ function quit() {
 // Gridlines
 
 function toggleGridlines() {
-	td = document.querySelectorAll('td');
+	td = document.querySelectorAll('.table div div');
+	console.log(document.querySelectorAll('.table'));
 	// Toggle gridlines
 	for (i = 0; i < td.length; i++) {
 		td[i].classList.toggle('gridlinesOn');
