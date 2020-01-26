@@ -386,7 +386,7 @@ input:focus {
 }
 @keyframes slide-in {
 	0% {
-		transform: translateY(-50px);
+		transform: translateY(-48px);
 		opacity: 0;
 	}
 }
@@ -426,11 +426,40 @@ input:focus {
 #password:hover:not(.header),
 #cell-edit:hover,
 #cell-showHide:hover,
-#delete:hover {
+#cell-delete:hover {
 	background-color: rgb(87, 87, 87);
 }
 #tr {
 	width: 100%;
 	display: flex;
 	flex-direction: row;
+}
+#copy {
+	font-size: 12px;
+	background-color: none;
+	padding: 0;
+	margin: 0;
+	animation: copy-slide-in 1.6s ease-out;
+}
+#copy:hover {
+	background-color: transparent;
+}
+
+@keyframes copy-slide-in {
+	0% {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+	10% {
+		transform: translateY(00px);
+		opacity: 1;
+	}
+	90% {
+		transform: translateY(00px);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(20px);
+		opacity: 0;
+	}
 }

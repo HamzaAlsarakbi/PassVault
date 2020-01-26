@@ -335,9 +335,6 @@ function addData() {
 		tdType.setAttribute('class', 'cell' + cellIndex);
 		tdType.setAttribute('onclick', 'copyText(this)');
 
-		if (gridlines) {
-			tdType.setAttribute('class', 'gridlinesOn');
-		}
 		tdType.setAttribute('id', 'type');
 		tdType.textContent = submission.type;
 
@@ -346,17 +343,12 @@ function addData() {
 		tdService.setAttribute('class', 'cell' + cellIndex);
 		tdService.setAttribute('onclick', 'copyText(this)');
 
-		if (gridlines) {
-			tdService.setAttribute('class', 'gridlinesOn');
-		}
 		tdService.setAttribute('id', 'service');
 		tdService.textContent = submission.service;
 		// create td email
 		tdEmail = document.createElement('div');
 		tdEmail.setAttribute('class', 'cell' + cellIndex);
-		if (gridlines) {
-			tdEmail.setAttribute('class', 'gridlinesOn');
-		}
+
 		tdEmail.setAttribute('id', 'email');
 		tdEmail.setAttribute('onclick', 'copyText(this)');
 		tdEmail.textContent = submission.email;
@@ -364,18 +356,14 @@ function addData() {
 		// create td pass
 		tdPassword = document.createElement('div');
 		tdPassword.setAttribute('class', 'cell' + cellIndex);
-		if (gridlines) {
-			tdPassword.setAttribute('class', 'gridlinesOn');
-		}
+
 		tdPassword.setAttribute('id', 'password');
 		tdPassword.textContent = bullet.repeat(submission.password.length);
 
 		// create controls
 		tdControls = document.createElement('div');
 		tdControls.setAttribute('class', 'cell' + cellIndex);
-		if (gridlines) {
-			tdControls.setAttribute('class', 'gridlinesOn');
-		}
+
 		tdControls.setAttribute('id', 'controls');
 
 		// create edit button
@@ -396,7 +384,6 @@ function addData() {
 		showHideButton.setAttribute('class', 'cell' + cellIndex);
 		showHideButton.setAttribute('id', 'cell-showHide');
 		showHideButton.setAttribute('onclick', 'hideShow(this)');
-
 
 		// create eye icon
 		var eyeIcon = document.createElement('img');
@@ -431,6 +418,9 @@ function addData() {
 		showHideButton.appendChild(eyeIcon);
 		tdControls.appendChild(deleteButton);
 		deleteButton.appendChild(deleteIcon);
+		if (gridlines) {
+			document.querySelector('.row' + cellIndex).setAttribute('class', 'gridlinesOn');
+		}
 
 		data['cell' + cellIndex] = {
 			type: typeDOM.value,
@@ -439,7 +429,8 @@ function addData() {
 			password: passwordDOM.value,
 			index: cellIndex,
 			class: 'cell' + cellIndex,
-			hidden: true
+			hidden: true,
+			onCopy: false
 		};
 		console.log(data);
 
@@ -500,18 +491,33 @@ function hideShow(pro, value) {
 function copyText(properties) {
 	var d = properties.id;
 	var c = properties.classList;
-	console.log('class: ' + c + ' | id: ' + d);
-	var copyText = data[c][d];
-	console.log(copyText);
-	copyText.select();
-	/*
-	try {
-		var successful = document.execCommand('copy');
-		var msg = successful ? 'successful' : 'unsuccessful';
-		console.log('Copying text command was ' + msg);
-	} catch (err) {
-		console.log('Oops, unable to copy');
-	}*/
+	if (!data[c].onCopy) {
+		data[c].onCopy = true;
+		var copyVar = data[c][d];
+		var copyDOM = document.createElement('input');
+		copyDOM.setAttribute('class', 'hidden');
+		copyDOM.style = 'position: absolute; left: -50000px';
+		copyDOM.value = copyVar;
+		document.querySelector('#email').appendChild(copyDOM);
+		document.querySelector('.hidden').select();
+		try {
+			var successful = document.execCommand('copy');
+			var msg = successful ? 'successful' : 'unsuccessful';
+			console.log('Copying ' + c + d + ' was successful, and the message is: ' + copyVar);
+			var span = document.createElement('div');
+			span.setAttribute('class', c);
+			span.setAttribute('id', 'copy');
+			span.textContent = 'Copied!';
+			document.querySelector('#' + d + '.' + c).appendChild(span);
+			setTimeout(function() {
+				span.remove();
+				data[c].onCopy = false;
+			}, 1500);
+		} catch (err) {
+			console.log('Copying ' + c + d + ' was unsuccessful!');
+		}
+		document.querySelector('#email').removeChild(copyDOM);
+	}
 }
 
 // edit row function
@@ -527,11 +533,14 @@ function editRow(properties) {
 	console.log(data[c].class);
 	console.log('class: ' + c + ' | id: ' + d);
 	// remove onclick
-	typeDOM.toggleAttribute('onclick');
-	serviceDOM.toggleAttribute('onclick');
-	emailDOM.toggleAttribute('onclick');
+	typeDOM.removeAttribute('onclick');
+	serviceDOM.removeAttribute('onclick');
+	emailDOM.removeAttribute('onclick');
 
 	if (!editOn) {
+		typeDOM.removeAttribute('onclick');
+		serviceDOM.removeAttribute('onclick');
+		emailDOM.removeAttribute('onclick');
 		// when edit is toggled
 		// change icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', remove);
@@ -604,11 +613,15 @@ function editRow(properties) {
 		typeDOM.textContent = data[c].type;
 		serviceDOM.textContent = data[c].service;
 		emailDOM.textContent = data[c].email;
+
 		if (!data[c].hidden) {
 			passwordDOM.textContent = data[c].password;
 		} else {
 			passwordDOM.textContent = bullet.repeat(data[c].password.length);
 		}
+		typeDOM.setAttribute('onclick', 'copyText(this)');
+		serviceDOM.setAttribute('onclick', 'copyText(this)');
+		emailDOM.setAttribute('onclick', 'copyText(this)');
 	}
 }
 
@@ -637,6 +650,9 @@ function deleteFunc(properties) {
 		} else {
 			document.querySelector('#password.' + c).textContent = bullet.repeat(data[c].password.length);
 		}
+		document.querySelector('#type.' + c).setAttribute('onclick', 'copyText(this)');
+		document.querySelector('#service.' + c).setAttribute('onclick', 'copyText(this)');
+		document.querySelector('#email.' + c).setAttribute('onclick', 'copyText(this)');
 		editOn = false;
 		document.querySelector('.' + tr).classList.toggle('tr-edit');
 	}
@@ -802,11 +818,10 @@ function quit() {
 // Gridlines
 
 function toggleGridlines() {
-	td = document.querySelectorAll('.table div div');
-	console.log(document.querySelectorAll('.table'));
+	var gridlinesTable = document.querySelectorAll('#tr');
 	// Toggle gridlines
-	for (i = 0; i < td.length; i++) {
-		td[i].classList.toggle('gridlinesOn');
+	for (i = 0; i < gridlinesTable.length; i++) {
+		gridlinesTable[i].classList.toggle('gridlinesOn');
 	}
 
 	if (!gridlines) {
