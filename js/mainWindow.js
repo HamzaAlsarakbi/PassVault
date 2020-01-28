@@ -282,16 +282,17 @@ function addFunc() {
 			email: '',
 			password: ''
 		};
+
 		const typeDOM = document.getElementById('add-type');
 		const serviceDOM = document.getElementById('add-service');
 		const emailDOM = document.getElementById('add-email');
 		const passwordDOM = document.getElementById('add-password');
+		// addData() when enter is clicked
 
-		/*
-		document.querySelector('#add-type').addEventListener('input', function() {
-			submission
-		})
-*/
+		typeDOM.addEventListener('keyup', enterFunc);
+		serviceDOM.addEventListener('keyup', enterFunc);
+		emailDOM.addEventListener('keyup', enterFunc);
+		passwordDOM.addEventListener('keyup', enterFunc);
 	} else {
 		document.querySelector('controls').classList.remove('controlsSpan');
 		setTimeout(function() {
@@ -302,6 +303,12 @@ function addFunc() {
 			}
 		}, 200);
 		addOn = false;
+	}
+}
+function enterFunc(event) {
+	if (event.keyCode === 13) {
+		console.log('enter');
+		addData();
 	}
 }
 var cellIndex = 1; // must be changed later on
@@ -319,9 +326,18 @@ function addData() {
 	console.log(submission);
 	// verify that all entries are full
 	if (typeDOM.value == '' || serviceDOM.value == '' || emailDOM.value == '' || passwordDOM.value == '') {
-		console.log('one of the fields is empty');
+		console.log('one or more of the fields is empty');
 		span.classList.add('error');
 		document.querySelector('controls').classList.add('controlsSpan');
+		if (typeDOM.value == '') {
+			typeDOM.select();
+		} else if (serviceDOM.value == '') {
+			serviceDOM.select();
+		} else if (emailDOM.value == '') {
+			emailDOM.select();
+		} else if (passwordDOM.value == '') {
+			passwordDOM.select();
+		}
 	} else {
 		// remove error if it were correct
 		span.classList.remove('error');
@@ -441,6 +457,8 @@ function addData() {
 		passwordDOM.value = '';
 		console.log(cellIndex);
 		cellIndex++;
+		// go back to type input field (convenience)
+		typeDOM.select();
 	}
 }
 var addHideShow = false;
@@ -836,5 +854,28 @@ function toggleGridlines() {
 
 		// set gridlines to false
 		gridlines = false;
+	}
+}
+
+// save function
+save();
+function save() {
+	const body = document.querySelector('body');
+	if (!saved) {
+		var saveButton = document.createElement('button');
+		saveButton.setAttribute('class', 'save');
+		saveButton.setAttribute('onclick', 'save()');
+		saveButton.textContent = 'Save';
+		body.appendChild(saveButton);
+		console.log('saving...');
+		saved = true;
+	} else {
+		console.log('saved!');
+		saved = false;
+		var saveButtonDOM = document.querySelector('.save');
+		saveButtonDOM.classList.toggle('button-slide-out');
+		setTimeout(function() {
+			saveButtonDOM.remove();
+		}, 300);
 	}
 }

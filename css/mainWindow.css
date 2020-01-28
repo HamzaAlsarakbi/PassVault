@@ -33,7 +33,7 @@ body {
 controls {
 	margin-top: 0px;
 	border-radius: 10px;
-	transition: 0.5s;
+	transition: 0.2s;
 	width: 100px;
 	height: 50px;
 	width: 75%;
@@ -67,6 +67,7 @@ controls {
 }
 .margin-settings {
 	padding-top: 350px !important;
+	transition: 0.2s;
 }
 .margin-add {
 	padding-top: 250px !important;
@@ -128,10 +129,6 @@ img {
 	transition: 0.2s ease-out;
 }
 
-.settings-buttonsToggle {
-	border-right: 1px solid white;
-	transition: 0.2s ease-out;
-}
 menu {
 	opacity: 0;
 	transform: translateY(-100%);
@@ -149,7 +146,7 @@ menu {
 	width: 180px;
 	margin-right: 40px;
 	z-index: 4;
-	transition: 0.5s ease-out;
+	transition: 0.2s ease-out;
 }
 
 /****** Menu Animation*/
@@ -161,7 +158,7 @@ menu {
 .toggleSettings {
 	background-color: rgb(50, 50, 50, 0.4);
 	height: 311px;
-	transition: 0.25s ease-out;
+	transition: 0.4s ease-out;
 	margin-top: 20px;
 	width: 500px;
 }
@@ -436,6 +433,7 @@ input:focus {
 }
 #copy {
 	font-size: 12px;
+	color: rgb(150, 150, 150);
 	background-color: none;
 	padding: 0;
 	margin: 0;
@@ -461,5 +459,39 @@ input:focus {
 	100% {
 		transform: translateY(20px);
 		opacity: 0;
+	}
+}
+
+.save {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	width: 100px;
+	animation: button-slide-in 0.3s ease-out;
+}
+
+.button-slide-out {
+	animation: button-slide-out 0.3s ease-out !important;
+	animation-direction: reverse !important;
+	animation-fill-mode: forwards !important;
+}
+
+@keyframes button-slide-in {
+	0% {
+		transform: translateX(-150px);
+		opacity: 0;
+	}
+	60% {
+		transform: translateX(20px);
+	}
+}
+
+@keyframes button-slide-out {
+	0% {
+		transform: translateX(-150px);
+		opacity: 0;
+	}
+	60% {
+		transform: translateX(20px);
 	}
 }
