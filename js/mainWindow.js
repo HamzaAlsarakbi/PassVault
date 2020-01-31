@@ -548,7 +548,7 @@ function editRow(properties) {
 	var serviceDOM = document.querySelector('#service.' + c);
 	var emailDOM = document.querySelector('#email.' + c);
 	var passwordDOM = document.querySelector('#password.' + c);
-	console.log(data[c].class);
+
 	console.log('class: ' + c + ' | id: ' + d);
 	// remove onclick
 	typeDOM.removeAttribute('onclick');
@@ -614,32 +614,54 @@ function editRow(properties) {
 		passwordDOM.appendChild(passwordInput);
 		editOn = true;
 	} else {
-		document.querySelector('.' + tr).classList.toggle('tr-edit');
-
-		// reset icons
-		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
-		document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
-
-		// when confirm button is clicked
-		data[c].type = document.querySelector('#table-type.input-' + data[c].index).value;
-		data[c].service = document.querySelector('#table-service.input-' + data[c].index).value;
-		data[c].email = document.querySelector('#table-email.input-' + data[c].index).value;
-		data[c].password = document.querySelector('#table-password.input-' + data[c].index).value;
-		console.log('data row changed');
-		editOn = false;
-		// add td text
-		typeDOM.textContent = data[c].type;
-		serviceDOM.textContent = data[c].service;
-		emailDOM.textContent = data[c].email;
-
-		if (!data[c].hidden) {
-			passwordDOM.textContent = data[c].password;
+		var typeInputDOM = document.querySelector('.input-' + data[c].index + '#table-type');
+		var serviceInputDOM = document.querySelector('.input-' + data[c].index + '#table-service');
+		var emailInputDOM = document.querySelector('.input-' + data[c].index + '#table-email');
+		var passwordInputDOM = document.querySelector('.input-' + data[c].index + '#table-password');
+		if (
+			typeInputDOM.value == '' ||
+			serviceInputDOM.value == '' ||
+			emailInputDOM.value == '' ||
+			passwordInputDOM.value == ''
+		) {
+			console.log('one or more of the fields is empty');
+			if (typeInputDOM.value == '') {
+				typeInputDOM.select();
+			} else if (serviceInputDOM.value == '') {
+				serviceInputDOM.select();
+			} else if (emailInputDOM.value == '') {
+				emailInputDOM.select();
+			} else if (passwordInputDOM.value == '') {
+				passwordInputDOM.select();
+			}
 		} else {
-			passwordDOM.textContent = bullet.repeat(data[c].password.length);
+			document.querySelector('.' + tr).classList.toggle('tr-edit');
+
+			// reset icons
+			document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
+			document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
+
+			// when confirm button is clicked
+			data[c].type = document.querySelector('#table-type.input-' + data[c].index).value;
+			data[c].service = document.querySelector('#table-service.input-' + data[c].index).value;
+			data[c].email = document.querySelector('#table-email.input-' + data[c].index).value;
+			data[c].password = document.querySelector('#table-password.input-' + data[c].index).value;
+			console.log('data row changed');
+			editOn = false;
+			// add td text
+			typeDOM.textContent = data[c].type;
+			serviceDOM.textContent = data[c].service;
+			emailDOM.textContent = data[c].email;
+
+			if (!data[c].hidden) {
+				passwordDOM.textContent = data[c].password;
+			} else {
+				passwordDOM.textContent = bullet.repeat(data[c].password.length);
+			}
+			typeDOM.setAttribute('onclick', 'copyText(this)');
+			serviceDOM.setAttribute('onclick', 'copyText(this)');
+			emailDOM.setAttribute('onclick', 'copyText(this)');
 		}
-		typeDOM.setAttribute('onclick', 'copyText(this)');
-		serviceDOM.setAttribute('onclick', 'copyText(this)');
-		emailDOM.setAttribute('onclick', 'copyText(this)');
 	}
 }
 
