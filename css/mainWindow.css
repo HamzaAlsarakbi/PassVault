@@ -381,12 +381,14 @@ input:focus {
 .padding-zero {
 	padding: 0;
 }
+
 @keyframes slide-in {
 	0% {
 		transform: translateY(-48px);
 		opacity: 0;
 	}
 }
+
 .tbody-data div {
 	animation: slide-in 0.25s ease-out;
 	padding: 5px;
@@ -430,6 +432,13 @@ input:focus {
 	width: 100%;
 	display: flex;
 	flex-direction: row;
+	height: 48px;
+	animation: tr-slide-in 0.25s ease-out;
+}
+@keyframes tr-slide-in {
+	0% {
+		height: 0;
+	}
 }
 #copy {
 	font-size: 12px;

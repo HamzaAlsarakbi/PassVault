@@ -878,26 +878,3 @@ function toggleGridlines() {
 		gridlines = false;
 	}
 }
-
-// save function
-save();
-function save() {
-	const body = document.querySelector('body');
-	if (!saved) {
-		var saveButton = document.createElement('button');
-		saveButton.setAttribute('class', 'save');
-		saveButton.setAttribute('onclick', 'save()');
-		saveButton.textContent = 'Save';
-		body.appendChild(saveButton);
-		console.log('saving...');
-		saved = true;
-	} else {
-		console.log('saved!');
-		saved = false;
-		var saveButtonDOM = document.querySelector('.save');
-		saveButtonDOM.classList.toggle('button-slide-out');
-		setTimeout(function() {
-			saveButtonDOM.remove();
-		}, 300);
-	}
-}
