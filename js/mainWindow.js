@@ -9,32 +9,30 @@ var parentElement;
 var settingsOn = false;
 var addOn = false;
 var saved = false; // to be changed later
-var theme = 'dark'; // to be changed later
 var settingsOn = false;
-var td = document.querySelectorAll('td');
 var gridlines = false;
 
 // icons
-const eye = '../assets/img/' + theme + '/eye.png';
-const crossedEye = '../assets/img/' + theme + '/crossed-eye.png';
-const pencilIcon = '../assets/img/' + theme + '/pencil.png';
+const eye = '../assets/img/' + config.theme + '/eye.png';
+const crossedEye = '../assets/img/' + config.theme + '/crossed-eye.png';
+const pencilIcon = '../assets/img/' + config.theme + '/pencil.png';
 const bullet = '\u{2022}';
-const trashcan = '../assets/img/' + theme + '/trashcan.png';
-const remove = '../assets/img/' + theme + '/remove.png';
-const confirm = '../assets/img/' + theme + '/confirm.png';
+const trashcan = '../assets/img/' + config.theme + '/trashcan.png';
+const remove = '../assets/img/' + config.theme + '/remove.png';
+const confirm = '../assets/img/' + config.theme + '/confirm.png';
 
 // initialization
 init();
 // add icons
 function init() {
 	var addIcon = document.createElement('img');
-	addIcon.setAttribute('src', '../assets/img/' + theme + '/add.png');
+	addIcon.setAttribute('src', '../assets/img/' + config.theme + '/add.png');
 	addIcon.setAttribute('height', '15px');
 	document.querySelector('#add').appendChild(addIcon);
 
 	// settings Icon
 	var settingsIcon = document.createElement('img');
-	settingsIcon.setAttribute('src', '../assets/img/' + theme + '/gear.png');
+	settingsIcon.setAttribute('src', '../assets/img/' + config.theme + '/gear.png');
 	settingsIcon.setAttribute('height', '23px');
 	document.querySelector('#settings').appendChild(settingsIcon);
 }
@@ -101,7 +99,7 @@ function settingsFunc() {
 		changePassword.setAttribute('onclick', 'togglePassParam()');
 		changePassword.textContent = 'Change Password';
 
-		// create change theme button
+		// create change config.theme button
 		changeTheme = document.createElement('button');
 		changeTheme.setAttribute('class', 'button-header');
 		changeTheme.setAttribute('id', 'change-theme');
@@ -170,10 +168,10 @@ function settingsFunc() {
 }
 // save button
 
-// data constructor
+// data object
 var data = {};
 
-// function dataFunc(cellIndex, type, service, email, password) {}
+// function dataFunc(config.cellIndex, type, service, email, password) {}
 
 // Toggle add icon
 var submission;
@@ -311,7 +309,6 @@ function enterFunc(event) {
 		addData();
 	}
 }
-var cellIndex = 1; // must be changed later on
 function addData() {
 	const typeDOM = document.getElementById('add-type');
 	const serviceDOM = document.getElementById('add-service');
@@ -344,11 +341,12 @@ function addData() {
 		document.querySelector('controls').classList.remove('controlsSpan');
 		// create table row
 		tr = document.createElement('div');
-		tr.setAttribute('class', 'row' + cellIndex);
+		tr.setAttribute('class', 'row' + config.cellIndex);
 		tr.setAttribute('id', 'tr');
 		// create td type
 		tdType = document.createElement('div');
-		tdType.setAttribute('class', 'cell' + cellIndex);
+		tdType.setAttribute('class', 'cell' + config.cellIndex);
+		console.log('cell' + config.cellIndex);
 		tdType.setAttribute('onclick', 'copyText(this)');
 
 		tdType.setAttribute('id', 'type');
@@ -356,14 +354,14 @@ function addData() {
 
 		// create td service
 		tdService = document.createElement('div');
-		tdService.setAttribute('class', 'cell' + cellIndex);
+		tdService.setAttribute('class', 'cell' + config.cellIndex);
 		tdService.setAttribute('onclick', 'copyText(this)');
 
 		tdService.setAttribute('id', 'service');
 		tdService.textContent = submission.service;
 		// create td email
 		tdEmail = document.createElement('div');
-		tdEmail.setAttribute('class', 'cell' + cellIndex);
+		tdEmail.setAttribute('class', 'cell' + config.cellIndex);
 
 		tdEmail.setAttribute('id', 'email');
 		tdEmail.setAttribute('onclick', 'copyText(this)');
@@ -371,52 +369,52 @@ function addData() {
 
 		// create td pass
 		tdPassword = document.createElement('div');
-		tdPassword.setAttribute('class', 'cell' + cellIndex);
+		tdPassword.setAttribute('class', 'cell' + config.cellIndex);
 
 		tdPassword.setAttribute('id', 'password');
 		tdPassword.textContent = bullet.repeat(submission.password.length);
 
 		// create controls
 		tdControls = document.createElement('div');
-		tdControls.setAttribute('class', 'cell' + cellIndex);
+		tdControls.setAttribute('class', 'cell' + config.cellIndex);
 
 		tdControls.setAttribute('id', 'controls');
 
 		// create edit button
 		var edit = document.createElement('div');
-		edit.setAttribute('class', 'cell' + cellIndex);
+		edit.setAttribute('class', 'cell' + config.cellIndex);
 		edit.setAttribute('id', 'cell-edit');
 		edit.setAttribute('onclick', 'editRow(this)');
 
 		// create edit icon
 		var pencil = document.createElement('img');
-		pencil.setAttribute('class', 'cell' + cellIndex);
+		pencil.setAttribute('class', 'cell' + config.cellIndex);
 		pencil.setAttribute('id', 'edit-icon');
 		pencil.setAttribute('src', pencilIcon);
 		pencil.setAttribute('height', '15px');
 
 		// create show/hide button
 		var showHideButton = document.createElement('div');
-		showHideButton.setAttribute('class', 'cell' + cellIndex);
+		showHideButton.setAttribute('class', 'cell' + config.cellIndex);
 		showHideButton.setAttribute('id', 'cell-showHide');
 		showHideButton.setAttribute('onclick', 'hideShow(this)');
 
 		// create eye icon
 		var eyeIcon = document.createElement('img');
-		eyeIcon.setAttribute('class', 'cell' + cellIndex);
+		eyeIcon.setAttribute('class', 'cell' + config.cellIndex);
 		eyeIcon.setAttribute('id', 'eye-icon');
 		eyeIcon.setAttribute('height', '15px');
 		eyeIcon.setAttribute('src', eye);
 
 		// create delete button
 		var deleteButton = document.createElement('div');
-		deleteButton.setAttribute('class', 'cell' + cellIndex);
+		deleteButton.setAttribute('class', 'cell' + config.cellIndex);
 		deleteButton.setAttribute('id', 'cell-delete');
 		deleteButton.setAttribute('onclick', 'deleteFunc(this)');
 
 		// create delete icon
 		var deleteIcon = document.createElement('img');
-		deleteIcon.setAttribute('class', 'cell' + cellIndex);
+		deleteIcon.setAttribute('class', 'cell' + config.cellIndex);
 		deleteIcon.setAttribute('id', 'delete-icon');
 		deleteIcon.setAttribute('src', trashcan);
 		deleteIcon.setAttribute('height', '15px');
@@ -435,16 +433,16 @@ function addData() {
 		tdControls.appendChild(deleteButton);
 		deleteButton.appendChild(deleteIcon);
 		if (gridlines) {
-			document.querySelector('.row' + cellIndex).setAttribute('class', 'gridlinesOn');
+			document.querySelector('.row' + config.cellIndex).setAttribute('class', 'gridlinesOn');
 		}
 
-		data['cell' + cellIndex] = {
+		data['cell' + config.cellIndex] = {
 			type: typeDOM.value,
 			service: serviceDOM.value,
 			email: emailDOM.value,
 			password: passwordDOM.value,
-			index: cellIndex,
-			class: 'cell' + cellIndex,
+			index: config.cellIndex,
+			class: 'cell' + config.cellIndex,
 			hidden: true,
 			onCopy: false
 		};
@@ -455,8 +453,8 @@ function addData() {
 		serviceDOM.value = '';
 		emailDOM.value = '';
 		passwordDOM.value = '';
-		console.log(cellIndex);
-		cellIndex++;
+		console.log(config.cellIndex);
+		config.cellIndex++;
 		// go back to type input field (convenience)
 		typeDOM.select();
 	}
@@ -483,6 +481,7 @@ function hideShow(pro, value) {
 		// if it is table
 		var querySelectInput = '#table-password' + '.input-' + data[c].index;
 		if (!editOn) {
+			console.log('data hidden was == ' + data[c].hidden);
 			if (data[c].hidden) {
 				document.querySelector('#eye-icon.' + c).setAttribute('src', crossedEye);
 				document.querySelector(querySelect).textContent = data[c].password;
@@ -492,6 +491,7 @@ function hideShow(pro, value) {
 				document.querySelector(querySelect).textContent = bullet.repeat(data[c].password.length);
 				data[c].hidden = true;
 			}
+			console.log('data hidden is now == ' + data[c].hidden);
 		} else {
 			if (data[c].hidden) {
 				document.querySelector('#eye-icon.' + c).setAttribute('src', crossedEye);
@@ -676,6 +676,8 @@ function deleteFunc(properties) {
 	if (!editOn) {
 		tr = document.querySelector('.row' + index);
 		tr.remove();
+		delete data[c];
+		console.log('data after deletion: ' + data);
 	} else {
 		// reset icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
