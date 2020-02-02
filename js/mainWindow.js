@@ -21,6 +21,9 @@ const trashcan = '../assets/img/' + config.theme + '/trashcan.png';
 const remove = '../assets/img/' + config.theme + '/remove.png';
 const confirm = '../assets/img/' + config.theme + '/confirm.png';
 
+// table
+const table = document.querySelector('.tbody-data');
+
 // initialization
 init();
 // add icons
@@ -315,7 +318,6 @@ function addData() {
 	const emailDOM = document.getElementById('add-email');
 	const passwordDOM = document.getElementById('add-password');
 	const span = document.getElementById('add-error');
-	const table = document.querySelector('.tbody-data');
 	submission.type = typeDOM.value;
 	submission.service = serviceDOM.value;
 	submission.email = emailDOM.value;
@@ -419,6 +421,11 @@ function addData() {
 		deleteIcon.setAttribute('src', trashcan);
 		deleteIcon.setAttribute('height', '15px');
 
+		// tbody animation
+		table.classList.add('tbody-animation');
+		setTimeout(function() {
+			table.classList.remove('tbody-animation');
+		}, 250);
 		// package children
 		table.appendChild(tr);
 		tr.appendChild(tdType);
@@ -432,6 +439,7 @@ function addData() {
 		showHideButton.appendChild(eyeIcon);
 		tdControls.appendChild(deleteButton);
 		deleteButton.appendChild(deleteIcon);
+
 		if (gridlines) {
 			document.querySelector('.row' + config.cellIndex).setAttribute('class', 'gridlinesOn');
 		}
@@ -675,10 +683,15 @@ function deleteFunc(properties) {
 	console.log(index);
 	if (!editOn) {
 		tr = document.querySelector('.row' + index);
-		tr.remove();
-		delete data[c];
-		console.log('data after deletion: ' + data);
+		tr.classList.toggle('draw-out-animation');
+		setTimeout(function() {
+			tr.remove();
+			delete data[c];
+			console.log('data after deletion: ' + data);
+		}, 250);
+		// draw-out animations
 	} else {
+		// if its exiting edit mode
 		// reset icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
 		document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);

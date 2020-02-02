@@ -331,7 +331,7 @@ input:focus {
 	flex-direction: column-reverse;
 }
 .tbody-data div:hover {
-	background-color: rgb(59, 59, 59);
+	background-color: rgb(45, 45, 45);
 }
 #hide-show {
 	width: 100px;
@@ -393,6 +393,11 @@ input:focus {
 	animation: slide-in 0.25s ease-out;
 	padding: 5px;
 }
+
+.tbody-animation {
+	animation: slide-in 0.25s ease-out;
+}
+
 #table-type,
 #table-service,
 #table-email,
@@ -426,17 +431,32 @@ input:focus {
 #cell-edit:hover,
 #cell-showHide:hover,
 #cell-delete:hover {
-	background-color: rgb(87, 87, 87);
+	background-color: rgb(60, 60, 60);
 }
 #tr {
 	width: 100%;
 	display: flex;
 	flex-direction: row;
-	height: 48px;
-	animation: tr-slide-in 0.25s ease-out;
+	animation: tr-draw-in 0.25s ease-out;
 }
-@keyframes tr-slide-in {
+.tbody-data #tr {
+	height: 57px;
+}
+@keyframes tr-draw-in {
 	0% {
+		transform: scale(0.5);
+	}
+}
+/******* draw out animation*/
+.draw-out-animation {
+	animation: tr-draw-out 0.3s ease-in !important;
+	animation-direction: reverse !important;
+	animation-fill-mode: forwards !important;
+}
+@keyframes tr-draw-out {
+	0% {
+		opacity: 0;
+		transform: scale(0.2) translateY(-48px);
 		height: 0;
 	}
 }
