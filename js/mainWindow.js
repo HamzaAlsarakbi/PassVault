@@ -20,7 +20,8 @@ const bullet = '\u{2022}';
 const trashcan = '../assets/img/' + config.theme + '/trashcan.png';
 const remove = '../assets/img/' + config.theme + '/remove.png';
 const confirm = '../assets/img/' + config.theme + '/confirm.png';
-
+const addIcon = '../assets/img/' + config.theme + '/add.png';
+const gearsIcon = '../assets/img/' + config.theme + '/gear.png';
 // table
 const table = document.querySelector('.tbody-data');
 
@@ -28,16 +29,16 @@ const table = document.querySelector('.tbody-data');
 init();
 // add icons
 function init() {
-	var addIcon = document.createElement('img');
-	addIcon.setAttribute('src', '../assets/img/' + config.theme + '/add.png');
-	addIcon.setAttribute('height', '15px');
-	document.querySelector('#add').appendChild(addIcon);
+	var addButtonIcon = document.createElement('img');
+	addButtonIcon.setAttribute('src', addIcon);
+	addButtonIcon.setAttribute('height', '15px');
+	document.querySelector('#add').appendChild(addButtonIcon);
 
 	// settings Icon
-	var settingsIcon = document.createElement('img');
-	settingsIcon.setAttribute('src', '../assets/img/' + config.theme + '/gear.png');
-	settingsIcon.setAttribute('height', '23px');
-	document.querySelector('#settings').appendChild(settingsIcon);
+	var settingsButtonIcon = document.createElement('img');
+	settingsButtonIcon.setAttribute('src', '../assets/img/' + config.theme + '/gear.png');
+	settingsButtonIcon.setAttribute('height', '23px');
+	document.querySelector('#settings').appendChild(settingsButtonIcon);
 }
 
 // Toggle Settings Menu
@@ -85,7 +86,16 @@ function settingsFunc() {
 		// Create header
 		var header = document.createElement('div');
 		header.setAttribute('class', 'settings-header');
-		header.textContent = 'Settings';
+
+		// create icon
+		var headerIcon = document.createElement('img');
+		headerIcon.setAttribute('src', gearsIcon);
+		headerIcon.setAttribute('height', '30px');
+		headerIcon.setAttribute('class', 'header-icon');
+
+		// create text
+		var headerText = document.createElement('span');
+		headerText.textContent = 'Settings';
 
 		// create settingsBody
 		settingsBody = document.createElement('div');
@@ -147,6 +157,8 @@ function settingsFunc() {
 
 		// Packaging
 		parentElement.appendChild(header);
+		header.appendChild(headerIcon);
+		header.appendChild(headerText);
 		parentElement.appendChild(settingsBody);
 		settingsBody.appendChild(settingsButtons);
 		settingsButtons.appendChild(toggleGridlinesButton);
@@ -201,7 +213,16 @@ function addFunc() {
 		// create header
 		var header = document.createElement('div');
 		header.setAttribute('class', 'settings-header');
-		header.textContent = 'Add';
+
+		// create icon
+		var headerIcon = document.createElement('img');
+		headerIcon.setAttribute('src', addIcon);
+		headerIcon.setAttribute('height', '20px');
+		headerIcon.setAttribute('class', 'header-icon');
+
+		// create text
+		var headerText = document.createElement('span');
+		headerText.textContent = 'Add';
 
 		// Create div for input
 		div = document.createElement('div');
@@ -264,6 +285,8 @@ function addFunc() {
 
 		// Packaging Children
 		parentElement.appendChild(header);
+		header.appendChild(headerIcon);
+		header.appendChild(headerText);
 		parentElement.appendChild(div);
 		div.appendChild(typeInput);
 		div.appendChild(serviceInput);

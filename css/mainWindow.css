@@ -93,7 +93,9 @@ img {
 	margin-top: 5px;
 	margin-bottom: 15px;
 	font-size: 24px;
-	text-align: left;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .rotate {
@@ -522,5 +524,21 @@ input:focus {
 	}
 	60% {
 		transform: translateX(20px);
+	}
+}
+
+.header-icon {
+	margin-right: 10px;
+}
+
+.settings-header img {
+	animation: rotation 2s linear;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+}
+
+@keyframes rotation {
+	100% {
+		transform: rotate(360deg);
 	}
 }
