@@ -2,7 +2,6 @@ const savePath = '../data/data.json';
 const fullPath = path.join(__dirname, savePath);
 // save function
 
-save();
 function save() {
 	const body = document.querySelector('body');
 	if (!saved) {
@@ -22,6 +21,7 @@ function save() {
 			console.log('Saved!');
 		});
 		saved = false;
+		stalemate = false;
 		var saveButtonDOM = document.querySelector('.save');
 		saveButtonDOM.classList.toggle('button-slide-out');
 		setTimeout(function() {
@@ -168,3 +168,26 @@ function addSavedData(c, index) {
 		console.log(c + " doesn't exist");
 	}
 }
+
+var dataSave = {};
+var stalemate = false;
+function changesChecker() {
+	var rawData = fs.readFileSync(fullPath);
+	dataSave = JSON.parse(rawData);
+	// compare two objects
+	if (!stalemate) {
+		if (angular.equals(dataSave, data)) {
+			console.log('dataSave & data are equal.');
+		} else {
+			console.log('dataSave & data are NOT equal.');
+			save();
+			stalemate = true;
+		}
+	} else {
+		console.log('ERROR: caught in stalemate.');
+	}
+}
+
+setInterval(changesChecker, 500);
+console.log(data);
+console.log(dataSave);

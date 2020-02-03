@@ -10,7 +10,7 @@ var settingsOn = false;
 var addOn = false;
 var saved = false; // to be changed later
 var settingsOn = false;
-var gridlines = false;
+var gridlines = config.gridlinesOn;
 
 // icons
 const eye = '../assets/img/' + config.theme + '/eye.png';
@@ -822,7 +822,7 @@ function lockVault() {
 		div.setAttribute('class', 'yesno');
 
 		// save & quit Button
-		if (!saved) {
+		if (saved) {
 			var saveQuitButton = document.createElement('button');
 			saveQuitButton.setAttribute('class', 'lock-param');
 			saveQuitButton.setAttribute('id', 'save-quit-button');
@@ -836,10 +836,10 @@ function lockVault() {
 		quitButton.setAttribute('id', 'quit-button');
 		quitButton.setAttribute('onclick', 'quit()');
 		if (saved) {
-			quitButton.textContent = 'Quit';
-		} else {
 			quitButton.textContent = 'Quit without saving changes';
 			quitButton.style.height = '40px';
+		} else {
+			quitButton.textContent = 'Quit';
 		}
 
 		// Package Elements
@@ -871,7 +871,6 @@ function quit() {
 }
 
 // Gridlines
-
 function toggleGridlines() {
 	var gridlinesTable = document.querySelectorAll('#tr');
 	// Toggle gridlines
