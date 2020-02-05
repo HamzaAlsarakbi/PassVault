@@ -44,7 +44,7 @@ passDOM.addEventListener('keyup', function() {
 // Password verification
 function submit() {
 	const errorSpan = document.querySelector('.noerror');
-	if (password == CPassword) {
+	if (password == config.masterPassword) {
 		// Hide span if it were activated
 		errorSpan.classList.remove('error');
 

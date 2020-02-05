@@ -2,9 +2,16 @@ const savePath = '../data/data.json';
 const fullPath = path.join(__dirname, savePath);
 // save function
 
-function save() {
+function save(type) {
 	const body = document.querySelector('body');
-	if (!saved) {
+	if (type == 'config') {
+		// save config.js
+		var configStringified = JSON.stringify(config);
+		fs.writeFileSync(configFullPath, configStringified, function(err) {
+			console.log('Config saved!');
+			if (err) throw err;
+		});
+	} else if (!saved) {
 		// if changes are made
 		var saveButton = document.createElement('button');
 		saveButton.setAttribute('class', 'save');
@@ -14,7 +21,9 @@ function save() {
 		console.log('displaying save button.');
 		saved = true;
 	} else {
+		console.log('else habibi');
 		// if no changes are made
+		// save data.json
 		var dataStringified = JSON.stringify(data);
 		fs.writeFileSync(fullPath, dataStringified, function(err) {
 			if (err) throw err;
@@ -28,13 +37,6 @@ function save() {
 			saveButtonDOM.remove();
 		}, 300);
 	}
-
-	// config.js stuff
-	var configStringified = JSON.stringify(config);
-	fs.writeFileSync(configFullPath, configStringified, function(err) {
-		console.log('Config saved!');
-		if (err) throw err;
-	});
 }
 checkSaveFile();
 function checkSaveFile() {

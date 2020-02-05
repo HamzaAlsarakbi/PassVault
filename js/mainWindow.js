@@ -181,8 +181,60 @@ function settingsFunc() {
 		settingsOn = false;
 	}
 }
-// save button
+// Change password function
 
+function passChangeRequest() {
+	console.log('Password Change Requested');
+	var oldPass = document.querySelector('.password#old');
+	var newPass = document.querySelector('.password#new');
+	var newConfirmPass = document.querySelector('.password#new-confirm');
+	var p = document.querySelector('#pass-error');
+	p.classList.remove('confirm');
+	// validate password
+	// check if old password is correct
+	if (oldPass.value == config.masterPassword) {
+		if (newPass.value == newConfirmPass.value) {
+			if (newPass.value !== oldPass.value) {
+				console.log('Notice: New and new-confirm passwords match!');
+				p.classList.add('confirm');
+				p.innerHTML = 'Password Changed!';
+				config.masterPassword = newPass.value;
+				oldPass.value = '';
+				newPass.value = '';
+				newConfirmPass.value = '';
+				error(false);
+				save('config');
+				setTimeout(function() {
+					p.classList.remove('confirm');
+				}, 1000);
+			} else {
+				console.log('Notice: Old and new passwords match!');
+				// display error
+				error(true);
+				p.innerHTML = 'Old and new passwords match.';
+			}
+		} else {
+			console.log("Notice: New and new-confirm passwords DON'T match!");
+			// display error
+			error(true);
+			p.innerHTML = 'New password does not match.';
+		}
+	} else {
+		console.log('Notice: Old password is NOT correct!');
+		// display error
+		error(true);
+		p.innerHTML = 'Old password is not correct.';
+	}
+}
+function error(msg) {
+	console.log('error provoked');
+	if (msg) {
+		document.querySelector('#pass-error').classList.add('error');
+		console.log('msg == true');
+	} else {
+		document.querySelector('#pass-error').classList.remove('error');
+	}
+}
 // data object
 var data = {};
 
@@ -784,22 +836,22 @@ function togglePassParam() {
 		ConfirmPassChild.setAttribute('id', 'new-confirm');
 
 		// Create span
-		var span = document.createElement('span');
-		span.setAttribute('class', 'noerror');
-		span.setAttribute('id', 'pass-error');
-		span.textContent = 'ERROR';
+		var p = document.createElement('p');
+		p.setAttribute('class', 'noerror');
+		p.setAttribute('id', 'pass-error');
+		p.textContent = 'ERROR';
 
 		// Create confirm button
 		var button = document.createElement('button');
 		button.setAttribute('class', 'change-password-confirm');
-		button.setAttribute('onclick', 'changePassword()');
+		button.setAttribute('onclick', 'passChangeRequest()');
 		button.textContent = 'Change';
 
 		// Packaging children
 		appendChildElement = parentElement.appendChild(oldPassChild);
 		appendChildElement = parentElement.appendChild(newPassChild);
 		appendChildElement = parentElement.appendChild(ConfirmPassChild);
-		appendChildElement = parentElement.appendChild(span);
+		appendChildElement = parentElement.appendChild(p);
 		appendChildElement = parentElement.appendChild(button);
 
 		passParam = true;

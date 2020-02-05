@@ -242,14 +242,19 @@ input:focus {
 .noerror {
 	font-size: 14px;
 	color: transparent;
-
 	height: 0px;
 }
 .error {
 	color: rgb(252, 61, 61);
 	height: 18px;
 }
-
+.confirm {
+	color: rgb(61, 252, 77);
+	height: 18px;
+}
+.change-password-confirm {
+	width: calc(100% - 20px);
+}
 /**** Lock */
 .lock-parameters {
 	display: flex;
@@ -356,6 +361,10 @@ input:focus {
 	width: 95%;
 	border: 0;
 	margin: 0;
+}
+#add-password:focus,
+#add-password:hover {
+	border-color: rgb(52, 99, 202);
 }
 #add-pass {
 	width: 100%;
