@@ -197,7 +197,7 @@ function passChangeRequest() {
 		console.log('Notice: one of the fields is empty');
 		// display error
 		error(true);
-		p.innerHTML = 'One of the fields is empty.';
+		p.innerHTML = 'One or more of the fields is empty.';
 		if(oldPass.value == '') {
 			oldPass.select();
 		} else if(newPass.value == '') {
