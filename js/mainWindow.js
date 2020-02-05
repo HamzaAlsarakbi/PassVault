@@ -192,7 +192,20 @@ function passChangeRequest() {
 	p.classList.remove('confirm');
 	// validate password
 	// check if old password is correct
-	if (oldPass.value == config.masterPassword) {
+	console.log('comparing ' + oldPass.value + ' with ' + config.masterPassword);
+	if (oldPass.value == '' || newPass.value == '' || newConfirmPass.value == ''){
+		console.log('Notice: one of the fields is empty');
+		// display error
+		error(true);
+		p.innerHTML = 'One of the fields is empty.';
+		if(oldPass.value == '') {
+			oldPass.select();
+		} else if(newPass.value == '') {
+			newPass.select();
+		} else {
+			newConfirmPass.select();
+		}
+	} else if (oldPass.value == config.masterPassword) {
 		if (newPass.value == newConfirmPass.value) {
 			if (newPass.value !== oldPass.value) {
 				console.log('Notice: New and new-confirm passwords match!');
@@ -217,7 +230,7 @@ function passChangeRequest() {
 			console.log("Notice: New and new-confirm passwords DON'T match!");
 			// display error
 			error(true);
-			p.innerHTML = 'New password does not match.';
+			p.innerHTML = 'New passwords do not match.';
 		}
 	} else {
 		console.log('Notice: Old password is NOT correct!');
