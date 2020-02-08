@@ -39,7 +39,24 @@ function init() {
 	settingsButtonIcon.setAttribute('src', '../assets/img/' + config.theme + '/gear.png');
 	settingsButtonIcon.setAttribute('height', '23px');
 	document.querySelector('#settings').appendChild(settingsButtonIcon);
+
+	// Theme
+	document.body.classList.toggle(config.theme + '-theme');
+	document.querySelector('#thead').classList.toggle('thead-' + config.theme + '-theme');
 }
+// shortcuts
+document.onkeyup = function(e) {
+	console.log('Notice: shortcut triggered.');
+	if (e.altKey && e.which == 65) {
+		addFunc();
+	} else if (e.altKey && e.which == 83) {
+		settingsFunc();
+	} else if (e.ctrlKey && e.which == 83) {
+		if (stalemate) {
+			save();
+		}
+	}
+};
 
 // Toggle Settings Menu
 function settingsFunc() {
@@ -696,6 +713,18 @@ function editRow(properties) {
 		emailDOM.appendChild(emailInput);
 		passwordDOM.appendChild(passwordInput);
 		editOn = true;
+
+		// shortcuts
+		document.querySelector('.row' + data[c].index).addEventListener('keyup', function(e, pro) {
+			if (e.which == 27) {
+				editOn = true;
+				deleteFunc(properties);
+				console.log('ESC triggered');
+			} else if (e.which == 13) {
+				editRow(properties);
+				console.log('ENTER triggered');
+			}
+		});
 	} else {
 		var typeInputDOM = document.querySelector('.input-' + data[c].index + '#table-type');
 		var serviceInputDOM = document.querySelector('.input-' + data[c].index + '#table-service');
@@ -747,7 +776,6 @@ function editRow(properties) {
 		}
 	}
 }
-
 // delete row function
 function deleteFunc(properties) {
 	var d = properties.id;

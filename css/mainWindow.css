@@ -4,21 +4,26 @@
 	border: 0;
 	vertical-align: baseline;
 	outline: none;
-	color: white;
 	transition: 0.2s ease-out;
 }
 body {
-	background-color: rgb(32, 32, 32);
 	display: flex;
 	justify-content: center;
 	user-select: none;
+}
+.dark-theme {
+	background-color: rgb(32, 32, 32);
+	color: white;
+}
+.light-theme {
+	background-color: rgb(255, 255, 255);
+	color: black;
 }
 html,
 body {
 	height: 100%;
 	margin: 0;
 }
-
 .container {
 	font-family: "Segoe UI", sans-serif;
 	margin-top: 80px;
@@ -247,10 +252,12 @@ input:focus {
 .error {
 	color: rgb(252, 61, 61);
 	height: 18px;
+	animation: tr-draw-in 0.25s ease-out;
 }
 .confirm {
 	color: rgb(61, 252, 77);
 	height: 18px;
+	animation: tr-draw-in 0.25s ease-out;
 }
 .change-password-confirm {
 	width: calc(100% - 20px);
@@ -283,8 +290,13 @@ input:focus {
 
 .header {
 	font-weight: bold;
-	border-bottom: 2px solid white;
 	position: sticky;
+}
+.thead-light-theme {
+	border-bottom: 2px solid black;
+}
+.thead-dark-theme {
+	border-bottom: 2px solid white;
 }
 
 .header p {
@@ -429,6 +441,7 @@ input:focus {
 #password {
 	width: calc(25%);
 	text-align: center;
+	overflow: hidden;
 }
 .header {
 	padding: 5px;
