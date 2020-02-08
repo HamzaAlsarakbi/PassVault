@@ -133,7 +133,11 @@ function settingsFunc() {
 		changeTheme.setAttribute('class', 'button-header');
 		changeTheme.setAttribute('id', 'switch-theme');
 		changeTheme.setAttribute('onclick', 'switchTheme()');
-		changeTheme.textContent = 'Change Theme';
+		if (config.theme == 'dark') {
+			changeTheme.textContent = 'Switch to light theme';
+		} else if (config.theme == 'light') {
+			changeTheme.textContent = 'Switch to dark theme';
+		}
 
 		// create lock vault button
 		lockVaultButton = document.createElement('button');
@@ -1012,10 +1016,13 @@ function toggleGridlines() {
 	}
 }
 function switchTheme() {
+	var changeTheme = document.querySelector('#switch-theme');
 	if (config.theme == 'dark') {
 		config.theme = 'light';
+		changeTheme.textContent = 'Switch to dark theme';
 	} else if (config.theme == 'light') {
 		config.theme = 'dark';
+		changeTheme.textContent = 'Switch to light theme';
 	}
 	save('config');
 	initTheme();

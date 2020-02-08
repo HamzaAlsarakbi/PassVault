@@ -23,7 +23,10 @@ button {
   color: black;
 }
 .button-header {
-  color: rgb(50, 50, 50);
+  color: rgb(75, 75, 75);
+}
+.button-header:hover {
+  color: rgb(150, 150, 150);
 }
 .button-header-active {
   color: black;
@@ -38,7 +41,7 @@ button:not(.button-header):hover {
   border: 1px solid black;
 }
 .tbody-data div:hover {
-  background-color: rgb(238, 238, 238);
+  background-color: rgb(240, 240, 240);
 }
 .hide-show:hover {
   background-color: rgb(200, 200, 200);

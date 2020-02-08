@@ -243,13 +243,18 @@ input {
   width: calc(100% - 20px);
 }
 /**** Lock */
-.lock-parameters {
+#lock-parameters {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  width: 100%;
 }
-
+.lock-param {
+  height: 30px;
+  width: calc(100% - 10px);
+}
 .disabled {
   background-color: rgb(252, 61, 61);
 }
