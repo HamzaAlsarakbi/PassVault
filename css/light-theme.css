@@ -2,6 +2,9 @@ body {
   background-color: rgb(255, 255, 255);
   color: black;
 }
+img {
+  filter: invert(1);
+}
 .control:hover {
   background-color: rgb(200, 200, 200);
 }

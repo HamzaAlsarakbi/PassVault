@@ -13,18 +13,15 @@ var settingsOn = false;
 var gridlines = config.gridlinesOn;
 
 // icons
-var eye, crossedEye, pencilIcon, bullet, trashcan, remove, confirm, addIcon, gearsIcon;
-function initIcons() {
-	eye = '../assets/img/' + config.theme + '/eye.png';
-	crossedEye = '../assets/img/' + config.theme + '/crossed-eye.png';
-	pencilIcon = '../assets/img/' + config.theme + '/pencil.png';
-	bullet = '\u{2022}';
-	trashcan = '../assets/img/' + config.theme + '/trashcan.png';
-	remove = '../assets/img/' + config.theme + '/remove.png';
-	confirm = '../assets/img/' + config.theme + '/confirm.png';
-	addIcon = '../assets/img/' + config.theme + '/add.png';
-	gearsIcon = '../assets/img/' + config.theme + '/gear.png';
-}
+const eye = '../assets/img/dark/eye.png';
+const crossedEye = '../assets/img/dark/crossed-eye.png';
+const pencilIcon = '../assets/img/dark/pencil.png';
+const bullet = '\u{2022}';
+const trashcan = '../assets/img/dark/trashcan.png';
+const remove = '../assets/img/dark/remove.png';
+const confirm = '../assets/img/dark/confirm.png';
+const addIcon = '../assets/img/dark/add.png';
+const gearsIcon = '../assets/img/dark/gear.png';
 // table
 const table = document.querySelector('.tbody-data');
 
@@ -32,35 +29,19 @@ const table = document.querySelector('.tbody-data');
 init();
 // add icons
 function init(type) {
-	console.log('initing general');
-
 	const addButton = document.querySelector('.control#add');
 	const settingsButton = document.querySelector('.control#settings');
-	if (type == 'theme') {
-		initIcons();
-		console.log('theme init');
-		var addButtonIcon = document.querySelector('.control#add img');
-		var settingsButtonIcon = document.querySelector('.control#settings img');
-		addButtonIcon.setAttribute('src', addIcon);
-		settingsButtonIcon.setAttribute('src', gearsIcon);
-		// change active icons
-		if (settingsOn) {
-			document.querySelector('.settings-header img').setAttribute('src', gearsIcon);
-		} else if (addOn) {
-			document.querySelector('.settings-header img').setAttribute('src', addIcon);
-		}
-	} else {
-		console.log('initing');
-		// add icon
-		var addButtonIcon = document.createElement('img');
-		addButtonIcon.setAttribute('height', '15px');
-		addButton.appendChild(addButtonIcon);
-		// settings Icon
-		var settingsButtonIcon = document.createElement('img');
-		settingsButtonIcon.setAttribute('height', '23px');
-		settingsButton.appendChild(settingsButtonIcon);
-		init('theme');
-	}
+	// add icon
+
+	var addButtonIcon = document.createElement('img');
+	addButtonIcon.setAttribute('height', '15px');
+	addButtonIcon.setAttribute('src', addIcon);
+	addButton.appendChild(addButtonIcon);
+	// settings Icon
+	var settingsButtonIcon = document.createElement('img');
+	settingsButtonIcon.setAttribute('height', '23px');
+	settingsButtonIcon.setAttribute('src', gearsIcon);
+	settingsButton.appendChild(settingsButtonIcon);
 }
 // shortcuts
 document.onkeyup = function(e) {
@@ -1038,5 +1019,4 @@ function switchTheme() {
 	}
 	save('config');
 	initTheme();
-	init('theme');
 }
