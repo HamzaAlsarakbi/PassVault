@@ -245,7 +245,7 @@ input:focus {
 	border-color: rgb(52, 99, 202);
 }
 .noerror {
-	font-size: 14px;
+	font-size: 12px;
 	color: transparent;
 	height: 0px;
 }
