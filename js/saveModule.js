@@ -21,7 +21,6 @@ function save(type) {
 		console.log('displaying save button.');
 		saved = true;
 	} else {
-		console.log('else habibi');
 		// if no changes are made
 		// save data.json
 		var dataStringified = JSON.stringify(data);
@@ -176,7 +175,6 @@ function addSavedData(c, index) {
 		console.log(c + " doesn't exist");
 	}
 }
-
 var dataSave = {};
 var stalemate = false;
 function changesChecker() {

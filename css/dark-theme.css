@@ -1,9 +1,9 @@
+body {
+  color: white;
+  background-color: rgb(32, 32, 32);
+}
 button {
   background-color: rgb(52, 99, 202);
-  color: white;
-}
-body {
-  background-color: rgb(32, 32, 32);
   color: white;
 }
 .control:hover {

@@ -4,11 +4,14 @@
     <title>Vault</title>
     <script src="../js/config.js"></script>
     <script>
-      var link = document.createElement('link');
+      function initTheme() {
+        var link = document.createElement('link');
       link.setAttribute('rel', 'stylesheet');
       link.setAttribute('type', 'text/css');
       link.setAttribute('href', '../css/' + config.theme + '-theme.css');
       document.querySelector('head').appendChild(link);
+      }
+      initTheme();
     </script>
 
     <link rel="stylesheet" type="text/css" href="../css/windowBar.css" />

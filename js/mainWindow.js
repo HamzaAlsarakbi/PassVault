@@ -13,38 +13,58 @@ var settingsOn = false;
 var gridlines = config.gridlinesOn;
 
 // icons
-const eye = '../assets/img/' + config.theme + '/eye.png';
-const crossedEye = '../assets/img/' + config.theme + '/crossed-eye.png';
-const pencilIcon = '../assets/img/' + config.theme + '/pencil.png';
-const bullet = '\u{2022}';
-const trashcan = '../assets/img/' + config.theme + '/trashcan.png';
-const remove = '../assets/img/' + config.theme + '/remove.png';
-const confirm = '../assets/img/' + config.theme + '/confirm.png';
-const addIcon = '../assets/img/' + config.theme + '/add.png';
-const gearsIcon = '../assets/img/' + config.theme + '/gear.png';
+var eye, crossedEye, pencilIcon, bullet, trashcan, remove, confirm, addIcon, gearsIcon;
+function initIcons() {
+	eye = '../assets/img/' + config.theme + '/eye.png';
+	crossedEye = '../assets/img/' + config.theme + '/crossed-eye.png';
+	pencilIcon = '../assets/img/' + config.theme + '/pencil.png';
+	bullet = '\u{2022}';
+	trashcan = '../assets/img/' + config.theme + '/trashcan.png';
+	remove = '../assets/img/' + config.theme + '/remove.png';
+	confirm = '../assets/img/' + config.theme + '/confirm.png';
+	addIcon = '../assets/img/' + config.theme + '/add.png';
+	gearsIcon = '../assets/img/' + config.theme + '/gear.png';
+}
 // table
 const table = document.querySelector('.tbody-data');
 
 // initialization
 init();
 // add icons
-function init() {
+function init(type) {
+	console.log('initing general');
+
 	const addButton = document.querySelector('.control#add');
 	const settingsButton = document.querySelector('.control#settings');
-	// add icon
-	var addButtonIcon = document.createElement('img');
-	addButtonIcon.setAttribute('src', addIcon);
-	addButtonIcon.setAttribute('height', '15px');
-	addButton.appendChild(addButtonIcon);
-	// settings Icon
-	var settingsButtonIcon = document.createElement('img');
-	settingsButtonIcon.setAttribute('src', '../assets/img/' + config.theme + '/gear.png');
-	settingsButtonIcon.setAttribute('height', '23px');
-	settingsButton.appendChild(settingsButtonIcon);
+	if (type == 'theme') {
+		initIcons();
+		console.log('theme init');
+		var addButtonIcon = document.querySelector('.control#add img');
+		var settingsButtonIcon = document.querySelector('.control#settings img');
+		addButtonIcon.setAttribute('src', addIcon);
+		settingsButtonIcon.setAttribute('src', gearsIcon);
+		// change active icons
+		if (settingsOn) {
+			document.querySelector('.settings-header img').setAttribute('src', gearsIcon);
+		} else if (addOn) {
+			document.querySelector('.settings-header img').setAttribute('src', addIcon);
+		}
+	} else {
+		console.log('initing');
+		// add icon
+		var addButtonIcon = document.createElement('img');
+		addButtonIcon.setAttribute('height', '15px');
+		addButton.appendChild(addButtonIcon);
+		// settings Icon
+		var settingsButtonIcon = document.createElement('img');
+		settingsButtonIcon.setAttribute('height', '23px');
+		settingsButton.appendChild(settingsButtonIcon);
+		init('theme');
+	}
 }
 // shortcuts
 document.onkeyup = function(e) {
-	console.log('Notice: shortcut triggered.');
+	// console.log('Notice: shortcut triggered.');
 	if (e.altKey && e.which == 65) {
 		addFunc();
 	} else if (e.altKey && e.which == 83) {
@@ -130,7 +150,7 @@ function settingsFunc() {
 		// create change config.theme button
 		changeTheme = document.createElement('button');
 		changeTheme.setAttribute('class', 'button-header');
-		changeTheme.setAttribute('id', 'change-theme');
+		changeTheme.setAttribute('id', 'switch-theme');
 		changeTheme.setAttribute('onclick', 'switchTheme()');
 		changeTheme.textContent = 'Change Theme';
 
@@ -621,6 +641,7 @@ function copyText(properties) {
 	var d = properties.id;
 	var c = properties.classList;
 	if (!data[c].onCopy) {
+		stalemate = true;
 		data[c].onCopy = true;
 		var copyVar = data[c][d];
 		var copyDOM = document.createElement('input');
@@ -641,11 +662,14 @@ function copyText(properties) {
 			setTimeout(function() {
 				span.remove();
 				data[c].onCopy = false;
+				stalemate = false;
 			}, 1500);
 		} catch (err) {
 			console.log('Copying ' + c + d + ' was unsuccessful!');
 		}
 		document.querySelector('#email').removeChild(copyDOM);
+	} else {
+		console.log('ERROR: failed to because onCopy is set to true');
 	}
 }
 
@@ -1005,4 +1029,14 @@ function toggleGridlines() {
 		// set gridlines to false
 		gridlines = false;
 	}
+}
+function switchTheme() {
+	if (config.theme == 'dark') {
+		config.theme = 'light';
+	} else if (config.theme == 'light') {
+		config.theme = 'dark';
+	}
+	save('config');
+	initTheme();
+	init('theme');
 }
