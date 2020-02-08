@@ -185,7 +185,7 @@ function changesChecker() {
 	// compare two objects
 	if (!stalemate) {
 		if (angular.equals(dataSave, data)) {
-			console.log('dataSave & data are equal.');
+			// console.log('dataSave & data are equal.');
 		} else {
 			console.log('dataSave & data are NOT equal.');
 			save();

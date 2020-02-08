@@ -1,566 +1,522 @@
 * {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
-	outline: none;
-	transition: 0.2s ease-out;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  outline: none;
+  transition: 0.2s ease-out;
 }
 body {
-	display: flex;
-	justify-content: center;
-	user-select: none;
+  display: flex;
+  justify-content: center;
+  user-select: none;
 }
-.dark-theme {
-	background-color: rgb(32, 32, 32);
-	color: white;
-}
-.light-theme {
-	background-color: rgb(255, 255, 255);
-	color: black;
-}
+
 html,
 body {
-	height: 100%;
-	margin: 0;
+  height: 100%;
+  margin: 0;
 }
 .container {
-	font-family: "Segoe UI", sans-serif;
-	margin-top: 80px;
-	display: flex;
-	align-items: center;
-	width: 100%;
-	flex-direction: column;
-	margin-top: 30px;
-	overflow: auto;
+  font-family: "Segoe UI", sans-serif;
+  margin-ftop: 80px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  margin-top: 30px;
+  overflow: auto;
 }
 
 controls {
-	margin-top: 0px;
-	border-radius: 10px;
-	transition: 0.2s;
-	width: 100px;
-	height: 50px;
-	width: 75%;
-	max-width: 1000px;
-	min-width: 600px;
-	position: fixed;
-	z-index: 2;
-	backdrop-filter: blur(10px);
+  margin-top: 0px;
+  border-radius: 10px;
+  transition: 0.2s;
+  width: 100px;
+  height: 50px;
+  width: 75%;
+  max-width: 1000px;
+  min-width: 600px;
+  position: fixed;
+  z-index: 2;
+  backdrop-filter: blur(10px);
 }
 .controls {
-	margin: 15px;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
+  margin: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .control,
 .parameter {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 #table {
-	width: 75%;
-	max-width: 1000px;
-	min-width: 600px;
-	display: flex;
-	flex-direction: column;
-	animation: slide-in 0.15s ease-out;
+  width: 75%;
+  max-width: 1000px;
+  min-width: 600px;
+  display: flex;
+  flex-direction: column;
+  animation: slide-in 0.15s ease-out;
 }
 .margin-settings {
-	padding-top: 350px !important;
-	transition: 0.2s;
+  padding-top: 350px !important;
+  transition: 0.2s;
 }
 .margin-add {
-	padding-top: 250px !important;
+  padding-top: 250px !important;
 }
 img {
-	-webkit-user-drag: none;
+  -webkit-user-drag: none;
 }
 .control {
-	display: flex;
-	padding: 4px;
-	height: 31px;
-	width: 31px;
-	border-radius: 15.5px;
-	font-size: 20px;
+  display: flex;
+  padding: 4px;
+  height: 31px;
+  width: 31px;
+  border-radius: 15.5px;
+  font-size: 20px;
 }
 .control:hover {
-	background-color: rgb(60, 60, 60);
-	cursor: pointer;
-	color: rgb(200, 200, 200);
+  cursor: pointer;
 }
 
 .settings-header {
-	margin-top: 5px;
-	margin-bottom: 15px;
-	font-size: 24px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .rotate {
-	font-size: 20px;
-	transform: rotate(45deg);
+  font-size: 20px;
+  transform: rotate(45deg);
 }
 
 /**** Add icon*/
 .add {
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
 }
 .add-div {
-	display: flex;
-	flex-direction: row;
-	padding: 20px;
-	padding-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  padding-bottom: 5px;
 }
 
 #pass-div {
-	display: flex;
-	flex-direction: row;
-	margin: 0;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
 }
 .settings {
-	padding-left: 20px;
-	padding-right: 20px;
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	transition: 0.2s ease-out;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: 0.2s ease-out;
 }
 
 menu {
-	opacity: 0;
-	transform: translateY(-100%);
-	transition: 0.4s;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: 0.4s;
 }
 .settings-body {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 .settings-buttons {
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-	border-right: none;
-	width: 180px;
-	margin-right: 40px;
-	z-index: 4;
-	transition: 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-right: none;
+  width: 180px;
+  margin-right: 40px;
+  z-index: 4;
+  transition: 0.2s ease-out;
 }
 
 /****** Menu Animation*/
 .togglemenus {
-	opacity: 1;
-	transform: translateY(0%);
-	transition: 0.3s ease-out;
+  opacity: 1;
+  transform: translateY(0%);
+  transition: 0.3s ease-out;
 }
 .toggleSettings {
-	background-color: rgb(50, 50, 50, 0.4);
-	height: 311px;
-	transition: 0.4s ease-out;
-	margin-top: 20px;
-	width: 500px;
+  height: 311px;
+  transition: 0.4s ease-out;
+  margin-top: 20px;
+  width: 500px;
 }
+
 .toggleAdd {
-	background-color: rgb(50, 50, 50, 0.4);
-	height: 210px;
-	transition: 0.25s ease-out;
-	margin-top: 20px;
-	min-width: 500px;
+  height: 210px;
+  transition: 0.25s ease-out;
+  margin-top: 20px;
+  min-width: 500px;
 }
 
 /***** password */
 .password-parameters {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 button {
-	padding: 5px;
-	background-color: rgb(52, 99, 202);
-	margin: 10px;
-	border-radius: 5px;
-	height: 30px;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 5px;
+  height: 30px;
 }
 .button-header {
-	background-color: transparent;
-	border-left: 4px solid transparent;
-	margin: 0;
-	border-radius: 0;
+  background-color: transparent;
+  border-left: 4px solid transparent;
+  margin: 0;
+  border-radius: 0;
 
-	width: 100%;
-	text-align: left;
-	height: 30px;
-	margin-bottom: 10px;
-	color: rgb(200, 200, 200);
+  width: 100%;
+  text-align: left;
+  height: 30px;
+  margin-bottom: 10px;
 }
 button:active {
-	transform: scale(0.95);
-	transition: 0.1s;
+  transform: scale(0.95);
+  transition: 0.1s;
 }
 .button-header-active {
-	border-left: 4px solid rgb(52, 99, 202);
-	transition: 0.1s;
-	color: white;
+  transition: 0.1s;
 }
 button:hover {
-	cursor: pointer;
-	color: white;
+  cursor: pointer;
 }
 
 .settings-parameters {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 180px;
-	transform: translateX(-100%);
-	transition: 0.3s;
-	opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  transform: translateX(-100%);
+  transition: 0.3s;
+  opacity: 0;
 }
 .settingsToggle {
-	opacity: 1;
-	transform: translateX(0%);
-	transition: 0.2s ease-out;
+  opacity: 1;
+  transform: translateX(0%);
+  transition: 0.2s ease-out;
 }
 input {
-	margin: 5px;
-	padding: 5px;
-	background-color: transparent;
-	height: 30px;
-	color: white;
-	border: 2px solid rgb(80, 80, 80);
-	border-radius: 5px;
-	transition: 0.4s;
+  margin: 5px;
+  padding: 5px;
+  background-color: transparent;
+  height: 30px;
+  border: 2px solid rgb(80, 80, 80);
+  border-radius: 5px;
+  transition: 0.4s;
 }
-input:hover,
-input:focus {
-	border-color: rgb(52, 99, 202);
-}
+
 .noerror {
-	font-size: 12px;
-	color: transparent;
-	height: 0px;
+  font-size: 12px;
+  color: transparent;
+  height: 0px;
 }
 .error {
-	color: rgb(252, 61, 61);
-	height: 18px;
-	animation: tr-draw-in 0.25s ease-out;
+  color: rgb(252, 61, 61);
+  height: 18px;
+  animation: tr-draw-in 0.25s ease-out;
 }
 .confirm {
-	color: rgb(61, 252, 77);
-	height: 18px;
-	animation: tr-draw-in 0.25s ease-out;
+  height: 18px;
+  animation: tr-draw-in 0.25s ease-out;
 }
 .change-password-confirm {
-	width: calc(100% - 20px);
+  width: calc(100% - 20px);
 }
 /**** Lock */
 .lock-parameters {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .disabled {
-	background-color: rgb(252, 61, 61);
+  background-color: rgb(252, 61, 61);
 }
 
-.gridlinesOn {
-	border: 1px solid white;
-}
 #tbody cell {
-	padding: 5px;
-	height: 35px;
+  padding: 5px;
+  height: 35px;
 }
 #tbody {
-	margin-top: 95px;
+  margin-top: 95px;
 }
 .tr-edit {
-	height: 55px;
+  height: 55px;
 }
 
 .header {
-	font-weight: bold;
-	position: sticky;
-}
-.thead-light-theme {
-	border-bottom: 2px solid black;
-}
-.thead-dark-theme {
-	border-bottom: 2px solid white;
+  font-weight: bold;
+  position: sticky;
 }
 
 .header p {
-	margin: 5px;
+  margin: 5px;
 }
 #password {
-	user-select: none;
+  user-select: none;
 }
 
 /******** Add input*/
 
 /*** Add button*/
 .add-button {
-	margin: 5px;
-	padding: 5px;
-	width: 100%;
+  margin: 5px;
+  padding: 5px;
+  width: 100%;
 }
 .body-margin-add {
-	margin-top: 285px !important;
+  margin-top: 285px !important;
 }
 .body-margin-settings {
-	margin-top: 385px !important;
+  margin-top: 385px !important;
 }
 /**** Responsive */
 @media only screen and (max-width: 1200px) {
-	.toggleAdd {
-		height: 340px;
-		width: 25%;
-	}
+  .toggleAdd {
+    height: 340px;
+    width: 25%;
+  }
 
-	.add-div {
-		flex-direction: column;
-		width: 100%;
-	}
-	input {
-		width: 100%;
-	}
+  .add-div {
+    flex-direction: column;
+    width: 100%;
+  }
+  input {
+    width: 100%;
+  }
 
-	.controlsSpan {
-		height: 360px;
-	}
-	.margin-add {
-		padding-top: 390px !important;
-	}
-	.body-margin-add {
-		margin-top: 425px !important;
-	}
+  .controlsSpan {
+    height: 360px;
+  }
+  .margin-add {
+    padding-top: 390px !important;
+  }
+  .body-margin-add {
+    margin-top: 425px !important;
+  }
 }
 .tbody-data {
-	display: flex;
-	flex-direction: column-reverse;
+  display: flex;
+  flex-direction: column-reverse;
 }
-.tbody-data div:hover {
-	background-color: rgb(45, 45, 45);
-}
+
 #hide-show {
-	width: 100px;
+  width: 100px;
 }
 .hide-show {
-	text-align: center;
-	cursor: pointer;
-	padding: 2px;
-	border-radius: 0 2px 2px 0;
-	height: 26px;
-	width: 26px;
+  text-align: center;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 0 2px 2px 0;
+  height: 26px;
+  width: 26px;
 }
-.hide-show:hover {
-	background-color: rgb(60, 60, 60);
-}
+
 .hide-show:active {
-	transform: scale(0.97);
+  transform: scale(0.97);
 }
 #add-password {
-	width: 95%;
-	border: 0;
-	margin: 0;
+  width: 95%;
+  border: 0;
+  margin: 0;
 }
 #add-password:focus,
 #add-password:hover {
-	border-color: rgb(52, 99, 202);
+  border-color: rgb(52, 99, 202);
 }
 #add-pass {
-	width: 100%;
-	margin: 5px;
-	border: 2px solid rgb(80, 80, 80);
-	border-radius: 5px;
-	height: 30px;
-	display: flex;
-	flex-direction: row;
+  width: 100%;
+  margin: 5px;
+  border: 2px solid rgb(80, 80, 80);
+  border-radius: 5px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
 }
 
 #cell-edit,
 #cell-showHide,
 #cell-delete {
-	padding: 6px;
-	cursor: pointer;
-	height: 28px;
+  padding: 6px;
+  cursor: pointer;
+  height: 28px;
 }
 
 #controls {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .padding-zero {
-	padding: 0;
+  padding: 0;
 }
 
 @keyframes slide-in {
-	0% {
-		transform: translateY(-48px);
-		opacity: 0;
-	}
+  0% {
+    transform: translateY(-48px);
+    opacity: 0;
+  }
 }
 
 .tbody-data div {
-	animation: slide-in 0.25s ease-out;
-	padding: 5px;
+  animation: slide-in 0.25s ease-out;
+  padding: 5px;
 }
 
 .tbody-animation {
-	animation: slide-in 0.25s ease-out;
+  animation: slide-in 0.25s ease-out;
 }
 
 #table-type,
 #table-service,
 #table-email,
 #table-password {
-	width: calc(100% - 5px);
+  width: calc(100% - 5px);
 }
 #thead {
-	padding-top: 60px;
-	position: fixed;
-	width: 75%;
-	max-width: 1000px;
-	min-width: 600px;
-	backdrop-filter: blur(5px);
+  padding-top: 60px;
+  position: fixed;
+  width: 75%;
+  max-width: 1000px;
+  min-width: 600px;
+  backdrop-filter: blur(5px);
 }
 #type,
 #service,
 #email,
 #password {
-	width: calc(25%);
-	text-align: center;
-	overflow: hidden;
+  width: calc(25%);
+  text-align: center;
+  overflow: hidden;
 }
 .header {
-	padding: 5px;
-	height: 35px;
-}
-
-#type:hover:not(.header),
-#service:hover:not(.header),
-#email:hover:not(.header),
-#password:hover:not(.header),
-#cell-edit:hover,
-#cell-showHide:hover,
-#cell-delete:hover {
-	background-color: rgb(60, 60, 60);
+  padding: 5px;
+  height: 35px;
 }
 #tr {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	animation: tr-draw-in 0.25s ease-out;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  animation: tr-draw-in 0.25s ease-out;
 }
 .tbody-data #tr {
-	height: 57px;
+  height: 57px;
 }
 @keyframes tr-draw-in {
-	0% {
-		transform: scale(0.5);
-	}
+  0% {
+    transform: scale(0.5);
+  }
 }
 /******* draw out animation*/
 .draw-out-animation {
-	animation: tr-draw-out 0.3s ease-in !important;
-	animation-direction: reverse !important;
-	animation-fill-mode: forwards !important;
+  animation: tr-draw-out 0.3s ease-in !important;
+  animation-direction: reverse !important;
+  animation-fill-mode: forwards !important;
 }
 @keyframes tr-draw-out {
-	0% {
-		opacity: 0;
-		transform: scale(0.2) translateY(-48px);
-		height: 0;
-	}
+  0% {
+    opacity: 0;
+    transform: scale(0.2) translateY(-48px);
+    height: 0;
+  }
 }
 #copy {
-	font-size: 12px;
-	color: rgb(150, 150, 150);
-	background-color: none;
-	padding: 0;
-	margin: 0;
-	animation: copy-slide-in 1.6s ease-out;
+  font-size: 12px;
+  background-color: none;
+  padding: 0;
+  margin: 0;
+  animation: copy-slide-in 1.6s ease-out;
 }
 #copy:hover {
-	background-color: transparent;
+  background-color: transparent;
 }
 
 @keyframes copy-slide-in {
-	0% {
-		transform: translateY(20px);
-		opacity: 0;
-	}
-	10% {
-		transform: translateY(00px);
-		opacity: 1;
-	}
-	90% {
-		transform: translateY(00px);
-		opacity: 1;
-	}
-	100% {
-		transform: translateY(20px);
-		opacity: 0;
-	}
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(00px);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(00px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
 }
 
 .save {
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	width: 100px;
-	animation: button-slide-in 0.3s ease-out;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 100px;
+  animation: button-slide-in 0.3s ease-out;
 }
 
 .button-slide-out {
-	animation: button-slide-out 0.3s ease-out !important;
-	animation-direction: reverse !important;
-	animation-fill-mode: forwards !important;
+  animation: button-slide-out 0.3s ease-out !important;
+  animation-direction: reverse !important;
+  animation-fill-mode: forwards !important;
 }
 
 @keyframes button-slide-in {
-	0% {
-		transform: translateX(-150px);
-		opacity: 0;
-	}
-	60% {
-		transform: translateX(20px);
-	}
+  0% {
+    transform: translateX(-150px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(20px);
+  }
 }
 
 @keyframes button-slide-out {
-	0% {
-		transform: translateX(-150px);
-		opacity: 0;
-	}
-	60% {
-		transform: translateX(20px);
-	}
+  0% {
+    transform: translateX(-150px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(20px);
+  }
 }
 
 .header-icon {
-	margin-right: 10px;
+  margin-right: 10px;
 }
 
 .settings-header img {
-	animation: rotation 2s linear;
-	animation-fill-mode: forwards;
-	animation-iteration-count: infinite;
+  animation: rotation 2s linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
 }
 
 @keyframes rotation {
-	100% {
-		transform: rotate(360deg);
-	}
+  100% {
+    transform: rotate(360deg);
+  }
 }

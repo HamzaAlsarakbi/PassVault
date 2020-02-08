@@ -2,6 +2,15 @@
 <html lang="en">
   <head>
     <title>Vault</title>
+    <script src="../js/config.js"></script>
+    <script>
+      var link = document.createElement('link');
+      link.setAttribute('rel', 'stylesheet');
+      link.setAttribute('type', 'text/css');
+      link.setAttribute('href', '../css/' + config.theme + '-theme.css');
+      document.querySelector('head').appendChild(link);
+    </script>
+
     <link rel="stylesheet" type="text/css" href="../css/windowBar.css" />
     <link rel="stylesheet" type="text/css" href="../css/mainWindow.css" />
   </head>
@@ -60,7 +69,6 @@
       </div>
     </div>
     <script src="../js/windowControls.js"></script>
-    <script src="../js/config.js"></script>
     <script src="../js/mainWindow.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="../js/saveModule.js"></script>

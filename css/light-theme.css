@@ -1,0 +1,61 @@
+body {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+.control:hover {
+  background-color: rgb(200, 200, 200);
+}
+.toggleSettings {
+  background-color: rgba(226, 226, 226, 0.4);
+}
+.toggleAdd {
+  background-color: rgba(226, 226, 226, 0.4);
+}
+
+#thead {
+  border-bottom: 2px solid black;
+}
+button {
+  background-color: rgb(64, 124, 255);
+  color: black;
+}
+.button-header {
+  color: rgb(50, 50, 50);
+}
+.button-header-active {
+  color: black;
+  border-left: 4px solid rgb(64, 124, 255) !important;
+}
+
+button:not(.button-header):hover {
+  color: rgb(34, 34, 34);
+  background-color: rgb(62, 120, 245);
+}
+.gridlinesOn {
+  border: 1px solid black;
+}
+.tbody-data div:hover {
+  background-color: rgb(238, 238, 238);
+}
+.hide-show:hover {
+  background-color: rgb(200, 200, 200);
+}
+#type:hover:not(.header),
+#service:hover:not(.header),
+#email:hover:not(.header),
+#password:hover:not(.header),
+#cell-edit:hover,
+#cell-showHide:hover,
+#cell-delete:hover {
+  background-color: rgb(200, 200, 200);
+}
+#copy {
+  color: rgb(30, 30, 30);
+}
+input:hover,
+input:focus {
+  border-color: rgb(64, 124, 255);
+}
+.confirm {
+  color: rgb(40, 161, 50) !important;
+}

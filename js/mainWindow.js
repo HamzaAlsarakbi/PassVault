@@ -29,20 +29,18 @@ const table = document.querySelector('.tbody-data');
 init();
 // add icons
 function init() {
+	const addButton = document.querySelector('.control#add');
+	const settingsButton = document.querySelector('.control#settings');
+	// add icon
 	var addButtonIcon = document.createElement('img');
 	addButtonIcon.setAttribute('src', addIcon);
 	addButtonIcon.setAttribute('height', '15px');
-	document.querySelector('#add').appendChild(addButtonIcon);
-
+	addButton.appendChild(addButtonIcon);
 	// settings Icon
 	var settingsButtonIcon = document.createElement('img');
 	settingsButtonIcon.setAttribute('src', '../assets/img/' + config.theme + '/gear.png');
 	settingsButtonIcon.setAttribute('height', '23px');
-	document.querySelector('#settings').appendChild(settingsButtonIcon);
-
-	// Theme
-	document.body.classList.toggle(config.theme + '-theme');
-	document.querySelector('#thead').classList.toggle('thead-' + config.theme + '-theme');
+	settingsButton.appendChild(settingsButtonIcon);
 }
 // shortcuts
 document.onkeyup = function(e) {
@@ -210,14 +208,14 @@ function passChangeRequest() {
 	// validate password
 	// check if old password is correct
 	console.log('comparing ' + oldPass.value + ' with ' + config.masterPassword);
-	if (oldPass.value == '' || newPass.value == '' || newConfirmPass.value == ''){
+	if (oldPass.value == '' || newPass.value == '' || newConfirmPass.value == '') {
 		console.log('Notice: one of the fields is empty');
 		// display error
 		error(true);
 		p.innerHTML = 'One or more of the fields is empty.';
-		if(oldPass.value == '') {
+		if (oldPass.value == '') {
 			oldPass.select();
-		} else if(newPass.value == '') {
+		} else if (newPass.value == '') {
 			newPass.select();
 		} else {
 			newConfirmPass.select();
