@@ -41,6 +41,10 @@ function save(type) {
 		setTimeout(function() {
 			saveButtonDOM.remove();
 		}, 300);
+		if (lockVaultOn) {
+			lockVault();
+			setTimeout(lockVault, 400);
+		}
 	}
 }
 checkSaveFile();
@@ -187,6 +191,10 @@ function changesChecker() {
 		} else {
 			console.log('dataSave & data are NOT equal.');
 			save();
+			if (lockVaultOn) {
+				lockVault();
+				setTimeout(lockVault, 400);
+			}
 			stalemate = true;
 		}
 	} else {

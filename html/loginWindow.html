@@ -1,25 +1,33 @@
 <!DOCTYEPE html>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="../css/windowbar.css">
-        <link rel="stylesheet" type="text/css" href="../css/loginWindow.css">
+  <head>
+    <title>Login</title>
+    <script src="../js/config.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/loginWindow.css">
+    <link rel="stylesheet" type="text/css" href="../css/windowbar.css">
+        <script>
+          function initTheme() {
+            var link = document.createElement('link');
+          link.setAttribute('rel', 'stylesheet');
+          link.setAttribute('type', 'text/css');
+          link.setAttribute('href', '../css/' + config.theme + '-theme.css');
+          document.querySelector('head').appendChild(link);
+          }
+          initTheme();
+        </script>
     </head>
     <body>
         <header id="titlebar">
             <div id="drag-region">
-      
               <div id="window-title">
                 <span>Login</span>
               </div>
-
               <div id="window-controls">
                 <div class="button" id="close-button">
                   <span>&#xE8BB;</span>
                 </div>
               </div>
-
             </div>
           </header>
 
@@ -34,7 +42,6 @@
 
 
         
-          <script src="../js/config.js"></script>
         <script src="../js/loginWindow.js"></script>
     </body>
 
