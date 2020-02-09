@@ -165,16 +165,6 @@ function settingsFunc() {
 		settingsParameters = document.createElement('div');
 		settingsParameters.setAttribute('class', 'settings-parameters');
 
-		// create password parameters for parameters
-		passParameters = document.createElement('div');
-		passParameters.setAttribute('class', 'params');
-		passParameters.setAttribute('id', 'pass-parameters');
-
-		// create lock parameters for parameters
-		lockParameters = document.createElement('div');
-		lockParameters.setAttribute('class', 'params');
-		lockParameters.setAttribute('id', 'lock-parameters');
-
 		// Packaging
 		parentElement.appendChild(header);
 		header.appendChild(headerIcon);
@@ -186,8 +176,6 @@ function settingsFunc() {
 		settingsButtons.appendChild(changePassword);
 		settingsButtons.appendChild(lockVaultButton);
 		settingsBody.appendChild(settingsParameters);
-		settingsParameters.appendChild(passParameters);
-		settingsParameters.appendChild(lockParameters);
 
 		settingsOn = true;
 	} else {
@@ -851,7 +839,7 @@ var passParam = false;
 function togglePassParam() {
 	// Animation
 	toggleParameters();
-	parentElement = document.querySelector('#pass-parameters');
+	parentElement = document.querySelector('.settings-parameters');
 	if (lockVaultOn) {
 		console.log('lockvault is already on');
 		lockVault();
@@ -896,11 +884,11 @@ function togglePassParam() {
 		button.textContent = 'Change';
 
 		// Packaging children
-		appendChildElement = parentElement.appendChild(oldPassChild);
-		appendChildElement = parentElement.appendChild(newPassChild);
-		appendChildElement = parentElement.appendChild(ConfirmPassChild);
-		appendChildElement = parentElement.appendChild(p);
-		appendChildElement = parentElement.appendChild(button);
+		parentElement.appendChild(oldPassChild);
+		parentElement.appendChild(newPassChild);
+		parentElement.appendChild(ConfirmPassChild);
+		parentElement.appendChild(p);
+		parentElement.appendChild(button);
 
 		passParam = true;
 	} else {
@@ -922,7 +910,7 @@ var lockVaultOn = false;
 function lockVault() {
 	// Animation
 	toggleParameters();
-	parentElement = document.querySelector('#lock-parameters');
+	parentElement = document.querySelector('.settings-parameters');
 	if (passParam) {
 		console.log('PassParam is already on');
 		togglePassParam();
