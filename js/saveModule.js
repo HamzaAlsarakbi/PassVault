@@ -7,10 +7,10 @@ function save(type) {
 	if (type == 'config') {
 		// save config.json
 		var configStringified = JSON.stringify(config);
-		console.log('Config saved!');
 		fs.writeFileSync(configFullPath, configStringified, function(err) {
 			if (err) throw err;
 		});
+		console.log('Config saved!');
 	} else if (!saved) {
 		// if changes are made
 		var saveButton = document.createElement('button');
@@ -41,6 +41,10 @@ function save(type) {
 		setTimeout(function() {
 			saveButtonDOM.remove();
 		}, 300);
+		if (lockVaultOn) {
+			lockVault();
+			setTimeout(lockVault, 400);
+		}
 	}
 }
 checkSaveFile();
@@ -192,6 +196,10 @@ function changesChecker() {
 		} else {
 			console.log('dataSave & data are NOT equal.');
 			save();
+			if (lockVaultOn) {
+				lockVault();
+				setTimeout(lockVault, 400);
+			}
 			stalemate = true;
 		}
 	} else {

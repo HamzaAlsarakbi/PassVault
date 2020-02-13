@@ -399,6 +399,7 @@ input {
 	max-width: 1000px;
 	min-width: 600px;
 	backdrop-filter: blur(5px);
+	z-index: 1;
 }
 #type,
 #service,
@@ -408,6 +409,7 @@ input {
 	text-align: center;
 	overflow: hidden;
 }
+
 .header {
 	padding: 5px;
 	height: 35px;

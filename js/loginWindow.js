@@ -25,9 +25,6 @@ function init() {
 			win = null;
 		});
 	});
-
-	// Button Style
-	submitButton.classList.add('pending');
 }
 
 // packaging input.value

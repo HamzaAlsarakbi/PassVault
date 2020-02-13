@@ -1009,7 +1009,6 @@ function toggleGridlines() {
 	for (i = 0; i < gridlinesTable.length; i++) {
 		gridlinesTable[i].classList.toggle('gridlinesOn');
 	}
-
 	if (!config.gridlinesOn) {
 		// Change Button content
 		document.querySelector('#gridlines').textContent = 'Hide Gridlines';
