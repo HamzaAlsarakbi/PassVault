@@ -10,7 +10,6 @@ var settingsOn = false;
 var addOn = false;
 var saved = false; // to be changed later
 var settingsOn = false;
-var gridlines = config.gridlinesOn;
 
 // icons
 const eye = '../assets/img/dark/eye.png';
@@ -151,7 +150,7 @@ function settingsFunc() {
 		toggleGridlinesButton.setAttribute('class', 'button-header');
 		toggleGridlinesButton.setAttribute('id', 'gridlines');
 		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
-		if (!gridlines) {
+		if (!config.gridlinesOn) {
 			toggleGridlinesButton.textContent = 'Show Gridlines';
 		} else {
 			toggleGridlinesButton.textContent = 'Hide Gridlines';
@@ -536,7 +535,7 @@ function addData() {
 		tdControls.appendChild(deleteButton);
 		deleteButton.appendChild(deleteIcon);
 
-		if (gridlines) {
+		if (config.gridlinesOn) {
 			document.querySelector('.row' + config.cellIndex).setAttribute('class', 'gridlinesOn');
 		}
 
@@ -988,19 +987,20 @@ function toggleGridlines() {
 	for (i = 0; i < gridlinesTable.length; i++) {
 		gridlinesTable[i].classList.toggle('gridlinesOn');
 	}
+	// set gridlines to false
+	config.gridlinesOn = false;
+	save('config');
+	console.log(config);
 
-	if (!gridlines) {
+	if (!config.gridlinesOn) {
 		// Change Button content
 		document.querySelector('#gridlines').textContent = 'Hide Gridlines';
 
 		// set gridlines to false
-		gridlines = true;
-	} else if (gridlines) {
+		config.gridlinesOn = true;
+	} else if (config.gridlinesOn) {
 		// Change Button content
 		document.querySelector('#gridlines').textContent = 'Show Gridlines';
-
-		// set gridlines to false
-		gridlines = false;
 	}
 }
 function switchTheme() {
