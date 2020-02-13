@@ -987,11 +987,6 @@ function toggleGridlines() {
 	for (i = 0; i < gridlinesTable.length; i++) {
 		gridlinesTable[i].classList.toggle('gridlinesOn');
 	}
-	// set gridlines to false
-	config.gridlinesOn = false;
-	save('config');
-	console.log(config);
-
 	if (!config.gridlinesOn) {
 		// Change Button content
 		document.querySelector('#gridlines').textContent = 'Hide Gridlines';

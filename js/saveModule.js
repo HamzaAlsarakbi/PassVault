@@ -7,10 +7,10 @@ function save(type) {
 	if (type == 'config') {
 		// save config.json
 		var configStringified = JSON.stringify(config);
-		console.log('Config saved!');
 		fs.writeFileSync(configFullPath, configStringified, function(err) {
 			if (err) throw err;
 		});
+		console.log('Config saved!');
 	} else if (!saved) {
 		// if changes are made
 		var saveButton = document.createElement('button');
