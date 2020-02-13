@@ -1001,7 +1001,11 @@ function toggleGridlines() {
 	} else if (config.gridlinesOn) {
 		// Change Button content
 		document.querySelector('#gridlines').textContent = 'Show Gridlines';
+
+		// set gridlines to false
+		config.gridlinesOn = false;
 	}
+	save('config');
 }
 function switchTheme() {
 	var changeTheme = document.querySelector('#switch-theme');

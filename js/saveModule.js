@@ -7,8 +7,8 @@ function save(type) {
 	if (type == 'config') {
 		// save config.json
 		var configStringified = JSON.stringify(config);
+		console.log('Config saved!');
 		fs.writeFileSync(configFullPath, configStringified, function(err) {
-			console.log('Config saved!');
 			if (err) throw err;
 		});
 	} else if (!saved) {
@@ -30,8 +30,8 @@ function save(type) {
 		});
 		// save config.json
 		var configStringified = JSON.stringify(config);
+		console.log('Config saved!');
 		fs.writeFileSync(configFullPath, configStringified, function(err) {
-			console.log('Config saved!');
 			if (err) throw err;
 		});
 		saved = false;
@@ -175,6 +175,11 @@ function addSavedData(c, index) {
 		showHideButton.appendChild(eyeIcon);
 		tdControls.appendChild(deleteButton);
 		deleteButton.appendChild(deleteIcon);
+
+		if (config.gridlinesOn) {
+			document.querySelector('.row' + index).setAttribute('class', 'gridlinesOn');
+			document.querySelector('#thead #tr').setAttribute('class', 'gridlinesOn');
+		}
 	} else {
 		console.log(c + " doesn't exist");
 	}
