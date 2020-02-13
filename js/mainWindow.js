@@ -222,6 +222,7 @@ function passChangeRequest() {
 				oldPass.value = '';
 				newPass.value = '';
 				newConfirmPass.value = '';
+				oldPass.select();
 				error(false);
 				save('config');
 				setTimeout(function() {
@@ -890,6 +891,27 @@ function togglePassParam() {
 		parentElement.appendChild(button);
 
 		passParam = true;
+
+		document.querySelector('.password#old').addEventListener('keyup', function(e, pro) {
+			if (e.which == 13) {
+				passChangeRequest();
+				console.log('ENTER triggered');
+			}
+		});
+		document.querySelector('.password#new').addEventListener('keyup', function(e, pro) {
+			if (e.which == 13) {
+				passChangeRequest();
+				console.log('ENTER triggered');
+			}
+		});
+		document.querySelector('.password#new-confirm').addEventListener('keyup', function(e, pro) {
+			if (e.which == 13) {
+				passChangeRequest();
+				console.log('ENTER triggered');
+			}
+		});
+
+
 	} else {
 		document.querySelector('#change-password').classList.toggle('button-header-active');
 
