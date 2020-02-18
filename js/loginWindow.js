@@ -40,6 +40,7 @@ passDOM.addEventListener('keyup', function() {
 
 // Password verification
 function submit() {
+	console.log('wrong pass');
 	const errorSpan = document.querySelector('.noerror');
 	if (password == config.masterPassword) {
 		// Hide span if it were activated

@@ -5,6 +5,9 @@ let win = electron.remote.getCurrentWindow();
 
 var parentElement;
 
+// data object
+var data = {};
+
 // settings
 var settingsOn = false;
 var addOn = false;
@@ -21,6 +24,7 @@ const remove = '../assets/img/dark/remove.png';
 const confirm = '../assets/img/dark/confirm.png';
 const addIcon = '../assets/img/dark/add.png';
 const gearsIcon = '../assets/img/dark/gear.png';
+
 // table
 const table = document.querySelector('.tbody-data');
 
@@ -63,6 +67,7 @@ function settingsFunc() {
 	document.querySelector('#tbody').classList.toggle('body-margin-settings');
 
 	document.querySelector('controls').classList.toggle('toggleSettings');
+
 	// rotate icon
 	var parentElement = document.querySelector('.settings');
 	document.querySelector('#settings').classList.toggle('rotate');
@@ -120,12 +125,16 @@ function settingsFunc() {
 		settingsButtons = document.createElement('div');
 		settingsButtons.setAttribute('class', 'settings-buttons');
 
-		// create change password button
-		changePassword = document.createElement('button');
-		changePassword.setAttribute('class', 'button-header');
-		changePassword.setAttribute('id', 'change-password');
-		changePassword.setAttribute('onclick', 'togglePassParam()');
-		changePassword.textContent = 'Change Password';
+		// create toggle gridlines button
+		toggleGridlinesButton = document.createElement('button');
+		toggleGridlinesButton.setAttribute('class', 'button-header');
+		toggleGridlinesButton.setAttribute('id', 'gridlines');
+		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
+		if (!config.gridlinesOn) {
+			toggleGridlinesButton.textContent = 'Show Gridlines';
+		} else {
+			toggleGridlinesButton.textContent = 'Hide Gridlines';
+		}
 
 		// create change config.theme button
 		changeTheme = document.createElement('button');
@@ -138,6 +147,13 @@ function settingsFunc() {
 			changeTheme.textContent = 'Switch to dark theme';
 		}
 
+		// create change password button
+		changePassword = document.createElement('button');
+		changePassword.setAttribute('class', 'button-header');
+		changePassword.setAttribute('id', 'change-password');
+		changePassword.setAttribute('onclick', 'togglePassParam()');
+		changePassword.textContent = 'Change Password';
+
 		// create lock vault button
 		lockVaultButton = document.createElement('button');
 		lockVaultButton.setAttribute('class', 'button-header');
@@ -145,20 +161,12 @@ function settingsFunc() {
 		lockVaultButton.setAttribute('onclick', 'lockVault()');
 		lockVaultButton.textContent = 'Lock Vault';
 
-		// create toggle gridlines button
-		toggleGridlinesButton = document.createElement('button');
-		toggleGridlinesButton.setAttribute('class', 'button-header');
-		toggleGridlinesButton.setAttribute('id', 'gridlines');
-		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
-		if (!config.gridlinesOn) {
-			toggleGridlinesButton.textContent = 'Show Gridlines';
-		} else {
-			toggleGridlinesButton.textContent = 'Hide Gridlines';
-		}
-
-		// create div for parameters
-		settingsParameters = document.createElement('div');
-		settingsParameters.setAttribute('class', 'settings-parameters');
+		// create about button
+		aboutButton = document.createElement('button');
+		aboutButton.setAttribute('class', 'button-header');
+		aboutButton.setAttribute('id', 'about');
+		aboutButton.setAttribute('onclick', 'about()');
+		aboutButton.textContent = 'About';
 
 		// create div for parameters
 		settingsParameters = document.createElement('div');
@@ -174,6 +182,7 @@ function settingsFunc() {
 		settingsButtons.appendChild(changeTheme);
 		settingsButtons.appendChild(changePassword);
 		settingsButtons.appendChild(lockVaultButton);
+		settingsButtons.appendChild(aboutButton);
 		settingsBody.appendChild(settingsParameters);
 
 		settingsOn = true;
@@ -256,10 +265,6 @@ function error(msg) {
 		document.querySelector('#pass-error').classList.remove('error');
 	}
 }
-// data object
-var data = {};
-
-// function dataFunc(config.cellIndex, type, service, email, password) {}
 
 // Toggle add icon
 var submission;
@@ -910,8 +915,6 @@ function togglePassParam() {
 				console.log('ENTER triggered');
 			}
 		});
-
-
 	} else {
 		document.querySelector('#change-password').classList.toggle('button-header-active');
 
@@ -1035,4 +1038,68 @@ function switchTheme() {
 	}
 	save('config');
 	initTheme();
+}
+// About section
+var aboutOn = false;
+function about() {
+	toggleParameters();
+	parentElement = document.querySelector('.settings-parameters');
+	parentElement.classList.toggle('toggleAbout');
+	if (passParam) {
+		console.log('PassParam is already on');
+		togglePassParam();
+		toggleParameters();
+		setTimeout(function() {
+			about();
+		}, 400);
+	} else if (lockVaultOn) {
+		console.log('LockVault is already on');
+		lockVault();
+		toggleParameters();
+		setTimeout(function() {
+			about();
+		}, 400);
+	} else if (!aboutOn) {
+		// button effects
+		document.querySelector('#about').classList.toggle('button-header-active');
+		// create header
+		var headerDiv = document.createElement('div');
+		headerDiv.setAttribute('class', 'settings-parameters-header');
+		var headerIcon = document.createElement('img');
+		headerIcon.setAttribute('class', 'icon');
+		headerIcon.setAttribute('src', '');
+		var headerText = document.createElement('p');
+		headerText.setAttribute('class', 'settings-sub-header');
+		headerText.textContent = 'About';
+
+		var bodyText1 = document.createElement('p');
+		bodyText1.setAttribute('class', 'settings-sub-body');
+		bodyText1.textContent = `PassVault is an open-source tool developed by Hamza that stores 
+		your encrypted passwords locally and not on the cloud to provide you with the highest
+		privacy.`;
+		var bodyText2 = document.createElement('p');
+		bodyText2.setAttribute('class', 'settings-sub-body');
+		bodyText2.textContent = `If you enjoy this app, consider following me on Instagram @hamza__sar.
+		 If you encounter a bug with this app, tweet to @Electr0d. If you want to donate, you can. It helps
+		 maintain this app.`;
+
+		parentElement.appendChild(headerDiv);
+		headerDiv.appendChild(headerIcon);
+		headerDiv.appendChild(headerText);
+		parentElement.appendChild(bodyText1);
+		parentElement.appendChild(bodyText2);
+		console.log('test');
+		aboutOn = true;
+	} else {
+		document.querySelector('#lock').classList.toggle('button-header-active');
+
+		setTimeout(function() {
+			var first = parentElement.firstElementChild;
+			while (first) {
+				first.remove();
+				first = parentElement.firstElementChild;
+			}
+		}, 200);
+		aboutOn = false;
+	}
 }

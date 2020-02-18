@@ -154,10 +154,14 @@ menu {
 	transition: 0.3s ease-out;
 }
 .toggleSettings {
-	height: 311px;
+	height: 350px;
 	transition: 0.4s ease-out;
 	margin-top: 20px;
 	width: 500px;
+}
+
+.toggleAbout {
+	width: 400px !important;
 }
 
 .toggleAdd {
@@ -172,7 +176,17 @@ menu {
 	display: flex;
 	flex-direction: column;
 }
-
+.settings-parameters-header {
+	display: flex;
+	flex-direction: row;
+	align-items: left;
+}
+.settings-parameters-header p {
+	font-size: 18px;
+}
+.settings-sub-body {
+	font-size: 12px;
+}
 button {
 	padding: 5px;
 	margin: 10px;
@@ -227,7 +241,7 @@ input {
 }
 
 .noerror {
-	font-size: 12px;
+	font-size: 11px;
 	color: transparent;
 	height: 0px;
 }
@@ -339,10 +353,7 @@ input {
 	border: 0;
 	margin: 0;
 }
-#add-password:focus,
-#add-password:hover {
-	border-color: rgb(52, 99, 202);
-}
+
 #add-pass {
 	width: 100%;
 	margin: 5px;

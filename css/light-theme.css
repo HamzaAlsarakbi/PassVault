@@ -1,3 +1,18 @@
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(207, 207, 207);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(196, 196, 196);
+}
+
 body {
 	background-color: rgb(240, 240, 240);
 	color: black;
@@ -60,6 +75,10 @@ button:not(.button-header):hover {
 }
 input:hover,
 input:focus {
+	border-color: rgb(64, 124, 255);
+}
+.pass-div#add-pass:hover,
+.pass-div#add-pass:focus {
 	border-color: rgb(64, 124, 255);
 }
 .confirm {

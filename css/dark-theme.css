@@ -1,53 +1,68 @@
+/* Track */
+::-webkit-scrollbar-track {
+	background: rgb(30, 30, 30);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(60, 60, 60);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(80, 80, 80);
+}
+
 body {
-  color: white;
-  background-color: rgb(32, 32, 32);
+	color: white;
+	background-color: rgb(32, 32, 32);
 }
 img {
-  filter: invert(0);
+	filter: invert(0);
 }
 button {
-  background-color: rgb(52, 99, 202);
-  color: white;
+	background-color: rgb(52, 99, 202);
+	color: white;
 }
 .control:hover {
-  background-color: rgb(60, 60, 60);
+	background-color: rgb(60, 60, 60);
 }
 input {
-  color: white;
+	color: white;
 }
 .toggleSettings {
-  background-color: rgba(50, 50, 50, 0.4);
+	background-color: rgba(50, 50, 50, 0.4);
 }
 .toggleAdd {
-  background-color: rgba(50, 50, 50, 0.4);
+	background-color: rgba(50, 50, 50, 0.4);
 }
 #thead {
-  border-bottom: 2px solid white;
+	border-bottom: 2px solid white;
 }
 button {
-  background-color: rgb(52, 99, 202);
-  color: white;
+	background-color: rgb(52, 99, 202);
+	color: white;
 }
 .button-header {
-  color: rgb(200, 200, 200);
+	color: rgb(200, 200, 200);
 }
 .button-header-active {
-  color: white;
-  border-left: 4px solid rgb(52, 99, 202) !important;
+	color: white;
+	border-left: 4px solid rgb(52, 99, 202) !important;
 }
 button:hover {
-  color: white;
+	color: white;
 }
 
 .gridlinesOn {
-  border: 1px solid white;
+	border: 1px solid white;
 }
 .tbody-data div:hover {
-  background-color: rgb(45, 45, 45);
+	background-color: rgb(45, 45, 45);
 }
 
 .hide-show:hover {
-  background-color: rgb(60, 60, 60);
+	background-color: rgb(60, 60, 60);
 }
 
 #type:hover:not(.header),
@@ -57,15 +72,19 @@ button:hover {
 #cell-edit:hover,
 #cell-showHide:hover,
 #cell-delete:hover {
-  background-color: rgb(60, 60, 60);
+	background-color: rgb(60, 60, 60);
 }
 #copy {
-  color: rgb(150, 150, 150);
+	color: rgb(150, 150, 150);
 }
 input:hover,
 input:focus {
-  border-color: rgb(52, 99, 202);
+	border-color: rgb(52, 99, 202);
+}
+.pass-div#add-pass:hover,
+.pass-div#add-pass:focus {
+	border-color: rgb(52, 99, 202);
 }
 .confirm {
-  color: rgb(61, 252, 77) !important;
+	color: rgb(61, 252, 77) !important;
 }
