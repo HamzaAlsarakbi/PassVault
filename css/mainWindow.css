@@ -64,7 +64,7 @@ controls {
 	animation: slide-in 0.15s ease-out;
 }
 .margin-settings {
-	padding-top: 350px !important;
+	padding-top: 380px !important;
 	transition: 0.2s;
 }
 .margin-add {
@@ -301,7 +301,7 @@ input {
 	margin-top: 285px !important;
 }
 .body-margin-settings {
-	margin-top: 385px !important;
+	margin-top: 415px !important;
 }
 /**** Responsive */
 @media only screen and (max-width: 1200px) {
