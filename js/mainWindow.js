@@ -864,6 +864,17 @@ function togglePassParam() {
 	} else if (!passParam) {
 		document.querySelector('#change-password').classList.toggle('button-header-active');
 		// Creating children
+
+		// Create header
+		var headerDiv = document.createElement('div');
+		headerDiv.setAttribute('class', 'settings-parameters-header');
+		var headerIcon = document.createElement('img');
+		headerIcon.setAttribute('class', 'icon');
+		headerIcon.setAttribute('src', '');
+		var headerText = document.createElement('p');
+		headerText.setAttribute('class', 'settings-sub-header');
+		headerText.textContent = 'Change Password';
+
 		// Create old Password
 		var oldPassChild = document.createElement('input');
 		oldPassChild.setAttribute('class', 'password');
@@ -898,6 +909,9 @@ function togglePassParam() {
 		button.textContent = 'Change';
 
 		// Packaging children
+		parentElement.appendChild(headerDiv);
+		headerDiv.appendChild(headerIcon);
+		headerDiv.appendChild(headerText);
 		parentElement.appendChild(oldPassChild);
 		parentElement.appendChild(newPassChild);
 		parentElement.appendChild(ConfirmPassChild);
@@ -1045,6 +1059,7 @@ function toggleGridlines() {
 }
 function switchTheme() {
 	var changeTheme = document.querySelector('#switch-theme');
+	document.querySelector('head').removeChild(document.querySelector('.link-theme'));
 	if (config.theme == 'dark') {
 		config.theme = 'light';
 		changeTheme.textContent = 'Switch to dark theme';
@@ -1052,8 +1067,8 @@ function switchTheme() {
 		config.theme = 'dark';
 		changeTheme.textContent = 'Switch to light theme';
 	}
-	save('config');
 	initTheme();
+	save('config');
 }
 
 // About section
