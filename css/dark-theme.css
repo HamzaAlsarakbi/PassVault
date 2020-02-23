@@ -88,3 +88,9 @@ input:focus {
 .confirm {
 	color: rgb(61, 252, 77) !important;
 }
+a {
+	color: rgb(52, 99, 202);
+}
+a:hover {
+	filter: brightness(0.9);
+}

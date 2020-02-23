@@ -1,5 +1,6 @@
 // Electron shit
 const electron = require('electron');
+const shell = electron.shell;
 const { ipcRenderer } = electron;
 let win = electron.remote.getCurrentWindow();
 
@@ -73,13 +74,14 @@ function settingsFunc() {
 	document.querySelector('#settings').classList.toggle('rotate');
 
 	// if one of the windows is open
-	if (passParam || lockVaultOn) {
-		console.log('passParam already on');
+	if (passParam || lockVaultOn || aboutOn) {
+		console.log('NOTICE: one of the menus already on');
 		if (passParam) {
 			togglePassParam();
-		}
-		if (lockVaultOn) {
+		} else if (lockVaultOn) {
 			lockVault();
+		} else if (aboutOn) {
+			about();
 		}
 		setTimeout(function() {
 			settingsFunc();
@@ -852,6 +854,13 @@ function togglePassParam() {
 		setTimeout(function() {
 			togglePassParam();
 		}, 400);
+	} else if (aboutOn) {
+		console.log("'about' is already on");
+		about();
+		toggleParameters();
+		setTimeout(function() {
+			togglePassParam();
+		}, 400);
 	} else if (!passParam) {
 		document.querySelector('#change-password').classList.toggle('button-header-active');
 		// Creating children
@@ -938,6 +947,13 @@ function lockVault() {
 	if (passParam) {
 		console.log('PassParam is already on');
 		togglePassParam();
+		toggleParameters();
+		setTimeout(function() {
+			lockVault();
+		}, 400);
+	} else if (aboutOn) {
+		console.log("'about' is already on");
+		about();
 		toggleParameters();
 		setTimeout(function() {
 			lockVault();
@@ -1039,12 +1055,13 @@ function switchTheme() {
 	save('config');
 	initTheme();
 }
+
 // About section
 var aboutOn = false;
 function about() {
 	toggleParameters();
 	parentElement = document.querySelector('.settings-parameters');
-	parentElement.classList.toggle('toggleAbout');
+	parentElement.classList.add('toggleAbout');
 	if (passParam) {
 		console.log('PassParam is already on');
 		togglePassParam();
@@ -1072,28 +1089,50 @@ function about() {
 		headerText.setAttribute('class', 'settings-sub-header');
 		headerText.textContent = 'About';
 
+		// create header of paragraph
+		var bodyHeader1 = document.createElement('p');
+		bodyHeader1.setAttribute('class', 'settings-sub-body-header');
+		bodyHeader1.textContent = 'What is PassVault?';
+		// create paragraph
+
 		var bodyText1 = document.createElement('p');
 		bodyText1.setAttribute('class', 'settings-sub-body');
-		bodyText1.textContent = `PassVault is an open-source tool developed by Hamza that stores 
-		your encrypted passwords locally and not on the cloud to provide you with the highest
-		privacy.`;
+		bodyText1.innerHTML = `PassVault is an <a href="" onclick="openExternal('github')">open-source tool</a> 
+		developed by Hamza that stores your encrypted passwords locally and not on the cloud to provide you 
+		with the highest privacy.`;
+		// open source link
+		var openSourceLink = document.createElement('a');
+		openSourceLink.setAttribute('href', 'www.google.ca');
+		openSourceLink.textContent = 'open-source tool';
+
+		// create header of paragraph
+		var bodyHeader2 = document.createElement('p');
+		bodyHeader2.setAttribute('class', 'settings-sub-body-header');
+		bodyHeader2.textContent = 'Support me \u{2665}';
+
+		// create paragraph
 		var bodyText2 = document.createElement('p');
 		bodyText2.setAttribute('class', 'settings-sub-body');
-		bodyText2.textContent = `If you enjoy this app, consider following me on Instagram @hamza__sar.
-		 If you encounter a bug with this app, tweet to @Electr0d. If you want to donate, you can. It helps
-		 maintain this app.`;
+		bodyText2.innerHTML = `If you enjoy this app, consider following me on Instagram 
+		<a href="" onclick="openExternal('instagram')">@hamza__sar</a>.
+		 If you encounter a bug with this app, tweet to <a href="" onclick="openExternal('twitter')">@Electr0d</a>. 
+		 If you want to <a href="" onclick="openExternal('donate')">donate</a>, 
+		 you can. It helps maintain this app, and build future projects.`;
 
 		parentElement.appendChild(headerDiv);
 		headerDiv.appendChild(headerIcon);
 		headerDiv.appendChild(headerText);
+		parentElement.appendChild(bodyHeader1);
 		parentElement.appendChild(bodyText1);
+		parentElement.appendChild(bodyHeader2);
 		parentElement.appendChild(bodyText2);
 		console.log('test');
 		aboutOn = true;
 	} else {
-		document.querySelector('#lock').classList.toggle('button-header-active');
+		document.querySelector('#about').classList.toggle('button-header-active');
 
 		setTimeout(function() {
+			parentElement.classList.remove('toggleAbout');
 			var first = parentElement.firstElementChild;
 			while (first) {
 				first.remove();
@@ -1101,5 +1140,17 @@ function about() {
 			}
 		}, 200);
 		aboutOn = false;
+	}
+}
+
+function openExternal(type) {
+	if (type == 'github') {
+		shell.openExternal('https://github.com/Electr0d/PassVault');
+	} else if (type == 'instagram') {
+		shell.openExternal('https://www.instagram.com/hamza__sar/');
+	} else if (type == 'twitter') {
+		shell.openExternal('https://twitter.com/Electr0d');
+	} else if (type == 'donate') {
+		shell.openExternal('https://www.patreon.com/Hamza_Sar');
 	}
 }

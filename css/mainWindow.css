@@ -19,7 +19,7 @@ body {
 }
 .container {
 	font-family: "Segoe UI", sans-serif;
-	margin-ftop: 80px;
+	margin-top: 80px;
 	display: flex;
 	align-items: center;
 	width: 100%;
@@ -161,7 +161,9 @@ menu {
 }
 
 .toggleAbout {
-	width: 400px !important;
+	width: 340px !important;
+	display: block !important;
+	margin-top: 10px !important;
 }
 
 .toggleAdd {
@@ -182,7 +184,7 @@ menu {
 	align-items: left;
 }
 .settings-parameters-header p {
-	font-size: 18px;
+	font-size: 24px;
 }
 .settings-sub-body {
 	font-size: 12px;
@@ -530,4 +532,14 @@ input {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+.settings-sub-body-header {
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 5px;
+}
+.settings-sub-header {
+	text-align: center;
+	width: 100%;
 }

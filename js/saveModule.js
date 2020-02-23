@@ -1,12 +1,13 @@
 const savePath = '../data/data.json';
 const fullPath = path.join(__dirname, savePath);
+var configStringified;
 // save function
 
 function save(type) {
 	const body = document.querySelector('body');
 	if (type == 'config') {
 		// save config.json
-		var configStringified = JSON.stringify(config);
+		configStringified = JSON.stringify(config);
 		fs.writeFileSync(configFullPath, configStringified, function(err) {
 			if (err) throw err;
 		});
@@ -29,7 +30,7 @@ function save(type) {
 			console.log('Saved!');
 		});
 		// save config.json
-		var configStringified = JSON.stringify(config);
+		configStringified = JSON.stringify(config);
 		console.log('Config saved!');
 		fs.writeFileSync(configFullPath, configStringified, function(err) {
 			if (err) throw err;
