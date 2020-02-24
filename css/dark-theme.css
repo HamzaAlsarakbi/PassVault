@@ -1,3 +1,9 @@
+/*** Loading Overlay **/
+
+.loading-overlay {
+	background-color: rgb(32, 32, 32);
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
 	background: rgb(30, 30, 30);
@@ -94,3 +100,5 @@ a {
 a:hover {
 	filter: brightness(0.9);
 }
+
+

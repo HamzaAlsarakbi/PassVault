@@ -19,61 +19,90 @@
     <link rel="stylesheet" type="text/css" href="../css/mainWindow.css" />
   </head>
   <body>
-    <!--Window Controls-->
+
+    <!-- Loading Screen -->
+    <div class="loading-overlay">
+      <div class="loading-container">
+          <div class="loading-icon"></div>
+          <div class="loading-msg">Loading...</div>
+      </div>
+      </div>
+
+      <container>
+            <!-- Window Controls -->
     <header id="titlebar">
-      <div id="drag-region">
-        <div id="window-title">
-          <span>Vault</span>
+        <div id="drag-region">
+          <div id="window-title">
+            <span>Vault</span>
+          </div>
+  
+          <div id="window-controls">
+            <div class="button" id="min-button">
+              <span>&#xE921;</span>
+            </div>
+            <div class="button" id="max-button">
+              <span>&#xE922;</span>
+            </div>
+            <div class="button" id="restore-button">
+              <span>&#xE923;</span>
+            </div>
+            <div class="button" id="close-button">
+              <span>&#xE8BB;</span>
+            </div>
+          </div>
         </div>
-
-        <div id="window-controls">
-          <div class="button" id="min-button">
-            <span>&#xE921;</span>
+      </header>
+  
+      <!-- Contents -->
+      <div class="container">
+        <controls>
+          <div class="controls">
+            <div class="control" id="add" onclick="addFunc()">
+            </div>
+            <div class="control" id="settings" onclick="settingsFunc()">
+            </div>
           </div>
-          <div class="button" id="max-button">
-            <span>&#xE922;</span>
+          <menu>
+            <div class="add"></div>
+            <div class="settings"></div>
+          </menu>
+        </controls>
+        <div class="data" id="table">
+          <div id="thead">
+            <div id="tr">
+              <div class="header" id="type">Type</div>
+              <div class="header" id="service">Service</div>
+              <div class="header" id="email">Email</div>
+              <div class="header" id="password">Password</div>
+              <div class="header" id="hide-show">Controls</div>
+            </div>
           </div>
-          <div class="button" id="restore-button">
-            <span>&#xE923;</span>
-          </div>
-          <div class="button" id="close-button">
-            <span>&#xE8BB;</span>
-          </div>
+          <div class="tbody-data" id="tbody"></div>
+          
         </div>
       </div>
-    </header>
-
-    <!--Contents-->
-    <!--Controls-->
-    <div class="container">
-      <controls>
-        <div class="controls">
-          <div class="control" id="add" onclick="addFunc()">
-          </div>
-          <div class="control" id="settings" onclick="settingsFunc()">
-          </div>
-        </div>
-        <menu>
-          <div class="add"></div>
-          <div class="settings"></div>
-        </menu>
-      </controls>
-      <div class="data" id="table">
-        <div id="thead">
-          <div id="tr">
-            <div class="header" id="type">Type</div>
-            <div class="header" id="service">Service</div>
-            <div class="header" id="email">Email</div>
-            <div class="header" id="password">Password</div>
-            <div class="header" id="hide-show">Controls</div>
-          </div>
-        </div>
-        <div class="tbody-data" id="tbody"></div>
-        
-      </div>
-    </div>
+      </container>
+    
+    <!-- Scripts -->
     <script src="../js/windowControls.js"></script>
     <script src="../js/mainWindow.js"></script>
     <script src="../js/saveModule.js"></script>
+    <script>
+      function loaded() {
+        setTimeout(function() {
+        // loading overlay draw-out animation
+        console.log('NOTICE: Document loaded.');
+        document.querySelector('.loading-overlay').style = 'animation: draw-out-loading-screen 0.6s ease-out; animation-fill-mode: forwards;';
+
+        // container animation
+        document.querySelector('container').style = 'animation: draw-out-loading-screen 0.6s ease-out; animation-fill-mode: forwards; animation-direction: reverse;'
+        setTimeout(function() {
+          console.log('delete');
+          document.querySelector('body').removeChild(document.querySelector('.loading-overlay'));
+        }, 700);
+        }, 500);
+      }
+      window.onload = loaded;
+    </script>
   </body>
 </html>

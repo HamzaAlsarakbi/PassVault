@@ -1,3 +1,10 @@
+/*** Loading Overlay **/
+
+.loading-overlay {
+	background-color: rgb(240, 240, 240);
+}
+
+
 /* Track */
 ::-webkit-scrollbar-track {
 	background: transparent;
