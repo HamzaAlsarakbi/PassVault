@@ -23,19 +23,18 @@
     <!-- Loading Screen -->
     <div class="loading-overlay">
       <div class="loading-container">
-          <div class="loading-icon"></div>
+          <img class="loading-icon" src="../assets/img/dark/gear.png" height="75px">
           <div class="loading-msg">Loading...</div>
       </div>
       </div>
 
-      <container>
-            <!-- Window Controls -->
-    <header id="titlebar">
+      <!-- Window Controls -->
+      <header id="titlebar">
         <div id="drag-region">
           <div id="window-title">
             <span>Vault</span>
           </div>
-  
+          
           <div id="window-controls">
             <div class="button" id="min-button">
               <span>&#xE921;</span>
@@ -52,7 +51,8 @@
           </div>
         </div>
       </header>
-  
+      <container>
+      
       <!-- Contents -->
       <div class="container">
         <controls>
@@ -88,17 +88,19 @@
     <script src="../js/mainWindow.js"></script>
     <script src="../js/saveModule.js"></script>
     <script>
+        document.querySelector('body').style.overflow = 'hidden';
       function loaded() {
         setTimeout(function() {
         // loading overlay draw-out animation
-        console.log('NOTICE: Document loaded.');
-        document.querySelector('.loading-overlay').style = 'animation: draw-out-loading-screen 0.6s ease-out; animation-fill-mode: forwards;';
+        console.log('NOTICE: Document loaded.');0
+        document.querySelector('.loading-overlay').style = 'animation: draw-out-loading-screen 0.3s ease-out; animation-fill-mode: forwards;';
 
         // container animation
-        document.querySelector('container').style = 'animation: draw-out-loading-screen 0.6s ease-out; animation-fill-mode: forwards; animation-direction: reverse;'
+        document.querySelector('container').style = 'animation: menu-draw-in-loading-screen 0.3s ease-out; animation-fill-mode: forwards;';
         setTimeout(function() {
           console.log('delete');
           document.querySelector('body').removeChild(document.querySelector('.loading-overlay'));
+          document.querySelector('body').style.overflowY = 'auto';
         }, 700);
         }, 500);
       }
