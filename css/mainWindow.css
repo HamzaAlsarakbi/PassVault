@@ -44,14 +44,28 @@ body {
 	font-size: 18px;
 }
 @keyframes draw-out-loading-screen {
-	0% {opacity: 1; transform: scale(1);}
-	100% {opacity: 0; transform: scale(1.5); filter: blur(5px);}
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.5);
+		filter: blur(5px);
+	}
 }
 @keyframes menu-draw-in-loading-screen {
-	0% {opacity: 0; transform: scale(1.5); filter: blur(5px);}
-	100% {opacity: 1; transform: scale(1); filter: blur(0px);}
+	0% {
+		opacity: 0;
+		transform: scale(1.5);
+		filter: blur(5px);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+		filter: blur(0px);
+	}
 }
-
 
 .container {
 	font-family: "Segoe UI", sans-serif;
@@ -62,6 +76,10 @@ body {
 	flex-direction: column;
 	margin-top: 30px;
 	overflow: auto;
+}
+.container-draw-in {
+	animation: menu-draw-in-loading-screen 0.3s ease-out;
+	animation-fill-mode: forwards;
 }
 
 controls {
@@ -401,6 +419,7 @@ input {
 	padding: 6px;
 	cursor: pointer;
 	height: 28px;
+	border-radius: 5px;
 }
 
 #controls {
@@ -433,6 +452,7 @@ input {
 #table-email,
 #table-password {
 	width: calc(100% - 5px);
+	margin: 2px;
 }
 #thead {
 	padding-top: 60px;

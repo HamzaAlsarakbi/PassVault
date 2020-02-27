@@ -22,6 +22,7 @@
 body {
 	color: white;
 	background-color: rgb(32, 32, 32);
+	transition: 0s;
 }
 img {
 	filter: invert(0);
@@ -100,5 +101,3 @@ a {
 a:hover {
 	filter: brightness(0.9);
 }
-
-

@@ -617,12 +617,12 @@ function hideShow(pro, value) {
 		}
 	}
 }
+var onCopy = false;
 function copyText(properties) {
 	var d = properties.id;
 	var c = properties.classList;
-	if (!data[c].onCopy) {
-		stalemate = true;
-		data[c].onCopy = true;
+	if (!onCopy) {
+		onCopy = true;
 		var copyVar = data[c][d];
 		var copyDOM = document.createElement('input');
 		copyDOM.setAttribute('class', 'hidden');
@@ -641,8 +641,7 @@ function copyText(properties) {
 			document.querySelector('#' + d + '.' + c).appendChild(span);
 			setTimeout(function() {
 				span.remove();
-				data[c].onCopy = false;
-				stalemate = false;
+				onCopy = false;
 			}, 1500);
 		} catch (err) {
 			console.log('Copying ' + c + d + ' was unsuccessful!');
@@ -682,6 +681,8 @@ function editRow(properties) {
 		// tr effects
 		console.log(tr);
 		document.querySelector('.' + tr).classList.toggle('tr-edit');
+		// remove overflow thingy
+
 		// remove text
 		typeDOM.textContent = '';
 		serviceDOM.textContent = '';

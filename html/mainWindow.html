@@ -26,7 +26,7 @@
           <img class="loading-icon" src="../assets/img/dark/gear.png" height="75px">
           <div class="loading-msg">Loading...</div>
       </div>
-      </div>
+    </div>
 
       <!-- Window Controls -->
       <header id="titlebar">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </header>
-      <container>
+
       
       <!-- Contents -->
       <div class="container">
@@ -81,7 +81,7 @@
           
         </div>
       </div>
-      </container>
+
     
     <!-- Scripts -->
     <script src="../js/windowControls.js"></script>
@@ -92,17 +92,17 @@
       function loaded() {
         setTimeout(function() {
         // loading overlay draw-out animation
-        console.log('NOTICE: Document loaded.');0
+        console.log('NOTICE: Document loaded.');
         document.querySelector('.loading-overlay').style = 'animation: draw-out-loading-screen 0.3s ease-out; animation-fill-mode: forwards;';
 
         // container animation
-        document.querySelector('container').style = 'animation: menu-draw-in-loading-screen 0.3s ease-out; animation-fill-mode: forwards;';
+        document.querySelector('.container').classList.toggle('container-draw-in');
         setTimeout(function() {
-          console.log('delete');
           document.querySelector('body').removeChild(document.querySelector('.loading-overlay'));
           document.querySelector('body').style.overflowY = 'auto';
+          document.querySelector('.container').classList.toggle('container-draw-in');
         }, 700);
-        }, 500);
+        }, 1000);
       }
       window.onload = loaded;
     </script>

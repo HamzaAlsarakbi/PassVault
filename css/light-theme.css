@@ -4,7 +4,6 @@
 	background-color: rgb(240, 240, 240);
 }
 
-
 /* Track */
 ::-webkit-scrollbar-track {
 	background: transparent;
@@ -23,6 +22,7 @@
 body {
 	background-color: rgb(240, 240, 240);
 	color: black;
+	transition: 0s;
 }
 img {
 	filter: invert(1);
