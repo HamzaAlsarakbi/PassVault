@@ -1,5 +1,5 @@
 const electron = require('electron');
-const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain } = electron;
+const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
 const url = require('url');
 const path = require('path');
 
@@ -19,7 +19,8 @@ function ready() {
 		resizable: false,
 		webPreferences: {
 			nodeIntegration: true
-		}
+		},
+		icon: path.join(__dirname, 'assets/img/icon.png')
 	});
 
 	// Load HTML file into window
@@ -74,7 +75,8 @@ function createMainWindow() {
 		minWidth: 620,
 		webPreferences: {
 			nodeIntegration: true
-		}
+		},
+		icon: path.join(__dirname, 'assets/img/icon.png')
 	});
 
 	// Load HTML file into window
@@ -98,3 +100,26 @@ function createMainWindow() {
 		}
 	});
 }
+/*
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+	const dialogOpts = {
+		type: 'info',
+		buttons: [ 'Restart', 'Later' ],
+		title: 'Application Update',
+		message: process.platform === 'win32' ? releaseNotes : releaseName,
+		detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+	};
+
+	dialog.showMessageBox(dialogOpts).then((returnValue) => {
+		if (returnValue.response === 0) autoUpdater.quitAndInstall();
+	});
+});
+autoUpdater.on('error', (message) => {
+	console.error('There was a problem updating the application');
+	console.error(message);
+});
+
+setInterval(() => {
+	autoUpdater.checkForUpdates();
+}, 60000);
+*/

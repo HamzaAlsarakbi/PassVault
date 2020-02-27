@@ -35,13 +35,25 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+.loading-icons {
+	height: 120px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	transform: scale(1.5);
+}
 .loading-icon {
+	position: relative;
+}
+#loading-cog {
 	animation: rotation 1.5s infinite;
+	top: -90px;
+	left: -2px;
 }
 .loading-msg {
 	margin-top: 20px;
 	height: 40px;
-	font-size: 18px;
+	font-size: 22px;
 }
 @keyframes draw-out-loading-screen {
 	0% {
@@ -478,6 +490,7 @@ input {
 #email::-webkit-scrollbar,
 #password::-webkit-scrollbar {
 	height: 7px;
+	border-radius: 5px;
 }
 
 .header {

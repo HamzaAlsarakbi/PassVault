@@ -1,0 +1,1 @@
+require('update-electron-app')();

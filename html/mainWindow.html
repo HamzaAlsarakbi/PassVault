@@ -23,7 +23,10 @@
     <!-- Loading Screen -->
     <div class="loading-overlay">
       <div class="loading-container">
-          <img class="loading-icon" src="../assets/img/dark/gear.png" height="75px">
+        <div class="loading-icons">
+        <img class="loading-icon" id="loading-backdrop" src="../assets/img/icon-backdrop.png" height="100px">
+        <img class="loading-icon" id="loading-cog" src="../assets/img/icon-cog.png" height="50px">
+        </div>
           <div class="loading-msg">Loading...</div>
       </div>
     </div>
@@ -87,6 +90,7 @@
     <script src="../js/windowControls.js"></script>
     <script src="../js/mainWindow.js"></script>
     <script src="../js/saveModule.js"></script>
+    <script src="../js/updateModule.js.js"></script>
     <script>
         document.querySelector('body').style.overflow = 'hidden';
       function loaded() {
