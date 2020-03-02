@@ -169,7 +169,7 @@ img {
 	padding-right: 20px;
 	padding-bottom: 10px;
 }
-.add-div {
+.:div {
 	display: flex;
 	flex-direction: row;
 	padding: 20px;
@@ -180,6 +180,7 @@ img {
 	display: flex;
 	flex-direction: row;
 	margin: 0;
+	padding: 1px;
 }
 .settings {
 	padding-left: 20px;

@@ -13,8 +13,8 @@ app.on('ready', ready);
 function ready() {
 	//Create new window
 	loginWindow = new BrowserWindow({
-		width: 200,
-		height: 300,
+		width: 250,
+		height: 350,
 		frame: false,
 		resizable: false,
 		webPreferences: {

@@ -88,8 +88,10 @@ input:hover,
 input:focus {
 	border-color: rgb(52, 99, 202);
 }
-.pass-div#add-pass:hover,
-.pass-div#add-pass:focus {
+#add-password {
+	border: 1px solid transparent !important;
+}
+#add-password:focus {
 	border-color: rgb(52, 99, 202);
 }
 .confirm {
