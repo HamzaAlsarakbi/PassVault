@@ -1,5 +1,13 @@
 /* Styling of window frame and titlebar */
 
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+}
+
 html {
 	box-sizing: border-box;
 }

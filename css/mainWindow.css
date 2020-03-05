@@ -383,26 +383,28 @@ input {
 /**** Responsive */
 @media only screen and (max-width: 1200px) {
 	.toggleAdd {
-		height: 340px;
+		height: 270px;
 		width: 25%;
 	}
 
 	.add-div {
-		flex-direction: column;
+		flex-direction: row;
 		width: 100%;
+		flex-wrap: wrap;
 	}
-	input {
-		width: 100%;
+	.add-div input,
+	.pass-div#add-pass {
+		width: 47.5%;
 	}
 
 	.controlsSpan {
-		height: 360px;
+		height: 280px;
 	}
 	.margin-add {
-		padding-top: 390px !important;
+		padding-top: 320px !important;
 	}
 	.body-margin-add {
-		margin-top: 425px !important;
+		margin-top: 355px !important;
 	}
 }
 .tbody-data {

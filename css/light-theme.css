@@ -4,19 +4,18 @@
 	background-color: rgb(240, 240, 240);
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-	background: transparent;
+	background: rgb(190, 190, 190);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: rgb(180, 180, 180);
+	background: rgb(160, 160, 160);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: rgb(160, 160, 160);
+	background: rgb(140, 140, 140);
 }
 #window-controls .button:hover {
 	background-color: rgb(200, 200, 200);

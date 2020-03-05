@@ -14,7 +14,7 @@ function ready() {
 	//Create new window
 	loginWindow = new BrowserWindow({
 		width: 250,
-		height: 350,
+		height: 375,
 		frame: false,
 		resizable: false,
 		webPreferences: {
