@@ -226,8 +226,13 @@ menu {
 	width: 340px !important;
 	display: block !important;
 	margin-top: 10px !important;
+	height: 200px;
+	overflow-y: auto;
+	padding-right: 5px;
 }
-
+.toggleAbout::-webkit-scrollbar {
+	width: 7px;
+}
 .toggleAdd {
 	height: 210px;
 	margin-top: 20px;
@@ -247,8 +252,19 @@ menu {
 .settings-parameters-header p {
 	font-size: 24px;
 }
+
+.settings-sub-body-header {
+	font-size: 16px;
+	font-weight: bold;
+	margin-top: 5px;
+}
+.settings-sub-header {
+	text-align: center;
+	width: 100%;
+	padding-bottom: 20px;
+}
 .settings-sub-body {
-	font-size: 12px;
+	font-size: 14px;
 }
 button {
 	padding: 5px;
@@ -603,15 +619,4 @@ input {
 	100% {
 		transform: rotate(360deg);
 	}
-}
-
-.settings-sub-body-header {
-	font-size: 14px;
-	font-weight: bold;
-	margin-top: 5px;
-}
-.settings-sub-header {
-	text-align: center;
-	width: 100%;
-	padding-bottom: 20px;
 }

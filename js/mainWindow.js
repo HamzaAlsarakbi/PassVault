@@ -1105,10 +1105,22 @@ function about() {
 		headerText.setAttribute('class', 'settings-sub-header');
 		headerText.textContent = 'About';
 
+		// create header div
+		var bodyHeaderDIV = document.createElement('div');
+		bodyHeaderDIV.setAttribute('style', 'display: flex; flex-direction: row; align-items: center');
+
 		// create header of paragraph
-		var bodyHeader1 = document.createElement('p');
-		bodyHeader1.setAttribute('class', 'settings-sub-body-header');
-		bodyHeader1.textContent = 'What is PassVault?';
+		var bodyHeaderText = document.createElement('p');
+		bodyHeaderText.setAttribute('class', 'settings-sub-body-header');
+		bodyHeaderText.textContent = 'What is PassVault?';
+
+		// create header icon
+		var bodyHeaderImg = document.createElement('img');
+		bodyHeaderImg.setAttribute('class', 'settings-sub-body-header');
+		bodyHeaderImg.setAttribute('style', 'margin-left: 4px');
+		bodyHeaderImg.setAttribute('height', '26px');
+		bodyHeaderImg.setAttribute('src', '../assets/img/icon-transparent.png');
+
 		// create paragraph
 
 		var bodyText1 = document.createElement('p');
@@ -1138,7 +1150,9 @@ function about() {
 		parentElement.appendChild(headerDiv);
 		headerDiv.appendChild(headerIcon);
 		headerDiv.appendChild(headerText);
-		parentElement.appendChild(bodyHeader1);
+		parentElement.appendChild(bodyHeaderDIV);
+		bodyHeaderDIV.appendChild(bodyHeaderText);
+		bodyHeaderDIV.appendChild(bodyHeaderImg);
 		parentElement.appendChild(bodyText1);
 		parentElement.appendChild(bodyHeader2);
 		parentElement.appendChild(bodyText2);
