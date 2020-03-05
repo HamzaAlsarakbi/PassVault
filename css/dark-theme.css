@@ -18,7 +18,9 @@
 ::-webkit-scrollbar-thumb:hover {
 	background: rgb(80, 80, 80);
 }
-
+#window-controls .button:hover {
+	background-color: rgb(60, 60, 60);
+}
 body {
 	color: white;
 	background-color: rgb(32, 32, 32);
@@ -81,6 +83,11 @@ button:hover {
 #cell-delete:hover {
 	background-color: rgb(60, 60, 60);
 }
+.pass-div#add-pass:hover,
+.pass-div#add-pass:focus-within {
+	border-color: rgb(52, 99, 202);
+}
+
 #copy {
 	color: rgb(150, 150, 150);
 }
@@ -89,7 +96,7 @@ input:focus {
 	border-color: rgb(52, 99, 202);
 }
 #add-password {
-	border: 1px solid transparent !important;
+	border: 1px solid transparent;
 }
 #add-password:focus {
 	border-color: rgb(52, 99, 202);

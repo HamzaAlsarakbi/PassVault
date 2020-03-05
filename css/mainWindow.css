@@ -169,7 +169,7 @@ img {
 	padding-right: 20px;
 	padding-bottom: 10px;
 }
-.:div {
+.add-div {
 	display: flex;
 	flex-direction: row;
 	padding: 20px;
@@ -296,7 +296,6 @@ input {
 	margin: 5px;
 	padding: 5px;
 	background-color: transparent;
-	height: 30px;
 	border: 2px solid rgb(80, 80, 80);
 	border-radius: 5px;
 	transition: 0.4s;

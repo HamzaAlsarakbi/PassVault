@@ -88,7 +88,6 @@ html {
 #window-controls .button:hover {
 	opacity: 0.8;
 	transition: 0.2s;
-	background-color: rgb(70, 70, 70);
 }
 
 .button#close-button:hover {
