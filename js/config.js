@@ -1,8 +1,16 @@
 const fs = require('fs'),
-	path = require('path');
-const configFullPath = path.join(__dirname, '../data/config.json');
-
-console.log('parsing...');
-var rawConfig = fs.readFileSync(configFullPath);
+	path = require('path'),
+	SimpleCrypto = require('simple-crypto-js').default,
+	configFullPath = path.join(__dirname, '../data/config.txt'),
+	password = 'PassVaultPassword',
+	simpleCrypto = new SimpleCrypto(password);
+	
+	/*
+var rawConfig = fs.readFileSync(OldConfigFullPath);
 config = JSON.parse(rawConfig);
-console.log(config);
+
+*/
+
+console.log('parsing config...');
+var rawConfig = fs.readFileSync(configFullPath, 'utf-8');
+var config = simpleCrypto.decrypt(rawConfig, true);

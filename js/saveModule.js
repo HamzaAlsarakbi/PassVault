@@ -1,17 +1,21 @@
-const savePath = '../data/data.json';
-const fullPath = path.join(__dirname, savePath);
-var configStringified;
-// save function
+const fullPath = path.join(__dirname, '../data/data.txt');
 
+const errorColor = 'color: rgb(200, 50, 50);';
+var configData;
+
+// save function
 function save(type) {
 	const body = document.querySelector('body');
 	if (type == 'config') {
-		// save config.json
-		configStringified = JSON.stringify(config);
-		fs.writeFileSync(configFullPath, configStringified, function(err) {
-			if (err) throw err;
-		});
-		console.log('Config saved!');
+		// encrypt config
+		console.log('config save triggered');
+
+		configEncrypted = encrypt(config);
+		console.log('config encrypted');
+		console.log(configEncrypted);
+
+		// save
+		package(configEncrypted, configFullPath);
 	} else if (!saved) {
 		// if changes are made
 		var saveButton = document.createElement('button');
@@ -24,17 +28,11 @@ function save(type) {
 	} else {
 		// if no changes are made
 		// save data.json
-		var dataStringified = JSON.stringify(data);
-		fs.writeFileSync(fullPath, dataStringified, function(err) {
-			if (err) throw err;
-			console.log('Saved!');
-		});
+		dataEncrypted = encrypt(data);
+		package(dataEncrypted, fullPath);
 		// save config.json
-		configStringified = JSON.stringify(config);
-		console.log('Config saved!');
-		fs.writeFileSync(configFullPath, configStringified, function(err) {
-			if (err) throw err;
-		});
+		save('config');
+
 		saved = false;
 		stalemate = false;
 		var saveButtonDOM = document.querySelector('.save');
@@ -48,6 +46,23 @@ function save(type) {
 		}
 	}
 }
+
+function encrypt(object) {
+	// encrypt some stuff here
+	var encrypted = simpleCrypto.encrypt(object);
+	return encrypted;
+}
+function package(object, pathOfObject) {
+	fs.writeFileSync(pathOfObject, object, function(err) {
+		if (err) throw err;
+		console.log('Saved ' + object + '!');
+	});
+}
+function decrypt(object) {
+	decrypted = simpleCrypto.decrypt(object, true);
+	return decrypted;
+}
+
 checkSaveFile();
 function checkSaveFile() {
 	// check if there is a save file
@@ -65,8 +80,10 @@ function checkSaveFile() {
 
 function parse() {
 	console.log('parsing...');
-	var rawData = fs.readFileSync(fullPath);
-	data = JSON.parse(rawData);
+	var rawData = fs.readFileSync(fullPath, 'utf-8');
+	console.log(rawData);
+	data = decrypt(rawData);
+	console.log(data);
 	console.log('data.length == ' + config.cellIndex);
 	for (var i = 1; i <= config.cellIndex; i++) {
 		addSavedData('cell' + i, i);
@@ -185,11 +202,13 @@ function addSavedData(c, index) {
 		console.log(c + " doesn't exist");
 	}
 }
+
 var dataSave = {};
 var stalemate = false;
 function changesChecker() {
-	var rawData = fs.readFileSync(fullPath);
-	dataSave = JSON.parse(rawData);
+	var rawData = fs.readFileSync(fullPath, 'utf-8');
+	dataSave = decrypt(rawData);
+
 	// compare two objects
 	if (!stalemate) {
 		if (angular.equals(dataSave, data)) {
@@ -204,7 +223,7 @@ function changesChecker() {
 			stalemate = true;
 		}
 	} else {
-		console.log('ERROR: caught in stalemate.');
+		console.log('%c ERROR: caught in stalemate.', 'color: rgb(250, 50, 50);');
 	}
 }
 

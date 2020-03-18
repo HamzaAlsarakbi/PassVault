@@ -648,7 +648,7 @@ function copyText(properties) {
 		}
 		document.querySelector('#email').removeChild(copyDOM);
 	} else {
-		console.log('ERROR: failed to because onCopy is set to true');
+		console.log('%c ERROR: failed to because onCopy is set to true', 'color: rgb(250, 50, 50);');
 	}
 }
 
