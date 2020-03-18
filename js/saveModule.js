@@ -1,11 +1,14 @@
 const fullPath = path.join(__dirname, '../data/data.txt');
 
 const errorColor = 'color: rgb(200, 50, 50);';
+const greenColor = 'color: rgb(50, 200, 50);';
+const orangeColor = 'color: rgb(255, 150, 0);';
+const blueColor = 'color: rgb(0, 150, 255);';
 var configData;
 
 // save function
 function save(type) {
-	const body = document.querySelector('body');
+	const container = document.querySelector('.container');
 	if (type == 'config') {
 		// encrypt config
 		console.log('config save triggered');
@@ -22,7 +25,7 @@ function save(type) {
 		saveButton.setAttribute('class', 'save');
 		saveButton.setAttribute('onclick', 'save()');
 		saveButton.textContent = 'Save';
-		body.appendChild(saveButton);
+		container.appendChild(saveButton);
 		console.log('displaying save button.');
 		saved = true;
 	} else {
@@ -43,6 +46,8 @@ function save(type) {
 		if (lockVaultOn) {
 			lockVault();
 			setTimeout(lockVault, 400);
+		} else if (type == 'close') {
+			win.close();
 		}
 	}
 }
@@ -79,11 +84,9 @@ function checkSaveFile() {
 }
 
 function parse() {
-	console.log('parsing...');
+	console.log('%c parsing...', orangeColor);
 	var rawData = fs.readFileSync(fullPath, 'utf-8');
-	console.log(rawData);
 	data = decrypt(rawData);
-	console.log(data);
 	console.log('data.length == ' + config.cellIndex);
 	for (var i = 1; i <= config.cellIndex; i++) {
 		addSavedData('cell' + i, i);
@@ -93,7 +96,7 @@ function parse() {
 // add rows
 function addSavedData(c, index) {
 	if (c in data) {
-		console.log(c + ' is in data');
+		console.log('%c' + c + ' is in data', greenColor);
 		const table = document.querySelector('.tbody-data');
 		// create table row
 		tr = document.createElement('div');
@@ -199,7 +202,7 @@ function addSavedData(c, index) {
 			document.querySelector('#thead #tr').setAttribute('class', 'gridlinesOn');
 		}
 	} else {
-		console.log(c + " doesn't exist");
+		console.log('%c' + c + " doesn't exist", errorColor);
 	}
 }
 
@@ -214,7 +217,7 @@ function changesChecker() {
 		if (angular.equals(dataSave, data)) {
 			// console.log('dataSave & data are equal.');
 		} else {
-			console.log('dataSave & data are NOT equal.');
+			console.log('%c dataSave & data are NOT equal.', errorColor);
 			save();
 			if (lockVaultOn) {
 				lockVault();
@@ -223,7 +226,7 @@ function changesChecker() {
 			stalemate = true;
 		}
 	} else {
-		console.log('%c ERROR: caught in stalemate.', 'color: rgb(250, 50, 50);');
+		console.log('%c ERROR: caught in stalemate.', errorColor);
 	}
 }
 

@@ -5,7 +5,7 @@ const { ipcRenderer } = electron;
 // Assigning variables
 const submitButton = document.querySelector('.submit');
 const passDOM = document.querySelector('#password');
-var password = passDOM.value;
+var passwordValue = passDOM.value;
 
 // Window controls
 let win = remote.getCurrentWindow();
@@ -29,7 +29,7 @@ function init() {
 
 // packaging input.value
 passDOM.addEventListener('input', function() {
-	password = passDOM.value;
+	passwordValue = passDOM.value;
 });
 
 passDOM.addEventListener('keyup', function() {
@@ -42,7 +42,7 @@ passDOM.addEventListener('keyup', function() {
 function submit() {
 	console.log('wrong pass');
 	const errorSpan = document.querySelector('.noerror');
-	if (password == config.masterPassword) {
+	if (passwordValue == config.masterPassword) {
 		// Hide span if it were activated
 		errorSpan.classList.remove('error');
 
@@ -53,7 +53,7 @@ function submit() {
 		// send confirmation
 		ipcRenderer.send('loginConfirmation');
 		win.close();
-	} else if (password == '' || typeof password == undefined) {
+	} else if (passwordValue == '' || typeof passwordValue == undefined) {
 		// If password is empty
 		// Display span
 		errorSpan.classList.add('error');

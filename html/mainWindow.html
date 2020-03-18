@@ -99,14 +99,14 @@
       function loaded() {
         setTimeout(function() {
         // loading overlay draw-out animation
-        console.log('NOTICE: content loaded.');
+        console.log('%c NOTICE: content loaded.', greenColor);
         document.querySelector('.loading-overlay').style = 'animation: draw-out-loading-screen 0.3s ease-out; animation-fill-mode: forwards;';
         
         // container animation
         document.querySelector('.container').classList.toggle('container-draw-in');
         setTimeout(function() {
           document.querySelector('body').removeChild(document.querySelector('.loading-overlay'));
-          document.querySelector('body').style.overflowY = 'auto';
+          
           document.querySelector('.container').classList.toggle('container-draw-in');
         }, 700);
         }, 1000);

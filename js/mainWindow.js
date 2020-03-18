@@ -1184,3 +1184,53 @@ function openExternal(type) {
 		shell.openExternal('https://www.patreon.com/Hamza_Sar');
 	}
 }
+
+
+function showDialog(titleContent, promptContent, buttons, buttonActions) {
+	if (buttons.length == buttonActions.length) {
+		const body = document.querySelector('body');
+		// create overlay
+		var overlay = document.createElement('div');
+		overlay.setAttribute('class', 'overlay');
+		body.appendChild(overlay);
+		// create dialog box
+		var dialogBox = document.createElement('div');
+		dialogBox.setAttribute('class', 'dialog-box');
+		overlay.appendChild(dialogBox);
+
+		// create title
+		var title = document.createElement('p');
+		title.setAttribute('class', 'dialog-box-title');
+		title.textContent = titleContent;
+		dialogBox.appendChild(title);
+		// create prompt
+		var prompt = document.createElement('p');
+		prompt.setAttribute('class', 'dialog-box-prompt');
+		prompt.textContent = promptContent;
+		dialogBox.appendChild(prompt);
+		// create buttons
+		for (i = 0; i < buttons.length; i++) {
+			var button = document.createElement('button');
+			button.setAttribute('class', 'dialog-box-button');
+			button.setAttribute('id', 'dialog-box-button-' + i);
+			button.setAttribute('onclick', buttonActions[i]);
+			button.textContent = buttons[i];
+			dialogBox.appendChild(button);
+		}
+		document.querySelector('.container').classList.add('container-freeze');
+	} else {
+		console.log('%c ERROR: buttons != buttonActions', errorColor);
+	}
+}
+function closeDialog() {
+	var overlay = document.querySelector('.overlay');
+	if (overlay === undefined) {
+		// throw error
+	} else {
+		document.querySelector('.dialog-box').classList.add('dialog-box-close');
+		document.querySelector('.container').classList.remove('container-freeze');
+		setTimeout(function() {
+			document.querySelector('body').removeChild(document.querySelector('.overlay'));
+		}, 240);
+	}
+}
