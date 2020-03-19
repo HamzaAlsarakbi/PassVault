@@ -11,13 +11,9 @@ function save(type) {
 	const container = document.querySelector('.container');
 	if (type == 'config') {
 		// encrypt config
-		console.log('config save triggered');
-
 		configEncrypted = encrypt(config);
-		console.log('config encrypted');
-		console.log(configEncrypted);
 
-		// save
+		// save encrypted config
 		package(configEncrypted, configFullPath);
 	} else if (!saved) {
 		// if changes are made
@@ -37,7 +33,6 @@ function save(type) {
 		save('config');
 
 		saved = false;
-		stalemate = false;
 		var saveButtonDOM = document.querySelector('.save');
 		saveButtonDOM.classList.toggle('button-slide-out');
 		setTimeout(function() {
@@ -207,26 +202,36 @@ function addSavedData(c, index) {
 }
 
 var dataSave = {};
-var stalemate = false;
 function changesChecker() {
 	var rawData = fs.readFileSync(fullPath, 'utf-8');
 	dataSave = decrypt(rawData);
 
 	// compare two objects
-	if (!stalemate) {
-		if (angular.equals(dataSave, data)) {
-			// console.log('dataSave & data are equal.');
-		} else {
+	if (angular.equals(dataSave, data)) {
+		// console.log('%c dataSave & data are equal.', greenColor);
+		if (saved) {
+			saved = false;
+			var saveButtonDOM = document.querySelector('.save');
+			saveButtonDOM.classList.toggle('button-slide-out');
+			setTimeout(function() {
+				saveButtonDOM.remove();
+			}, 300);
+			if (lockVaultOn) {
+				lockVault();
+				setTimeout(lockVault, 400);
+			}
+		}
+	} else {
+		if (!saved) {
 			console.log('%c dataSave & data are NOT equal.', errorColor);
 			save();
 			if (lockVaultOn) {
 				lockVault();
 				setTimeout(lockVault, 400);
 			}
-			stalemate = true;
+		} else {
+			console.log('%c ERROR: caught in stalemate.', orangeColor);
 		}
-	} else {
-		console.log('%c ERROR: caught in stalemate.', errorColor);
 	}
 }
 
