@@ -55,7 +55,7 @@ document.onkeyup = function(e) {
 	} else if (e.altKey && e.which == 83) {
 		settingsFunc();
 	} else if (e.ctrlKey && e.which == 83) {
-		if (stalemate) {
+		if (saved) {
 			save();
 		}
 	}
