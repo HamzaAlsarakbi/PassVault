@@ -1,3 +1,4 @@
+/** Global Settings **/
 * {
 	margin: 0;
 	padding: 0;
@@ -5,6 +6,11 @@
 	vertical-align: baseline;
 	outline: none;
 	transition: 0.2s ease-out;
+}
+html,
+body {
+	height: 100%;
+	margin: 0;
 }
 body {
 	background-color: var(--body);
@@ -81,6 +87,8 @@ body {
 	width: calc(100% - 20px);
 	height: 40px;
 }
+
+/** Loading Menu **/
 .loading-overlay {
 	background-color: var(--body);
 	position: fixed;
@@ -142,6 +150,7 @@ body {
 	}
 }
 
+/** container **/
 .container {
 	margin-top: 80px;
 	display: flex;
@@ -156,6 +165,7 @@ body {
 	animation-fill-mode: forwards;
 }
 
+/** controls **/
 controls {
 	margin-top: 0px;
 	border-radius: 10px;
@@ -182,20 +192,7 @@ controls {
 	align-items: center;
 	flex-direction: row;
 }
-#table {
-	width: 75%;
-	max-width: 1000px;
-	min-width: 600px;
-	display: flex;
-	flex-direction: column;
-	animation: slide-in 0.15s ease-out;
-}
-.margin-settings {
-	padding-top: 380px !important;
-}
-.margin-add {
-	padding-top: 250px !important;
-}
+/** icon settings **/
 img {
 	-webkit-user-drag: none;
 }
@@ -221,7 +218,7 @@ img {
 	align-items: center;
 	text-transform: uppercase;
 }
-
+/** rotate icon in each menu **/
 .rotate {
 	font-size: 20px;
 	transform: rotate(45deg);
@@ -499,7 +496,21 @@ input:focus {
 	display: flex;
 	flex-direction: column-reverse;
 }
-
+/** Table **/
+#table {
+	width: 75%;
+	max-width: 1000px;
+	min-width: 600px;
+	display: flex;
+	flex-direction: column;
+	animation: slide-in 0.15s ease-out;
+}
+.margin-settings {
+	padding-top: 380px !important;
+}
+.margin-add {
+	padding-top: 250px !important;
+}
 #hide-show {
 	width: 100px;
 }
