@@ -1,100 +1,40 @@
-/*** Loading Overlay **/
+:root {
+	/** Global Settings **/
+	--body: rgb(240, 240, 240);
+	--primary-color: black;
+	--secondary-color: rgb(30, 30, 30);
+	--tertiary-color: rgb(75, 75, 75);
+	--primary-hover: rgb(200, 200, 200);
 
-.loading-overlay {
-	background-color: rgb(240, 240, 240);
-}
+	/** Scrollbar **/
+	--scrollbar-track: rgb(190, 190, 190);
+	--scrollbar-thumb: rgb(160, 160, 160);
+	--scrollbar-thumb-hover: rgb(140, 140, 140);
 
-::-webkit-scrollbar-track {
-	background: rgb(190, 190, 190);
-}
+	/** Controls **/
+	--toggle-controls: rgba(226, 226, 226, 0.4);
+	--primary-a: rgb(43, 85, 173);
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: rgb(160, 160, 160);
-}
+	/** Button **/
+	--primary-button: rgb(64, 124, 255);
+	--secondary-button: rgb(64, 124, 255);
+	--primary-green: rgb(40, 161, 50);
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background: rgb(140, 140, 140);
+	/** Input **/
+	--primary-input: rgb(80, 80, 80);
+	--secondary-input: rgb(64, 124, 255);
+
+	/** Table **/
+	--primary-thead-border: 2px solid black;
+	--row-hover: rgb(220, 220, 220);
+	--cell-hover: rgb(200, 200, 200);
+	--copy-color: rgb(75, 75, 75);
 }
-#window-controls .button:hover {
-	background-color: rgb(200, 200, 200);
-}
-body {
-	background-color: rgb(240, 240, 240);
-	color: black;
-	transition: 0s;
-}
+/** Icons **/
 img {
 	filter: invert(1);
 }
-.control:hover {
-	background-color: rgb(200, 200, 200);
-}
-.toggleSettings {
-	background-color: rgba(226, 226, 226, 0.4);
-}
-.toggleAdd {
-	background-color: rgba(226, 226, 226, 0.4);
-}
 
-#thead {
-	border-bottom: 2px solid black;
-}
-button {
-	background-color: rgb(64, 124, 255);
-	color: black;
-}
-.button-header {
-	color: rgb(75, 75, 75);
-}
-.button-header:hover {
-	color: rgb(150, 150, 150);
-}
-.button-header-active {
-	color: black;
-	border-left: 4px solid rgb(64, 124, 255) !important;
-}
-
-button:not(.button-header):hover {
-	color: rgb(34, 34, 34);
-	background-color: rgb(62, 120, 245);
-}
-.gridlinesOn {
-	border: 1px solid black;
-}
-.tbody-data div:hover {
-	background-color: rgb(220, 220, 220);
-}
-.hide-show:hover {
-	background-color: rgb(200, 200, 200);
-}
-#type:hover:not(.header),
-#service:hover:not(.header),
-#email:hover:not(.header),
-#password:hover:not(.header),
-#cell-edit:hover,
-#cell-showHide:hover,
-#cell-delete:hover {
-	background-color: rgb(200, 200, 200);
-}
-#copy {
-	color: rgb(30, 30, 30);
-}
-input:hover,
-input:focus {
-	border-color: rgb(64, 124, 255);
-}
-.pass-div#add-pass:hover,
-.pass-div#add-pass:focus {
-	border-color: rgb(64, 124, 255);
-}
-.confirm {
-	color: rgb(40, 161, 50) !important;
-}
-a {
-	color: rgb(62, 120, 245);
-}
 a:hover {
 	filter: brightness(0.8);
 }

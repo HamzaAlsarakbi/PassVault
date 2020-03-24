@@ -1156,7 +1156,6 @@ function about() {
 		parentElement.appendChild(bodyText1);
 		parentElement.appendChild(bodyHeader2);
 		parentElement.appendChild(bodyText2);
-		console.log('test');
 		aboutOn = true;
 	} else {
 		document.querySelector('#about').classList.toggle('button-header-active');
@@ -1184,7 +1183,6 @@ function openExternal(type) {
 		shell.openExternal('https://www.patreon.com/Hamza_Sar');
 	}
 }
-
 
 function showDialog(titleContent, promptContent, buttons, buttonActions) {
 	if (buttons.length == buttonActions.length) {

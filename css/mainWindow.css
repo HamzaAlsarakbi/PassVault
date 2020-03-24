@@ -7,18 +7,33 @@
 	transition: 0.2s ease-out;
 }
 body {
+	background-color: var(--body);
+	color: var(--primary-color);
 	font-family: "Segoe UI", sans-serif;
 	display: flex;
 	justify-content: center;
 	user-select: none;
 	overflow: hidden;
+	transition: 0s;
 }
 html,
 body {
 	height: 100%;
 	margin: 0;
 }
+/** Scrollbar **/
+::-webkit-scrollbar-track {
+	background: var(--scrollbar-track);
+}
 
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-thumb);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--scrollbar-thumb-hover);
+}
 /** Loading Menu **/
 .overlay {
 	position: fixed;
@@ -38,12 +53,12 @@ body {
 }
 @keyframes dialog-box-draw-in {
 	0% {
-		transform: scale(0.7);
+		transform: scale(1.4);
 		opacity: 0;
 	}
 }
 .dialog-box-close {
-	transform: scale(0.7);
+	transform: scale(1.4);
 	opacity: 0;
 }
 .container-freeze {
@@ -67,6 +82,7 @@ body {
 	height: 40px;
 }
 .loading-overlay {
+	background-color: var(--body);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -192,6 +208,7 @@ img {
 	font-size: 20px;
 }
 .control:hover {
+	background-color: var(--primary-hover);
 	cursor: pointer;
 }
 
@@ -202,6 +219,7 @@ img {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	text-transform: uppercase;
 }
 
 .rotate {
@@ -266,6 +284,7 @@ menu {
 	transition: 0.4s ease-out;
 	margin-top: 20px;
 	width: 500px;
+	background-color: var(--toggle-controls);
 }
 
 .toggleAbout {
@@ -279,10 +298,15 @@ menu {
 .toggleAbout::-webkit-scrollbar {
 	width: 7px;
 }
+a {
+	color: var(--primary-a);
+}
+
 .toggleAdd {
 	height: 210px;
 	margin-top: 20px;
 	min-width: 500px;
+	background-color: var(--toggle-controls);
 }
 
 /***** password */
@@ -313,31 +337,44 @@ menu {
 	font-size: 14px;
 }
 button {
+	background-color: var(--primary-button);
 	padding: 5px;
 	margin: 10px;
 	border-radius: 5px;
 	height: 30px;
+	color: var(--primary-color);
+}
+button:not(.button-header):hover {
+	color: var(--secondary-color);
+	background-color: var(--secondary-button);
 }
 .button-header {
 	background-color: transparent;
 	border-left: 4px solid transparent;
 	margin: 0;
 	border-radius: 0;
-
+	color: var(--secondary-color);
 	width: 100%;
 	text-align: left;
 	height: 30px;
 	margin-bottom: 10px;
 }
+
+.button-header:hover {
+	color: var(--tertiary-color);
+}
+.button-header-active {
+	border-left: 4px solid var(--secondary-button) !important;
+	color: var(--primary-color);
+	transition: 0.1s;
+}
 button:active {
 	transform: scale(0.95);
 	transition: 0.1s;
 }
-.button-header-active {
-	transition: 0.1s;
-}
 button:hover {
 	cursor: pointer;
+	color: var(--secondary-color);
 }
 
 .settings-parameters {
@@ -358,11 +395,15 @@ input {
 	margin: 5px;
 	padding: 5px;
 	background-color: transparent;
-	border: 2px solid rgb(80, 80, 80);
+	border: 2px solid var(--primary-input);
 	border-radius: 5px;
 	transition: 0.4s;
+	color: var(--secondary-color);
 }
-
+input:hover,
+input:focus {
+	border-color: var(--secondary-input);
+}
 .noerror {
 	font-size: 11px;
 	color: transparent;
@@ -376,6 +417,7 @@ input {
 .confirm {
 	height: 18px;
 	animation: tr-draw-in 0.25s ease-out;
+	color: var(--primary-green);
 }
 .change-password-confirm {
 	width: calc(100% - 20px);
@@ -477,6 +519,7 @@ input {
 	width: 95%;
 	border: 0;
 	margin: 0;
+	border: 1px solid transparent;
 }
 
 #add-pass {
@@ -488,7 +531,10 @@ input {
 	display: flex;
 	flex-direction: row;
 }
-
+.pass-div#add-pass:hover,
+.pass-div#add-pass:focus-within {
+	border-color: var(--secondary-input);
+}
 #cell-edit,
 #cell-showHide,
 #cell-delete {
@@ -497,7 +543,12 @@ input {
 	height: 28px;
 	border-radius: 5px;
 }
-
+#cell-edit:active,
+#cell-showHide:active,
+#cell-delete:active {
+	transform: scale(0.85);
+	transition: 0.1s ease-out;
+}
 #controls {
 	display: flex;
 	flex-direction: row;
@@ -519,6 +570,9 @@ input {
 	padding: 5px;
 }
 
+.tbody-data div:hover {
+	background-color: var(--row-hover);
+}
 .tbody-animation {
 	animation: slide-in 0.25s ease-out;
 }
@@ -530,6 +584,7 @@ input {
 	width: calc(100% - 5px);
 	margin: 2px;
 }
+
 #thead {
 	padding-top: 60px;
 	position: fixed;
@@ -538,6 +593,7 @@ input {
 	min-width: 600px;
 	backdrop-filter: blur(5px);
 	z-index: 1;
+	border-bottom: var(--primary-thead-border);
 }
 #type,
 #service,
@@ -548,6 +604,25 @@ input {
 	overflow: hidden;
 	overflow-x: visible;
 	border-radius: 5px !important;
+}
+#type:active,
+#service:active,
+#email:active,
+#password:active {
+	transform: scale(0.9);
+	transition: 0.1s ease-out;
+}
+.hide-show:hover {
+	background-color: var(--cell-hover);
+}
+#type:hover:not(.header),
+#service:hover:not(.header),
+#email:hover:not(.header),
+#password:hover:not(.header),
+#cell-edit:hover,
+#cell-showHide:hover,
+#cell-delete:hover {
+	background-color: var(--cell-hover);
 }
 #type::-webkit-scrollbar,
 #service::-webkit-scrollbar,
@@ -595,6 +670,7 @@ input {
 	padding: 0;
 	margin: 0;
 	animation: copy-slide-in 1.6s ease-out;
+	color: var(--copy-color);
 }
 #copy:hover {
 	background-color: transparent;
@@ -667,4 +743,11 @@ input {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+/** gridlines **/
+.gridlinesOn {
+	border: 1px solid var(--primary-color);
+}
+#window-controls .button:hover {
+	background-color: (--primary-hover);
 }
