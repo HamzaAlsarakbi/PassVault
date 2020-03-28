@@ -16,15 +16,15 @@ var saved = false; // to be changed later
 var settingsOn = false;
 
 // icons
-const eye = '../assets/img/dark/eye.png';
-const crossedEye = '../assets/img/dark/crossed-eye.png';
-const pencilIcon = '../assets/img/dark/pencil.png';
+const eye = '../global assets/img/dark/eye.png';
+const crossedEye = '../global assets/img/dark/crossed-eye.png';
+const pencilIcon = '../global assets/img/dark/pencil.png';
 const bullet = '\u{2022}';
-const trashcan = '../assets/img/dark/trashcan.png';
-const remove = '../assets/img/dark/remove.png';
-const confirm = '../assets/img/dark/confirm.png';
-const addIcon = '../assets/img/dark/add.png';
-const gearsIcon = '../assets/img/dark/gear.png';
+const trashcan = '../global assets/img/dark/trashcan.png';
+const remove = '../global assets/img/dark/remove.png';
+const confirm = '../global assets/img/dark/confirm.png';
+const addIcon = '../global assets/img/dark/add.png';
+const gearsIcon = '../global assets/img/dark/gear.png';
 
 // table
 const table = document.querySelector('.tbody-data');
@@ -1119,7 +1119,7 @@ function about() {
 		bodyHeaderImg.setAttribute('class', 'settings-sub-body-header');
 		bodyHeaderImg.setAttribute('style', 'margin-left: 4px');
 		bodyHeaderImg.setAttribute('height', '26px');
-		bodyHeaderImg.setAttribute('src', '../assets/img/icon-transparent.png');
+		bodyHeaderImg.setAttribute('src', '../global assets/img/icon-transparent.png');
 
 		// create paragraph
 

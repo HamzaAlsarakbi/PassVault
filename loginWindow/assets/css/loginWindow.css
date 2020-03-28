@@ -76,9 +76,7 @@ button.submit:hover {
 	height: 21px;
 }
 
-.login-successful {
-	background-color: rgb(45, 182, 45);
-}
+
 
 button:active {
 	transform: scale(0.97);

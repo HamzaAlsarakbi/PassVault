@@ -1,16 +1,44 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
-const url = require('url');
-const path = require('path');
+const url = require('url'),
+	path = require('path'),
+	fs = require('fs'),
+	SimpleCrypto = require('simple-crypto-js').default,
+	configFullPath = path.join(__dirname, 'data/config.txt'),
+	password = 'PassVaultPassword',
+	simpleCrypto = new SimpleCrypto(password);
 
 let loginWindow;
 let mainWindow;
 var mainWindowOn = 0;
-let win = 'loginWindow';
+let loadFile;
+
+var config = {
+	theme: 'dark',
+	cellIndex: 0,
+	gridlinesOn: false,
+	firstTime: true
+};
+
+
+
 // Listen for app to be ready
 app.on('ready', ready);
 
 function ready() {
+	try {
+		var rawConfig = fs.readFileSync(configFullPath, 'utf-8');
+		config = simpleCrypto.decrypt(rawConfig, true);
+		console.log('config parsed!');
+	} catch (err) {
+		console.log("config doesn't exist!");
+	}
+	// check if first time setup
+	if (config.firstTime == false) {
+		loadFile = 'loginWindow';
+	} else {
+		loadFile = 'setupWindow';
+	}
 	//Create new window
 	loginWindow = new BrowserWindow({
 		width: 250,
@@ -20,13 +48,13 @@ function ready() {
 		webPreferences: {
 			nodeIntegration: true
 		},
-		icon: path.join(__dirname, 'assets/img/icon.png')
+		icon: path.join(__dirname, 'global assets/img/icon.png')
 	});
 
 	// Load HTML file into window
 	loginWindow.loadURL(
 		url.format({
-			pathname: path.join(__dirname, 'html/menu.html'),
+			pathname: path.join(__dirname, loadFile + '/' + loadFile + '.html'),
 			protocol: 'file:',
 			slashes: true
 		})
@@ -76,13 +104,13 @@ function createMainWindow() {
 		webPreferences: {
 			nodeIntegration: true
 		},
-		icon: path.join(__dirname, 'assets/img/icon.png')
+		icon: path.join(__dirname, 'global assets/img/icon.png')
 	});
 
 	// Load HTML file into window
 	mainWindow.loadURL(
 		url.format({
-			pathname: path.join(__dirname, 'html/mainWindow.html'),
+			pathname: path.join(__dirname, 'mainWindow/mainWindow.html'),
 			protocol: 'file:',
 			slashes: true
 		})
@@ -94,6 +122,7 @@ function createMainWindow() {
 		if (mainWindowOn == 1) {
 			mainWindowOn = 0;
 			ready();
+			console.log('firstTime: ' + config.firstTime);
 			mainWindow.on('close', function() {
 				mainWindow = null;
 			});

@@ -203,8 +203,12 @@ function addSavedData(c, index) {
 
 var dataSave = {};
 function changesChecker() {
-	var rawData = fs.readFileSync(fullPath, 'utf-8');
-	dataSave = decrypt(rawData);
+	try {
+		var rawData = fs.readFileSync(fullPath, 'utf-8');
+		dataSave = decrypt(rawData);
+	} catch (err) {
+		console.log("%c ERROR: data.txt doesn't exist. Checking if data object is empty", errorColor);
+	}
 
 	// compare two objects
 	if (angular.equals(dataSave, data)) {

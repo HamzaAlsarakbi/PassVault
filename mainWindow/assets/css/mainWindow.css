@@ -465,33 +465,7 @@ input:focus {
 .body-margin-settings {
 	margin-top: 415px !important;
 }
-/**** Responsive */
-@media only screen and (max-width: 1200px) {
-	.toggleAdd {
-		height: 270px;
-		width: 25%;
-	}
 
-	.add-div {
-		flex-direction: row;
-		width: 100%;
-		flex-wrap: wrap;
-	}
-	.add-div input,
-	.pass-div#add-pass {
-		width: 47.5%;
-	}
-
-	.controlsSpan {
-		height: 280px;
-	}
-	.margin-add {
-		padding-top: 320px !important;
-	}
-	.body-margin-add {
-		margin-top: 355px !important;
-	}
-}
 .tbody-data {
 	display: flex;
 	flex-direction: column-reverse;
@@ -761,4 +735,31 @@ input:focus {
 }
 #window-controls .button:hover {
 	background-color: (--primary-hover);
+}
+/**** Responsive */
+@media only screen and (max-width: 1200px) {
+	.toggleAdd {
+		height: 270px;
+		width: 25%;
+	}
+
+	.add-div {
+		flex-direction: row;
+		width: 100%;
+		flex-wrap: wrap;
+	}
+	.add-div input,
+	.pass-div#add-pass {
+		width: 47.5%;
+	}
+
+	.controlsSpan {
+		height: 280px;
+	}
+	.margin-add {
+		padding-top: 320px !important;
+	}
+	.body-margin-add {
+		margin-top: 355px !important;
+	}
 }

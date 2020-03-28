@@ -1,0 +1,174 @@
+* {
+	color: var(--primary-color);
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	outline: none;
+	transition: 0.2s ease-out;
+	user-select: none;
+}
+img {
+	-webkit-user-drag: none;
+}
+body {
+	overflow: hidden;
+	background-color: var(--body);
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	font-family: "Segoe UI", sans-serif;
+}
+
+content {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	margin-top: 30px;
+	height: 100%;
+	width: 100%;
+}
+container {
+	white-space: nowrap;
+	height: 100%;
+	width: 100%;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.loading-icons {
+	transform: translateY(20px) scale(1.3);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.loading-icon {
+	position: relative;
+}
+#loading-cog {
+	animation: rotation 1.5s infinite;
+	animation-delay: 0.2s;
+	top: -95px;
+	left: -2px;
+}
+@keyframes rotation {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+.header {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+.pass-vault {
+	text-transform: uppercase;
+	font-weight: bolder;
+	text-shadow: lightgrey;
+	font-size: 28px;
+	margin-bottom: 25px;
+}
+
+button {
+	background-color: var(--primary-button);
+	padding: 5px;
+	margin: 10px;
+	border-radius: 5px;
+	height: 30px;
+	color: var(--primary-color);
+	font-size: 18px;
+	width: 80%;
+	height: 50px;
+}
+button:active {
+	transform: scale(0.95);
+	transition: 0.1s;
+}
+button:hover {
+	cursor: pointer;
+	color: var(--secondary-color);
+}
+nav {
+	margin-top: 20px;
+	width: 100%;
+}
+.nav-button {
+	width: calc(50% - 2px);
+	margin: 0;
+	font-size: 16px;
+}
+.start {
+	animation: draw-in 0.4s ease-out;
+}
+@keyframes draw-in {
+	0% {
+		transform: translateY(calc(100% + 50px)) scale(0.8);
+		opacity: 0;
+	}
+}
+.master-password,
+.theme {
+	width: 0;
+	padding: 0;
+	opacity: 0;
+	z-index: -1;
+}
+.password-div {
+	display: flex;
+	flex-direction: row;
+	width: 80%;
+	border: 2px solid var(--primary-input);
+	height: 35px;
+	border-radius: 5px;
+}
+.password-div:hover,
+.password-div:focus-within {
+	border-color: var(--secondary-input);
+}
+input {
+	padding: 5px;
+	background-color: transparent;
+
+	transition: 0.4s;
+	color: var(--secondary-color);
+	height: 100%;
+	width: calc(100% - 35px);
+	font-size: 14px;
+}
+.show-hide {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 35px;
+	border-radius: 0 5px 5px 0;
+}
+.show-hide:hover {
+	background-color: var(--primary-hover);
+}
+.noerror {
+	margin-top: 0;
+	opacity: 0;
+	font-size: 12px;
+	height: 0;
+}
+.error {
+	margin-top: 5px;
+	opacity: 1;
+	color: rgb(252, 61, 61);
+	height: 12px;
+}
+.theme-list {
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+}
+.theme-button {
+	font-size: 14px;
+	height: 40px;
+	width: calc(100% - 20px);
+}

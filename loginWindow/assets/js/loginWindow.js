@@ -40,16 +40,11 @@ passDOM.addEventListener('keyup', function() {
 
 // Password verification
 function submit() {
-	console.log('wrong pass');
 	const errorSpan = document.querySelector('.noerror');
 	if (passwordValue == config.masterPassword) {
 		// Hide span if it were activated
 		errorSpan.classList.remove('error');
 
-		// Change style of login button
-		submitButton.classList.add('login-successful');
-		submitButton.classList.add('login-successful');
-		submitButton.textContent = 'Login Successful';
 		// send confirmation
 		ipcRenderer.send('loginConfirmation');
 		win.close();
@@ -61,6 +56,8 @@ function submit() {
 	} else {
 		// If password is wrong
 		// Display span
+		errorSpan.classList.add('error');
+
 		errorSpan.textContent = 'Password is incorrect.';
 		errorSpan.style = 'display: inline;';
 	}
