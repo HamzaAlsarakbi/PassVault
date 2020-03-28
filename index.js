@@ -26,7 +26,7 @@ function ready() {
 	// Load HTML file into window
 	loginWindow.loadURL(
 		url.format({
-			pathname: path.join(__dirname, 'html/loginWindow.html'),
+			pathname: path.join(__dirname, 'html/menu.html'),
 			protocol: 'file:',
 			slashes: true
 		})

@@ -5,11 +5,13 @@ const fs = require('fs'),
 	password = 'PassVaultPassword',
 	simpleCrypto = new SimpleCrypto(password);
 
-/*
-var rawConfig = fs.readFileSync(OldConfigFullPath);
-config = JSON.parse(rawConfig);
+var config = {
+	theme: 'light',
+	cellIndex: 0,
+	gridlinesOn: false,
+	firstTime: true
+};
 
-*/
 var rawConfig = fs.readFileSync(configFullPath, 'utf-8');
-var config = simpleCrypto.decrypt(rawConfig, true);
-console.log('parsing config...');
+config = simpleCrypto.decrypt(rawConfig, true);
+console.log('%c config parsed!', 'color: rgb(50, 200, 50');
