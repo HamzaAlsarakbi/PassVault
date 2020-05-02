@@ -19,16 +19,16 @@ function save(type) {
 
 		// save encrypted config
 		package(configStringified, configFullPath);
-	} else if (!saved) {
+	} else if (type == 'show') {
 		// if changes are made
+		saved = true;
 		var saveButton = document.createElement('button');
 		saveButton.setAttribute('class', 'save');
-		saveButton.setAttribute('onclick', 'save()');
+		saveButton.setAttribute('onclick', "save('all')");
 		saveButton.textContent = 'Save';
 		container.appendChild(saveButton);
 		console.log('displaying save button.');
-		saved = true;
-	} else {
+	} else if (type == 'all') {
 		// if no changes are made
 		// save data.json
 		key = crypto.randomBytes(32);
@@ -60,8 +60,11 @@ function save(type) {
 		} else if (type == 'close') {
 			win.close();
 		}
+	} else {
+		console.log('invalid save type');
 	}
 }
+
 function JSONstringify(object) {
 	return JSON.stringify(object);
 }
@@ -234,16 +237,19 @@ function addSavedData(c, index) {
 var dataSave = {};
 function changesChecker() {
 	try {
-		var rawData = fs.readFileSync(fullPath, 'utf-8');
-		dataSave = decrypt(rawData);
+		var rawData = fs.readFileSync(fullPath);
+		var dataSaveParsed = JSON.parse(rawData);
+		dataSaveDecrypted = decrypt(dataSaveParsed);
+		dataSave = JSON.parse(dataSaveDecrypted);
 	} catch (err) {
-		console.log("%c ERROR: data.txt doesn't exist. Checking if data object is empty", errorColor);
+		console.log("%c ERROR: data.json doesn't exist. Checking if data object is empty", errorColor);
 	}
 
 	// compare two objects
 	if (angular.equals(dataSave, data)) {
 		// console.log('%c dataSave & data are equal.', greenColor);
 		if (saved) {
+			// if the user reversed changes, has a side effect when triggering save from console
 			saved = false;
 			var saveButtonDOM = document.querySelector('.save');
 			saveButtonDOM.classList.toggle('button-slide-out');
@@ -258,7 +264,7 @@ function changesChecker() {
 	} else {
 		if (!saved) {
 			console.log('%c dataSave & data are NOT equal.', errorColor);
-			save();
+			save('show');
 			if (lockVaultOn) {
 				lockVault();
 				setTimeout(lockVault, 400);
@@ -269,4 +275,4 @@ function changesChecker() {
 	}
 }
 
-// setInterval(changesChecker, 500);
+setInterval(changesChecker, 500);

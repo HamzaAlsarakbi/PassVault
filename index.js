@@ -1,12 +1,12 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
 const url = require('url'),
+	crypto = require('crypto'),
 	path = require('path'),
 	fs = require('fs'),
-	SimpleCrypto = require('simple-crypto-js').default,
-	configFullPath = path.join(__dirname, 'data/config.txt'),
-	password = 'PassVaultPassword',
-	simpleCrypto = new SimpleCrypto(password);
+	paramPath = path.join(__dirname, 'data/param.json'),
+	configFullPath = path.join(__dirname, 'data/config.json'),
+	algorithm = 'aes-256-cbc';
 
 let loginWindow;
 let mainWindow;
@@ -15,21 +15,49 @@ let loadFile;
 
 var config = {
 	theme: 'dark',
+	masterPassword: '',
 	cellIndex: 0,
 	gridlinesOn: false,
 	firstTime: true
 };
 
+var	key = crypto.randomBytes(32);
+var iv = crypto.randomBytes(16);
+var param = {
+	keyO: key,
+	ivO: iv
+};
 
+try {
+	var rawParam = fs.readFileSync(paramPath);
+	param = JSON.parse(rawParam);
+	key = new Buffer.from(param.keyO);
+	iv = new Buffer.from(param.ivO);
+} catch {
+	console.log('failed to parse param');
+}
+
+// decryption function
+function decryptConfig(text) {
+	let iv = Buffer.from(text.iv, 'hex');
+	let encryptedText = Buffer.from(text.encryptedData, 'hex');
+	let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+	let decrypted = decipher.update(encryptedText);
+	decrypted = Buffer.concat([ decrypted, decipher.final() ]);
+	return decrypted.toString();
+}
 
 // Listen for app to be ready
 app.on('ready', ready);
 
 function ready() {
 	try {
-		var rawConfig = fs.readFileSync(configFullPath, 'utf-8');
-		config = simpleCrypto.decrypt(rawConfig, true);
+		var rawConfig = fs.readFileSync(configFullPath);
+		parsedConfig = JSON.parse(rawConfig);
+		decryptedConfig = decryptConfig(parsedConfig);
+		config = JSON.parse(decryptedConfig);
 		console.log('config parsed!');
+		console.log(config);
 	} catch (err) {
 		console.log("config doesn't exist!");
 	}

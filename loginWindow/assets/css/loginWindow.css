@@ -59,7 +59,7 @@ button.submit {
 	width: 60%;
 	border-radius: 5px;
 	border: none;
-	background-color: var(--primary-button);
+	background-image: var(--primary-button);
 	color: var(--secondary-color);
 }
 button.submit:hover {

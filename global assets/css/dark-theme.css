@@ -16,7 +16,7 @@
 	--primary-a: rgb(64, 124, 255);
 
 	/** Buttons **/
-	--primary-button: rgb(52, 99, 202);
+	--primary-button: linear-gradient(-45deg, rgb(10, 66, 189), rgb(61, 118, 243));
 	--secondary-button: rgb(45, 85, 170);
 	--primary-green: rgb(50, 200, 50);
 

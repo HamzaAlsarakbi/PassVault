@@ -334,7 +334,7 @@ a {
 	font-size: 14px;
 }
 button {
-	background-color: var(--primary-button);
+	background-image: var(--primary-button);
 	padding: 5px;
 	margin: 10px;
 	border-radius: 5px;
@@ -347,6 +347,7 @@ button:not(.button-header):hover {
 }
 .button-header {
 	background-color: transparent;
+	background-image: none;
 	border-left: 4px solid transparent;
 	margin: 0;
 	border-radius: 0;
