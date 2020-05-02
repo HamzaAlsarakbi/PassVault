@@ -74,7 +74,7 @@ container {
 }
 
 button {
-	background-color: var(--primary-button);
+	background-image: var(--primary-button);
 	padding: 5px;
 	margin: 10px;
 	border-radius: 5px;

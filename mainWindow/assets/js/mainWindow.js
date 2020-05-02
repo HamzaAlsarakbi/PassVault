@@ -3,7 +3,6 @@ const electron = require('electron');
 const shell = electron.shell;
 const { ipcRenderer } = electron;
 let win = electron.remote.getCurrentWindow();
-
 var parentElement;
 
 // data object

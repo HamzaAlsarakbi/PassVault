@@ -7,7 +7,6 @@ const remote = require('electron').remote,
 	themeContainer = document.querySelector('.theme');
 
 let win = remote.getCurrentWindow();
-
 function init() {
 	// Make minimise/maximise/restore/close buttons work when they are clicked
 	document.getElementById('close-button').addEventListener('click', (event) => {
@@ -74,6 +73,31 @@ function toggleTheme(theme) {
 }
 function exit() {
 	config.firstTime = false;
-	save('config');
+	key = crypto.randomBytes(32);
+	iv = crypto.randomBytes(16);
+	param.keyO = key;
+	param.ivO = iv;
+	var stringifiedParam = JSON.stringify(param);
+	fs.writeFileSync(paramPath, stringifiedParam, function(err) {
+		if (err) throw err;
+		console.log('Saved param!');
+	});
+
+	var configStringified = JSON.stringify(config);
+	console.log(configStringified);
+	
+	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+	let encrypted = cipher.update(configStringified);
+	encrypted = Buffer.concat([ encrypted, cipher.final() ]);
+	var configEncrypted  = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+	console.log(configEncrypted);
+	
+	var configStringified = JSON.stringify(configEncrypted);
+	console.log(configStringified);
+
+	fs.writeFileSync(configFullPath, configStringified, function(err) {
+		if (err) throw err;
+		console.log('Saved config !');
+	});
 	window.location.replace('../loginWindow/loginWindow.html');
 }

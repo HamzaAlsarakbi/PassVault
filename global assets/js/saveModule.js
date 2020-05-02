@@ -274,5 +274,4 @@ function changesChecker() {
 		}
 	}
 }
-
 setInterval(changesChecker, 500);
