@@ -1,9 +1,10 @@
 const fs = require('fs'),
-	crypto = require('crypto'),
+crypto = require('crypto'),
 	path = require('path'),
-	configFullPath = path.join(__dirname, '../data/config.json'),
+	configFullPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json');
 	algorithm = 'aes-256-cbc',
-	paramPath = path.join(__dirname, '../data/param.json');
+	paramPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json');
+
 
 var	key = crypto.randomBytes(32);
 var iv = crypto.randomBytes(16);

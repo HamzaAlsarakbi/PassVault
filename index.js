@@ -2,11 +2,22 @@ const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
 const url = require('url'),
 	crypto = require('crypto'),
-	path = require('path'),
-	fs = require('fs'),
-	paramPath = path.join(__dirname, 'data/param.json'),
-	configFullPath = path.join(__dirname, 'data/config.json'),
+	path = require('path');
 	algorithm = 'aes-256-cbc';
+	fs = require('fs'),
+	parentDir = path.join(process.env.HOME, '/AppData/Local/PassVault');
+	dataDir = path.join(process.env.HOME, '/AppData/Local/PassVault/Data');
+	console.log('Checking if directory exists...');
+	if(!fs.existsSync(parentDir)) {
+		console.log('Parent directory doesn\'t exist');
+		fs.mkdirSync(parentDir);
+	}
+	if (!fs.existsSync(dataDir)){
+		console.log('Directory doesn\'t exist!');
+		fs.mkdirSync(dataDir);
+}
+const paramPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json'),
+	configFullPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json');
 
 let loginWindow;
 let mainWindow;

@@ -1,4 +1,4 @@
-const fullPath = path.join(__dirname, '../data/data.json');
+const fullPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/data.json');
 // console colors
 const errorColor = 'color: rgb(200, 50, 50);';
 const greenColor = 'color: rgb(50, 200, 50);';
