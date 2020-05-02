@@ -88,18 +88,17 @@
         setTimeout(function() {
         // loading overlay draw-out animation
         console.log('%c NOTICE: content loaded.', greenColor);
-        document.querySelector('.loading-overlay').style = 'animation: draw-out-loading-screen 0.3s ease-out; animation-fill-mode: forwards;';
+        document.querySelector('.loading-overlay').classList.add('loading-overlay-draw-out');
         
         // container animation
-        document.querySelector('.container').classList.toggle('container-draw-in');
+        document.querySelector('.container').classList.add('container-draw-in');
         setTimeout(function() {
           document.querySelector('body').removeChild(document.querySelector('.loading-overlay'));
-          
           document.querySelector('.container').classList.toggle('container-draw-in');
-        }, 700);
         }, 1000);
+        }, 2000);
       }
-      window.onload = loaded;
+      document.addEventListener('DOMContentLoaded', loaded, false);
     </script>
   </body>
 </html>

@@ -6,6 +6,7 @@
 	vertical-align: baseline;
 	outline: none;
 	transition: 0.2s ease-out;
+	will-change: transform;
 }
 html,
 body {
@@ -20,7 +21,6 @@ body {
 	justify-content: center;
 	user-select: none;
 	overflow: hidden;
-	transition: 0s;
 }
 html,
 body {
@@ -43,8 +43,6 @@ body {
 /** Loading Menu **/
 .overlay {
 	position: fixed;
-	top: 0;
-	left: 0;
 	z-index: 3;
 	display: flex;
 	justify-content: center;
@@ -92,8 +90,6 @@ body {
 .loading-overlay {
 	background-color: var(--body);
 	position: fixed;
-	top: 0;
-	left: 0;
 	z-index: 999;
 	width: 100%;
 	height: 100%;
@@ -126,6 +122,10 @@ body {
 	height: 40px;
 	font-size: 22px;
 }
+.loading-overlay-draw-out {
+	animation: draw-out-loading-screen 0.3s ease-out;
+	animation-fill-mode: forwards;
+}
 @keyframes draw-out-loading-screen {
 	0% {
 		opacity: 1;
@@ -134,7 +134,6 @@ body {
 	100% {
 		opacity: 0;
 		transform: scale(1.5);
-		filter: blur(5px);
 	}
 }
 @keyframes menu-draw-in-loading-screen {
@@ -162,6 +161,7 @@ body {
 }
 .container-draw-in {
 	animation: menu-draw-in-loading-screen 0.3s ease-out;
+
 	animation-fill-mode: forwards;
 }
 
