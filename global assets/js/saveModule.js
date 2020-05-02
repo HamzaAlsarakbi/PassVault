@@ -1,20 +1,24 @@
-const fullPath = path.join(__dirname, '../data/data.txt');
-
+const fullPath = path.join(__dirname, '../data/data.json');
+// console colors
 const errorColor = 'color: rgb(200, 50, 50);';
 const greenColor = 'color: rgb(50, 200, 50);';
 const orangeColor = 'color: rgb(255, 150, 0);';
 const blueColor = 'color: rgb(0, 150, 255);';
+
 var configData;
 
 // save function
 function save(type) {
 	const container = document.querySelector('.container');
+
 	if (type == 'config') {
 		// encrypt config
-		configEncrypted = encrypt(config);
+		configStringified = JSONstringify(config);
+		configEncrypted = encrypt(configStringified);
+		configStringified = JSONstringify(configEncrypted);
 
 		// save encrypted config
-		package(configEncrypted, configFullPath);
+		package(configStringified, configFullPath);
 	} else if (!saved) {
 		// if changes are made
 		var saveButton = document.createElement('button');
@@ -27,8 +31,20 @@ function save(type) {
 	} else {
 		// if no changes are made
 		// save data.json
-		dataEncrypted = encrypt(data);
-		package(dataEncrypted, fullPath);
+		key = crypto.randomBytes(32);
+		iv = crypto.randomBytes(16);
+		param.keyO = key;
+		param.ivO = iv;
+		var stringifiedParam = JSON.stringify(param);
+		fs.writeFileSync(paramPath, stringifiedParam, function(err) {
+			if (err) throw err;
+			console.log('Saved ' + param + '!');
+		});
+
+		dataStringified = JSONstringify(data);
+		dataEncrypted = encrypt(dataStringified);
+		dataStringified = JSONstringify(dataEncrypted);
+		package(dataStringified, fullPath);
 		// save config.json
 		save('config');
 
@@ -46,11 +62,19 @@ function save(type) {
 		}
 	}
 }
+function JSONstringify(object) {
+	return JSON.stringify(object);
+}
+function JSONparse(object) {
+	return JSON.parse(object);
+}
 
-function encrypt(object) {
+function encrypt(text) {
 	// encrypt some stuff here
-	var encrypted = simpleCrypto.encrypt(object);
-	return encrypted;
+	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+	let encrypted = cipher.update(text);
+	encrypted = Buffer.concat([ encrypted, cipher.final() ]);
+	return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 }
 function package(object, pathOfObject) {
 	fs.writeFileSync(pathOfObject, object, function(err) {
@@ -58,9 +82,14 @@ function package(object, pathOfObject) {
 		console.log('Saved ' + object + '!');
 	});
 }
-function decrypt(object) {
-	decrypted = simpleCrypto.decrypt(object, true);
-	return decrypted;
+
+function decrypt(text) {
+	let iv = Buffer.from(text.iv, 'hex');
+	let encryptedText = Buffer.from(text.encryptedData, 'hex');
+	let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+	let decrypted = decipher.update(encryptedText);
+	decrypted = Buffer.concat([ decrypted, decipher.final() ]);
+	return decrypted.toString();
 }
 
 checkSaveFile();
@@ -80,10 +109,11 @@ function checkSaveFile() {
 
 function parse() {
 	console.log('%c parsing...', orangeColor);
-	var rawData = fs.readFileSync(fullPath, 'utf-8');
-	data = decrypt(rawData);
-	console.log('data.length == ' + config.cellIndex);
-	for (var i = 1; i <= config.cellIndex; i++) {
+	var rawData = fs.readFileSync(fullPath);
+	var parsedData = JSON.parse(rawData);
+	decryptedData = decrypt(parsedData);
+	data = JSON.parse(decryptedData);
+	for (var i = 0; i < config.cellIndex; i++) {
 		addSavedData('cell' + i, i);
 	}
 }
@@ -239,6 +269,4 @@ function changesChecker() {
 	}
 }
 
-setInterval(changesChecker, 500);
-console.log(data);
-console.log(dataSave);
+// setInterval(changesChecker, 500);

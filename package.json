@@ -10,10 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "crypto": "^1.0.1",
-    "crypto-json": "^2.0.2",
     "electron": "^7.2.4",
     "electron-debug": "^3.0.1",
-    "simple-crypto-js": "^2.2.0",
     "update-electron-app": "^1.5.0"
   },
   "devDependencies": {

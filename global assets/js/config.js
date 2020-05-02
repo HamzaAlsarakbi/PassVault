@@ -1,9 +1,28 @@
 const fs = require('fs'),
+	crypto = require('crypto'),
 	path = require('path'),
-	SimpleCrypto = require('simple-crypto-js').default,
-	configFullPath = path.join(__dirname, '../data/config.txt'),
-	password = 'PassVaultPassword',
-	simpleCrypto = new SimpleCrypto(password);
+	configFullPath = path.join(__dirname, '../data/config.json'),
+	algorithm = 'aes-256-cbc',
+	paramPath = path.join(__dirname, '../data/param.json');
+
+var	key = crypto.randomBytes(32);
+var iv = crypto.randomBytes(16);
+var param = {
+	keyO: key,
+	ivO: iv
+};
+
+
+try {
+	var rawParam = fs.readFileSync(paramPath);
+	param = JSON.parse(rawParam);
+	key = new Buffer.from(param.keyO);
+	iv = new Buffer.from(param.ivO);
+} catch {
+	console.log('failed to parse param');
+}
+
+
 
 var config = {
 	theme: 'dark',
@@ -11,11 +30,24 @@ var config = {
 	gridlinesOn: false,
 	firstTime: true
 };
-
+var rawConfig, parsedConfig, decryptedConfig;
 try {
-	var rawConfig = fs.readFileSync(configFullPath, 'utf-8');
-	config = simpleCrypto.decrypt(rawConfig, true);
-	console.log('%c NOTICE: onfig parsed!', 'color: rgb(50, 200, 50');
+	rawConfig = fs.readFileSync(configFullPath);
+	parsedConfig = JSON.parse(rawConfig);
+	decryptedConfig = decryptConfig(parsedConfig);
+	config = JSON.parse(decryptedConfig);
+	console.log('%c NOTICE: config parsed!', 'color: rgb(50, 200, 50');
 } catch (err) {
+	console.error(err);
 	console.log('%c ERROR: failed to parse object', 'color: rgb(200, 50, 50);');
 }
+function decryptConfig(text) {
+	let iv = Buffer.from(text.iv, 'hex');
+	let encryptedText = Buffer.from(text.encryptedData, 'hex');
+	let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+	let decrypted = decipher.update(encryptedText);
+	decrypted = Buffer.concat([ decrypted, decipher.final() ]);
+	return decrypted.toString();
+}
+console.log(config);
+
