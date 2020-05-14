@@ -48,7 +48,7 @@
 
       
       <!-- Contents -->
-      <div class="container">
+      <div class="container container-draw-in">
         <controls>
           <div class="controls">
             <div class="control" id="add" onclick="addFunc()">
@@ -85,16 +85,16 @@
     <script>
         document.querySelector('body').style.overflow = 'hidden';
       function loaded() {
+        console.log('loaded');
         setTimeout(function() {
         // loading overlay draw-out animation
         console.log('%c NOTICE: content loaded.', greenColor);
         document.querySelector('.loading-overlay').classList.add('loading-overlay-draw-out');
         
         // container animation
-        document.querySelector('.container').classList.add('container-draw-in');
+          document.querySelector('.container').classList.remove('container-draw-in');
         setTimeout(function() {
           document.querySelector('body').removeChild(document.querySelector('.loading-overlay'));
-          document.querySelector('.container').classList.toggle('container-draw-in');
         }, 1000);
         }, 2000);
       }

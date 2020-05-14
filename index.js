@@ -68,7 +68,6 @@ function ready() {
 		decryptedConfig = decryptConfig(parsedConfig);
 		config = JSON.parse(decryptedConfig);
 		console.log('config parsed!');
-		console.log(config);
 	} catch (err) {
 		console.log("config doesn't exist!");
 	}

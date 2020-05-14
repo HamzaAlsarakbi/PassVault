@@ -6,7 +6,8 @@
 	vertical-align: baseline;
 	outline: none;
 	transition: 0.2s ease-out;
-	will-change: transform;
+	backface-visibility: hidden;
+	perspective: 1000;
 }
 html,
 body {
@@ -123,30 +124,10 @@ body {
 	font-size: 22px;
 }
 .loading-overlay-draw-out {
-	animation: draw-out-loading-screen 0.3s ease-out;
-	animation-fill-mode: forwards;
-}
-@keyframes draw-out-loading-screen {
-	0% {
-		opacity: 1;
-		transform: scale(1);
-	}
-	100% {
-		opacity: 0;
-		transform: scale(1.5);
-	}
-}
-@keyframes menu-draw-in-loading-screen {
-	0% {
-		opacity: 0;
-		transform: scale(1.5);
-		filter: blur(5px);
-	}
-	100% {
-		opacity: 1;
-		transform: scale(1);
-		filter: blur(0px);
-	}
+	opacity: 0;
+	transform: scale3d(1.5, 1.5, 1.5);
+	transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+	will-change: transform, opacity;
 }
 
 /** container **/
@@ -160,9 +141,12 @@ body {
 	overflow: auto;
 }
 .container-draw-in {
-	animation: menu-draw-in-loading-screen 0.3s ease-out;
-
-	animation-fill-mode: forwards;
+	opacity: 0;
+	transform: scale3d(1.5, 1.5, 1.5);
+	filter: blur(4px);
+	transition: transform 0.3s ease-out, opacity 0.3s ease-out, filter 0.3s ease-out;
+	transition-delay: 0.2s;
+	will-change: transform, opacity, filter;
 }
 
 /** controls **/
@@ -433,9 +417,6 @@ input:focus {
 	padding: 5px;
 	height: 35px;
 }
-#tbody {
-	margin-top: 95px;
-}
 .tr-edit {
 	height: 55px;
 }
@@ -459,12 +440,6 @@ input:focus {
 	margin: 5px;
 	padding: 5px;
 	width: 100%;
-}
-.body-margin-add {
-	margin-top: 285px !important;
-}
-.body-margin-settings {
-	margin-top: 415px !important;
 }
 
 .tbody-data {
@@ -529,9 +504,9 @@ input:focus {
 	height: 28px;
 	border-radius: 5px;
 }
-#cell-edit:active,
-#cell-showHide:active,
-#cell-delete:active {
+#tbody #tr #cell-edit:active,
+#tbody #tr #cell-showHide:active,
+#tbody #tr #cell-delete:active {
 	transform: scale(0.85);
 	transition: 0.1s ease-out;
 }
@@ -573,10 +548,8 @@ input:focus {
 
 #thead {
 	padding-top: 60px;
-	position: fixed;
-	width: 75%;
-	max-width: 1000px;
-	min-width: 600px;
+	position: sticky;
+	top: 0;
 	backdrop-filter: blur(5px);
 	z-index: 1;
 	border-bottom: var(--primary-thead-border);
@@ -591,13 +564,18 @@ input:focus {
 	overflow-x: visible;
 	border-radius: 5px !important;
 }
-#type:active,
-#service:active,
-#email:active,
-#password:active {
+#tbody #type:active,
+#tbody #service:active,
+#tbody #email:active {
 	transform: scale(0.9);
 	transition: 0.1s ease-out;
 }
+#tbody .tr-edit #type:active,
+#tbody .tr-edit #service:active,
+#tbody .tr-edit #email:active {
+	transform: scale(1);
+}
+
 .hide-show:hover {
 	background-color: var(--cell-hover);
 }
@@ -610,6 +588,14 @@ input:focus {
 #cell-delete:hover {
 	background-color: var(--cell-hover);
 }
+
+#tbody .tr-edit #type:hover,
+#tbody .tr-edit #service:hover,
+#tbody .tr-edit #email:hover,
+#tbody .tr-edit #password:hover {
+	background-color: transparent;
+}
+
 #type::-webkit-scrollbar,
 #service::-webkit-scrollbar,
 #email::-webkit-scrollbar,
@@ -759,8 +745,5 @@ input:focus {
 	}
 	.margin-add {
 		padding-top: 320px !important;
-	}
-	.body-margin-add {
-		margin-top: 355px !important;
 	}
 }

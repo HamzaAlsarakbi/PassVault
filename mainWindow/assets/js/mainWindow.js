@@ -64,7 +64,6 @@ document.onkeyup = function(e) {
 function settingsFunc() {
 	toggleMenus();
 	document.querySelector('#thead').classList.toggle('margin-settings');
-	document.querySelector('#tbody').classList.toggle('body-margin-settings');
 
 	document.querySelector('controls').classList.toggle('toggleSettings');
 
@@ -87,7 +86,6 @@ function settingsFunc() {
 			document.querySelector('menu').classList.toggle('togglemenus');
 			document.querySelector('controls').classList.toggle('toggleSettings');
 			document.querySelector('#thead').classList.toggle('margin-settings');
-			document.querySelector('#tbody').classList.toggle('body-margin-settings');
 		}, 100);
 
 		// If add icon is already on
@@ -98,7 +96,6 @@ function settingsFunc() {
 		toggleMenus();
 		document.querySelector('controls').classList.toggle('toggleSettings');
 		document.querySelector('#thead').classList.toggle('margin-settings');
-		document.querySelector('#tbody').classList.toggle('body-margin-settings');
 
 		setTimeout(function() {
 			settingsFunc();
@@ -274,7 +271,6 @@ function addFunc() {
 	document.querySelector('#add').classList.toggle('rotate');
 	document.querySelector('controls').classList.toggle('toggleAdd');
 	document.querySelector('#thead').classList.toggle('margin-add');
-	document.querySelector('#tbody').classList.toggle('body-margin-add');
 	var parentElement = document.querySelector('.add');
 
 	if (settingsOn) {
@@ -283,7 +279,6 @@ function addFunc() {
 		document.querySelector('#add').classList.toggle('rotate');
 		document.querySelector('controls').classList.toggle('toggleAdd');
 		document.querySelector('#thead').classList.toggle('margin-add');
-		document.querySelector('#tbody').classList.toggle('body-margin-add');
 
 		setTimeout(function() {
 			addFunc();
@@ -311,19 +306,19 @@ function addFunc() {
 		var typeInput = document.createElement('input');
 		typeInput.setAttribute('class', 'add-input');
 		typeInput.setAttribute('id', 'add-type');
-		typeInput.setAttribute('placeholder', 'Type');
+		typeInput.setAttribute('placeholder', 'Type (Personal, Work)');
 
 		// create service input
 		var serviceInput = document.createElement('input');
 		serviceInput.setAttribute('class', 'add-input');
 		serviceInput.setAttribute('id', 'add-service');
-		serviceInput.setAttribute('placeholder', 'Service');
+		serviceInput.setAttribute('placeholder', 'Service (Gmail, Twitter)');
 
 		// create email input
 		var emailInput = document.createElement('input');
 		emailInput.setAttribute('class', 'add-input');
 		emailInput.setAttribute('id', 'add-email');
-		emailInput.setAttribute('placeholder', 'Email');
+		emailInput.setAttribute('placeholder', 'Email (name@service.com)');
 
 		// create password div
 		var passwordDiv = document.createElement('div');
