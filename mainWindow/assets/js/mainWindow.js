@@ -1,4 +1,3 @@
-// Electron shit
 const electron = require('electron');
 const shell = electron.shell;
 const { ipcRenderer } = electron;
@@ -7,6 +6,10 @@ var parentElement;
 
 // data object
 var data = {};
+
+// menu
+const panel = document.querySelector('panel');
+const menu = document.querySelector('menu');
 
 // settings
 var settingsOn = false;
@@ -27,25 +30,8 @@ const gearsIcon = '../global assets/img/dark/gear.png';
 
 // table
 const table = document.querySelector('.tbody-data');
+const id = [ 'type', 'service', 'email', 'password' ];
 
-// initialization
-init();
-// add icons
-function init(type) {
-	const addButton = document.querySelector('.control#add');
-	const settingsButton = document.querySelector('.control#settings');
-	// add icon
-
-	var addButtonIcon = document.createElement('img');
-	addButtonIcon.setAttribute('height', '15px');
-	addButtonIcon.setAttribute('src', addIcon);
-	addButton.appendChild(addButtonIcon);
-	// settings Icon
-	var settingsButtonIcon = document.createElement('img');
-	settingsButtonIcon.setAttribute('height', '23px');
-	settingsButtonIcon.setAttribute('src', gearsIcon);
-	settingsButton.appendChild(settingsButtonIcon);
-}
 // shortcuts
 document.onkeyup = function(e) {
 	// console.log('Notice: shortcut triggered.');
@@ -62,54 +48,40 @@ document.onkeyup = function(e) {
 
 // Toggle Settings Menu
 function settingsFunc() {
-	toggleMenus();
 	document.querySelector('#thead').classList.toggle('margin-settings');
+	panel.classList.toggle('toggleSettings');
 
-	document.querySelector('controls').classList.toggle('toggleSettings');
+	// menu transitions
+	menu.classList.toggle('menu-down');
 
 	// rotate icon
-	var parentElement = document.querySelector('.settings');
 	document.querySelector('#settings').classList.toggle('rotate');
 
 	// if one of the windows is open
-	if (passParam || lockVaultOn || aboutOn) {
-		console.log('NOTICE: one of the menus already on');
-		if (passParam) {
-			togglePassParam();
-		} else if (lockVaultOn) {
-			lockVault();
-		} else if (aboutOn) {
-			about();
-		}
-		setTimeout(function() {
-			settingsFunc();
-			document.querySelector('menu').classList.toggle('togglemenus');
-			document.querySelector('controls').classList.toggle('toggleSettings');
-			document.querySelector('#thead').classList.toggle('margin-settings');
-		}, 100);
-
-		// If add icon is already on
-	} else if (addOn) {
-		document.querySelector('#settings').classList.toggle('rotate');
-
+	if (passParam) {
+		togglePassParam();
+	}
+	if (lockVaultOn) {
+		lockVault();
+	}
+	if (aboutOn) {
+		about();
+	}
+	if (addOn) {
 		addFunc();
-		toggleMenus();
-		document.querySelector('controls').classList.toggle('toggleSettings');
-		document.querySelector('#thead').classList.toggle('margin-settings');
-
-		setTimeout(function() {
-			settingsFunc();
-		}, 500);
-	} else if (!settingsOn) {
+	}
+	if (!settingsOn) {
 		// Create header
 		var header = document.createElement('div');
 		header.setAttribute('class', 'settings-header');
+		menu.appendChild(header);
 
 		// create icon
 		var headerIcon = document.createElement('img');
 		headerIcon.setAttribute('src', gearsIcon);
 		headerIcon.setAttribute('height', '30px');
 		headerIcon.setAttribute('class', 'header-icon');
+		header.appendChild(headerIcon);
 
 		// create text
 		var headerText = document.createElement('span');
@@ -171,10 +143,8 @@ function settingsFunc() {
 		settingsParameters.setAttribute('class', 'settings-parameters');
 
 		// Packaging
-		parentElement.appendChild(header);
-		header.appendChild(headerIcon);
 		header.appendChild(headerText);
-		parentElement.appendChild(settingsBody);
+		menu.appendChild(settingsBody);
 		settingsBody.appendChild(settingsButtons);
 		settingsButtons.appendChild(toggleGridlinesButton);
 		settingsButtons.appendChild(changeTheme);
@@ -185,13 +155,7 @@ function settingsFunc() {
 
 		settingsOn = true;
 	} else {
-		setTimeout(function() {
-			var first = parentElement.firstElementChild;
-			while (first) {
-				first.remove();
-				first = parentElement.firstElementChild;
-			}
-		}, 200);
+		menu.innerHTML = '';
 		settingsOn = false;
 	}
 }
@@ -264,66 +228,63 @@ function error(msg) {
 	}
 }
 
-// Toggle add icon
-var submission;
 function addFunc() {
-	toggleMenus();
 	document.querySelector('#add').classList.toggle('rotate');
-	document.querySelector('controls').classList.toggle('toggleAdd');
+	panel.classList.toggle('toggleAdd');
 	document.querySelector('#thead').classList.toggle('margin-add');
-	var parentElement = document.querySelector('.add');
-
+	menu.classList.toggle('menu-down');
 	if (settingsOn) {
 		settingsFunc();
-		toggleMenus();
-		document.querySelector('#add').classList.toggle('rotate');
-		document.querySelector('controls').classList.toggle('toggleAdd');
-		document.querySelector('#thead').classList.toggle('margin-add');
-
-		setTimeout(function() {
-			addFunc();
-		}, 500);
-	} else if (!addOn) {
+	}
+	if (!addOn) {
 		// create header
 		var header = document.createElement('div');
 		header.setAttribute('class', 'settings-header');
+		menu.appendChild(header);
 
 		// create icon
 		var headerIcon = document.createElement('img');
 		headerIcon.setAttribute('src', addIcon);
 		headerIcon.setAttribute('height', '20px');
 		headerIcon.setAttribute('class', 'header-icon');
+		header.appendChild(headerIcon);
 
 		// create text
 		var headerText = document.createElement('span');
 		headerText.textContent = 'Add';
+		header.appendChild(headerText);
 
 		// Create div for input
 		div = document.createElement('div');
 		div.setAttribute('class', 'add-div');
+		menu.appendChild(div);
 
 		// create type input
 		var typeInput = document.createElement('input');
 		typeInput.setAttribute('class', 'add-input');
 		typeInput.setAttribute('id', 'add-type');
 		typeInput.setAttribute('placeholder', 'Type (Personal, Work)');
+		div.appendChild(typeInput);
 
 		// create service input
 		var serviceInput = document.createElement('input');
 		serviceInput.setAttribute('class', 'add-input');
 		serviceInput.setAttribute('id', 'add-service');
 		serviceInput.setAttribute('placeholder', 'Service (Gmail, Twitter)');
+		div.appendChild(serviceInput);
 
 		// create email input
 		var emailInput = document.createElement('input');
 		emailInput.setAttribute('class', 'add-input');
 		emailInput.setAttribute('id', 'add-email');
 		emailInput.setAttribute('placeholder', 'Email (name@service.com)');
+		div.appendChild(emailInput);
 
 		// create password div
 		var passwordDiv = document.createElement('div');
 		passwordDiv.setAttribute('class', 'pass-div');
 		passwordDiv.setAttribute('id', 'add-pass');
+		div.appendChild(passwordDiv);
 
 		// create password input
 		var passwordInput = document.createElement('input');
@@ -331,12 +292,14 @@ function addFunc() {
 		passwordInput.setAttribute('id', 'add-password');
 		passwordInput.setAttribute('placeholder', 'Password');
 		passwordInput.setAttribute('type', 'password');
+		passwordDiv.appendChild(passwordInput);
 
 		// create password hide/show switch
 		var hideShow = document.createElement('div');
 		hideShow.setAttribute('class', 'hide-show');
 		hideShow.setAttribute('id', 'add-switch');
 		hideShow.setAttribute('onclick', 'hideShow(this)');
+		passwordDiv.appendChild(hideShow);
 
 		// create eye icon
 		var eyeIcon = document.createElement('img');
@@ -344,62 +307,30 @@ function addFunc() {
 		eyeIcon.setAttribute('id', 'add-icon');
 		eyeIcon.setAttribute('height', '10px');
 		eyeIcon.setAttribute('src', eye);
+		hideShow.appendChild(eyeIcon);
 
 		// create error message
 		var span = document.createElement('span');
 		span.setAttribute('class', 'noerror');
 		span.setAttribute('id', 'add-error');
 		span.textContent = 'One or more of the fields is empty.';
+		div.appendChild(span);
 
 		// create add button
 		var addButton = document.createElement('button');
 		addButton.setAttribute('class', 'add-button');
 		addButton.setAttribute('onclick', 'addData()');
 		addButton.textContent = 'Add';
-
-		// Packaging Children
-		parentElement.appendChild(header);
-		header.appendChild(headerIcon);
-		header.appendChild(headerText);
-		parentElement.appendChild(div);
-		div.appendChild(typeInput);
-		div.appendChild(serviceInput);
-		div.appendChild(emailInput);
-		div.appendChild(passwordDiv);
-		passwordDiv.appendChild(passwordInput);
-		passwordDiv.appendChild(hideShow);
-		hideShow.appendChild(eyeIcon);
-		document.querySelector('.add').appendChild(span);
 		div.appendChild(addButton);
 		addOn = true;
 
-		// submission
-		submission = {
-			type: '',
-			service: '',
-			email: '',
-			password: ''
-		};
-
-		const typeDOM = document.getElementById('add-type');
-		const serviceDOM = document.getElementById('add-service');
-		const emailDOM = document.getElementById('add-email');
-		const passwordDOM = document.getElementById('add-password');
-		// addData() when enter is clicked
-
-		typeDOM.addEventListener('keyup', enterFunc);
-		serviceDOM.addEventListener('keyup', enterFunc);
-		emailDOM.addEventListener('keyup', enterFunc);
-		passwordDOM.addEventListener('keyup', enterFunc);
+		typeInput.addEventListener('keyup', enterFunc);
+		serviceInput.addEventListener('keyup', enterFunc);
+		emailInput.addEventListener('keyup', enterFunc);
+		passwordInput.addEventListener('keyup', enterFunc);
 	} else {
-		document.querySelector('controls').classList.remove('controlsSpan');
-		setTimeout(function() {
-			var first = parentElement.firstElementChild;
-			while (first) {
-				first.remove();
-				first = parentElement.firstElementChild;
-			}
-		}, 200);
+		panel.classList.remove('controlsSpan');
+		menu.innerHTML = '';
 		addOn = false;
 	}
 }
@@ -415,16 +346,12 @@ function addData() {
 	const emailDOM = document.getElementById('add-email');
 	const passwordDOM = document.getElementById('add-password');
 	const span = document.getElementById('add-error');
-	submission.type = typeDOM.value;
-	submission.service = serviceDOM.value;
-	submission.email = emailDOM.value;
-	submission.password = passwordDOM.value;
-	console.log(submission);
+
 	// verify that all entries are full
 	if (typeDOM.value == '' || serviceDOM.value == '' || emailDOM.value == '' || passwordDOM.value == '') {
 		console.log('one or more of the fields is empty');
 		span.classList.add('error');
-		document.querySelector('controls').classList.add('controlsSpan');
+		panel.classList.add('controlsSpan');
 		if (typeDOM.value == '') {
 			typeDOM.select();
 		} else if (serviceDOM.value == '') {
@@ -437,117 +364,21 @@ function addData() {
 	} else {
 		// remove error if it were correct
 		span.classList.remove('error');
-		document.querySelector('controls').classList.remove('controlsSpan');
-		// create table row
-		tr = document.createElement('div');
-		tr.setAttribute('class', 'row' + config.cellIndex);
-		tr.setAttribute('id', 'tr');
-		// create td type
-		tdType = document.createElement('div');
-		tdType.setAttribute('class', 'cell' + config.cellIndex);
-		console.log('cell' + config.cellIndex);
-		tdType.setAttribute('onclick', 'copyText(this)');
+		panel.classList.remove('controlsSpan');
 
-		tdType.setAttribute('id', 'type');
-		tdType.textContent = submission.type;
-
-		// create td service
-		tdService = document.createElement('div');
-		tdService.setAttribute('class', 'cell' + config.cellIndex);
-		tdService.setAttribute('onclick', 'copyText(this)');
-
-		tdService.setAttribute('id', 'service');
-		tdService.textContent = submission.service;
-		// create td email
-		tdEmail = document.createElement('div');
-		tdEmail.setAttribute('class', 'cell' + config.cellIndex);
-
-		tdEmail.setAttribute('id', 'email');
-		tdEmail.setAttribute('onclick', 'copyText(this)');
-		tdEmail.textContent = submission.email;
-
-		// create td pass
-		tdPassword = document.createElement('div');
-		tdPassword.setAttribute('class', 'cell' + config.cellIndex);
-
-		tdPassword.setAttribute('id', 'password');
-		tdPassword.textContent = bullet.repeat(submission.password.length);
-
-		// create controls
-		tdControls = document.createElement('div');
-		tdControls.setAttribute('class', 'cell' + config.cellIndex);
-
-		tdControls.setAttribute('id', 'controls');
-
-		// create edit button
-		var edit = document.createElement('div');
-		edit.setAttribute('class', 'cell' + config.cellIndex);
-		edit.setAttribute('id', 'cell-edit');
-		edit.setAttribute('onclick', 'editRow(this)');
-
-		// create edit icon
-		var pencil = document.createElement('img');
-		pencil.setAttribute('class', 'cell' + config.cellIndex);
-		pencil.setAttribute('id', 'edit-icon');
-		pencil.setAttribute('src', pencilIcon);
-		pencil.setAttribute('height', '15px');
-
-		// create show/hide button
-		var showHideButton = document.createElement('div');
-		showHideButton.setAttribute('class', 'cell' + config.cellIndex);
-		showHideButton.setAttribute('id', 'cell-showHide');
-		showHideButton.setAttribute('onclick', 'hideShow(this)');
-
-		// create eye icon
-		var eyeIcon = document.createElement('img');
-		eyeIcon.setAttribute('class', 'cell' + config.cellIndex);
-		eyeIcon.setAttribute('id', 'eye-icon');
-		eyeIcon.setAttribute('height', '15px');
-		eyeIcon.setAttribute('src', eye);
-
-		// create delete button
-		var deleteButton = document.createElement('div');
-		deleteButton.setAttribute('class', 'cell' + config.cellIndex);
-		deleteButton.setAttribute('id', 'cell-delete');
-		deleteButton.setAttribute('onclick', 'deleteFunc(this)');
-
-		// create delete icon
-		var deleteIcon = document.createElement('img');
-		deleteIcon.setAttribute('class', 'cell' + config.cellIndex);
-		deleteIcon.setAttribute('id', 'delete-icon');
-		deleteIcon.setAttribute('src', trashcan);
-		deleteIcon.setAttribute('height', '15px');
-
-		// tbody animation
-		table.classList.add('tbody-animation');
-		setTimeout(function() {
-			table.classList.remove('tbody-animation');
-		}, 250);
-		// package children
-		table.appendChild(tr);
-		tr.appendChild(tdType);
-		tr.appendChild(tdService);
-		tr.appendChild(tdEmail);
-		tr.appendChild(tdPassword);
-		tr.appendChild(tdControls);
-		tdControls.appendChild(edit);
-		edit.appendChild(pencil);
-		tdControls.appendChild(showHideButton);
-		showHideButton.appendChild(eyeIcon);
-		tdControls.appendChild(deleteButton);
-		deleteButton.appendChild(deleteIcon);
+		addRow(typeDOM.value, serviceDOM.value, emailDOM.value, passwordDOM.value, config.cellIndex);
 
 		if (config.gridlinesOn) {
-			document.querySelector('.row' + config.cellIndex).setAttribute('class', 'gridlinesOn');
+			document.querySelector('.row-' + config.cellIndex).setAttribute('class', 'gridlinesOn');
 		}
 
-		data['cell' + config.cellIndex] = {
+		data['cell-' + config.cellIndex] = {
 			type: typeDOM.value,
 			service: serviceDOM.value,
 			email: emailDOM.value,
 			password: passwordDOM.value,
 			index: config.cellIndex,
-			class: 'cell' + config.cellIndex,
+			class: 'cell-' + config.cellIndex,
 			hidden: true,
 			onCopy: false
 		};
@@ -564,6 +395,86 @@ function addData() {
 		typeDOM.select();
 	}
 }
+function addRow(type, service, email, password, index) {
+	console.log(index);
+	// create table row
+	tr = document.createElement('div');
+	tr.setAttribute('class', 'row-' + index);
+	tr.setAttribute('id', 'tr');
+	table.appendChild(tr);
+	var text = [ type, service, email, password, index ];
+
+	for (i = 0; i < id.length; i++) {
+		var cell = document.createElement('div');
+		cell.setAttribute('class', 'cell-' + index);
+		cell.setAttribute('id', id[i]);
+		cell.setAttribute('onclick', 'copy(this)');
+		if (id[i] == 'password') {
+			cell.textContent = bullet.repeat(password.length);
+		} else {
+			cell.textContent = text[i];
+		}
+		tr.appendChild(cell);
+	}
+
+	// create controls
+	tdControls = document.createElement('div');
+	tdControls.setAttribute('class', 'cell-' + index);
+	tdControls.setAttribute('id', 'controls');
+	tr.appendChild(tdControls);
+
+	// create edit button
+	var edit = document.createElement('div');
+	edit.setAttribute('class', 'cell-' + index);
+	edit.setAttribute('id', 'cell-edit');
+	edit.setAttribute('onclick', 'editRow(this)');
+	tdControls.appendChild(edit);
+
+	// create edit icon
+	var pencil = document.createElement('img');
+	pencil.setAttribute('class', 'cell-' + index);
+	pencil.setAttribute('id', 'edit-icon');
+	pencil.setAttribute('src', pencilIcon);
+	pencil.setAttribute('height', '15px');
+	edit.appendChild(pencil);
+
+	// create show/hide button
+	var showHideButton = document.createElement('div');
+	showHideButton.setAttribute('class', 'cell-' + index);
+	showHideButton.setAttribute('id', 'cell-showHide');
+	showHideButton.setAttribute('onclick', 'hideShow(this)');
+	tdControls.appendChild(showHideButton);
+
+	// create eye icon
+	var eyeIcon = document.createElement('img');
+	eyeIcon.setAttribute('class', 'cell-' + index);
+	eyeIcon.setAttribute('id', 'eye-icon');
+	eyeIcon.setAttribute('height', '15px');
+	eyeIcon.setAttribute('src', eye);
+	showHideButton.appendChild(eyeIcon);
+
+	// create delete button
+	var deleteButton = document.createElement('div');
+	deleteButton.setAttribute('class', 'cell-' + index);
+	deleteButton.setAttribute('id', 'cell-delete');
+	deleteButton.setAttribute('onclick', 'deleteFunc(this)');
+	tdControls.appendChild(deleteButton);
+
+	// create delete icon
+	var deleteIcon = document.createElement('img');
+	deleteIcon.setAttribute('class', 'cell-' + index);
+	deleteIcon.setAttribute('id', 'delete-icon');
+	deleteIcon.setAttribute('src', trashcan);
+	deleteIcon.setAttribute('height', '15px');
+	deleteButton.appendChild(deleteIcon);
+
+	// tbody animation
+	table.classList.add('tbody-animation');
+	setTimeout(function() {
+		table.classList.remove('tbody-animation');
+	}, 250);
+}
+
 var addHideShow = false;
 function hideShow(pro, value) {
 	var d = pro.id;
@@ -612,7 +523,7 @@ function hideShow(pro, value) {
 	}
 }
 var onCopy = false;
-function copyText(properties) {
+function copy(properties) {
 	var d = properties.id;
 	var c = properties.classList;
 	if (!onCopy) {
@@ -626,12 +537,11 @@ function copyText(properties) {
 		document.querySelector('.hidden').select();
 		try {
 			var successful = document.execCommand('copy');
-			var msg = successful ? 'successful' : 'unsuccessful';
 			console.log('Copying ' + c + d + ' was successful, and the message is: ' + copyVar);
 			var span = document.createElement('div');
 			span.setAttribute('class', c);
 			span.setAttribute('id', 'copy');
-			span.textContent = 'Copied!';
+			span.textContent = 'Copied to clipboard!';
 			document.querySelector('#' + d + '.' + c).appendChild(span);
 			setTimeout(function() {
 				span.remove();
@@ -651,13 +561,12 @@ var editOn = false;
 function editRow(properties) {
 	var d = properties.id;
 	var c = properties.classList;
-	var tr = 'row' + data[c].index;
+	var tr = 'row-' + data[c].index;
 	var typeDOM = document.querySelector('#type.' + c);
 	var serviceDOM = document.querySelector('#service.' + c);
 	var emailDOM = document.querySelector('#email.' + c);
 	var passwordDOM = document.querySelector('#password.' + c);
 
-	console.log('class: ' + c + ' | id: ' + d);
 	// remove onclick
 	typeDOM.removeAttribute('onclick');
 	serviceDOM.removeAttribute('onclick');
@@ -725,7 +634,7 @@ function editRow(properties) {
 		editOn = true;
 
 		// shortcuts
-		document.querySelector('.row' + data[c].index).addEventListener('keyup', function(e, pro) {
+		document.querySelector('.row-' + data[c].index).addEventListener('keyup', function(e, pro) {
 			if (e.which == 27) {
 				editOn = true;
 				deleteFunc(properties);
@@ -780,9 +689,9 @@ function editRow(properties) {
 			} else {
 				passwordDOM.textContent = bullet.repeat(data[c].password.length);
 			}
-			typeDOM.setAttribute('onclick', 'copyText(this)');
-			serviceDOM.setAttribute('onclick', 'copyText(this)');
-			emailDOM.setAttribute('onclick', 'copyText(this)');
+			typeDOM.setAttribute('onclick', 'copy(this)');
+			serviceDOM.setAttribute('onclick', 'copy(this)');
+			emailDOM.setAttribute('onclick', 'copy(this)');
 		}
 	}
 }
@@ -790,12 +699,12 @@ function editRow(properties) {
 function deleteFunc(properties) {
 	var d = properties.id;
 	var c = properties.classList;
-	var tr = 'row' + data[c].index;
-	console.log('class: ' + c + ' | id: ' + d);
 	var index = data[c].index;
+	var tr = 'row-' + index;
+	console.log('class: ' + c + ' | id: ' + d);
 	console.log(index);
 	if (!editOn) {
-		tr = document.querySelector('.row' + index);
+		tr = document.querySelector('.row-' + index);
 		tr.classList.toggle('draw-out-animation');
 		setTimeout(function() {
 			tr.remove();
@@ -818,17 +727,14 @@ function deleteFunc(properties) {
 		} else {
 			document.querySelector('#password.' + c).textContent = bullet.repeat(data[c].password.length);
 		}
-		document.querySelector('#type.' + c).setAttribute('onclick', 'copyText(this)');
-		document.querySelector('#service.' + c).setAttribute('onclick', 'copyText(this)');
-		document.querySelector('#email.' + c).setAttribute('onclick', 'copyText(this)');
+		document.querySelector('#type.' + c).setAttribute('onclick', 'copy(this)');
+		document.querySelector('#service.' + c).setAttribute('onclick', 'copy(this)');
+		document.querySelector('#email.' + c).setAttribute('onclick', 'copy(this)');
 		editOn = false;
 		document.querySelector('.' + tr).classList.toggle('tr-edit');
 	}
 }
-// Toggle menus
-function toggleMenus() {
-	document.querySelector('menu').classList.toggle('togglemenus');
-}
+
 // Toggle parameters
 function toggleParameters() {
 	// Parameters

@@ -15,7 +15,7 @@ body {
 	margin: 0;
 }
 body {
-	background-color: var(--body);
+	background: var(--body);
 	color: var(--primary-color);
 	font-family: "Segoe UI", sans-serif;
 	display: flex;
@@ -89,7 +89,7 @@ body {
 
 /** Loading Menu **/
 .loading-overlay {
-	background-color: var(--body);
+	background: var(--body);
 	position: fixed;
 	z-index: 999;
 	width: 100%;
@@ -140,6 +140,7 @@ body {
 	margin-top: 30px;
 	overflow: auto;
 }
+/*
 .container-draw-in {
 	opacity: 0;
 	transform: scale3d(1.5, 1.5, 1.5);
@@ -148,9 +149,9 @@ body {
 	transition-delay: 0.2s;
 	will-change: transform, opacity, filter;
 }
-
+*/
 /** controls **/
-controls {
+panel {
 	margin-top: 0px;
 	border-radius: 10px;
 	width: 100px;
@@ -162,7 +163,7 @@ controls {
 	z-index: 2;
 	backdrop-filter: blur(10px);
 }
-.controls {
+controls {
 	margin: 15px;
 	display: flex;
 	justify-content: flex-end;
@@ -182,14 +183,14 @@ img {
 }
 .control {
 	display: flex;
-	padding: 4px;
-	height: 31px;
-	width: 31px;
+	padding: 5px;
+	height: 30px;
+	width: 30px;
 	border-radius: 15.5px;
 	font-size: 20px;
 }
 .control:hover {
-	background-color: var(--primary-hover);
+	background: var(--primary-hover);
 	cursor: pointer;
 }
 
@@ -237,9 +238,13 @@ img {
 }
 
 menu {
+	padding: 10px;
 	opacity: 0;
 	transform: translateY(-100%);
-	transition: 0.4s;
+}
+.menu-down {
+	opacity: 1;
+	transform: translateY(0%);
 }
 .settings-body {
 	display: flex;
@@ -256,16 +261,11 @@ menu {
 }
 
 /****** Menu Animation*/
-.togglemenus {
-	opacity: 1;
-	transform: translateY(0%);
-}
 .toggleSettings {
 	height: 355px;
-	transition: 0.4s ease-out;
 	margin-top: 20px;
 	width: 500px;
-	background-color: var(--toggle-controls);
+	background: var(--toggle-controls);
 }
 
 .toggleAbout {
@@ -287,7 +287,7 @@ a {
 	height: 210px;
 	margin-top: 20px;
 	min-width: 500px;
-	background-color: var(--toggle-controls);
+	background: var(--toggle-controls);
 }
 
 /***** password */
@@ -318,7 +318,7 @@ a {
 	font-size: 14px;
 }
 button {
-	background-image: var(--primary-button);
+	background: var(--primary-button);
 	padding: 5px;
 	margin: 10px;
 	border-radius: 5px;
@@ -330,8 +330,7 @@ button:not(.button-header):hover {
 	background-color: var(--secondary-button);
 }
 .button-header {
-	background-color: transparent;
-	background-image: none;
+	background: transparent;
 	border-left: 4px solid transparent;
 	margin: 0;
 	border-radius: 0;
@@ -366,7 +365,6 @@ button:hover {
 	justify-content: center;
 	width: 190px;
 	transform: translateX(-100%);
-	transition: 0.3s;
 	opacity: 0;
 }
 .settingsToggle {
@@ -376,10 +374,9 @@ button:hover {
 input {
 	margin: 5px;
 	padding: 5px;
-	background-color: transparent;
+	background: transparent;
 	border: 2px solid var(--primary-input);
 	border-radius: 5px;
-	transition: 0.4s;
 	color: var(--secondary-color);
 }
 input:hover,
@@ -410,7 +407,7 @@ input:focus {
 	width: calc(100% - 10px);
 }
 .disabled {
-	background-color: rgb(252, 61, 61);
+	background: rgb(252, 61, 61);
 }
 
 #tbody cell {
@@ -532,7 +529,7 @@ input:focus {
 }
 
 .tbody-data div:hover {
-	background-color: var(--row-hover);
+	background: var(--row-hover);
 }
 .tbody-animation {
 	animation: slide-in 0.25s ease-out;
@@ -577,7 +574,7 @@ input:focus {
 }
 
 .hide-show:hover {
-	background-color: var(--cell-hover);
+	background: var(--cell-hover);
 }
 #type:hover:not(.header),
 #service:hover:not(.header),
@@ -586,14 +583,14 @@ input:focus {
 #cell-edit:hover,
 #cell-showHide:hover,
 #cell-delete:hover {
-	background-color: var(--cell-hover);
+	background: var(--cell-hover);
 }
 
 #tbody .tr-edit #type:hover,
 #tbody .tr-edit #service:hover,
 #tbody .tr-edit #email:hover,
 #tbody .tr-edit #password:hover {
-	background-color: transparent;
+	background: transparent;
 }
 
 #type::-webkit-scrollbar,
@@ -638,31 +635,37 @@ input:focus {
 }
 #copy {
 	font-size: 12px;
-	background-color: none;
+	background: none;
 	padding: 0;
 	margin: 0;
-	animation: copy-slide-in 1.6s ease-out;
+	animation: copy-slide-in 1.5s ease-out;
 	color: var(--copy-color);
 }
 #copy:hover {
-	background-color: transparent;
+	background: transparent;
 }
 
 @keyframes copy-slide-in {
 	0% {
-		transform: translateY(20px);
+		transform: translateY(100%);
 		opacity: 0;
 	}
 	10% {
-		transform: translateY(00px);
+		transform: translateY(-20%);
 		opacity: 1;
 	}
+	15% {
+		transform: translateY(0%);
+	}
+	85% {
+		transform: translateY(0%);
+	}
 	90% {
-		transform: translateY(00px);
+		transform: translateY(-20%);
 		opacity: 1;
 	}
 	100% {
-		transform: translateY(20px);
+		transform: translateY(100%);
 		opacity: 0;
 	}
 }
@@ -721,7 +724,7 @@ input:focus {
 	border: 1px solid var(--primary-color);
 }
 #window-controls .button:hover {
-	background-color: (--primary-hover);
+	background: (--primary-hover);
 }
 /**** Responsive */
 @media only screen and (max-width: 1200px) {
