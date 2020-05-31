@@ -72,7 +72,7 @@ function toggleTheme(theme) {
 	initTheme();
 }
 function exit() {
-	config.firstTime = false;
+	firstTime = false;
 	key = crypto.randomBytes(32);
 	iv = crypto.randomBytes(16);
 	param.keyO = key;

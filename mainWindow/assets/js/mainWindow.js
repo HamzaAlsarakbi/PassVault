@@ -5,11 +5,23 @@ let win = electron.remote.getCurrentWindow();
 var parentElement;
 
 // data object
-var data = {};
+var data = {
+	cellIndex: 0
+};
+var searchBy = {
+	type: true,
+	service: true,
+	email: true,
+	password: true
+};
 
 // menu
 const panel = document.querySelector('panel');
 const menu = document.querySelector('menu');
+
+// search
+const searchInput = document.querySelector('input.control');
+const filterDOM = document.querySelector('.control#filter');
 
 // settings
 var settingsOn = false;
@@ -37,9 +49,17 @@ document.onkeyup = function(e) {
 	// console.log('Notice: shortcut triggered.');
 	if (e.altKey && e.which == 65) {
 		addFunc();
-	} else if (e.altKey && e.which == 83) {
+	}
+	if (e.altKey && e.which == 83) {
 		settingsFunc();
-	} else if (e.ctrlKey && e.which == 83) {
+	}
+	if (e.altKey && e.which == 70) {
+		toggleFilters();
+	}
+	if (e.ctrlKey && e.which == 70) {
+		searchToggle();
+	}
+	if (e.ctrlKey && e.which == 83) {
 		if (saved) {
 			save('all');
 		}
@@ -69,6 +89,12 @@ function settingsFunc() {
 	}
 	if (addOn) {
 		addFunc();
+	}
+	if (searchOn) {
+		searchToggle();
+	}
+	if (filtersOn) {
+		toggleFilters();
 	}
 	if (!settingsOn) {
 		// Create header
@@ -236,6 +262,12 @@ function addFunc() {
 	if (settingsOn) {
 		settingsFunc();
 	}
+	if (searchOn) {
+		searchToggle();
+	}
+	if (filtersOn) {
+		toggleFilters();
+	}
 	if (!addOn) {
 		// create header
 		var header = document.createElement('div');
@@ -366,19 +398,19 @@ function addData() {
 		span.classList.remove('error');
 		panel.classList.remove('controlsSpan');
 
-		addRow(typeDOM.value, serviceDOM.value, emailDOM.value, passwordDOM.value, config.cellIndex);
+		addRow(typeDOM.value, serviceDOM.value, emailDOM.value, passwordDOM.value, data.cellIndex);
 
 		if (config.gridlinesOn) {
-			document.querySelector('.row-' + config.cellIndex).setAttribute('class', 'gridlinesOn');
+			document.querySelector('.row-' + data.cellIndex).setAttribute('class', 'gridlinesOn');
 		}
 
-		data['cell-' + config.cellIndex] = {
+		data['cell-' + data.cellIndex] = {
 			type: typeDOM.value,
 			service: serviceDOM.value,
 			email: emailDOM.value,
 			password: passwordDOM.value,
-			index: config.cellIndex,
-			class: 'cell-' + config.cellIndex,
+			index: data.cellIndex,
+			class: 'cell-' + data.cellIndex,
 			hidden: true,
 			onCopy: false
 		};
@@ -389,8 +421,8 @@ function addData() {
 		serviceDOM.value = '';
 		emailDOM.value = '';
 		passwordDOM.value = '';
-		console.log(config.cellIndex);
-		config.cellIndex++;
+		console.log(data.cellIndex);
+		data.cellIndex++;
 		// go back to type input field (convenience)
 		typeDOM.select();
 	}
@@ -567,15 +599,13 @@ function editRow(properties) {
 	var emailDOM = document.querySelector('#email.' + c);
 	var passwordDOM = document.querySelector('#password.' + c);
 
-	// remove onclick
-	typeDOM.removeAttribute('onclick');
-	serviceDOM.removeAttribute('onclick');
-	emailDOM.removeAttribute('onclick');
+	// edit transitions
 
 	if (!editOn) {
 		typeDOM.removeAttribute('onclick');
 		serviceDOM.removeAttribute('onclick');
 		emailDOM.removeAttribute('onclick');
+		passwordDOM.removeAttribute('onclick');
 		// when edit is toggled
 		// change icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', remove);
@@ -692,6 +722,7 @@ function editRow(properties) {
 			typeDOM.setAttribute('onclick', 'copy(this)');
 			serviceDOM.setAttribute('onclick', 'copy(this)');
 			emailDOM.setAttribute('onclick', 'copy(this)');
+			passwordDOM.setAttribute('onclick', 'copy(this)');
 		}
 	}
 }
@@ -714,6 +745,8 @@ function deleteFunc(properties) {
 		// draw-out animations
 	} else {
 		// if its exiting edit mode
+		document.querySelector('.' + tr).classList.toggle('edit-on');
+
 		// reset icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
 		document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
@@ -730,6 +763,7 @@ function deleteFunc(properties) {
 		document.querySelector('#type.' + c).setAttribute('onclick', 'copy(this)');
 		document.querySelector('#service.' + c).setAttribute('onclick', 'copy(this)');
 		document.querySelector('#email.' + c).setAttribute('onclick', 'copy(this)');
+		document.querySelector('#password.' + c).setAttribute('onclick', 'copy(this)');
 		editOn = false;
 		document.querySelector('.' + tr).classList.toggle('tr-edit');
 	}
@@ -1130,5 +1164,113 @@ function closeDialog() {
 		setTimeout(function() {
 			document.querySelector('body').removeChild(document.querySelector('.overlay'));
 		}, 240);
+	}
+}
+var searchOn = false;
+function searchToggle() {
+	if (addOn) {
+		addFunc();
+	} else if (settingsOn) {
+		settingsFunc();
+	}
+
+	// transitions
+	searchInput.classList.toggle('toggleSearch');
+	document.querySelector('div.control#search').classList.toggle('toggleSearch');
+
+	// clear search input
+	searchInput.value = '';
+	if (!searchOn) {
+		// toggle on search
+		searchInput.select();
+		searchOn = true;
+	} else if (searchOn) {
+		// toggle off search
+		searchOn = false;
+	}
+}
+// filters
+var filtersOn = false;
+function toggleFilters() {
+	if (addOn) {
+		addFunc();
+	}
+	if (settingsOn) {
+		settingsFunc();
+	}
+	if (!filtersOn) {
+		// make drop-down
+		var container = document.createElement('div');
+		container.setAttribute('class', 'drop-down');
+		document.querySelector('dropDown').appendChild(container);
+
+		// create header
+		var header = document.createElement('div');
+		header.setAttribute('class', 'header');
+		header.textContent = 'Search By:';
+		container.appendChild(header);
+
+		// create parameters
+		for (i = 0; i < id.length; i++) {
+			// create parameter
+			var label = document.createElement('label');
+			label.setAttribute('class', 'label');
+			label.textContent = id[i];
+			container.appendChild(label);
+
+			// create checkbox
+			var input = document.createElement('input');
+			input.setAttribute('type', 'checkbox');
+			input.setAttribute('id', id[i]);
+			input.setAttribute('onclick', 'setFilter(this)');
+
+			// if search by is turned off for this specific parameter, then don't 'check' it.
+			if (searchBy[id[i]]) input.setAttribute('checked', 'checked');
+			label.appendChild(input);
+
+			// create checkmark
+			var span = document.createElement('span');
+			span.setAttribute('class', 'checkmark');
+			label.appendChild(span);
+		}
+		filtersOn = true;
+	} else {
+		document.querySelector('dropDown').innerHTML = '';
+		filtersOn = false;
+	}
+}
+function setFilter(e) {
+	var id = e.id;
+	if (searchBy[id]) {
+		searchBy[id] = false;
+	} else {
+		searchBy[id] = true;
+	}
+	console.log(id + ': ' + searchBy[id]);
+	search();
+}
+searchInput.addEventListener('input', search);
+
+function search() {
+	// get input value
+	text = searchInput.value.toLowerCase();
+	for (i = 0; i < data.cellIndex; i++) {
+		try {
+			document.querySelector('.row-' + i).classList.add('no-match');
+			for (c = 0; c < id.length; c++) {
+				// check if searchby is active
+				if (searchBy[id[c]]) {
+					var cellData = data['cell-' + i][id[c]].toLowerCase();
+					console.log('Cell: ' + cellData);
+					console.log('Keyword: ' + text);
+					if (cellData.includes(text)) {
+						document.querySelector('.row-' + i).classList.remove('no-match');
+					}
+				}
+			}
+		} catch (err) {
+			console.error(err);
+			console.log('%c WARNING: Cell ' + i + " doesn't exist", orangeColor);
+		}
 	}
 }

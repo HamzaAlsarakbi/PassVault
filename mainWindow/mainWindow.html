@@ -14,14 +14,14 @@
     <div class="loading-overlay">
       <div class="loading-container">
         <div class="loading-icons">
-        <img class="loading-icon" id="loading-backdrop" src="../global assets/img/icon-backdrop.png" height="100px">
-        <img class="loading-icon" id="loading-cog" src="../global assets/img/icon-cog.png" height="50px">
+          <img class="loading-icon" id="loading-backdrop" src="../global assets/img/icon-backdrop.png" height="100px">
+          <img class="loading-icon" id="loading-cog" src="../global assets/img/icon-cog.png" height="50px">
         </div>
-          <div class="loading-msg">Loading...</div>
+        <div class="loading-msg">Loading...</div>
       </div>
     </div>
-
-      <!-- Window Controls -->
+    
+    <!-- Window Controls -->
       <header id="titlebar">
         <div id="drag-region">
           <div id="window-title">
@@ -45,12 +45,22 @@
           </div>
         </div>
       </header>
-
+      
       
       <!-- Contents -->
       <div class="container container-draw-in">
         <panel>
           <controls>
+            <div class="control-collection">
+              <div class="control" id="filter" onclick="toggleFilters()">
+                <img height="20px" src="../global assets/img/dark/filter.png">
+              </div>
+              <dropDown></dropDown>
+            </div>
+            <input class="control" id="search-input" placeholder="Search for Keyword">
+            <div class="control" id="search" onclick="searchToggle()">
+              <img height="20px" src="../global assets/img/dark/search.png">
+            </div>
             <div class="control" id="add" onclick="addFunc()">
               <img height="20px" src="../global assets/img/dark/add.png">
             </div>

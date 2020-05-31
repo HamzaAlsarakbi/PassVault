@@ -27,7 +27,6 @@ try {
 
 var config = {
 	theme: 'dark',
-	cellIndex: 0,
 	gridlinesOn: false,
 	firstTime: true
 };

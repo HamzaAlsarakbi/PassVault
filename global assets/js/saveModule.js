@@ -112,7 +112,7 @@ function parse() {
 	var parsedData = JSON.parse(rawData);
 	decryptedData = decrypt(parsedData);
 	data = JSON.parse(decryptedData);
-	for (var i = 0; i < config.cellIndex; i++) {
+	for (var i = 0; i < data.cellIndex; i++) {
 		try {
 			// add rows
 			addRow(

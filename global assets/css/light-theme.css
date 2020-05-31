@@ -13,6 +13,7 @@
 
 	/** Controls **/
 	--toggle-controls: rgba(226, 226, 226, 0.4);
+	--toggle-controls-opaque: rgba(226, 226, 226, 1);
 	--primary-a: rgb(43, 85, 173);
 
 	/** Button **/

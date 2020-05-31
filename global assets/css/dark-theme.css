@@ -13,6 +13,7 @@
 
 	/** Controls **/
 	--toggle-controls: rgba(50, 50, 50, 0.4);
+	--toggle-controls-opaque: rgba(50, 50, 50, 1);
 	--primary-a: rgb(64, 124, 255);
 
 	/** Buttons **/
@@ -23,6 +24,10 @@
 	/** Input **/
 	--primary-input: rgb(80, 80, 80);
 	--secondary-input: rgb(52, 99, 202);
+
+	/** Checkbox **/
+	--primary-checkbox: rgb(35, 35, 35);
+	--secondary-checkbox: rgb(50, 100, 200);
 
 	/** Table **/
 	--primary-thead-border: 2px solid white;

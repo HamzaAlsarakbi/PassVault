@@ -27,7 +27,6 @@ let loadFile;
 var config = {
 	theme: 'dark',
 	masterPassword: '',
-	cellIndex: 0,
 	gridlinesOn: false,
 	firstTime: true
 };
