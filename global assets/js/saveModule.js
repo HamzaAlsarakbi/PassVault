@@ -128,19 +128,18 @@ function parse() {
 	}
 }
 
-var dataSave = {};
 function changesChecker() {
 	try {
 		var rawData = fs.readFileSync(fullPath);
 		var dataSaveParsed = JSON.parse(rawData);
-		dataSaveDecrypted = decrypt(dataSaveParsed);
-		dataSave = JSON.parse(dataSaveDecrypted);
+		var dataSave = decrypt(dataSaveParsed);
+		var currentData = JSON.stringify(data);
 	} catch (err) {
 		console.log("%c ERROR: data.json doesn't exist. Checking if data object is empty", errorColor);
 	}
 
 	// compare two objects
-	if (angular.equals(dataSave, data)) {
+	if (dataSave == currentData) {
 		// console.log('%c dataSave & data are equal.', greenColor);
 		if (saved) {
 			// if the user reversed changes, has a side effect when triggering save from console

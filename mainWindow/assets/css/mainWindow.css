@@ -899,3 +899,14 @@ input:focus {
 		padding-top: 320px !important;
 	}
 }
+
+#service-icon {
+	height: 20px;
+	margin: 5px;
+	border-radius: 5px;
+}
+#service {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

@@ -428,7 +428,6 @@ function addData() {
 	}
 }
 function addRow(type, service, email, password, index) {
-	console.log(index);
 	// create table row
 	tr = document.createElement('div');
 	tr.setAttribute('class', 'row-' + index);
@@ -447,6 +446,9 @@ function addRow(type, service, email, password, index) {
 			cell.textContent = text[i];
 		}
 		tr.appendChild(cell);
+		if (id[i] == 'service') {
+			iconChecker('.cell-' + index, '#' + id[i], text[i]);
+		}
 	}
 
 	// create controls
@@ -662,18 +664,6 @@ function editRow(properties) {
 		emailDOM.appendChild(emailInput);
 		passwordDOM.appendChild(passwordInput);
 		editOn = true;
-
-		// shortcuts
-		document.querySelector('.row-' + data[c].index).addEventListener('keyup', function(e, pro) {
-			if (e.which == 27) {
-				editOn = true;
-				deleteFunc(properties);
-				console.log('ESC triggered');
-			} else if (e.which == 13) {
-				editRow(properties);
-				console.log('ENTER triggered');
-			}
-		});
 	} else {
 		var typeInputDOM = document.querySelector('.input-' + data[c].index + '#table-type');
 		var serviceInputDOM = document.querySelector('.input-' + data[c].index + '#table-service');
@@ -723,6 +713,7 @@ function editRow(properties) {
 			serviceDOM.setAttribute('onclick', 'copy(this)');
 			emailDOM.setAttribute('onclick', 'copy(this)');
 			passwordDOM.setAttribute('onclick', 'copy(this)');
+			iconChecker('.' + c, '#service', serviceDOM.textContent);
 		}
 	}
 }
@@ -766,6 +757,7 @@ function deleteFunc(properties) {
 		document.querySelector('#password.' + c).setAttribute('onclick', 'copy(this)');
 		editOn = false;
 		document.querySelector('.' + tr).classList.toggle('tr-edit');
+		iconChecker('.' + c, '#service', document.querySelector('#service.' + c).textContent);
 	}
 }
 
@@ -1261,8 +1253,6 @@ function search() {
 				// check if searchby is active
 				if (searchBy[id[c]]) {
 					var cellData = data['cell-' + i][id[c]].toLowerCase();
-					console.log('Cell: ' + cellData);
-					console.log('Keyword: ' + text);
 					if (cellData.includes(text)) {
 						document.querySelector('.row-' + i).classList.remove('no-match');
 					}
@@ -1271,6 +1261,46 @@ function search() {
 		} catch (err) {
 			console.error(err);
 			console.log('%c WARNING: Cell ' + i + " doesn't exist", orangeColor);
+		}
+	}
+}
+
+function iconChecker(classList, id, text) {
+	var cell = document.querySelector(classList + id);
+	var originalText = text;
+	text = text.toLowerCase();
+	var list = [
+		'google',
+		'gmail',
+		'microsoft',
+		'outlook',
+		'discord',
+		'reddit',
+		'github',
+		'twitch',
+		'twitter',
+		'facebook',
+		'instagram',
+		'linkedin',
+		'tumblr',
+		'samsung',
+		'apple',
+		'wechat',
+		'pinterest',
+		'vsco'
+	];
+	for (var i = 0; i < list.length; i++) {
+		if (text.includes(list[i])) {
+			cell.innerHTML =
+				`
+			<img class="` +
+				classList +
+				`" id="service-icon" src="../global assets/img/icons/` +
+				list[i] +
+				`.png">` +
+				originalText +
+				`
+			`;
 		}
 	}
 }

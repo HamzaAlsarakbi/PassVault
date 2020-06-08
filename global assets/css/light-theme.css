@@ -32,7 +32,7 @@
 	--copy-color: rgb(75, 75, 75);
 }
 /** Icons **/
-img {
+img:not(#service-icon) {
 	filter: invert(1);
 }
 

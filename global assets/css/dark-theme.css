@@ -40,6 +40,6 @@ a:hover {
 	filter: brightness(0.9);
 }
 
-img {
+img:not(#service-icon) {
 	filter: invert(0);
 }
