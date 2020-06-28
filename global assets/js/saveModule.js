@@ -27,7 +27,6 @@ function save(type) {
 		saveButton.setAttribute('onclick', "save('all')");
 		saveButton.textContent = 'Save';
 		container.appendChild(saveButton);
-		console.log('displaying save button.');
 	} else if (type == 'all') {
 		// if no changes are made
 		// save data.json
@@ -163,7 +162,7 @@ function changesChecker() {
 				setTimeout(lockVault, 400);
 			}
 		} else {
-			console.log('%c ERROR: caught in stalemate.', orangeColor);
+			// console.log('%c ERROR: caught in stalemate.', orangeColor);
 		}
 	}
 }

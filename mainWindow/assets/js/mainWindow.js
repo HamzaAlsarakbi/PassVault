@@ -723,15 +723,40 @@ function deleteFunc(properties) {
 	var c = properties.classList;
 	var index = data[c].index;
 	var tr = 'row-' + index;
-	console.log('class: ' + c + ' | id: ' + d);
-	console.log(index);
 	if (!editOn) {
 		tr = document.querySelector('.row-' + index);
 		tr.classList.toggle('draw-out-animation');
 		setTimeout(function() {
+			var removedIndex = Number(c.value.replace('cell-', ''));
+			console.log('removedIndex: ' + removedIndex);
 			tr.remove();
 			delete data[c];
-			console.log('data after deletion: ' + data);
+			for (var i = removedIndex + 1; i < data.cellIndex; i++) {
+				var row = data['cell-' + i];
+				data['cell-' + (i - 1)] = {
+					class: 'cell-' + (i - 1),
+					type: row.type,
+					service: row.service,
+					email: row.email,
+					password: row.password,
+					onCopy: row.onCopy,
+					index: i - 1,
+					hidden: row.hidden
+				};
+
+				// update class name of cells
+				var rowCells = document.querySelectorAll('.cell-' + i);
+				var rowLength = rowCells.length;
+				for (var x = 0; x < rowLength; x++) {
+					var element = rowCells[x];
+					element.setAttribute('class', 'cell-' + (i - 1));
+				}
+
+				// update class name of rows
+				document.querySelector('.row-' + i).setAttribute('class', 'row-' + (i - 1));
+			}
+			data.cellIndex--;
+			delete data['cell-' + data.cellIndex];
 		}, 250);
 		// draw-out animations
 	} else {
@@ -1100,7 +1125,7 @@ function about() {
 
 function openExternal(type) {
 	if (type == 'github') {
-		shell.openExternal('https://github.com/Electr0d/PassVault');
+		shell.openExternal('https://github.com/Electr0d');
 	} else if (type == 'instagram') {
 		shell.openExternal('https://www.instagram.com/hamza__sar/');
 	} else if (type == 'twitter') {
@@ -1287,14 +1312,15 @@ function iconChecker(classList, id, text) {
 		'apple',
 		'wechat',
 		'pinterest',
-		'vsco'
+		'vsco',
+		'tiktok'
 	];
 	for (var i = 0; i < list.length; i++) {
 		if (text.includes(list[i])) {
 			cell.innerHTML =
 				`
 			<img class="` +
-				classList +
+			classList.replace('.', '') +
 				`" id="service-icon" src="../global assets/img/icons/` +
 				list[i] +
 				`.png">` +
