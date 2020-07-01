@@ -165,6 +165,7 @@ panel {
 }
 controls {
 	margin: 8px;
+	margin-bottom: 0;
 	display: flex;
 	height: 45px;
 	justify-content: flex-end;
@@ -223,7 +224,8 @@ img {
 	padding-bottom: 5px;
 }
 
-#pass-div {
+#pass-div,
+#change-password-input-div {
 	display: flex;
 	flex-direction: row;
 	margin: 0;
@@ -239,7 +241,8 @@ img {
 }
 
 menu {
-	padding: 10px;
+	margin: 8px;
+	margin-top: 0;
 	opacity: 0;
 	transform: translateY(-100%);
 }
@@ -278,10 +281,9 @@ menu {
 	display: block !important;
 	margin-top: 10px !important;
 	height: 200px;
-	overflow-y: auto;
 	padding-right: 5px;
 }
-.toggleAbout::-webkit-scrollbar {
+.settings-parameters::-webkit-scrollbar {
 	width: 7px;
 }
 a {
@@ -439,7 +441,7 @@ div.no-match {
 	font-weight: bold;
 	margin-top: 5px;
 }
-.settings-sub-header {
+.settings-header-text {
 	text-align: center;
 	width: 100%;
 	padding-bottom: 20px;
@@ -492,10 +494,12 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	width: 190px;
+	width: 300px;
 	transform: translateX(-100%);
 	opacity: 0;
+	height: 233px;
+	padding: 10px;
+	overflow: auto;
 }
 .settingsToggle {
 	opacity: 1;
@@ -608,7 +612,8 @@ input:focus {
 #hide-show {
 	width: 100px;
 }
-.hide-show {
+.hide-show,
+hideShow.change-password {
 	text-align: center;
 	cursor: pointer;
 	padding: 2px;
@@ -617,17 +622,20 @@ input:focus {
 	width: 26px;
 }
 
-.hide-show:active {
+.hide-show:active,
+hideShow.change-password:active {
 	transform: scale(0.97);
 }
-#add-password {
+#add-password,
+input.change-password {
 	width: 95%;
 	border: 0;
 	margin: 0;
 	border: 1px solid transparent;
 }
 
-#add-pass {
+#add-pass,
+#change-password-input-div {
 	width: 100%;
 	margin: 5px;
 	border: 2px solid rgb(80, 80, 80);
@@ -636,10 +644,12 @@ input:focus {
 	display: flex;
 	flex-direction: row;
 }
-.pass-div#add-pass:hover {
+.pass-div#add-pass:hover,
+#change-password-input-div:hover {
 	border-bottom-color: var(--secondary-input);
 }
-.pass-div#add-pass:focus-within {
+.pass-div#add-pass:focus-within,
+#change-password-input-div:focus-within {
 	border-color: var(--secondary-input);
 }
 #cell-edit,
@@ -722,7 +732,8 @@ input:focus {
 	transform: scale(1);
 }
 
-.hide-show:hover {
+.hide-show:hover,
+hideShow.change-password:hover {
 	background: var(--cell-hover);
 }
 #type:hover:not(.header),
@@ -910,3 +921,32 @@ input:focus {
 	align-items: center;
 	justify-content: center;
 }
+
+/** change password **/
+placeholder {
+	font-size: 12px;
+}
+/*
+#change-password-input-div {
+	display: flex;
+	flex-direction: row;
+}
+input.change-password {
+	border: 1px solid transparent;
+	margin: 0;
+	padding: 5px;
+	width: calc(100% - 31px);
+}
+#change-password-input-div {
+	border: 2px solid rgb(80, 80, 80);
+	display: flex;
+	flex-direction: row;
+	border-radius: 5px;
+	justify-content: center;
+	height: 31px;
+	margin: 5px;
+	padding: 0;
+}
+#change-password-asd {
+
+}*/

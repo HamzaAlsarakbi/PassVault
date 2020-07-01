@@ -188,15 +188,14 @@ function settingsFunc() {
 // Change password function
 
 function passChangeRequest() {
-	console.log('Password Change Requested');
-	var oldPass = document.querySelector('.password#old');
-	var newPass = document.querySelector('.password#new');
-	var newConfirmPass = document.querySelector('.password#new-confirm');
+	var oldPass = document.querySelector('#change-password-input-old');
+	var newPass = document.querySelector('#change-password-input-new');
+	var newConfirmPass = document.querySelector('#change-password-input-new-confirm');
+	console.log(oldPass.value, newPass.value, newConfirmPass.value);
 	var p = document.querySelector('#pass-error');
 	p.classList.remove('confirm');
 	// validate password
 	// check if old password is correct
-	console.log('comparing ' + oldPass.value + ' with ' + config.masterPassword);
 	if (oldPass.value == '' || newPass.value == '' || newConfirmPass.value == '') {
 		console.log('Notice: one of the fields is empty');
 		// display error
@@ -513,22 +512,33 @@ var addHideShow = false;
 function hideShow(pro, value) {
 	var d = pro.id;
 	var c = pro.classList;
-	console.log('#eye-icon.' + c);
+	// if it is an input
+	if (d == 'add-switch' || d.includes('change-password-icon-div')) {
+		var input;
+		var icon;
 
-	var querySelect = '#password' + '.' + c;
-	if (d == 'add-switch') {
-		if (!addHideShow) {
-			document.querySelector('#add-password').setAttribute('type', 'text');
-			document.querySelector('.eye-icon').setAttribute('src', crossedEye);
-			addHideShow = true;
+		// if it is the add menu
+		if (d == 'add-switch') {
+			input = document.querySelector('#add-password');
+			icon = document.querySelector('.eye-icon');
 		} else {
-			document.querySelector('.eye-icon').setAttribute('src', eye);
+			// if it is the change password menu
+			var inputD = d.replace('change-password-icon-div-', '');
+			input = document.querySelector('#change-password-input-' + inputD);
+			icon = document.querySelector('#' + d + ' #change-password-icon');
+		}
 
-			document.querySelector('#add-password').setAttribute('type', 'password');
-			addHideShow = false;
+		// toggle depending on input type
+		if (input.type == 'password') {
+			input.type = 'text';
+			icon.setAttribute('src', crossedEye);
+		} else {
+			input.type = 'password';
+			icon.setAttribute('src', eye);
 		}
 	} else {
 		// if it is table
+		var querySelect = '#password' + '.' + c;
 		var querySelectInput = '#table-password' + '.input-' + data[c].index;
 		if (!editOn) {
 			console.log('data hidden was == ' + data[c].hidden);
@@ -817,36 +827,69 @@ function togglePassParam() {
 		document.querySelector('#change-password').classList.toggle('button-header-active');
 		// Creating children
 
-		// Create header
+		// Create header div
 		var headerDiv = document.createElement('div');
 		headerDiv.setAttribute('class', 'settings-parameters-header');
+		parentElement.appendChild(headerDiv);
+
+		// Create header icon
 		var headerIcon = document.createElement('img');
 		headerIcon.setAttribute('class', 'icon');
 		headerIcon.setAttribute('src', '');
+		headerDiv.appendChild(headerIcon);
+
+		// Create header text
 		var headerText = document.createElement('p');
-		headerText.setAttribute('class', 'settings-sub-header');
+		headerText.setAttribute('class', 'settings-header-text');
 		headerText.textContent = 'Change Password';
+		headerDiv.appendChild(headerText);
 
-		// Create old Password
-		var oldPassChild = document.createElement('input');
-		oldPassChild.setAttribute('class', 'password');
-		oldPassChild.setAttribute('type', 'password');
-		oldPassChild.setAttribute('placeholder', 'Old password');
-		oldPassChild.setAttribute('id', 'old');
+		// create inputs
+		var id = [ 'old', 'new', 'new-confirm' ];
+		var placeHolderText = [ 'Old password', 'New password', 'Confirm new password' ];
 
-		// Create new Password
-		var newPassChild = document.createElement('input');
-		newPassChild.setAttribute('class', 'password');
-		newPassChild.setAttribute('type', 'password');
-		newPassChild.setAttribute('placeholder', 'New password');
-		newPassChild.setAttribute('id', 'new');
+		for (var i = 0; i < id.length; i++) {
+			// create parent div
+			var parentDiv = document.createElement('div');
+			parentDiv.setAttribute('class', 'change-password');
+			parentDiv.setAttribute('id', 'change-password-parent');
+			parentElement.appendChild(parentDiv);
 
-		// Create Confirm new Password
-		var ConfirmPassChild = document.createElement('input');
-		ConfirmPassChild.setAttribute('class', 'password');
-		ConfirmPassChild.setAttribute('type', 'password');
-		ConfirmPassChild.setAttribute('placeholder', 'Confirm new password');
-		ConfirmPassChild.setAttribute('id', 'new-confirm');
+			// create placeholder
+			var placeHolder = document.createElement('placeholder');
+			placeHolder.setAttribute('class', 'change-password');
+			placeHolder.setAttribute('id', 'change-password-placeholder');
+			placeHolder.textContent = placeHolderText[i];
+			parentDiv.appendChild(placeHolder);
+
+			// create input div
+			var inputDiv = document.createElement('div');
+			inputDiv.setAttribute('class', 'change-password');
+			inputDiv.setAttribute('id', 'change-password-input-div');
+			parentDiv.appendChild(inputDiv);
+
+			// create input
+			var input = document.createElement('input');
+			input.setAttribute('class', 'change-password');
+			input.setAttribute('id', 'change-password-input-' + id[i]);
+			input.setAttribute('type', 'password');
+			inputDiv.appendChild(input);
+
+			// create password hide/show switch
+			var hideShow = document.createElement('hideShow');
+			hideShow.setAttribute('class', 'change-password');
+			hideShow.setAttribute('id', 'change-password-icon-div-' + id[i]);
+			hideShow.setAttribute('onclick', 'hideShow(this)');
+			inputDiv.appendChild(hideShow);
+
+			// create eye icon
+			var eyeIcon = document.createElement('img');
+			eyeIcon.setAttribute('class', 'change-password');
+			eyeIcon.setAttribute('id', 'change-password-icon');
+			eyeIcon.setAttribute('height', '10px');
+			eyeIcon.setAttribute('src', eye);
+			hideShow.appendChild(eyeIcon);
+		}
 
 		// Create span
 		var p = document.createElement('p');
@@ -861,30 +904,24 @@ function togglePassParam() {
 		button.textContent = 'Change';
 
 		// Packaging children
-		parentElement.appendChild(headerDiv);
-		headerDiv.appendChild(headerIcon);
-		headerDiv.appendChild(headerText);
-		parentElement.appendChild(oldPassChild);
-		parentElement.appendChild(newPassChild);
-		parentElement.appendChild(ConfirmPassChild);
 		parentElement.appendChild(p);
 		parentElement.appendChild(button);
 
 		passParam = true;
 
-		document.querySelector('.password#old').addEventListener('keyup', function(e, pro) {
+		document.querySelector('#change-password-input-old').addEventListener('keyup', function(e, pro) {
 			if (e.which == 13) {
 				passChangeRequest();
 				console.log('ENTER triggered');
 			}
 		});
-		document.querySelector('.password#new').addEventListener('keyup', function(e, pro) {
+		document.querySelector('#change-password-input-new').addEventListener('keyup', function(e, pro) {
 			if (e.which == 13) {
 				passChangeRequest();
 				console.log('ENTER triggered');
 			}
 		});
-		document.querySelector('.password#new-confirm').addEventListener('keyup', function(e, pro) {
+		document.querySelector('#change-password-input-new-confirm').addEventListener('keyup', function(e, pro) {
 			if (e.which == 13) {
 				passChangeRequest();
 				console.log('ENTER triggered');
@@ -894,15 +931,13 @@ function togglePassParam() {
 		document.querySelector('#change-password').classList.toggle('button-header-active');
 
 		setTimeout(function() {
-			var first = parentElement.firstElementChild;
-			while (first) {
-				first.remove();
-				first = parentElement.firstElementChild;
-			}
+			parentElement.innerHTML = '';
 		}, 200);
 		passParam = false;
 	}
 }
+settingsFunc();
+togglePassParam();
 
 // Lock Vault
 var lockVaultOn = false;
@@ -931,7 +966,7 @@ function lockVault() {
 		var p = document.createElement('p');
 		p.setAttribute('class', 'lock-param');
 		p.setAttribute('id', 'confirmation');
-		p.textContent = 'Quit Vault?';
+		p.textContent = 'Lock Vault?';
 		appendChildElement = parentElement.appendChild(p);
 
 		// confimation div **div class="yesno"**
@@ -953,10 +988,10 @@ function lockVault() {
 		quitButton.setAttribute('id', 'quit-button');
 		quitButton.setAttribute('onclick', 'quit()');
 		if (saved) {
-			quitButton.textContent = 'Quit without saving changes';
+			quitButton.textContent = 'Lock without saving changes';
 			quitButton.style.height = '40px';
 		} else {
-			quitButton.textContent = 'Quit';
+			quitButton.textContent = 'Lock';
 		}
 
 		// Package Elements
@@ -1053,7 +1088,7 @@ function about() {
 		headerIcon.setAttribute('class', 'icon');
 		headerIcon.setAttribute('src', '');
 		var headerText = document.createElement('p');
-		headerText.setAttribute('class', 'settings-sub-header');
+		headerText.setAttribute('class', 'settings-header-text');
 		headerText.textContent = 'About';
 
 		// create header div
@@ -1320,7 +1355,7 @@ function iconChecker(classList, id, text) {
 			cell.innerHTML =
 				`
 			<img class="` +
-			classList.replace('.', '') +
+				classList.replace('.', '') +
 				`" id="service-icon" src="../global assets/img/icons/` +
 				list[i] +
 				`.png">` +
