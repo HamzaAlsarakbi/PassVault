@@ -577,9 +577,6 @@ input:focus {
 .header p {
 	margin: 5px;
 }
-#password {
-	user-select: none;
-}
 
 /******** Add input*/
 
@@ -687,7 +684,7 @@ input.change-password {
 	padding: 5px;
 }
 
-.tbody-data div:hover {
+.tbody-data #tr:hover {
 	background: var(--row-hover);
 }
 .tbody-animation {
@@ -719,16 +716,36 @@ input.change-password {
 	overflow: hidden;
 	overflow-x: visible;
 	border-radius: 5px !important;
+	display: flex;
+	flex-direction: column;
+}
+#password {
+	user-select: none;
+}
+#password div {
+	padding: 1px;
+}
+#strength-text {
+	font-size: 10px;
+	text-align: left;
+	padding-bottom: 1px;
+}
+#strength-bar {
+	height: 4px;
+	border-radius: 2px;
+	padding: 0;
 }
 #tbody #type:active,
 #tbody #service:active,
-#tbody #email:active {
+#tbody #email:active,
+#tbody #password:active {
 	transform: scale(0.9);
 	transition: 0.1s ease-out;
 }
 #tbody .tr-edit #type:active,
 #tbody .tr-edit #service:active,
-#tbody .tr-edit #email:active {
+#tbody .tr-edit #email:active,
+#tbody .tr-edit #password:active {
 	transform: scale(1);
 }
 
@@ -773,7 +790,7 @@ hideShow.change-password:hover {
 	border-radius: 5px;
 }
 .tbody-data #tr {
-	height: 60px;
+	height: 75px;
 }
 @keyframes tr-draw-in {
 	0% {
@@ -916,7 +933,7 @@ hideShow.change-password:hover {
 	margin: 5px;
 	border-radius: 5px;
 }
-#service {
+#service-content {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -926,27 +943,3 @@ hideShow.change-password:hover {
 placeholder {
 	font-size: 12px;
 }
-/*
-#change-password-input-div {
-	display: flex;
-	flex-direction: row;
-}
-input.change-password {
-	border: 1px solid transparent;
-	margin: 0;
-	padding: 5px;
-	width: calc(100% - 31px);
-}
-#change-password-input-div {
-	border: 2px solid rgb(80, 80, 80);
-	display: flex;
-	flex-direction: row;
-	border-radius: 5px;
-	justify-content: center;
-	height: 31px;
-	margin: 5px;
-	padding: 0;
-}
-#change-password-asd {
-
-}*/

@@ -34,6 +34,12 @@
 	--row-hover: rgb(45, 45, 45);
 	--cell-hover: rgb(60, 60, 60);
 	--copy-color: rgb(150, 150, 150);
+	/** password **/
+	--strength-0: rgb(200, 50, 50);
+	--strength-1: rgb(200, 92, 50);
+	--strength-2: rgb(200, 185, 50);
+	--strength-3: rgb(142, 200, 50);
+	--strength-4: rgb(50, 200, 50);
 }
 
 a:hover {

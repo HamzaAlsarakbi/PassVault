@@ -3,7 +3,7 @@ const shell = electron.shell;
 const { ipcRenderer } = electron;
 let win = electron.remote.getCurrentWindow();
 var parentElement;
-
+const strengthTier = [ 'Very weak', 'Weak', 'Medium', 'Strong', 'Very strong' ];
 // data object
 var data = {
 	cellIndex: 0
@@ -435,18 +435,53 @@ function addRow(type, service, email, password, index) {
 	var text = [ type, service, email, password, index ];
 
 	for (i = 0; i < id.length; i++) {
+		// create cell
 		var cell = document.createElement('div');
 		cell.setAttribute('class', 'cell-' + index);
 		cell.setAttribute('id', id[i]);
 		cell.setAttribute('onclick', 'copy(this)');
-		if (id[i] == 'password') {
-			cell.textContent = bullet.repeat(password.length);
-		} else {
-			cell.textContent = text[i];
-		}
+
+		// create content div
+		var content = document.createElement('div');
+		content.setAttribute('class', 'cell-' + index);
+		content.setAttribute('id', id[i] + '-content');
+
 		tr.appendChild(cell);
+		cell.appendChild(content);
+		if (id[i] == 'password') {
+			if (data['cell-' + index].hidden) {
+				content.textContent = bullet.repeat(password.length);
+			} else {
+				content.textContent = password;
+			}
+
+			// create strength div
+			var strengthD = document.createElement('div');
+			strengthD.setAttribute('class', 'cell-' + index);
+			strengthD.setAttribute('id', 'strength-div');
+			cell.appendChild(strengthD);
+
+			// get strength value
+			var strength = strengthMeter(text[i]);
+			// create strength text
+			var strengthText = document.createElement('p');
+			strengthText.setAttribute('class', 'cell-' + index);
+			strengthText.setAttribute('id', 'strength-text');
+			strengthText.textContent = strengthTier[strength];
+			strengthD.appendChild(strengthText);
+
+			// create strength bar
+			var strengthBar = document.createElement('div');
+			strengthBar.setAttribute('class', 'cell-' + index);
+			strengthBar.setAttribute('id', 'strength-bar');
+			strengthD.appendChild(strengthBar);
+			strengthBar.style.background = ' var(--strength-' + strength + ')';
+			strengthBar.style.width = strength / strengthTier.length * 100 + '%';
+		} else {
+			content.textContent = text[i];
+		}
 		if (id[i] == 'service') {
-			iconChecker('.cell-' + index, '#' + id[i], text[i]);
+			iconChecker('.cell-' + index, '#' + id[i] + '-content', text[i]);
 		}
 	}
 
@@ -483,7 +518,11 @@ function addRow(type, service, email, password, index) {
 	eyeIcon.setAttribute('class', 'cell-' + index);
 	eyeIcon.setAttribute('id', 'eye-icon');
 	eyeIcon.setAttribute('height', '15px');
-	eyeIcon.setAttribute('src', eye);
+	if (data['cell-' + index].hidden) {
+		eyeIcon.setAttribute('src', eye);
+	} else {
+		eyeIcon.setAttribute('src', crossedEye);
+	}
 	showHideButton.appendChild(eyeIcon);
 
 	// create delete button
@@ -507,7 +546,65 @@ function addRow(type, service, email, password, index) {
 		table.classList.remove('tbody-animation');
 	}, 250);
 }
+var Fstatus = {
+	strengthMeterOn: true
+};
+function strengthMeter(text) {
+	if (Fstatus.strengthMeterOn) {
+		var strength = 0;
 
+		// check for special characters
+		var characters = [
+			'!',
+			'@',
+			'#',
+			'$',
+			'%',
+			'^',
+			'&',
+			'*',
+			'(',
+			')',
+			'-',
+			'_',
+			'=',
+			'+',
+			',',
+			'.',
+			'/',
+			'?',
+			';',
+			':',
+			"'",
+			'"',
+			'`',
+			'~',
+			'[',
+			']',
+			'{',
+			'}'
+		];
+		var includes1Character = false;
+		for (var i = 0; i < characters.length; i++) {
+			if (!includes1Character && text.includes(characters[i])) {
+				strength++;
+				includes1Character = true;
+			}
+		}
+		// check for numbers
+		if (/\d/.test(text)) strength++;
+
+		// check for uppercase and lowercase characters
+		if (text.toLowerCase() != text && text.toUpperCase() != text) strength++;
+
+		// check for character number
+		if (text.length >= 8) strength++;
+
+		// print summary
+		// console.log('strength: ' + strength);
+		return strength;
+	}
+}
 var addHideShow = false;
 function hideShow(pro, value) {
 	var d = pro.id;
@@ -538,7 +635,7 @@ function hideShow(pro, value) {
 		}
 	} else {
 		// if it is table
-		var querySelect = '#password' + '.' + c;
+		var querySelect = '#password-content' + '.' + c;
 		var querySelectInput = '#table-password' + '.input-' + data[c].index;
 		if (!editOn) {
 			console.log('data hidden was == ' + data[c].hidden);
@@ -606,10 +703,10 @@ function editRow(properties) {
 	var d = properties.id;
 	var c = properties.classList;
 	var tr = 'row-' + data[c].index;
-	var typeDOM = document.querySelector('#type.' + c);
-	var serviceDOM = document.querySelector('#service.' + c);
-	var emailDOM = document.querySelector('#email.' + c);
-	var passwordDOM = document.querySelector('#password.' + c);
+	var typeDOM = document.querySelector('#type-content.' + c);
+	var serviceDOM = document.querySelector('#service-content.' + c);
+	var emailDOM = document.querySelector('#email-content.' + c);
+	var passwordDOM = document.querySelector('#password-content.' + c);
 
 	// edit transitions
 
@@ -641,6 +738,7 @@ function editRow(properties) {
 		typeInput.setAttribute('id', 'table-type');
 		typeInput.setAttribute('placeholder', 'Type');
 		typeInput.value = data[c].type;
+		typeDOM.appendChild(typeInput);
 
 		// create service input
 		var serviceInput = document.createElement('input');
@@ -648,6 +746,7 @@ function editRow(properties) {
 		serviceInput.setAttribute('id', 'table-service');
 		serviceInput.setAttribute('placeholder', 'Service');
 		serviceInput.value = data[c].service;
+		serviceDOM.appendChild(serviceInput);
 
 		// create email input
 		var emailInput = document.createElement('input');
@@ -655,6 +754,7 @@ function editRow(properties) {
 		emailInput.setAttribute('id', 'table-email');
 		emailInput.setAttribute('placeholder', 'Email');
 		emailInput.value = data[c].email;
+		emailDOM.appendChild(emailInput);
 
 		// create password input
 		var passwordInput = document.createElement('input');
@@ -667,12 +767,14 @@ function editRow(properties) {
 			passwordInput.setAttribute('type', 'password');
 		}
 		passwordInput.value = data[c].password;
-
-		// package children
-		typeDOM.appendChild(typeInput);
-		serviceDOM.appendChild(serviceInput);
-		emailDOM.appendChild(emailInput);
+		passwordInput.addEventListener('input', function() {
+			var strength = strengthMeter(passwordInput.value);
+			document.querySelector('#strength-text.' + c).textContent = strengthTier[strength];
+			document.querySelector('#strength-bar.' + c).style.background = ' var(--strength-' + strength + ')';
+			document.querySelector('#strength-bar.' + c).style.width = (strength + 1) / strengthTier.length * 100 + '%';
+		});
 		passwordDOM.appendChild(passwordInput);
+
 		editOn = true;
 	} else {
 		var typeInputDOM = document.querySelector('.input-' + data[c].index + '#table-type');
@@ -719,18 +821,18 @@ function editRow(properties) {
 			} else {
 				passwordDOM.textContent = bullet.repeat(data[c].password.length);
 			}
-			typeDOM.setAttribute('onclick', 'copy(this)');
-			serviceDOM.setAttribute('onclick', 'copy(this)');
-			emailDOM.setAttribute('onclick', 'copy(this)');
-			passwordDOM.setAttribute('onclick', 'copy(this)');
-			iconChecker('.' + c, '#service', serviceDOM.textContent);
+			document.querySelector('#type.' + c).setAttribute('onclick', 'copy(this)');
+			document.querySelector('#service.' + c).setAttribute('onclick', 'copy(this)');
+			document.querySelector('#email.' + c).setAttribute('onclick', 'copy(this)');
+			document.querySelector('#password.' + c).setAttribute('onclick', 'copy(this)');
+			iconChecker('.' + c, '#service-content', document.querySelector('#service-content.' + c).textContent);
 		}
 	}
 }
 // delete row function
 function deleteFunc(properties) {
 	var d = properties.id;
-	var c = properties.classList;
+	var c = properties.classList['value'];
 	var index = data[c].index;
 	var tr = 'row-' + index;
 	if (!editOn) {
@@ -777,14 +879,14 @@ function deleteFunc(properties) {
 		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
 		document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
 
-		document.querySelector('#type.' + c).textContent = data[c].type;
-		document.querySelector('#service.' + c).textContent = data[c].service;
-		document.querySelector('#email.' + c).textContent = data[c].email;
+		document.querySelector('#type-content.' + c).textContent = data[c].type;
+		document.querySelector('#service-content.' + c).textContent = data[c].service;
+		document.querySelector('#email-content.' + c).textContent = data[c].email;
 
 		if (!data[c].hidden) {
-			document.querySelector('#password.' + c).textContent = data[c].password;
+			document.querySelector('#password-content.' + c).textContent = data[c].password;
 		} else {
-			document.querySelector('#password.' + c).textContent = bullet.repeat(data[c].password.length);
+			document.querySelector('#password-content.' + c).textContent = bullet.repeat(data[c].password.length);
 		}
 		document.querySelector('#type.' + c).setAttribute('onclick', 'copy(this)');
 		document.querySelector('#service.' + c).setAttribute('onclick', 'copy(this)');
@@ -792,7 +894,15 @@ function deleteFunc(properties) {
 		document.querySelector('#password.' + c).setAttribute('onclick', 'copy(this)');
 		editOn = false;
 		document.querySelector('.' + tr).classList.toggle('tr-edit');
-		iconChecker('.' + c, '#service', document.querySelector('#service.' + c).textContent);
+
+		// add service icon
+		iconChecker('.' + c, '#service-content', document.querySelector('#service-content.' + c).textContent);
+
+		// check strength
+		var strength = strengthMeter(data[c].password);
+		document.querySelector('#strength-text.' + c).textContent = strengthTier[strength];
+		document.querySelector('#strength-bar.' + c).style.background = ' var(--strength-' + strength + ')';
+		document.querySelector('#strength-bar.' + c).style.width = (strength + 1) / strengthTier.length * 100 + '%';
 	}
 }
 
@@ -936,8 +1046,6 @@ function togglePassParam() {
 		passParam = false;
 	}
 }
-settingsFunc();
-togglePassParam();
 
 // Lock Vault
 var lockVaultOn = false;
