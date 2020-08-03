@@ -359,6 +359,7 @@ function addFunc() {
 		serviceInput.addEventListener('keyup', enterFunc);
 		emailInput.addEventListener('keyup', enterFunc);
 		passwordInput.addEventListener('keyup', enterFunc);
+		typeInput.select();
 	} else {
 		panel.classList.remove('controlsSpan');
 		menu.innerHTML = '';
@@ -397,8 +398,6 @@ function addData() {
 		span.classList.remove('error');
 		panel.classList.remove('controlsSpan');
 
-		addRow(typeDOM.value, serviceDOM.value, emailDOM.value, passwordDOM.value, data.cellIndex);
-
 		if (config.gridlinesOn) {
 			document.querySelector('.row-' + data.cellIndex).setAttribute('class', 'gridlinesOn');
 		}
@@ -413,7 +412,7 @@ function addData() {
 			hidden: true,
 			onCopy: false
 		};
-		console.log(data);
+		addRow(typeDOM.value, serviceDOM.value, emailDOM.value, passwordDOM.value, data.cellIndex);
 
 		// empty out input fields
 		typeDOM.value = '';
@@ -476,7 +475,7 @@ function addRow(type, service, email, password, index) {
 			strengthBar.setAttribute('id', 'strength-bar');
 			strengthD.appendChild(strengthBar);
 			strengthBar.style.background = ' var(--strength-' + strength + ')';
-			strengthBar.style.width = strength / strengthTier.length * 100 + '%';
+			strengthBar.style.width = (strength + 1) / strengthTier.length * 100 + '%';
 		} else {
 			content.textContent = text[i];
 		}
@@ -711,10 +710,10 @@ function editRow(properties) {
 	// edit transitions
 
 	if (!editOn) {
-		typeDOM.removeAttribute('onclick');
-		serviceDOM.removeAttribute('onclick');
-		emailDOM.removeAttribute('onclick');
-		passwordDOM.removeAttribute('onclick');
+		document.querySelector('#type.' + c).removeAttribute('onclick');
+		document.querySelector('#service.' + c).removeAttribute('onclick');
+		document.querySelector('#email.' + c).removeAttribute('onclick');
+		document.querySelector('#password.' + c).removeAttribute('onclick');
 		// when edit is toggled
 		// change icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', remove);

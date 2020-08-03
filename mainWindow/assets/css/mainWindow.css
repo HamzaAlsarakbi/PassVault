@@ -140,16 +140,7 @@ body {
 	margin-top: 30px;
 	overflow: auto;
 }
-/*
-.container-draw-in {
-	opacity: 0;
-	transform: scale3d(1.5, 1.5, 1.5);
-	filter: blur(4px);
-	transition: transform 0.3s ease-out, opacity 0.3s ease-out, filter 0.3s ease-out;
-	transition-delay: 0.2s;
-	will-change: transform, opacity, filter;
-}
-*/
+
 /** controls **/
 panel {
 	margin-top: 0px;
@@ -718,6 +709,10 @@ input.change-password {
 	border-radius: 5px !important;
 	display: flex;
 	flex-direction: column;
+}
+#type,
+#service {
+	text-transform: capitalize;
 }
 #password {
 	user-select: none;
