@@ -4,18 +4,17 @@ const developerTools = false;
 const url = require('url'),
 	crypto = require('crypto'),
 	path = require('path');
-	algorithm = 'aes-256-cbc';
-	fs = require('fs'),
-	parentDir = path.join(process.env.HOME, '/AppData/Local/PassVault');
-	dataDir = path.join(process.env.HOME, '/AppData/Local/PassVault/Data');
-	console.log('Checking if directory exists...');
-	if(!fs.existsSync(parentDir)) {
-		console.log('Parent directory doesn\'t exist');
-		fs.mkdirSync(parentDir);
-	}
-	if (!fs.existsSync(dataDir)){
-		console.log('Directory doesn\'t exist!');
-		fs.mkdirSync(dataDir);
+algorithm = 'aes-256-cbc';
+(fs = require('fs')), (parentDir = path.join(process.env.HOME, '/AppData/Local/PassVault'));
+dataDir = path.join(process.env.HOME, '/AppData/Local/PassVault/Data');
+console.log('Checking if directory exists...');
+if (!fs.existsSync(parentDir)) {
+	console.log("Parent directory doesn't exist");
+	fs.mkdirSync(parentDir);
+}
+if (!fs.existsSync(dataDir)) {
+	console.log("Directory doesn't exist!");
+	fs.mkdirSync(dataDir);
 }
 const paramPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json'),
 	configFullPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json');
@@ -32,7 +31,7 @@ var config = {
 	firstTime: true
 };
 
-var	key = crypto.randomBytes(32);
+var key = crypto.randomBytes(32);
 var iv = crypto.randomBytes(16);
 var param = {
 	keyO: key,
@@ -44,7 +43,8 @@ try {
 	param = JSON.parse(rawParam);
 	key = new Buffer.from(param.keyO);
 	iv = new Buffer.from(param.ivO);
-} catch {
+} catch (err) {
+	console.error(err);
 	console.log('failed to parse param');
 }
 
@@ -100,8 +100,8 @@ function ready() {
 
 	// Toggle Developer Mode
 	const devTools = globalShortcut.register('Ctrl+Shift+I', () => {
-		if(developerTools) {
-				if (mainWindowOn == 0) {
+		if (developerTools) {
+			if (mainWindowOn == 0) {
 				loginWindow.webContents.toggleDevTools();
 			} else {
 				mainWindow.webContents.toggleDevTools();
@@ -111,10 +111,12 @@ function ready() {
 
 	// Refresh page
 	const refresh = globalShortcut.register('Ctrl+R', () => {
-		if (mainWindowOn == 0) {
-			loginWindow.webContents.reloadIgnoringCache();
-		} else {
-			mainWindow.webContents.reloadIgnoringCache();
+		if (developerTools) {
+			if (mainWindowOn == 0) {
+				loginWindow.webContents.reloadIgnoringCache();
+			} else {
+				mainWindow.webContents.reloadIgnoringCache();
+			}
 		}
 	});
 
