@@ -1,6 +1,6 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
-const developerTools = false;
+const developerTools = true;
 const url = require('url'),
 	crypto = require('crypto'),
 	path = require('path');
