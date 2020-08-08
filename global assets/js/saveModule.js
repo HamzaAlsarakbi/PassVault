@@ -111,8 +111,8 @@ function parse() {
 	var parsedData = JSON.parse(rawData);
 	decryptedData = decrypt(parsedData);
 	data = JSON.parse(decryptedData);
-	for (var i = 0; i < data.cellIndex; i++) {
-		try {
+	try {
+		for (var i = 0; i < data.cellIndex; i++) {
 			// add rows
 			addRow(
 				data['cell-' + i].type,
@@ -121,9 +121,16 @@ function parse() {
 				data['cell-' + i].password,
 				i
 			);
-		} catch (err) {
-			console.log('cell-' + i + " doesn't exist");
 		}
+		if (config.gridlinesOn) {
+			var gridlinesTable = document.querySelectorAll('#tr');
+			// Toggle gridlines
+			for (i = 0; i < gridlinesTable.length; i++) {
+				gridlinesTable[i].classList.toggle('gridlinesOn');
+			}
+		}
+	} catch (err) {
+		console.log('cell-' + i + " doesn't exist");
 	}
 }
 
@@ -134,7 +141,8 @@ function changesChecker() {
 		var dataSave = decrypt(dataSaveParsed);
 		var currentData = JSON.stringify(data);
 	} catch (err) {
-		console.log("%c ERROR: data.json doesn't exist. Checking if data object is empty", errorColor);
+		console.log("%c ERROR: data.json doesn't exist.", errorColor);
+		save('all');
 	}
 
 	// compare two objects

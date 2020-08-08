@@ -1,5 +1,6 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
+const developerTools = true;
 const url = require('url'),
 	crypto = require('crypto'),
 	path = require('path');
@@ -99,10 +100,12 @@ function ready() {
 
 	// Toggle Developer Mode
 	const devTools = globalShortcut.register('Ctrl+Shift+I', () => {
-		if (mainWindowOn == 0) {
-			loginWindow.webContents.toggleDevTools();
-		} else {
-			mainWindow.webContents.toggleDevTools();
+		if(developerTools) {
+				if (mainWindowOn == 0) {
+				loginWindow.webContents.toggleDevTools();
+			} else {
+				mainWindow.webContents.toggleDevTools();
+			}
 		}
 	});
 

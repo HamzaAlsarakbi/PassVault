@@ -1437,25 +1437,90 @@ function iconChecker(classList, id, text) {
 	var originalText = text;
 	text = text.toLowerCase();
 	var list = [
+		// companies
+		'samsung',
+		'apple',
 		'google',
-		'gmail',
 		'microsoft',
+		'dropbox',
+		'mega',
+
+		// emails
+		'gmail',
 		'outlook',
+		'yahoo',
+
+		// gaming
+		'origin',
+		'twitch',
+		'steam',
+		'minecraft',
+		'uplay',
+		'epic',
+		'epic games',
+		'osu',
+		'blizzard',
+		'paradox',
+
+		// programming
+		'github',
+		'stack overflow',
+		'jira',
+		'atlassian',
+		'bitbucket',
+		'trello',
+
+		// design
+		'adobe',
+		'autodesk',
+		'blender',
+		'unity',
+
+		// social media
+		'vsco',
+		'pinterest',
+		'tiktok',
+		'wechat',
 		'discord',
 		'reddit',
-		'github',
-		'twitch',
 		'twitter',
 		'facebook',
 		'instagram',
 		'linkedin',
 		'tumblr',
-		'samsung',
-		'apple',
-		'wechat',
-		'pinterest',
-		'vsco',
-		'tiktok'
+		'slack',
+		'snapchat',
+		'telegram',
+		'skype',
+
+		// music
+		'spotify',
+		'anghami',
+		'soundcloud',
+		'deezer',
+
+		// TV
+		'netflix',
+		'hulu',
+		'disney plus',
+		'disney+',
+		'crunchyroll',
+
+		// shopping
+		'amazon',
+		'ebay',
+		'kijiji',
+
+		// anti-virus
+		'eset',
+		'malwarebytes',
+		'kaspersky',
+
+		// others
+		'uber',
+		'paypal',
+		'grammarly',
+		'nordvpn'
 	];
 	for (var i = 0; i < list.length; i++) {
 		if (text.includes(list[i])) {
