@@ -833,12 +833,13 @@ function deleteFunc(properties) {
 	var d = properties.id;
 	var c = properties.classList['value'];
 	var index = data[c].index;
+	console.log(c);
 	var tr = 'row-' + index;
 	if (!editOn) {
 		tr = document.querySelector('.row-' + index);
 		tr.classList.toggle('draw-out-animation');
-		setTimeout(function() {
-			var removedIndex = Number(c.value.replace('cell-', ''));
+		setTimeout(() => {
+			var removedIndex = Number(c.replace('cell-', ''));
 			console.log('removedIndex: ' + removedIndex);
 			tr.remove();
 			delete data[c];

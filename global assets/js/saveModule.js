@@ -6,6 +6,7 @@ const orangeColor = 'color: rgb(255, 150, 0);';
 const blueColor = 'color: rgb(0, 150, 255);';
 
 var configData;
+var saved;
 
 // save function
 function save(type) {
