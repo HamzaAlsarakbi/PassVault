@@ -1,4 +1,8 @@
-const fullPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/data.json');
+const fullPath =
+	process.platform == 'win32'
+		? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/data.json')
+		: path.join(process.env.HOME, '/PassVault/Data/data.json');
+
 // console colors
 const errorColor = 'color: rgb(200, 50, 50);';
 const greenColor = 'color: rgb(50, 200, 50);';

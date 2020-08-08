@@ -5,8 +5,15 @@ const url = require('url'),
 	crypto = require('crypto'),
 	path = require('path');
 algorithm = 'aes-256-cbc';
-(fs = require('fs')), (parentDir = path.join(process.env.HOME, '/AppData/Local/PassVault'));
-dataDir = path.join(process.env.HOME, '/AppData/Local/PassVault/Data');
+const fs = require('fs');
+const parentDir =
+	process.platform == 'win32'
+		? path.join(process.env.HOME, '/AppData/Local/PassVault')
+		: path.join(process.env.HOME, '/PassVault');
+const dataDir =
+	process.platform == 'win32'
+		? path.join(process.env.HOME, '/AppData/Local/PassVault/Data')
+		: path.join(process.env.HOME, '/PassVault/Data');
 console.log('Checking if directory exists...');
 if (!fs.existsSync(parentDir)) {
 	console.log("Parent directory doesn't exist");
@@ -30,7 +37,23 @@ var config = {
 	gridlinesOn: false,
 	firstTime: true
 };
-
+/*
+console.log(process.argv[0]);
+console.log(process.argv[1]);
+console.log(__dirname);
+console.log(path.join(__dirname + '/release-builds/PassVault-win32-ia32/PassVault'));
+process.argv[0] = path.join(__dirname + '/release-builds/PassVault-win32-ia32/PassVault');
+if (app.isPackaged) {
+}
+*/
+var pkg = { name: 'passvault' };
+let execPath = process.execPath.toLowerCase();
+console.log(execPath);
+if (execPath.endsWith(pkg.name) || execPath.endsWith(pkg.name + '.exe')) {
+	let exe = process.argv.shift();
+	process.argv.unshift('');
+	process.argv.unshift(exe);
+}
 var key = crypto.randomBytes(32);
 var iv = crypto.randomBytes(16);
 var param = {

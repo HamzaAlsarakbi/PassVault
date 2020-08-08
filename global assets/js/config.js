@@ -1,9 +1,11 @@
+const { platform } = require('os');
+
 const fs = require('fs'),
 crypto = require('crypto'),
 	path = require('path'),
-	configFullPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json');
+	configFullPath = process.platform == 'win32' ? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json') : path.join(process.env.HOME, '/PassVault/Data/config.json');
 	algorithm = 'aes-256-cbc',
-	paramPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json');
+	paramPath = process.platform == 'win32' ? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json') : path.join(process.env.HOME, '/PassVault/Data/param.json');
 
 
 var	key = crypto.randomBytes(32);
@@ -19,7 +21,8 @@ try {
 	param = JSON.parse(rawParam);
 	key = new Buffer.from(param.keyO);
 	iv = new Buffer.from(param.ivO);
-} catch {
+} catch(err) {
+	console.error(err);
 	console.log('failed to parse param');
 }
 
