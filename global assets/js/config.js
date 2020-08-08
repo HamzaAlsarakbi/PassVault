@@ -3,11 +3,9 @@ const { platform } = require('os');
 const fs = require('fs'),
 crypto = require('crypto'),
 	path = require('path'),
-	configFullPath = process.platform == 'win32' ? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json') : path.join(process.env.HOME, '/PassVault/Data/config.json');
-	algorithm = 'aes-256-cbc',
-	paramPath = process.platform == 'win32' ? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json') : path.join(process.env.HOME, '/PassVault/Data/param.json');
-
-
+	configFullPath = process.platform == 'win32' ? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json') : path.join(process.env.HOME, '/PassVault/Data/config.json'),
+	paramPath = process.platform == 'win32' ? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json') : path.join(process.env.HOME, '/PassVault/Data/param.json'),
+	algorithm = 'aes-256-cbc';
 var	key = crypto.randomBytes(32);
 var iv = crypto.randomBytes(16);
 var param = {

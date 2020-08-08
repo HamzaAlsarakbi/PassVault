@@ -23,8 +23,14 @@ if (!fs.existsSync(dataDir)) {
 	console.log("Directory doesn't exist!");
 	fs.mkdirSync(dataDir);
 }
-const paramPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json'),
-	configFullPath = path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json');
+const configFullPath =
+	process.platform == 'win32'
+		? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json')
+		: path.join(process.env.HOME, '/PassVault/Data/config.json');
+const paramPath =
+	process.platform == 'win32'
+		? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json')
+		: path.join(process.env.HOME, '/PassVault/Data/param.json');
 
 let loginWindow;
 let mainWindow;
