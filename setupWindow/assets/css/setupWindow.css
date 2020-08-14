@@ -13,7 +13,7 @@ img {
 }
 body {
 	overflow: hidden;
-	background-color: var(--body);
+	background: var(--body);
 	width: 100vw;
 	height: 100vh;
 	display: flex;
@@ -74,7 +74,7 @@ container {
 }
 
 button {
-	background-image: var(--primary-button);
+	background: var(--primary-button);
 	padding: 5px;
 	margin: 10px;
 	border-radius: 5px;
@@ -131,7 +131,7 @@ nav {
 }
 input {
 	padding: 5px;
-	background-color: transparent;
+	background: transparent;
 
 	transition: 0.4s;
 	color: var(--secondary-color);
@@ -148,7 +148,7 @@ input {
 	border-radius: 0 5px 5px 0;
 }
 .show-hide:hover {
-	background-color: var(--primary-hover);
+	background: var(--primary-hover);
 }
 .noerror {
 	margin-top: 0;

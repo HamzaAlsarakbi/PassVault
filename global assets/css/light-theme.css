@@ -30,6 +30,13 @@
 	--row-hover: rgb(220, 220, 220);
 	--cell-hover: rgb(200, 200, 200);
 	--copy-color: rgb(75, 75, 75);
+
+	/** password **/
+	--strength-0: rgb(200, 50, 50);
+	--strength-1: rgb(200, 92, 50);
+	--strength-2: rgb(200, 185, 50);
+	--strength-3: rgb(142, 200, 50);
+	--strength-4: rgb(50, 200, 50);
 }
 /** Icons **/
 img:not(#service-icon) {

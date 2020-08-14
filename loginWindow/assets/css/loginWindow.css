@@ -18,7 +18,7 @@
 	width: 100%;
 }
 body {
-	background-color: var(--body);
+	background: var(--body);
 	color: var(--primary-color);
 	height: 100%;
 	display: flex;
@@ -37,7 +37,7 @@ body {
 }
 input {
 	padding: 5px 5px 5px 5px;
-	background-color: transparent;
+	background: transparent;
 	height: 30px;
 	width: 80%;
 	border: 2px solid var(--primary-input);
@@ -46,7 +46,7 @@ input {
 }
 input:hover,
 input:focus {
-	background-color: transparent !important;
+	background: transparent !important;
 	border-color: var(--secondary-input);
 }
 input#password {
@@ -59,13 +59,13 @@ button.submit {
 	width: 60%;
 	border-radius: 5px;
 	border: none;
-	background-image: var(--primary-button);
+	background: var(--primary-button);
 	color: var(--secondary-color);
 }
 button.submit:hover {
 	cursor: pointer;
 	color: var(--secondary-color);
-	background-color: var(--secondary-button);
+	background: var(--secondary-button);
 }
 .noerror {
 	color: transparent;
