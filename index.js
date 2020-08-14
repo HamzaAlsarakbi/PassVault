@@ -28,7 +28,7 @@ if (!fs.existsSync(dataDir)) {
 	fs.mkdirSync(dataDir);
 }
 const configFullPath =
-	process.platform == 'win32'`
+	process.platform == 'win32'
 		? path.join(getUserHome(), '/AppData/Local/PassVault/Data/config.json')
 		: path.join(process.env.HOME, '/PassVault/Data/config.json');
 const paramPath =
