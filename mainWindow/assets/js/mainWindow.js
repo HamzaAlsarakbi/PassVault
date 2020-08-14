@@ -340,7 +340,7 @@ function addFunc() {
 		eyeIcon.setAttribute('src', eye);
 		hideShow.appendChild(eyeIcon);
 
-	// create error message
+		// create error message
 		var span = document.createElement('span');
 		span.setAttribute('class', 'noerror');
 		span.setAttribute('id', 'add-error');
@@ -398,10 +398,6 @@ function addData() {
 		span.classList.remove('error');
 		panel.classList.remove('controlsSpan');
 
-		if (config.gridlinesOn) {
-			document.querySelector('.row-' + data.cellIndex).setAttribute('class', 'gridlinesOn');
-		}
-
 		data['cell-' + data.cellIndex] = {
 			type: typeDOM.value,
 			service: serviceDOM.value,
@@ -413,6 +409,9 @@ function addData() {
 			onCopy: false
 		};
 		addRow(typeDOM.value, serviceDOM.value, emailDOM.value, passwordDOM.value, data.cellIndex);
+		if (config.gridlinesOn) {
+			document.querySelector('.row-' + data.cellIndex).classList.add('gridlinesOn');
+		}
 
 		// empty out input fields
 		typeDOM.value = '';
@@ -1220,7 +1219,7 @@ function about() {
 		var bodyText1 = document.createElement('p');
 		bodyText1.setAttribute('class', 'settings-sub-body');
 		bodyText1.innerHTML = `PassVault is an <a href="" onclick="openExternal('github')">open-source tool</a> 
-		developed by Hamza that stores your encrypted passwords locally and not on the cloud to provide you 
+		developed by Hamza Alsarakbi that stores your encrypted passwords locally and not on the cloud to provide you 
 		with the highest privacy.`;
 		// open source link
 		var openSourceLink = document.createElement('a');
