@@ -28,7 +28,7 @@ if (!fs.existsSync(dataDir)) {
 	fs.mkdirSync(dataDir);
 }
 const configFullPath =
-	process.platform == 'win32'
+	process.platform == 'win32'`
 		? path.join(getUserHome(), '/AppData/Local/PassVault/Data/config.json')
 		: path.join(process.env.HOME, '/PassVault/Data/config.json');
 const paramPath =
@@ -105,13 +105,13 @@ function ready() {
 		config = JSON.parse(decryptedConfig);
 		console.log('config parsed!');
 		// check if first time setup
-		if (config.firstTime == false) {
-			loadFile = 'loginWindow';
-		} else {
-			loadFile = 'setupWindow';
-		}
 	} catch (err) {
 		console.log("config doesn't exist!");
+	}
+	if (config.firstTime == false) {
+		loadFile = 'loginWindow';
+	} else {
+		loadFile = 'setupWindow';
 	}
 	//Create new window
 	loginWindow = new BrowserWindow({
