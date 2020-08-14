@@ -410,6 +410,8 @@ dropDown,
 div.no-match {
 	height: 0 !important;
 	opacity: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
 	background-color: rgb(200, 50, 50) !important;
 }
 
