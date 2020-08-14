@@ -6,14 +6,18 @@ const url = require('url'),
 	path = require('path');
 algorithm = 'aes-256-cbc';
 const fs = require('fs');
+
+function getUserHome() {
+	return process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME'];
+}
 const parentDir =
 	process.platform == 'win32'
-		? path.join(process.env.HOME, '/AppData/Local/PassVault')
-		: path.join(process.env.HOME, '/PassVault');
+		? path.join(getUserHome(), '/AppData/Local/PassVault')
+		: path.join(getUserHome(), '/PassVault');
 const dataDir =
 	process.platform == 'win32'
-		? path.join(process.env.HOME, '/AppData/Local/PassVault/Data')
-		: path.join(process.env.HOME, '/PassVault/Data');
+		? path.join(getUserHome(), '/AppData/Local/PassVault/Data')
+		: path.join(getUserHome(), '/PassVault/Data');
 console.log('Checking if directory exists...');
 if (!fs.existsSync(parentDir)) {
 	console.log("Parent directory doesn't exist");
@@ -25,12 +29,12 @@ if (!fs.existsSync(dataDir)) {
 }
 const configFullPath =
 	process.platform == 'win32'
-		? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json')
+		? path.join(getUserHome(), '/AppData/Local/PassVault/Data/config.json')
 		: path.join(process.env.HOME, '/PassVault/Data/config.json');
 const paramPath =
 	process.platform == 'win32'
-		? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json')
-		: path.join(process.env.HOME, '/PassVault/Data/param.json');
+		? path.join(getUserHome(), '/AppData/Local/PassVault/Data/param.json')
+		: path.join(getUserHome(), '/PassVault/Data/param.json');
 
 let loginWindow;
 let mainWindow;
@@ -60,6 +64,10 @@ if (execPath.endsWith(pkg.name) || execPath.endsWith(pkg.name + '.exe')) {
 	process.argv.unshift('');
 	process.argv.unshift(exe);
 }
+if (process.defaultApp != true) {
+	process.argv.unshift('electron');
+}
+
 var key = crypto.randomBytes(32);
 var iv = crypto.randomBytes(16);
 var param = {
@@ -89,7 +97,6 @@ function decryptConfig(text) {
 
 // Listen for app to be ready
 app.on('ready', ready);
-
 function ready() {
 	try {
 		var rawConfig = fs.readFileSync(configFullPath);
@@ -97,14 +104,14 @@ function ready() {
 		decryptedConfig = decryptConfig(parsedConfig);
 		config = JSON.parse(decryptedConfig);
 		console.log('config parsed!');
+		// check if first time setup
+		if (config.firstTime == false) {
+			loadFile = 'loginWindow';
+		} else {
+			loadFile = 'setupWindow';
+		}
 	} catch (err) {
 		console.log("config doesn't exist!");
-	}
-	// check if first time setup
-	if (config.firstTime == false) {
-		loadFile = 'loginWindow';
-	} else {
-		loadFile = 'setupWindow';
 	}
 	//Create new window
 	loginWindow = new BrowserWindow({
@@ -200,6 +207,7 @@ function createMainWindow() {
 		}
 	});
 }
+
 /*
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 	const dialogOpts = {
@@ -209,7 +217,7 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 		message: process.platform === 'win32' ? releaseNotes : releaseName,
 		detail: 'A new version has been downloaded. Restart the application to apply the updates.'
 	};
-
+	
 	dialog.showMessageBox(dialogOpts).then((returnValue) => {
 		if (returnValue.response === 0) autoUpdater.quitAndInstall();
 	});

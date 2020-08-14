@@ -1,30 +1,36 @@
 const { platform } = require('os');
 
 const fs = require('fs'),
-crypto = require('crypto'),
+	crypto = require('crypto'),
 	path = require('path'),
-	configFullPath = process.platform == 'win32' ? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/config.json') : path.join(process.env.HOME, '/PassVault/Data/config.json'),
-	paramPath = process.platform == 'win32' ? path.join(process.env.HOME, '/AppData/Local/PassVault/Data/param.json') : path.join(process.env.HOME, '/PassVault/Data/param.json'),
+	configFullPath =
+		process.platform == 'win32'
+			? path.join(getUserHome(), '/AppData/Local/PassVault/Data/config.json')
+			: path.join(process.env.HOME, '/PassVault/Data/config.json'),
+	paramPath =
+		process.platform == 'win32'
+			? path.join(getUserHome(), '/AppData/Local/PassVault/Data/param.json')
+			: path.join(process.env.HOME, '/PassVault/Data/param.json'),
 	algorithm = 'aes-256-cbc';
-var	key = crypto.randomBytes(32);
+var key = crypto.randomBytes(32);
 var iv = crypto.randomBytes(16);
 var param = {
 	keyO: key,
 	ivO: iv
 };
-
+function getUserHome() {
+	return process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME'];
+}
 
 try {
 	var rawParam = fs.readFileSync(paramPath);
 	param = JSON.parse(rawParam);
 	key = new Buffer.from(param.keyO);
 	iv = new Buffer.from(param.ivO);
-} catch(err) {
+} catch (err) {
 	console.error(err);
 	console.log('failed to parse param');
 }
-
-
 
 var config = {
 	theme: 'dark',
@@ -51,4 +57,3 @@ function decryptConfig(text) {
 	return decrypted.toString();
 }
 console.log(config);
-

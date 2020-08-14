@@ -340,7 +340,7 @@ function addFunc() {
 		eyeIcon.setAttribute('src', eye);
 		hideShow.appendChild(eyeIcon);
 
-		// create error message
+	// create error message
 		var span = document.createElement('span');
 		span.setAttribute('class', 'noerror');
 		span.setAttribute('id', 'add-error');
