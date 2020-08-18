@@ -813,7 +813,7 @@ hideShow.change-password:hover {
 		height: 0;
 	}
 }
-#copy {
+.toast {
 	font-size: 12px;
 	background: none;
 	width: 130px;

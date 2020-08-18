@@ -1432,109 +1432,83 @@ function search() {
 		}
 	}
 }
-
 function iconChecker(classList, id, text) {
 	var cell = document.querySelector(classList + id);
 	var originalText = text;
 	text = text.toLowerCase();
-	var list = [
-		// companies
-		'samsung',
-		'apple',
-		'google',
-		'microsoft',
-		'dropbox',
-		'mega',
+	var list = [];
+	var defaultList = [];
 
-		// emails
-		'gmail',
-		'outlook',
-		'yahoo',
+	// pull default icons
+	try {
+		fs.readdirSync('global assets/img/icons').forEach((file) => {
+			defaultList.push(file);
+		});
+	} catch (err) {
+		console.error(err);
+	}
 
-		// gaming
-		'origin',
-		'twitch',
-		'steam',
-		'minecraft',
-		'uplay',
-		'epic',
-		'epic games',
-		'osu',
-		'blizzard',
-		'paradox',
+	// pull data/icons.json
+	try {
+		fs.readdirSync(path.join(parentDir, '/Data/icons')).forEach((file) => {
+			list.push(file);
+		});
+		console.log(list);
+	} catch (err) {
+		console.error(err);
+		console.log("icons folder likely doesn't exist. Using default folder.");
 
-		// programming
-		'github',
-		'stack overflow',
-		'jira',
-		'atlassian',
-		'bitbucket',
-		'trello',
+		fs.mkdirSync(path.join(parentDir, '/Data/icons'));
+	}
 
-		// design
-		'adobe',
-		'autodesk',
-		'blender',
-		'unity',
-
-		// social media
-		'vsco',
-		'pinterest',
-		'tiktok',
-		'wechat',
-		'discord',
-		'reddit',
-		'twitter',
-		'facebook',
-		'instagram',
-		'linkedin',
-		'tumblr',
-		'slack',
-		'snapchat',
-		'telegram',
-		'skype',
-
-		// music
-		'spotify',
-		'anghami',
-		'soundcloud',
-		'deezer',
-
-		// TV
-		'netflix',
-		'hulu',
-		'disney plus',
-		'disney+',
-		'crunchyroll',
-
-		// shopping
-		'amazon',
-		'ebay',
-		'kijiji',
-
-		// anti-virus
-		'eset',
-		'malwarebytes',
-		'kaspersky',
-
-		// others
-		'uber',
-		'paypal',
-		'grammarly',
-		'nordvpn'
-	];
-	for (var i = 0; i < list.length; i++) {
-		if (text.includes(list[i])) {
-			cell.innerHTML =
-				`
+	if (!(list === undefined || list.length == 0)) {
+		for (var i = 0; i < list.length; i++) {
+			console.log(
+				text,
+				list[i].substring(0, list[i].length - 4),
+				text.includes(list[i].substring(0, list[i].length - 4))
+			);
+			if (text.includes(list[i].substring(0, list[i].length - 4))) {
+				console.log('User icon detected');
+				console.log(
+					`
+				<img class="` +
+						classList.replace('.', '') +
+						`" id="service-icon" src="` +
+						path.join(parentDir, '/Data/icons/' + list[i]) +
+						`">` +
+						originalText
+				);
+				cell.innerHTML =
+					`
 			<img class="` +
-				classList.replace('.', '') +
-				`" id="service-icon" src="../global assets/img/icons/` +
-				list[i] +
-				`.png">` +
-				originalText +
-				`
-			`;
+					classList.replace('.', '') +
+					`" id="service-icon" src="` +
+					path.join(parentDir, '/Data/icons/' + list[i]) +
+					`">` +
+					originalText;
+				i = list.length;
+			} else {
+				console.log('using default', text, list[i], text.includes(list[i].substring(0, list[i].length - 4)));
+				defaultAdd();
+			}
+		}
+	} else {
+		defaultAdd();
+	}
+
+	function defaultAdd() {
+		for (var i = 0; i < defaultList.length; i++) {
+			if (text.includes(defaultList[i].substring(0, defaultList[i].length - 4))) {
+				cell.innerHTML =
+					`
+				<img class="` +
+					classList.replace('.', '') +
+					`" id="service-icon" src="../global assets/img/icons/` +
+					defaultList[i] +
+					`">` +
+					originalText;
+			}
 		}
 	}
 }
