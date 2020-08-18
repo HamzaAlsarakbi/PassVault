@@ -493,7 +493,7 @@ function addRow(type, service, email, password, index) {
 	var edit = document.createElement('div');
 	edit.setAttribute('class', 'cell-' + index);
 	edit.setAttribute('id', 'cell-edit');
-	edit.setAttribute('onclick', 'editRow(this)');
+	edit.setAttribute('onclick', 'editRow(this, "show")');
 	tdControls.appendChild(edit);
 
 	// create edit icon
@@ -692,8 +692,7 @@ function copy(properties) {
 }
 
 // edit row function
-var editOn = false;
-function editRow(properties) {
+function editRow(properties, action) {
 	var d = properties.id;
 	var c = properties.classList;
 	var tr = 'row-' + data[c].index;
@@ -705,12 +704,17 @@ function editRow(properties) {
 
 	// edit transitions
 
-	if (!editOn) {
+	if (action == 'show') {
 		document.querySelector('#type.' + c).removeAttribute('onclick');
 		document.querySelector('#service.' + c).removeAttribute('onclick');
 		document.querySelector('#email.' + c).removeAttribute('onclick');
 		document.querySelector('#password.' + c).removeAttribute('onclick');
 		// when edit is toggled
+
+		// change controls
+		document.querySelector('#cell-edit.' + c).setAttribute('onclick', 'editRow(this, "hide")');
+		document.querySelector('#cell-delete.' + c).setAttribute('onclick', 'cancelEdit(this)');
+
 		// change icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', remove);
 		document.querySelector('#edit-icon.' + c).setAttribute('src', confirm);
@@ -769,8 +773,6 @@ function editRow(properties) {
 			document.querySelector('#strength-bar.' + c).style.width = (strength + 1) / strengthTier.length * 100 + '%';
 		});
 		passwordDOM.appendChild(passwordInput);
-
-		editOn = true;
 	} else {
 		var typeInputDOM = document.querySelector('.input-' + data[c].index + '#table-type');
 		var serviceInputDOM = document.querySelector('.input-' + data[c].index + '#table-service');
@@ -793,11 +795,14 @@ function editRow(properties) {
 				passwordInputDOM.select();
 			}
 		} else {
+			// confirm edits
 			document.querySelector('.' + tr).classList.toggle('tr-edit');
+			document.querySelector('#cell-edit.' + c).setAttribute('onclick', 'editRow(this, "show")');
+			document.querySelector('#cell-delete.' + c).setAttribute('onclick', 'deleteFunc(this)');
 
 			// reset icons
-			document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
 			document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
+			document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
 
 			// when confirm button is clicked
 			data[c].type = document.querySelector('#table-type.input-' + data[c].index).value;
@@ -824,6 +829,48 @@ function editRow(properties) {
 		}
 	}
 }
+
+function cancelEdit(properties) {
+	var c = properties.classList['value'];
+	var index = data[c].index;
+	var tr = 'row-' + index;
+
+	document.querySelector('.' + tr).classList.remove('edit-on');
+
+	// reset controls
+	document.querySelector('#cell-edit.' + c).setAttribute('onclick', 'editRow(this, "show")');
+	document.querySelector('#cell-delete.' + c).setAttribute('onclick', 'deleteFunc(this)');
+
+	// reset icons
+	document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
+	document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
+
+	document.querySelector('#type-content.' + c).textContent = data[c].type;
+	document.querySelector('#service-content.' + c).textContent = data[c].service;
+	document.querySelector('#email-content.' + c).textContent = data[c].email;
+
+	if (!data[c].hidden) {
+		document.querySelector('#password-content.' + c).textContent = data[c].password;
+	} else {
+		document.querySelector('#password-content.' + c).textContent = bullet.repeat(data[c].password.length);
+	}
+	document.querySelector('#type.' + c).setAttribute('onclick', 'copy(this)');
+	document.querySelector('#service.' + c).setAttribute('onclick', 'copy(this)');
+	document.querySelector('#email.' + c).setAttribute('onclick', 'copy(this)');
+	document.querySelector('#password.' + c).setAttribute('onclick', 'copy(this)');
+	editOn = false;
+	document.querySelector('.' + tr).classList.toggle('tr-edit');
+
+	// add service icon
+	iconChecker('.' + c, '#service-content', document.querySelector('#service-content.' + c).textContent);
+
+	// check strength
+	var strength = strengthMeter(data[c].password);
+	document.querySelector('#strength-text.' + c).textContent = strengthTier[strength];
+	document.querySelector('#strength-bar.' + c).style.background = ' var(--strength-' + strength + ')';
+	document.querySelector('#strength-bar.' + c).style.width = (strength + 1) / strengthTier.length * 100 + '%';
+}
+
 // delete row function
 function deleteFunc(properties) {
 	var d = properties.id;
@@ -831,75 +878,41 @@ function deleteFunc(properties) {
 	var index = data[c].index;
 	console.log(c);
 	var tr = 'row-' + index;
-	if (!editOn) {
-		tr = document.querySelector('.row-' + index);
-		tr.classList.toggle('draw-out-animation');
-		setTimeout(() => {
-			var removedIndex = Number(c.replace('cell-', ''));
-			console.log('removedIndex: ' + removedIndex);
-			tr.remove();
-			delete data[c];
-			for (var i = removedIndex + 1; i < data.cellIndex; i++) {
-				var row = data['cell-' + i];
-				data['cell-' + (i - 1)] = {
-					class: 'cell-' + (i - 1),
-					type: row.type,
-					service: row.service,
-					email: row.email,
-					password: row.password,
-					onCopy: row.onCopy,
-					index: i - 1,
-					hidden: row.hidden
-				};
+	tr = document.querySelector('.row-' + index);
+	tr.classList.toggle('draw-out-animation');
+	setTimeout(() => {
+		var removedIndex = Number(c.replace('cell-', ''));
+		console.log('removedIndex: ' + removedIndex);
+		tr.remove();
+		delete data[c];
+		for (var i = removedIndex + 1; i < data.cellIndex; i++) {
+			var row = data['cell-' + i];
+			data['cell-' + (i - 1)] = {
+				class: 'cell-' + (i - 1),
+				type: row.type,
+				service: row.service,
+				email: row.email,
+				password: row.password,
+				onCopy: row.onCopy,
+				index: i - 1,
+				hidden: row.hidden
+			};
 
-				// update class name of cells
-				var rowCells = document.querySelectorAll('.cell-' + i);
-				var rowLength = rowCells.length;
-				for (var x = 0; x < rowLength; x++) {
-					var element = rowCells[x];
-					element.setAttribute('class', 'cell-' + (i - 1));
-				}
-
-				// update class name of rows
-				document.querySelector('.row-' + i).setAttribute('class', 'row-' + (i - 1));
+			// update class name of cells
+			var rowCells = document.querySelectorAll('.cell-' + i);
+			var rowLength = rowCells.length;
+			for (var x = 0; x < rowLength; x++) {
+				var element = rowCells[x];
+				element.setAttribute('class', 'cell-' + (i - 1));
 			}
-			data.cellIndex--;
-			delete data['cell-' + data.cellIndex];
-		}, 250);
-		// draw-out animations
-	} else {
-		// if its exiting edit mode
-		document.querySelector('.' + tr).classList.toggle('edit-on');
 
-		// reset icons
-		document.querySelector('#delete-icon.' + c).setAttribute('src', trashcan);
-		document.querySelector('#edit-icon.' + c).setAttribute('src', pencilIcon);
-
-		document.querySelector('#type-content.' + c).textContent = data[c].type;
-		document.querySelector('#service-content.' + c).textContent = data[c].service;
-		document.querySelector('#email-content.' + c).textContent = data[c].email;
-
-		if (!data[c].hidden) {
-			document.querySelector('#password-content.' + c).textContent = data[c].password;
-		} else {
-			document.querySelector('#password-content.' + c).textContent = bullet.repeat(data[c].password.length);
+			// update class name of rows
+			document.querySelector('.row-' + i).setAttribute('class', 'row-' + (i - 1));
 		}
-		document.querySelector('#type.' + c).setAttribute('onclick', 'copy(this)');
-		document.querySelector('#service.' + c).setAttribute('onclick', 'copy(this)');
-		document.querySelector('#email.' + c).setAttribute('onclick', 'copy(this)');
-		document.querySelector('#password.' + c).setAttribute('onclick', 'copy(this)');
-		editOn = false;
-		document.querySelector('.' + tr).classList.toggle('tr-edit');
-
-		// add service icon
-		iconChecker('.' + c, '#service-content', document.querySelector('#service-content.' + c).textContent);
-
-		// check strength
-		var strength = strengthMeter(data[c].password);
-		document.querySelector('#strength-text.' + c).textContent = strengthTier[strength];
-		document.querySelector('#strength-bar.' + c).style.background = ' var(--strength-' + strength + ')';
-		document.querySelector('#strength-bar.' + c).style.width = (strength + 1) / strengthTier.length * 100 + '%';
-	}
+		data.cellIndex--;
+		delete data['cell-' + data.cellIndex];
+	}, 250);
+	// draw-out animations
 }
 
 // Toggle parameters
