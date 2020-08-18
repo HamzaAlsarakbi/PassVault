@@ -1,6 +1,8 @@
 :root {
 	/** Global Settings **/
 	--body: rgb(32, 32, 32);
+	--secondary-background: rgb(60, 60, 60);
+
 	--primary-color: white;
 	--secondary-color: rgb(220, 220, 220);
 	--tertiary-color: rgb(190, 190, 190);

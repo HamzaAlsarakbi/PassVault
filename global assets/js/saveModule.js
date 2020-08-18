@@ -1,9 +1,5 @@
-const fullPath =
-	process.platform == 'win32'
-		? path.join(getUserHome(), '/AppData/Local/PassVault/Data/data.json')
-		: path.join(getUserHome(), '/PassVault/Data/data.json');
-
-
+const fullPath = path.join(parentDir, '/Data/data.json');
+const version = 'v1.1.0';
 
 // console colors
 const errorColor = 'color: rgb(200, 50, 50);';

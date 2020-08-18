@@ -5,6 +5,11 @@ const { ipcRenderer } = electron;
 // Assigning variables
 const submitButton = document.querySelector('.submit');
 const passDOM = document.querySelector('#password');
+const hideShowIcon = document.querySelector('.hide-show-icon');
+
+const crossedEye = '../global assets/img/dark/crossed-eye.png';
+const eye = '../global assets/img/dark/eye.png';
+
 var passwordValue = passDOM.value;
 
 // Window controls
@@ -24,6 +29,9 @@ function init() {
 		win.on('closed', () => {
 			win = null;
 		});
+	});
+	document.getElementById('min-button').addEventListener('click', (event) => {
+		win.minimize();
 	});
 }
 
@@ -60,5 +68,21 @@ function submit() {
 
 		errorSpan.textContent = 'Password is incorrect.';
 		errorSpan.style = 'display: inline;';
+	}
+}
+
+var passwordHidden = true;
+function hideShow() {
+	if (passwordHidden) {
+		// unhide password
+		passDOM.setAttribute('type', 'text');
+		hideShowIcon.setAttribute('src', crossedEye);
+
+		passwordHidden = false;
+	} else {
+		// hide password
+		passDOM.setAttribute('type', 'password');
+		hideShowIcon.setAttribute('src', eye);
+		passwordHidden = true;
 	}
 }

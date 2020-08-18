@@ -76,9 +76,49 @@ button.submit:hover {
 	height: 21px;
 }
 
-
-
 button:active {
 	transform: scale(0.97);
 	transition: 0.1s;
+}
+
+/** hide show **/
+.hide-show {
+	cursor: pointer;
+	padding: 2px;
+	border-radius: 0 2px 2px 0;
+	height: 31px;
+	width: 31px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.hide-show:active {
+	transform: scale(0.97);
+}
+
+.hide-show:hover {
+	background: var(--cell-hover);
+}
+input#password {
+	width: 95%;
+	border: 0;
+	margin: 0;
+	border: 1px solid transparent;
+}
+
+.password-div {
+	width: 80%;
+	margin: 5px;
+	border: 2px solid rgb(80, 80, 80);
+	border-radius: 5px;
+	height: 35px;
+	display: flex;
+	flex-direction: row;
+}
+.password-div:hover {
+	border-bottom-color: var(--secondary-input);
+}
+.password-div:focus-within {
+	border-color: var(--secondary-input);
 }

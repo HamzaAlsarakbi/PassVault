@@ -15,6 +15,9 @@
           <span style="padding-left: 10px;">Login</span>
         </div>
         <div id="window-controls">
+          <div class="button dialog" id="min-button">
+            <span>&#xE921;</span>
+          </div>
           <div class="button" id="close-button">
             <span>&#xE8BB;</span>
           </div>
@@ -27,7 +30,13 @@
       <img src="../global assets/img/icon-transparent.png" style="height:100px; margin-top: 15px">
       <p class="h1">PassVault</p>
       <p class="h2">Created by: Hamza Alsarakbi</p>
-      <input id="password" placeholder="Password" type="password">
+      
+      <div class="password-div">
+        <input id="password" placeholder="Password" type="password">
+        <div class="hide-show" onclick="hideShow()">
+          <img class="hide-show-icon" src="../global assets/img/dark/eye.png" width="20px">
+        </div>
+      </div>
       <span class="noerror"></span>
       <button class="submit" id="login" onclick="submit()">Login</button>
     </div>

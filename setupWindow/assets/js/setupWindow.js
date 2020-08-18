@@ -7,16 +7,16 @@ const remote = require('electron').remote,
 	themeContainer = document.querySelector('.theme');
 
 let win = remote.getCurrentWindow();
-function init() {
-	// Make minimise/maximise/restore/close buttons work when they are clicked
-	document.getElementById('close-button').addEventListener('click', (event) => {
-		win.close();
-		win.on('closed', () => {
-			win = null;
-		});
+// Make minimise/maximise/restore/close buttons work when they are clicked
+document.getElementById('close-button').addEventListener('click', (event) => {
+	win.close();
+	win.on('closed', () => {
+		win = null;
 	});
-}
-init();
+});
+document.getElementById('min-button').addEventListener('click', (event) => {
+	win.minimize();
+});
 
 function start() {
 	backdrop.setAttribute('src', '../global assets/img/icon-backdrop-green.png');
@@ -85,13 +85,13 @@ function exit() {
 
 	var configStringified = JSON.stringify(config);
 	console.log(configStringified);
-	
+
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
 	let encrypted = cipher.update(configStringified);
 	encrypted = Buffer.concat([ encrypted, cipher.final() ]);
-	var configEncrypted  = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+	var configEncrypted = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 	console.log(configEncrypted);
-	
+
 	var configStringified = JSON.stringify(configEncrypted);
 	console.log(configStringified);
 

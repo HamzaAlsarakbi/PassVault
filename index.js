@@ -1,6 +1,7 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
-const developerTools = false;
+const isDev = require('electron-is-dev');
+const developerTools = true;
 const url = require('url'),
 	crypto = require('crypto'),
 	path = require('path');
@@ -10,14 +11,28 @@ const fs = require('fs');
 function getUserHome() {
 	return process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME'];
 }
-const parentDir =
-	process.platform == 'win32'
-		? path.join(getUserHome(), '/AppData/Local/PassVault')
-		: path.join(getUserHome(), '/PassVault');
-const dataDir =
-	process.platform == 'win32'
-		? path.join(getUserHome(), '/AppData/Local/PassVault/Data')
-		: path.join(getUserHome(), '/PassVault/Data');
+var parentDir;
+if (process.platform == 'win32') {
+	// check if in development mode
+	if (isDev) {
+		parentDir = path.join(getUserHome(), '/AppData/Local/PassVaultDev');
+	} else {
+		// production mode
+		parentDir = path.join(getUserHome(), '/AppData/Local/PassVault');
+	}
+} else {
+	// linux
+	// check if in development mode
+	if (isDev) {
+		parentDir = path.join(getUserHome(), '/PassVaultDev');
+	} else {
+		// production mode
+		parentDir = path.join(getUserHome(), '/PassVault');
+	}
+}
+const dataDir = path.join(parentDir, '/Data');
+
+console.log(dataDir);
 console.log('Checking if directory exists...');
 if (!fs.existsSync(parentDir)) {
 	console.log("Parent directory doesn't exist");
@@ -27,14 +42,8 @@ if (!fs.existsSync(dataDir)) {
 	console.log("Directory doesn't exist!");
 	fs.mkdirSync(dataDir);
 }
-const configFullPath =
-	process.platform == 'win32'
-		? path.join(getUserHome(), '/AppData/Local/PassVault/Data/config.json')
-		: path.join(process.env.HOME, '/PassVault/Data/config.json');
-const paramPath =
-	process.platform == 'win32'
-		? path.join(getUserHome(), '/AppData/Local/PassVault/Data/param.json')
-		: path.join(getUserHome(), '/PassVault/Data/param.json');
+const configFullPath = path.join(dataDir, '/config.json');
+const paramPath = path.join(dataDir, '/param.json');
 
 let loginWindow;
 let mainWindow;
@@ -47,27 +56,7 @@ var config = {
 	gridlinesOn: false,
 	firstTime: true
 };
-/*
-console.log(process.argv[0]);
-console.log(process.argv[1]);
-console.log(__dirname);
-console.log(path.join(__dirname + '/release-builds/PassVault-win32-ia32/PassVault'));
-process.argv[0] = path.join(__dirname + '/release-builds/PassVault-win32-ia32/PassVault');
-if (app.isPackaged) {
-}
-*/
-var pkg = { name: 'passvault' };
-let execPath = process.execPath.toLowerCase();
-console.log(execPath);
-if (execPath.endsWith(pkg.name) || execPath.endsWith(pkg.name + '.exe')) {
-	let exe = process.argv.shift();
-	process.argv.unshift('');
-	process.argv.unshift(exe);
-}
-if (process.defaultApp != true) {
-	process.argv.unshift('electron');
-}
-
+console.log(config.firstTime);
 var key = crypto.randomBytes(32);
 var iv = crypto.randomBytes(16);
 var param = {

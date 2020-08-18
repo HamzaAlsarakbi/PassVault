@@ -665,34 +665,30 @@ var onCopy = false;
 function copy(properties) {
 	var d = properties.id;
 	var c = properties.classList;
-	if (!onCopy) {
-		onCopy = true;
-		var copyVar = data[c][d];
-		var copyDOM = document.createElement('input');
-		copyDOM.setAttribute('class', 'hidden');
-		copyDOM.style = 'position: absolute; left: -50000px';
-		copyDOM.value = copyVar;
-		document.querySelector('#email').appendChild(copyDOM);
-		document.querySelector('.hidden').select();
-		try {
-			var successful = document.execCommand('copy');
-			console.log('Copying ' + c + d + ' was successful, and the message is: ' + copyVar);
-			var span = document.createElement('div');
-			span.setAttribute('class', c);
-			span.setAttribute('id', 'copy');
-			span.textContent = 'Copied to clipboard!';
-			document.querySelector('#' + d + '.' + c).appendChild(span);
-			setTimeout(function() {
-				span.remove();
-				onCopy = false;
-			}, 1500);
-		} catch (err) {
-			console.log('Copying ' + c + d + ' was unsuccessful!');
-		}
-		document.querySelector('#email').removeChild(copyDOM);
-	} else {
-		console.log('%c ERROR: failed to because onCopy is set to true', 'color: rgb(250, 50, 50);');
+	onCopy = true;
+	var copyVar = data[c][d];
+	var copyDOM = document.createElement('input');
+	copyDOM.setAttribute('class', 'hidden');
+	copyDOM.style = 'position: absolute; left: -50000px';
+	copyDOM.value = copyVar;
+	document.body.appendChild(copyDOM);
+	document.querySelector('.hidden').select();
+	try {
+		document.execCommand('copy');
+		console.log('Copying .' + c + '#' + d + ' was successful, and the message is: ' + copyVar);
+		var span = document.createElement('div');
+		span.setAttribute('class', 'toast');
+		span.setAttribute('id', 'copy');
+		span.textContent = 'Copied to clipboard!';
+		document.body.appendChild(span);
+		setTimeout(function() {
+			span.remove();
+			onCopy = false;
+		}, 1500);
+	} catch (err) {
+		console.log('Copying ' + c + d + ' was unsuccessful!');
 	}
+	document.body.removeChild(copyDOM);
 }
 
 // edit row function
@@ -705,6 +701,7 @@ function editRow(properties) {
 	var serviceDOM = document.querySelector('#service-content.' + c);
 	var emailDOM = document.querySelector('#email-content.' + c);
 	var passwordDOM = document.querySelector('#password-content.' + c);
+	passwordDOM.classList.toggle('edit-on');
 
 	// edit transitions
 
@@ -1234,11 +1231,15 @@ function about() {
 		// create paragraph
 		var bodyText2 = document.createElement('p');
 		bodyText2.setAttribute('class', 'settings-sub-body');
-		bodyText2.innerHTML = `If you enjoy this app, consider following me on Instagram 
+		bodyText2.innerHTML =
+			`If you enjoy this app, consider following me on Instagram 
 		<a href="" onclick="openExternal('instagram')">@hamza__sar</a>.
 		 If you encounter a bug with this app, tweet to <a href="" onclick="openExternal('twitter')">@Electr0d</a>. 
 		 If you want to <a href="" onclick="openExternal('donate')">donate</a>, 
-		 you can. It helps maintain this app, and build future projects.`;
+		 you can. It helps maintain this app, and build future projects.
+		 <br>
+		 <br>
+		 Version: ` + version;
 
 		parentElement.appendChild(headerDiv);
 		headerDiv.appendChild(headerIcon);

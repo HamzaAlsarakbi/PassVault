@@ -1,17 +1,33 @@
 const { platform } = require('os');
-
+const isDev = require('electron-is-dev');
 const fs = require('fs'),
 	crypto = require('crypto'),
 	path = require('path'),
-	configFullPath =
-		process.platform == 'win32'
-			? path.join(getUserHome(), '/AppData/Local/PassVault/Data/config.json')
-			: path.join(process.env.HOME, '/PassVault/Data/config.json'),
-	paramPath =
-		process.platform == 'win32'
-			? path.join(getUserHome(), '/AppData/Local/PassVault/Data/param.json')
-			: path.join(process.env.HOME, '/PassVault/Data/param.json'),
 	algorithm = 'aes-256-cbc';
+
+var parentDir;
+if (process.platform == 'win32') {
+	// check if in development mode
+	if (isDev) {
+		parentDir = path.join(getUserHome(), '/AppData/Local/PassVaultDev');
+	} else {
+		// production mode
+		parentDir = path.join(getUserHome(), '/AppData/Local/PassVault');
+	}
+	document.title += ' - Dev Build';
+} else {
+	// linux
+	// check if in development mode
+	if (isDev) {
+		parentDir = path.join(getUserHome(), '/PassVaultDev');
+	} else {
+		// production mode
+		parentDir = path.join(getUserHome(), '/PassVault');
+	}
+}
+
+const paramPath = path.join(parentDir, '/Data/param.json');
+const configFullPath = path.join(parentDir, '/Data/config.json');
 var key = crypto.randomBytes(32);
 var iv = crypto.randomBytes(16);
 var param = {
