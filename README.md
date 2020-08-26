@@ -67,7 +67,7 @@ To make scrolling through rows looking for something even easier, I added a serv
 
 ### Search
 
-Have a ton of rows and want to get to one quickly? The search bar is for you. Just click on the magnifier icon, or press **Ctrl + F" to open the search bar.
+Have a ton of rows and want to get to one quickly? The search bar is for you. Just click on the magnifier icon, or press **Ctrl + F** to open the search bar.
 Every cell checked if it includes your keyword. You can check what columns is searched by in the filter menu, which you can open by clicking on the filter icon, or by pressing **Alt + F**
 
 For example, if you have only "service" checked and type "Google", then the program lists every row that contains "Google" in the service column.
