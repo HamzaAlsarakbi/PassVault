@@ -1,5 +1,5 @@
 :root {
-	/** Global Settings **/
+	/** Global colors **/
 	--body: rgb(32, 32, 32);
 	--secondary-background: rgb(60, 60, 60);
 
@@ -7,6 +7,12 @@
 	--secondary-color: rgb(220, 220, 220);
 	--tertiary-color: rgb(190, 190, 190);
 	--primary-hover: rgb(60, 60, 60);
+	--primary-accent: rgb(66, 107, 196);
+	--primary-accent-transparent: rgba(45, 85, 170, 0.5);
+
+	--secondary-accent: rgb(32, 32, 32);
+	--secondary-accent-transparent: rgba(32, 32, 32, 0.5);
+	--primary-important: rgb(200, 50, 50);
 
 	/** Scrollbar **/
 	--scrollbar-track: rgb(30, 30, 30);
@@ -25,17 +31,13 @@
 
 	/** Input **/
 	--primary-input: rgb(80, 80, 80);
-	--secondary-input: rgb(52, 99, 202);
-
-	/** Checkbox **/
-	--primary-checkbox: rgb(35, 35, 35);
-	--secondary-checkbox: rgb(50, 100, 200);
 
 	/** Table **/
 	--primary-thead-border: 2px solid white;
 	--row-hover: rgb(45, 45, 45);
 	--cell-hover: rgb(60, 60, 60);
 	--copy-color: rgb(150, 150, 150);
+
 	/** password **/
 	--strength-0: rgb(200, 50, 50);
 	--strength-1: rgb(200, 92, 50);

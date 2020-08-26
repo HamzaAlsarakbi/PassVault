@@ -1,4 +1,5 @@
 const electron = require('electron');
+const { TouchBarSegmentedControl } = require('electron');
 const shell = electron.shell;
 const { ipcRenderer } = electron;
 let win = electron.remote.getCurrentWindow();
@@ -78,24 +79,13 @@ function settingsFunc() {
 	document.querySelector('#settings').classList.toggle('rotate');
 
 	// if one of the windows is open
-	if (passParam) {
-		togglePassParam();
-	}
-	if (lockVaultOn) {
-		lockVault();
-	}
-	if (aboutOn) {
-		about();
-	}
-	if (addOn) {
-		addFunc();
-	}
-	if (searchOn) {
-		searchToggle();
-	}
-	if (filtersOn) {
-		toggleFilters();
-	}
+	if (passParam) togglePassParam();
+	if (lockVaultOn) lockVault();
+	if (aboutOn) about();
+	if (addOn) addFunc();
+	if (searchOn) searchToggle();
+	if (filtersOn) toggleFilters();
+
 	if (!settingsOn) {
 		// Create header
 		var header = document.createElement('div');
@@ -121,16 +111,12 @@ function settingsFunc() {
 		settingsButtons = document.createElement('div');
 		settingsButtons.setAttribute('class', 'settings-buttons');
 
-		// create toggle gridlines button
-		toggleGridlinesButton = document.createElement('button');
-		toggleGridlinesButton.setAttribute('class', 'button-header');
-		toggleGridlinesButton.setAttribute('id', 'gridlines');
-		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
-		if (!config.gridlinesOn) {
-			toggleGridlinesButton.textContent = 'Show Gridlines';
-		} else {
-			toggleGridlinesButton.textContent = 'Hide Gridlines';
-		}
+		// create general button
+		generalButton = document.createElement('button');
+		generalButton.setAttribute('class', 'button-header');
+		generalButton.setAttribute('id', 'general');
+		generalButton.setAttribute('onclick', 'general()');
+		generalButton.textContent = 'General';
 
 		// create change config.theme button
 		changeTheme = document.createElement('button');
@@ -172,7 +158,7 @@ function settingsFunc() {
 		header.appendChild(headerText);
 		menu.appendChild(settingsBody);
 		settingsBody.appendChild(settingsButtons);
-		settingsButtons.appendChild(toggleGridlinesButton);
+		settingsButtons.appendChild(generalButton);
 		settingsButtons.appendChild(changeTheme);
 		settingsButtons.appendChild(changePassword);
 		settingsButtons.appendChild(lockVaultButton);
@@ -185,8 +171,61 @@ function settingsFunc() {
 		settingsOn = false;
 	}
 }
-// Change password function
 
+// genaral
+function general() {
+	toggleParameters();
+	parentElement = document.querySelector('.settings-parameters');
+	if (passParam) {
+		console.log('PassParam is already on');
+		togglePassParam();
+		toggleParameters();
+		setTimeout(function() {
+			general();
+		}, 400);
+	} else if (lockVaultOn) {
+		console.log('LockVault is already on');
+		lockVault();
+		toggleParameters();
+		setTimeout(function() {
+			general();
+		}, 400);
+	} else if (!componentStatus.settings.generalOn) {
+		// button effects
+		document.querySelector('#general').classList.toggle('button-header-active');
+
+		// create header
+		var headerDiv = document.createElement('div');
+		headerDiv.setAttribute('class', 'settings-parameters-header');
+		parentElement.appendChild(headerDiv);
+		var headerText = document.createElement('p');
+		headerText.setAttribute('class', 'settings-header-text');
+		headerText.textContent = 'General';
+		headerDiv.appendChild(headerText);
+		componentStatus.settings.generalOn = true;
+
+		// create toggle gridlines button
+		toggleGridlinesButton = document.createElement('button');
+		toggleGridlinesButton.setAttribute('id', 'general-gridlines');
+		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
+		parentElement.appendChild(toggleGridlinesButton);
+		if (!config.gridlinesOn) {
+			toggleGridlinesButton.textContent = 'Show Gridlines';
+		} else {
+			toggleGridlinesButton.textContent = 'Hide Gridlines';
+		}
+	} else {
+		// close general section
+		document.querySelector('#general').classList.toggle('button-header-active');
+
+		setTimeout(function() {
+			parentElement.innerHTML = '';
+		}, 200);
+		componentStatus.settings.generalOn = false;
+	}
+}
+
+// Change password function
 function passChangeRequest() {
 	var oldPass = document.querySelector('#change-password-input-old');
 	var newPass = document.querySelector('#change-password-input-new');
@@ -544,11 +583,14 @@ function addRow(type, service, email, password, index) {
 		table.classList.remove('tbody-animation');
 	}, 250);
 }
-var Fstatus = {
-	strengthMeterOn: true
+var componentStatus = {
+	strengthMeterOn: true,
+	settings: {
+		generalOn: false
+	}
 };
 function strengthMeter(text) {
-	if (Fstatus.strengthMeterOn) {
+	if (componentStatus.strengthMeterOn) {
 		var strength = 0;
 
 		// check for special characters
@@ -603,7 +645,6 @@ function strengthMeter(text) {
 		return strength;
 	}
 }
-var addHideShow = false;
 function hideShow(pro, value) {
 	var d = pro.id;
 	var c = pro.classList;
@@ -661,11 +702,20 @@ function hideShow(pro, value) {
 		}
 	}
 }
-var onCopy = false;
+function toast(message) {
+	if (message != '' && !(message === undefined)) {
+		var span = document.createElement('div');
+		span.setAttribute('class', 'toast');
+		span.textContent = message;
+		document.body.appendChild(span);
+		setTimeout(function() {
+			span.remove();
+		}, 1500);
+	}
+}
 function copy(properties) {
 	var d = properties.id;
 	var c = properties.classList;
-	onCopy = true;
 	var copyVar = data[c][d];
 	var copyDOM = document.createElement('input');
 	copyDOM.setAttribute('class', 'hidden');
@@ -676,15 +726,7 @@ function copy(properties) {
 	try {
 		document.execCommand('copy');
 		console.log('Copying .' + c + '#' + d + ' was successful, and the message is: ' + copyVar);
-		var span = document.createElement('div');
-		span.setAttribute('class', 'toast');
-		span.setAttribute('id', 'copy');
-		span.textContent = 'Copied to clipboard!';
-		document.body.appendChild(span);
-		setTimeout(function() {
-			span.remove();
-			onCopy = false;
-		}, 1500);
+		toast('Copied to clipboard!');
 	} catch (err) {
 		console.log('Copying ' + c + d + ' was unsuccessful!');
 	}
@@ -1083,7 +1125,7 @@ function lockVault() {
 		var p = document.createElement('p');
 		p.setAttribute('class', 'lock-param');
 		p.setAttribute('id', 'confirmation');
-		p.textContent = 'Lock Vault?';
+		p.textContent = 'Are you sure you want to lock vault?';
 		appendChildElement = parentElement.appendChild(p);
 
 		// confimation div **div class="yesno"**
@@ -1106,9 +1148,8 @@ function lockVault() {
 		quitButton.setAttribute('onclick', 'quit()');
 		if (saved) {
 			quitButton.textContent = 'Lock without saving changes';
-			quitButton.style.height = '40px';
 		} else {
-			quitButton.textContent = 'Lock';
+			quitButton.textContent = 'Yes';
 		}
 
 		// Package Elements
@@ -1148,13 +1189,13 @@ function toggleGridlines() {
 	}
 	if (!config.gridlinesOn) {
 		// Change Button content
-		document.querySelector('#gridlines').textContent = 'Hide Gridlines';
+		document.querySelector('#general-gridlines').textContent = 'Hide Gridlines';
 
 		// set gridlines to false
 		config.gridlinesOn = true;
 	} else if (config.gridlinesOn) {
 		// Change Button content
-		document.querySelector('#gridlines').textContent = 'Show Gridlines';
+		document.querySelector('#general-gridlines').textContent = 'Show Gridlines';
 
 		// set gridlines to false
 		config.gridlinesOn = false;
@@ -1180,7 +1221,6 @@ var aboutOn = false;
 function about() {
 	toggleParameters();
 	parentElement = document.querySelector('.settings-parameters');
-	parentElement.classList.add('toggleAbout');
 	if (passParam) {
 		console.log('PassParam is already on');
 		togglePassParam();
@@ -1188,6 +1228,9 @@ function about() {
 		setTimeout(function() {
 			about();
 		}, 400);
+		setTimeout(() => {
+			parentElement.classList.add('toggleAbout');
+		}, 200);
 	} else if (lockVaultOn) {
 		console.log('LockVault is already on');
 		lockVault();
@@ -1195,7 +1238,11 @@ function about() {
 		setTimeout(function() {
 			about();
 		}, 400);
+		setTimeout(() => {
+			parentElement.classList.add('toggleAbout');
+		}, 200);
 	} else if (!aboutOn) {
+		parentElement.classList.add('toggleAbout');
 		// button effects
 		document.querySelector('#about').classList.toggle('button-header-active');
 		// create header
@@ -1341,11 +1388,8 @@ function closeDialog() {
 }
 var searchOn = false;
 function searchToggle() {
-	if (addOn) {
-		addFunc();
-	} else if (settingsOn) {
-		settingsFunc();
-	}
+	if (addOn) addFunc();
+	if (settingsOn) settingsFunc();
 
 	// transitions
 	searchInput.classList.toggle('toggleSearch');
@@ -1365,12 +1409,8 @@ function searchToggle() {
 // filters
 var filtersOn = false;
 function toggleFilters() {
-	if (addOn) {
-		addFunc();
-	}
-	if (settingsOn) {
-		settingsFunc();
-	}
+	if (addOn) addFunc();
+	if (settingsOn) settingsFunc();
 	if (!filtersOn) {
 		// make drop-down
 		var container = document.createElement('div');
@@ -1466,7 +1506,6 @@ function iconChecker(classList, id, text) {
 		fs.readdirSync(path.join(parentDir, '/Data/icons')).forEach((file) => {
 			list.push(file);
 		});
-		console.log(list);
 	} catch (err) {
 		console.error(err);
 		console.log("icons folder likely doesn't exist. Using default folder.");
@@ -1476,22 +1515,7 @@ function iconChecker(classList, id, text) {
 
 	if (!(list === undefined || list.length == 0)) {
 		for (var i = 0; i < list.length; i++) {
-			console.log(
-				text,
-				list[i].substring(0, list[i].length - 4),
-				text.includes(list[i].substring(0, list[i].length - 4))
-			);
 			if (text.includes(list[i].substring(0, list[i].length - 4))) {
-				console.log('User icon detected');
-				console.log(
-					`
-				<img class="` +
-						classList.replace('.', '') +
-						`" id="service-icon" src="` +
-						path.join(parentDir, '/Data/icons/' + list[i]) +
-						`">` +
-						originalText
-				);
 				cell.innerHTML =
 					`
 			<img class="` +
@@ -1502,7 +1526,6 @@ function iconChecker(classList, id, text) {
 					originalText;
 				i = list.length;
 			} else {
-				console.log('using default', text, list[i], text.includes(list[i].substring(0, list[i].length - 4)));
 				defaultAdd();
 			}
 		}

@@ -212,6 +212,8 @@ img {
 	flex-direction: row;
 	padding: 20px;
 	padding-bottom: 5px;
+	width: 100%;
+	flex-wrap: wrap;
 }
 
 #pass-div,
@@ -250,7 +252,6 @@ menu {
 	padding: 20px;
 	border-right: none;
 	width: 180px;
-	margin-right: 40px;
 	z-index: 4;
 }
 .control:active:not(input#control) {
@@ -267,7 +268,7 @@ menu {
 }
 
 .toggleAbout {
-	width: 340px !important;
+	width: 404px !important;
 	display: block !important;
 	margin-top: 10px !important;
 	height: 200px;
@@ -281,9 +282,9 @@ a {
 }
 
 .toggleAdd {
-	height: 215px;
 	margin-top: 20px;
-	min-width: 500px;
+	height: 270px;
+	width: 25%;
 	background: var(--toggle-controls);
 }
 input.control:hover {
@@ -308,10 +309,10 @@ input.toggleSearch {
 	border: 2px solid var(--primary-input) !important;
 }
 input.toggleSearch:hover {
-	border-bottom-color: var(--secondary-input) !important;
+	border-bottom-color: var(--primary-accent) !important;
 }
 input.toggleSearch:focus {
-	border-color: var(--secondary-input) !important;
+	border-color: var(--primary-accent) !important;
 }
 
 div.toggleSearch {
@@ -362,7 +363,7 @@ dropDown,
 	left: 0;
 	height: 25px;
 	width: 25px;
-	background-color: var(--primary-checkbox);
+	background-color: var(--secondary-accent);
 	border-radius: 10px;
 }
 /* On mouse-over, add a grey background color */
@@ -379,7 +380,7 @@ dropDown,
 
 /* When the checkbox is checked, add a blue background */
 .label input:checked ~ .checkmark {
-	background-color: var(--secondary-checkbox);
+	background-color: var(--primary-accent);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -509,10 +510,10 @@ input {
 	color: var(--secondary-color);
 }
 input:hover {
-	border-bottom-color: var(--secondary-input);
+	border-bottom-color: var(--primary-accent);
 }
 input:focus {
-	border-color: var(--secondary-input);
+	border-color: var(--primary-accent);
 }
 .noerror {
 	font-size: 11px;
@@ -586,8 +587,8 @@ input:focus {
 }
 /** Table **/
 #table {
-	width: 75%;
-	max-width: 1000px;
+	width: 90%;
+	max-width: 1500px;
 	min-width: 600px;
 	display: flex;
 	flex-direction: column;
@@ -597,7 +598,7 @@ input:focus {
 	padding-top: 380px !important;
 }
 .margin-add {
-	padding-top: 250px !important;
+	padding-top: 320px !important;
 }
 #hide-show {
 	width: 100px;
@@ -635,13 +636,17 @@ input.change-password {
 	display: flex;
 	flex-direction: row;
 }
+.add-div input,
+.pass-div#add-pass {
+	width: 47.5%;
+}
 .pass-div#add-pass:hover,
 #change-password-input-div:hover {
-	border-bottom-color: var(--secondary-input);
+	border-bottom-color: var(--primary-accent);
 }
 .pass-div#add-pass:focus-within,
 #change-password-input-div:focus-within {
-	border-color: var(--secondary-input);
+	border-color: var(--primary-accent);
 }
 #cell-edit,
 #cell-showHide,
@@ -816,40 +821,43 @@ hideShow.change-password:hover {
 .toast {
 	font-size: 12px;
 	background: none;
-	width: 130px;
 	padding: 10px;
-	margin: 20px;
+	margin-bottom: 20px;
 	border-radius: 20px;
-	animation: copy-slide-in 1.5s ease-out;
+	max-height: 100px;
+	max-width: 80%;
+	animation: toast-slide-in 1.5s ease-out;
 	color: var(--primary-color);
 	background: var(--secondary-background);
 	position: fixed;
 	bottom: 0;
-	left: calc(50% - 85px);
+	left: 50%;
+	word-break: break-all;
+	transform: translateX(-50%);
 	animation-fill-mode: forwards;
 }
 
-@keyframes copy-slide-in {
+@keyframes toast-slide-in {
 	0% {
-		transform: translateY(100%);
+		transform: translate(-50%, 100%);
 		opacity: 0;
 	}
 	10% {
-		transform: translateY(-20%);
+		transform: translate(-50%, -20%);
 		opacity: 1;
 	}
 	15% {
-		transform: translateY(0%);
+		transform: translate(-50%, 0%);
 	}
 	85% {
-		transform: translateY(0%);
+		transform: translate(-50%, 0%);
 	}
 	90% {
-		transform: translateY(-20%);
+		transform: translate(-50%, -20%);
 		opacity: 1;
 	}
 	100% {
-		transform: translateY(100%);
+		transform: translate(-50%, 100%);
 		opacity: 0;
 	}
 }
@@ -912,26 +920,8 @@ hideShow.change-password:hover {
 }
 /**** Responsive */
 @media only screen and (max-width: 1200px) {
-	.toggleAdd {
-		height: 270px;
-		width: 25%;
-	}
-
-	.add-div {
-		flex-direction: row;
-		width: 100%;
-		flex-wrap: wrap;
-	}
-	.add-div input,
-	.pass-div#add-pass {
-		width: 47.5%;
-	}
-
 	.controlsSpan {
 		height: 280px;
-	}
-	.margin-add {
-		padding-top: 320px !important;
 	}
 }
 
