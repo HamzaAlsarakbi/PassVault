@@ -4,12 +4,14 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin: 20px 0 20px 0;
+	margin: 10px 0 10px 0;
+	width: 90%;
 }
 
 .parameter-text {
 	color: var(--primary-color);
 	width: 50%;
+	font-size: 14px;
 }
 .parameter-container {
 	display: flex;

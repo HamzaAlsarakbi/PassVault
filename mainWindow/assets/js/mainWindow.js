@@ -3,13 +3,13 @@ const { TouchBarSegmentedControl } = require('electron');
 const shell = electron.shell;
 const { ipcRenderer } = electron;
 let win = electron.remote.getCurrentWindow();
-var parentElement;
+let parentElement;
 const strengthTier = [ 'Very weak', 'Weak', 'Medium', 'Strong', 'Very strong' ];
 // data object
-var data = {
+let data = {
 	cellIndex: 0
 };
-var searchBy = {
+let searchBy = {
 	type: true,
 	service: true,
 	email: true,
@@ -22,13 +22,19 @@ const menu = document.querySelector('menu');
 
 // search
 const searchInput = document.querySelector('input.control');
-const filterDOM = document.querySelector('.control#filter');
 
 // settings
-var settingsOn = false;
-var addOn = false;
-var saved = false; // to be changed later
-var settingsOn = false;
+let components = {
+
+	strengthMeterOn: true,
+	settings: {
+		on: false,
+		generalOn: false
+	},
+	add: {
+		on: false,
+	}
+};
 
 // icons
 const eye = '../global assets/img/dark/eye.png';
@@ -46,8 +52,7 @@ const table = document.querySelector('.tbody-data');
 const id = [ 'type', 'service', 'email', 'password' ];
 
 // shortcuts
-document.onkeyup = function(e) {
-	// console.log('Notice: shortcut triggered.');
+document.onkeydown = (e) => {
 	if (e.altKey && e.which == 65) {
 		addFunc();
 	}
@@ -82,93 +87,52 @@ function settingsFunc() {
 	if (passParam) togglePassParam();
 	if (lockVaultOn) lockVault();
 	if (aboutOn) about();
-	if (addOn) addFunc();
+	if (components.add.on) addFunc();
 	if (searchOn) searchToggle();
 	if (filtersOn) toggleFilters();
 
-	if (!settingsOn) {
+	if (!components.settings.on) {
 		// Create header
-		var header = document.createElement('div');
-		header.setAttribute('class', 'settings-header');
-		menu.appendChild(header);
+		let header = addElement('div', {class: 'settings-header'}, undefined, menu);
 
 		// create icon
-		var headerIcon = document.createElement('img');
-		headerIcon.setAttribute('src', gearsIcon);
-		headerIcon.setAttribute('height', '30px');
-		headerIcon.setAttribute('class', 'header-icon');
-		header.appendChild(headerIcon);
+		addElement('img', {src: gearsIcon, height: '30px', class: 'header-icon'}, undefined, header);
 
 		// create text
-		var headerText = document.createElement('span');
-		headerText.textContent = 'Settings';
+		addElement('span', {}, 'Settings', header);
+		
 
 		// create settingsBody
-		settingsBody = document.createElement('div');
-		settingsBody.setAttribute('class', 'settings-body');
+		let settingsBody = addElement('div', {class: 'settings-body'}, undefined, menu);
+
 
 		// create settingsButton
-		settingsButtons = document.createElement('div');
-		settingsButtons.setAttribute('class', 'settings-buttons');
-
+		let settingsButtons = addElement('div', {class: 'settings-buttons'}, undefined, settingsBody);
+	
 		// create general button
-		generalButton = document.createElement('button');
-		generalButton.setAttribute('class', 'button-header');
-		generalButton.setAttribute('id', 'general');
-		generalButton.setAttribute('onclick', 'general()');
-		generalButton.textContent = 'General';
-
+		addElement('button', {class: 'button-header', id: 'general', onclick: 'general()'}, 'General', settingsButtons);
+		
 		// create change config.theme button
-		changeTheme = document.createElement('button');
-		changeTheme.setAttribute('class', 'button-header');
-		changeTheme.setAttribute('id', 'switch-theme');
-		changeTheme.setAttribute('onclick', 'switchTheme()');
-		if (config.theme == 'dark') {
-			changeTheme.textContent = 'Switch to light theme';
-		} else if (config.theme == 'light') {
-			changeTheme.textContent = 'Switch to dark theme';
-		}
-
+		let theme = config.theme == 'dark' ? 'light' : 'dark';
+		addElement('button', {class: 'button-header', id: 'switch-theme', onclick: 'switchTheme()'}, 'Switch to ' + theme + ' theme', settingsButtons);
+		
 		// create change password button
-		changePassword = document.createElement('button');
-		changePassword.setAttribute('class', 'button-header');
-		changePassword.setAttribute('id', 'change-password');
-		changePassword.setAttribute('onclick', 'togglePassParam()');
-		changePassword.textContent = 'Change Password';
-
+		addElement('button', {class: 'button-header', id: 'change-password', onclick: 'togglePassParam()'}, 'Change Password', settingsButtons);
+		
 		// create lock vault button
-		lockVaultButton = document.createElement('button');
-		lockVaultButton.setAttribute('class', 'button-header');
-		lockVaultButton.setAttribute('id', 'lock');
-		lockVaultButton.setAttribute('onclick', 'lockVault()');
-		lockVaultButton.textContent = 'Lock Vault';
-
+		addElement('button', {class: 'button-header', id: 'lock', onclick: 'lockVault()'}, 'Lock Vault', settingsButtons);
+		
 		// create about button
-		aboutButton = document.createElement('button');
-		aboutButton.setAttribute('class', 'button-header');
-		aboutButton.setAttribute('id', 'about');
-		aboutButton.setAttribute('onclick', 'about()');
-		aboutButton.textContent = 'About';
+		addElement('button', {class: 'button-header', id: 'about', onclick: 'about()'}, 'About', settingsButtons);
 
 		// create div for parameters
-		settingsParameters = document.createElement('div');
-		settingsParameters.setAttribute('class', 'settings-parameters');
+		addElement('div', {class: 'settings-parameters'}, undefined, settingsBody);
 
-		// Packaging
-		header.appendChild(headerText);
-		menu.appendChild(settingsBody);
-		settingsBody.appendChild(settingsButtons);
-		settingsButtons.appendChild(generalButton);
-		settingsButtons.appendChild(changeTheme);
-		settingsButtons.appendChild(changePassword);
-		settingsButtons.appendChild(lockVaultButton);
-		settingsButtons.appendChild(aboutButton);
-		settingsBody.appendChild(settingsParameters);
 
-		settingsOn = true;
+		components.settings.on = true;
 	} else {
 		menu.innerHTML = '';
-		settingsOn = false;
+		components.settings.on = false;
 	}
 }
 
@@ -190,19 +154,19 @@ function general() {
 		setTimeout(function() {
 			general();
 		}, 400);
-	} else if (!componentStatus.settings.generalOn) {
+	} else if (!components.settings.generalOn) {
 		// button effects
 		document.querySelector('#general').classList.toggle('button-header-active');
 
 		// create header
-		var headerDiv = document.createElement('div');
+		let headerDiv = document.createElement('div');
 		headerDiv.setAttribute('class', 'settings-parameters-header');
 		parentElement.appendChild(headerDiv);
-		var headerText = document.createElement('p');
+		let headerText = document.createElement('p');
 		headerText.setAttribute('class', 'settings-header-text');
 		headerText.textContent = 'General';
 		headerDiv.appendChild(headerText);
-		componentStatus.settings.generalOn = true;
+		components.settings.generalOn = true;
 
 		// create toggle gridlines button
 		toggleGridlinesButton = document.createElement('button');
@@ -221,17 +185,17 @@ function general() {
 		setTimeout(function() {
 			parentElement.innerHTML = '';
 		}, 200);
-		componentStatus.settings.generalOn = false;
+		components.settings.generalOn = false;
 	}
 }
 
 // Change password function
 function passChangeRequest() {
-	var oldPass = document.querySelector('#change-password-input-old');
-	var newPass = document.querySelector('#change-password-input-new');
-	var newConfirmPass = document.querySelector('#change-password-input-new-confirm');
+	let oldPass = document.querySelector('#change-password-input-old');
+	let newPass = document.querySelector('#change-password-input-new');
+	let newConfirmPass = document.querySelector('#change-password-input-new-confirm');
 	console.log(oldPass.value, newPass.value, newConfirmPass.value);
-	var p = document.querySelector('#pass-error');
+	let p = document.querySelector('#pass-error');
 	p.classList.remove('confirm');
 	// validate password
 	// check if old password is correct
@@ -297,7 +261,7 @@ function addFunc() {
 	panel.classList.toggle('toggleAdd');
 	document.querySelector('#thead').classList.toggle('margin-add');
 	menu.classList.toggle('menu-down');
-	if (settingsOn) {
+	if (components.settings.on) {
 		settingsFunc();
 	}
 	if (searchOn) {
@@ -306,21 +270,21 @@ function addFunc() {
 	if (filtersOn) {
 		toggleFilters();
 	}
-	if (!addOn) {
+	if (!components.add.on) {
 		// create header
-		var header = document.createElement('div');
+		let header = document.createElement('div');
 		header.setAttribute('class', 'settings-header');
 		menu.appendChild(header);
 
 		// create icon
-		var headerIcon = document.createElement('img');
+		let headerIcon = document.createElement('img');
 		headerIcon.setAttribute('src', addIcon);
 		headerIcon.setAttribute('height', '20px');
 		headerIcon.setAttribute('class', 'header-icon');
 		header.appendChild(headerIcon);
 
 		// create text
-		var headerText = document.createElement('span');
+		let headerText = document.createElement('span');
 		headerText.textContent = 'Add';
 		header.appendChild(headerText);
 
@@ -330,34 +294,34 @@ function addFunc() {
 		menu.appendChild(div);
 
 		// create type input
-		var typeInput = document.createElement('input');
+		let typeInput = document.createElement('input');
 		typeInput.setAttribute('class', 'add-input');
 		typeInput.setAttribute('id', 'add-type');
 		typeInput.setAttribute('placeholder', 'Type (Personal, Work)');
 		div.appendChild(typeInput);
 
 		// create service input
-		var serviceInput = document.createElement('input');
+		let serviceInput = document.createElement('input');
 		serviceInput.setAttribute('class', 'add-input');
 		serviceInput.setAttribute('id', 'add-service');
 		serviceInput.setAttribute('placeholder', 'Service (Gmail, Twitter)');
 		div.appendChild(serviceInput);
 
 		// create email input
-		var emailInput = document.createElement('input');
+		let emailInput = document.createElement('input');
 		emailInput.setAttribute('class', 'add-input');
 		emailInput.setAttribute('id', 'add-email');
 		emailInput.setAttribute('placeholder', 'Email (name@service.com)');
 		div.appendChild(emailInput);
 
 		// create password div
-		var passwordDiv = document.createElement('div');
+		let passwordDiv = document.createElement('div');
 		passwordDiv.setAttribute('class', 'pass-div');
 		passwordDiv.setAttribute('id', 'add-pass');
 		div.appendChild(passwordDiv);
 
 		// create password input
-		var passwordInput = document.createElement('input');
+		let passwordInput = document.createElement('input');
 		passwordInput.setAttribute('class', 'add-input');
 		passwordInput.setAttribute('id', 'add-password');
 		passwordInput.setAttribute('placeholder', 'Password');
@@ -365,14 +329,14 @@ function addFunc() {
 		passwordDiv.appendChild(passwordInput);
 
 		// create password hide/show switch
-		var hideShow = document.createElement('div');
+		let hideShow = document.createElement('div');
 		hideShow.setAttribute('class', 'hide-show');
 		hideShow.setAttribute('id', 'add-switch');
 		hideShow.setAttribute('onclick', 'hideShow(this)');
 		passwordDiv.appendChild(hideShow);
 
 		// create eye icon
-		var eyeIcon = document.createElement('img');
+		let eyeIcon = document.createElement('img');
 		eyeIcon.setAttribute('class', 'eye-icon');
 		eyeIcon.setAttribute('id', 'add-icon');
 		eyeIcon.setAttribute('height', '10px');
@@ -380,19 +344,19 @@ function addFunc() {
 		hideShow.appendChild(eyeIcon);
 
 		// create error message
-		var span = document.createElement('span');
+		let span = document.createElement('span');
 		span.setAttribute('class', 'noerror');
 		span.setAttribute('id', 'add-error');
 		span.textContent = 'One or more of the fields is empty.';
 		div.appendChild(span);
 
 		// create add button
-		var addButton = document.createElement('button');
+		let addButton = document.createElement('button');
 		addButton.setAttribute('class', 'add-button');
 		addButton.setAttribute('onclick', 'addData()');
 		addButton.textContent = 'Add';
 		div.appendChild(addButton);
-		addOn = true;
+		components.add.on = true;
 
 		typeInput.addEventListener('keyup', enterFunc);
 		serviceInput.addEventListener('keyup', enterFunc);
@@ -402,7 +366,7 @@ function addFunc() {
 	} else {
 		panel.classList.remove('controlsSpan');
 		menu.innerHTML = '';
-		addOn = false;
+		components.add.on = false;
 	}
 }
 function enterFunc(event) {
@@ -469,17 +433,17 @@ function addRow(type, service, email, password, index) {
 	tr.setAttribute('class', 'row-' + index);
 	tr.setAttribute('id', 'tr');
 	table.appendChild(tr);
-	var text = [ type, service, email, password, index ];
+	let text = [ type, service, email, password, index ];
 
 	for (i = 0; i < id.length; i++) {
 		// create cell
-		var cell = document.createElement('div');
+		let cell = document.createElement('div');
 		cell.setAttribute('class', 'cell-' + index);
 		cell.setAttribute('id', id[i]);
 		cell.setAttribute('onclick', 'copy(this)');
 
 		// create content div
-		var content = document.createElement('div');
+		let content = document.createElement('div');
 		content.setAttribute('class', 'cell-' + index);
 		content.setAttribute('id', id[i] + '-content');
 
@@ -493,22 +457,22 @@ function addRow(type, service, email, password, index) {
 			}
 
 			// create strength div
-			var strengthD = document.createElement('div');
+			let strengthD = document.createElement('div');
 			strengthD.setAttribute('class', 'cell-' + index);
 			strengthD.setAttribute('id', 'strength-div');
 			cell.appendChild(strengthD);
 
 			// get strength value
-			var strength = strengthMeter(text[i]);
+			let strength = strengthMeter(text[i]);
 			// create strength text
-			var strengthText = document.createElement('p');
+			let strengthText = document.createElement('p');
 			strengthText.setAttribute('class', 'cell-' + index);
 			strengthText.setAttribute('id', 'strength-text');
 			strengthText.textContent = strengthTier[strength];
 			strengthD.appendChild(strengthText);
 
 			// create strength bar
-			var strengthBar = document.createElement('div');
+			let strengthBar = document.createElement('div');
 			strengthBar.setAttribute('class', 'cell-' + index);
 			strengthBar.setAttribute('id', 'strength-bar');
 			strengthD.appendChild(strengthBar);
@@ -529,14 +493,14 @@ function addRow(type, service, email, password, index) {
 	tr.appendChild(tdControls);
 
 	// create edit button
-	var edit = document.createElement('div');
+	let edit = document.createElement('div');
 	edit.setAttribute('class', 'cell-' + index);
 	edit.setAttribute('id', 'cell-edit');
 	edit.setAttribute('onclick', 'editRow(this, "show")');
 	tdControls.appendChild(edit);
 
 	// create edit icon
-	var pencil = document.createElement('img');
+	let pencil = document.createElement('img');
 	pencil.setAttribute('class', 'cell-' + index);
 	pencil.setAttribute('id', 'edit-icon');
 	pencil.setAttribute('src', pencilIcon);
@@ -544,14 +508,14 @@ function addRow(type, service, email, password, index) {
 	edit.appendChild(pencil);
 
 	// create show/hide button
-	var showHideButton = document.createElement('div');
+	let showHideButton = document.createElement('div');
 	showHideButton.setAttribute('class', 'cell-' + index);
 	showHideButton.setAttribute('id', 'cell-showHide');
 	showHideButton.setAttribute('onclick', 'hideShow(this)');
 	tdControls.appendChild(showHideButton);
 
 	// create eye icon
-	var eyeIcon = document.createElement('img');
+	let eyeIcon = document.createElement('img');
 	eyeIcon.setAttribute('class', 'cell-' + index);
 	eyeIcon.setAttribute('id', 'eye-icon');
 	eyeIcon.setAttribute('height', '15px');
@@ -563,14 +527,14 @@ function addRow(type, service, email, password, index) {
 	showHideButton.appendChild(eyeIcon);
 
 	// create delete button
-	var deleteButton = document.createElement('div');
+	let deleteButton = document.createElement('div');
 	deleteButton.setAttribute('class', 'cell-' + index);
 	deleteButton.setAttribute('id', 'cell-delete');
 	deleteButton.setAttribute('onclick', 'deleteFunc(this)');
 	tdControls.appendChild(deleteButton);
 
 	// create delete icon
-	var deleteIcon = document.createElement('img');
+	let deleteIcon = document.createElement('img');
 	deleteIcon.setAttribute('class', 'cell-' + index);
 	deleteIcon.setAttribute('id', 'delete-icon');
 	deleteIcon.setAttribute('src', trashcan);
@@ -583,18 +547,13 @@ function addRow(type, service, email, password, index) {
 		table.classList.remove('tbody-animation');
 	}, 250);
 }
-var componentStatus = {
-	strengthMeterOn: true,
-	settings: {
-		generalOn: false
-	}
-};
+
 function strengthMeter(text) {
-	if (componentStatus.strengthMeterOn) {
-		var strength = 0;
+	if (components.strengthMeterOn) {
+		let strength = 0;
 
 		// check for special characters
-		var characters = [
+		let characters = [
 			'!',
 			'@',
 			'#',
@@ -624,8 +583,8 @@ function strengthMeter(text) {
 			'{',
 			'}'
 		];
-		var includes1Character = false;
-		for (var i = 0; i < characters.length; i++) {
+		let includes1Character = false;
+		for (let i = 0; i < characters.length; i++) {
 			if (!includes1Character && text.includes(characters[i])) {
 				strength++;
 				includes1Character = true;
@@ -646,12 +605,12 @@ function strengthMeter(text) {
 	}
 }
 function hideShow(pro, value) {
-	var d = pro.id;
-	var c = pro.classList;
+	let d = pro.id;
+	let c = pro.classList;
 	// if it is an input
 	if (d == 'add-switch' || d.includes('change-password-icon-div')) {
-		var input;
-		var icon;
+		let input;
+		let icon;
 
 		// if it is the add menu
 		if (d == 'add-switch') {
@@ -659,7 +618,7 @@ function hideShow(pro, value) {
 			icon = document.querySelector('.eye-icon');
 		} else {
 			// if it is the change password menu
-			var inputD = d.replace('change-password-icon-div-', '');
+			let inputD = d.replace('change-password-icon-div-', '');
 			input = document.querySelector('#change-password-input-' + inputD);
 			icon = document.querySelector('#' + d + ' #change-password-icon');
 		}
@@ -674,8 +633,8 @@ function hideShow(pro, value) {
 		}
 	} else {
 		// if it is table
-		var querySelect = '#password-content' + '.' + c;
-		var querySelectInput = '#table-password' + '.input-' + data[c].index;
+		let querySelect = '#password-content' + '.' + c;
+		let querySelectInput = '#table-password' + '.input-' + data[c].index;
 		if (!editOn) {
 			console.log('data hidden was == ' + data[c].hidden);
 			if (data[c].hidden) {
@@ -704,7 +663,7 @@ function hideShow(pro, value) {
 }
 function toast(message) {
 	if (message != '' && !(message === undefined)) {
-		var span = document.createElement('div');
+		let span = document.createElement('div');
 		span.setAttribute('class', 'toast');
 		span.textContent = message;
 		document.body.appendChild(span);
@@ -714,18 +673,18 @@ function toast(message) {
 	}
 }
 function copy(properties) {
-	var d = properties.id;
-	var c = properties.classList;
-	var copyVar = data[c][d];
-	var copyDOM = document.createElement('input');
+	let d = properties.id;
+	let c = properties.classList;
+	let copylet = data[c][d];
+	let copyDOM = document.createElement('input');
 	copyDOM.setAttribute('class', 'hidden');
 	copyDOM.style = 'position: absolute; left: -50000px';
-	copyDOM.value = copyVar;
+	copyDOM.value = copylet;
 	document.body.appendChild(copyDOM);
 	document.querySelector('.hidden').select();
 	try {
 		document.execCommand('copy');
-		console.log('Copying .' + c + '#' + d + ' was successful, and the message is: ' + copyVar);
+		console.log('Copying .' + c + '#' + d + ' was successful, and the message is: ' + copylet);
 		toast('Copied to clipboard!');
 	} catch (err) {
 		console.log('Copying ' + c + d + ' was unsuccessful!');
@@ -735,13 +694,13 @@ function copy(properties) {
 
 // edit row function
 function editRow(properties, action) {
-	var d = properties.id;
-	var c = properties.classList;
-	var tr = 'row-' + data[c].index;
-	var typeDOM = document.querySelector('#type-content.' + c);
-	var serviceDOM = document.querySelector('#service-content.' + c);
-	var emailDOM = document.querySelector('#email-content.' + c);
-	var passwordDOM = document.querySelector('#password-content.' + c);
+	let d = properties.id;
+	let c = properties.classList;
+	let tr = 'row-' + data[c].index;
+	let typeDOM = document.querySelector('#type-content.' + c);
+	let serviceDOM = document.querySelector('#service-content.' + c);
+	let emailDOM = document.querySelector('#email-content.' + c);
+	let passwordDOM = document.querySelector('#password-content.' + c);
 	passwordDOM.classList.toggle('edit-on');
 
 	// edit transitions
@@ -774,7 +733,7 @@ function editRow(properties, action) {
 
 		// add input
 		// create type input
-		var typeInput = document.createElement('input');
+		let typeInput = document.createElement('input');
 		typeInput.setAttribute('class', 'input-' + data[c].index);
 		typeInput.setAttribute('id', 'table-type');
 		typeInput.setAttribute('placeholder', 'Type');
@@ -782,7 +741,7 @@ function editRow(properties, action) {
 		typeDOM.appendChild(typeInput);
 
 		// create service input
-		var serviceInput = document.createElement('input');
+		let serviceInput = document.createElement('input');
 		serviceInput.setAttribute('class', 'input-' + data[c].index);
 		serviceInput.setAttribute('id', 'table-service');
 		serviceInput.setAttribute('placeholder', 'Service');
@@ -790,7 +749,7 @@ function editRow(properties, action) {
 		serviceDOM.appendChild(serviceInput);
 
 		// create email input
-		var emailInput = document.createElement('input');
+		let emailInput = document.createElement('input');
 		emailInput.setAttribute('class', 'input-' + data[c].index);
 		emailInput.setAttribute('id', 'table-email');
 		emailInput.setAttribute('placeholder', 'Email');
@@ -798,7 +757,7 @@ function editRow(properties, action) {
 		emailDOM.appendChild(emailInput);
 
 		// create password input
-		var passwordInput = document.createElement('input');
+		let passwordInput = document.createElement('input');
 		passwordInput.setAttribute('class', 'input-' + data[c].index);
 		passwordInput.setAttribute('id', 'table-password');
 		passwordInput.setAttribute('placeholder', 'Password');
@@ -809,17 +768,17 @@ function editRow(properties, action) {
 		}
 		passwordInput.value = data[c].password;
 		passwordInput.addEventListener('input', function() {
-			var strength = strengthMeter(passwordInput.value);
+			let strength = strengthMeter(passwordInput.value);
 			document.querySelector('#strength-text.' + c).textContent = strengthTier[strength];
 			document.querySelector('#strength-bar.' + c).style.background = ' var(--strength-' + strength + ')';
 			document.querySelector('#strength-bar.' + c).style.width = (strength + 1) / strengthTier.length * 100 + '%';
 		});
 		passwordDOM.appendChild(passwordInput);
 	} else {
-		var typeInputDOM = document.querySelector('.input-' + data[c].index + '#table-type');
-		var serviceInputDOM = document.querySelector('.input-' + data[c].index + '#table-service');
-		var emailInputDOM = document.querySelector('.input-' + data[c].index + '#table-email');
-		var passwordInputDOM = document.querySelector('.input-' + data[c].index + '#table-password');
+		let typeInputDOM = document.querySelector('.input-' + data[c].index + '#table-type');
+		let serviceInputDOM = document.querySelector('.input-' + data[c].index + '#table-service');
+		let emailInputDOM = document.querySelector('.input-' + data[c].index + '#table-email');
+		let passwordInputDOM = document.querySelector('.input-' + data[c].index + '#table-password');
 		if (
 			typeInputDOM.value == '' ||
 			serviceInputDOM.value == '' ||
@@ -873,9 +832,9 @@ function editRow(properties, action) {
 }
 
 function cancelEdit(properties) {
-	var c = properties.classList['value'];
-	var index = data[c].index;
-	var tr = 'row-' + index;
+	let c = properties.classList['value'];
+	let index = data[c].index;
+	let tr = 'row-' + index;
 
 	document.querySelector('.' + tr).classList.remove('edit-on');
 
@@ -907,7 +866,7 @@ function cancelEdit(properties) {
 	iconChecker('.' + c, '#service-content', document.querySelector('#service-content.' + c).textContent);
 
 	// check strength
-	var strength = strengthMeter(data[c].password);
+	let strength = strengthMeter(data[c].password);
 	document.querySelector('#strength-text.' + c).textContent = strengthTier[strength];
 	document.querySelector('#strength-bar.' + c).style.background = ' var(--strength-' + strength + ')';
 	document.querySelector('#strength-bar.' + c).style.width = (strength + 1) / strengthTier.length * 100 + '%';
@@ -915,20 +874,20 @@ function cancelEdit(properties) {
 
 // delete row function
 function deleteFunc(properties) {
-	var d = properties.id;
-	var c = properties.classList['value'];
-	var index = data[c].index;
+	let d = properties.id;
+	let c = properties.classList['value'];
+	let index = data[c].index;
 	console.log(c);
-	var tr = 'row-' + index;
+	let tr = 'row-' + index;
 	tr = document.querySelector('.row-' + index);
 	tr.classList.toggle('draw-out-animation');
 	setTimeout(() => {
-		var removedIndex = Number(c.replace('cell-', ''));
+		let removedIndex = Number(c.replace('cell-', ''));
 		console.log('removedIndex: ' + removedIndex);
 		tr.remove();
 		delete data[c];
-		for (var i = removedIndex + 1; i < data.cellIndex; i++) {
-			var row = data['cell-' + i];
+		for (let i = removedIndex + 1; i < data.cellIndex; i++) {
+			let row = data['cell-' + i];
 			data['cell-' + (i - 1)] = {
 				class: 'cell-' + (i - 1),
 				type: row.type,
@@ -941,10 +900,10 @@ function deleteFunc(properties) {
 			};
 
 			// update class name of cells
-			var rowCells = document.querySelectorAll('.cell-' + i);
-			var rowLength = rowCells.length;
-			for (var x = 0; x < rowLength; x++) {
-				var element = rowCells[x];
+			let rowCells = document.querySelectorAll('.cell-' + i);
+			let rowLength = rowCells.length;
+			for (let x = 0; x < rowLength; x++) {
+				let element = rowCells[x];
 				element.setAttribute('class', 'cell-' + (i - 1));
 			}
 
@@ -964,7 +923,7 @@ function toggleParameters() {
 }
 
 // Password
-var passParam = false;
+let passParam = false;
 
 function togglePassParam() {
 	// Animation
@@ -989,62 +948,62 @@ function togglePassParam() {
 		// Creating children
 
 		// Create header div
-		var headerDiv = document.createElement('div');
+		let headerDiv = document.createElement('div');
 		headerDiv.setAttribute('class', 'settings-parameters-header');
 		parentElement.appendChild(headerDiv);
 
 		// Create header icon
-		var headerIcon = document.createElement('img');
+		let headerIcon = document.createElement('img');
 		headerIcon.setAttribute('class', 'icon');
 		headerIcon.setAttribute('src', '');
 		headerDiv.appendChild(headerIcon);
 
 		// Create header text
-		var headerText = document.createElement('p');
+		let headerText = document.createElement('p');
 		headerText.setAttribute('class', 'settings-header-text');
 		headerText.textContent = 'Change Password';
 		headerDiv.appendChild(headerText);
 
 		// create inputs
-		var id = [ 'old', 'new', 'new-confirm' ];
-		var placeHolderText = [ 'Old password', 'New password', 'Confirm new password' ];
+		let id = [ 'old', 'new', 'new-confirm' ];
+		let placeHolderText = [ 'Old password', 'New password', 'Confirm new password' ];
 
-		for (var i = 0; i < id.length; i++) {
+		for (let i = 0; i < id.length; i++) {
 			// create parent div
-			var parentDiv = document.createElement('div');
+			let parentDiv = document.createElement('div');
 			parentDiv.setAttribute('class', 'change-password');
 			parentDiv.setAttribute('id', 'change-password-parent');
 			parentElement.appendChild(parentDiv);
 
 			// create placeholder
-			var placeHolder = document.createElement('placeholder');
+			let placeHolder = document.createElement('placeholder');
 			placeHolder.setAttribute('class', 'change-password');
 			placeHolder.setAttribute('id', 'change-password-placeholder');
 			placeHolder.textContent = placeHolderText[i];
 			parentDiv.appendChild(placeHolder);
 
 			// create input div
-			var inputDiv = document.createElement('div');
+			let inputDiv = document.createElement('div');
 			inputDiv.setAttribute('class', 'change-password');
 			inputDiv.setAttribute('id', 'change-password-input-div');
 			parentDiv.appendChild(inputDiv);
 
 			// create input
-			var input = document.createElement('input');
+			let input = document.createElement('input');
 			input.setAttribute('class', 'change-password');
 			input.setAttribute('id', 'change-password-input-' + id[i]);
 			input.setAttribute('type', 'password');
 			inputDiv.appendChild(input);
 
 			// create password hide/show switch
-			var hideShow = document.createElement('hideShow');
+			let hideShow = document.createElement('hideShow');
 			hideShow.setAttribute('class', 'change-password');
 			hideShow.setAttribute('id', 'change-password-icon-div-' + id[i]);
 			hideShow.setAttribute('onclick', 'hideShow(this)');
 			inputDiv.appendChild(hideShow);
 
 			// create eye icon
-			var eyeIcon = document.createElement('img');
+			let eyeIcon = document.createElement('img');
 			eyeIcon.setAttribute('class', 'change-password');
 			eyeIcon.setAttribute('id', 'change-password-icon');
 			eyeIcon.setAttribute('height', '10px');
@@ -1053,13 +1012,13 @@ function togglePassParam() {
 		}
 
 		// Create span
-		var p = document.createElement('p');
+		let p = document.createElement('p');
 		p.setAttribute('class', 'noerror');
 		p.setAttribute('id', 'pass-error');
 		p.textContent = 'ERROR';
 
 		// Create confirm button
-		var button = document.createElement('button');
+		let button = document.createElement('button');
 		button.setAttribute('class', 'change-password-confirm');
 		button.setAttribute('onclick', 'passChangeRequest()');
 		button.textContent = 'Change';
@@ -1099,7 +1058,7 @@ function togglePassParam() {
 }
 
 // Lock Vault
-var lockVaultOn = false;
+let lockVaultOn = false;
 function lockVault() {
 	// Animation
 	toggleParameters();
@@ -1122,19 +1081,19 @@ function lockVault() {
 		document.querySelector('#lock').classList.toggle('button-header-active');
 
 		// Are you sure?
-		var p = document.createElement('p');
+		let p = document.createElement('p');
 		p.setAttribute('class', 'lock-param');
 		p.setAttribute('id', 'confirmation');
 		p.textContent = 'Are you sure you want to lock vault?';
 		appendChildElement = parentElement.appendChild(p);
 
 		// confimation div **div class="yesno"**
-		var div = document.createElement('div');
+		let div = document.createElement('div');
 		div.setAttribute('class', 'yesno');
 
 		// save & quit Button
 		if (saved) {
-			var saveQuitButton = document.createElement('button');
+			let saveQuitButton = document.createElement('button');
 			saveQuitButton.setAttribute('class', 'lock-param');
 			saveQuitButton.setAttribute('id', 'save-quit-button');
 			saveQuitButton.textContent = 'Save and quit';
@@ -1142,7 +1101,7 @@ function lockVault() {
 		}
 
 		// Quit
-		var quitButton = document.createElement('button');
+		let quitButton = document.createElement('button');
 		quitButton.setAttribute('class', 'lock-param');
 		quitButton.setAttribute('id', 'quit-button');
 		quitButton.setAttribute('onclick', 'quit()');
@@ -1155,13 +1114,13 @@ function lockVault() {
 		// Package Elements
 		appendChildElement = parentElement.appendChild(quitButton);
 
-		// Variable manipulation
+		// letiable manipulation
 		lockVaultOn = true;
 	} else {
 		document.querySelector('#lock').classList.toggle('button-header-active');
 
 		setTimeout(function() {
-			var first = parentElement.firstElementChild;
+			let first = parentElement.firstElementChild;
 			while (first) {
 				first.remove();
 				first = parentElement.firstElementChild;
@@ -1182,7 +1141,7 @@ function quit() {
 
 // Gridlines
 function toggleGridlines() {
-	var gridlinesTable = document.querySelectorAll('#tr');
+	let gridlinesTable = document.querySelectorAll('#tr');
 	// Toggle gridlines
 	for (i = 0; i < gridlinesTable.length; i++) {
 		gridlinesTable[i].classList.toggle('gridlinesOn');
@@ -1203,7 +1162,7 @@ function toggleGridlines() {
 	save('config');
 }
 function switchTheme() {
-	var changeTheme = document.querySelector('#switch-theme');
+	let changeTheme = document.querySelector('#switch-theme');
 	document.querySelector('head').removeChild(document.querySelector('.link-theme'));
 	if (config.theme == 'dark') {
 		config.theme = 'light';
@@ -1217,7 +1176,7 @@ function switchTheme() {
 }
 
 // About section
-var aboutOn = false;
+let aboutOn = false;
 function about() {
 	toggleParameters();
 	parentElement = document.querySelector('.settings-parameters');
@@ -1246,26 +1205,26 @@ function about() {
 		// button effects
 		document.querySelector('#about').classList.toggle('button-header-active');
 		// create header
-		var headerDiv = document.createElement('div');
+		let headerDiv = document.createElement('div');
 		headerDiv.setAttribute('class', 'settings-parameters-header');
-		var headerIcon = document.createElement('img');
+		let headerIcon = document.createElement('img');
 		headerIcon.setAttribute('class', 'icon');
 		headerIcon.setAttribute('src', '');
-		var headerText = document.createElement('p');
+		let headerText = document.createElement('p');
 		headerText.setAttribute('class', 'settings-header-text');
 		headerText.textContent = 'About';
 
 		// create header div
-		var bodyHeaderDIV = document.createElement('div');
+		let bodyHeaderDIV = document.createElement('div');
 		bodyHeaderDIV.setAttribute('style', 'display: flex; flex-direction: row; align-items: center');
 
 		// create header of paragraph
-		var bodyHeaderText = document.createElement('p');
+		let bodyHeaderText = document.createElement('p');
 		bodyHeaderText.setAttribute('class', 'settings-sub-body-header');
 		bodyHeaderText.textContent = 'What is PassVault?';
 
 		// create header icon
-		var bodyHeaderImg = document.createElement('img');
+		let bodyHeaderImg = document.createElement('img');
 		bodyHeaderImg.setAttribute('class', 'settings-sub-body-header');
 		bodyHeaderImg.setAttribute('style', 'margin-left: 4px');
 		bodyHeaderImg.setAttribute('height', '26px');
@@ -1273,28 +1232,28 @@ function about() {
 
 		// create paragraph
 
-		var bodyText1 = document.createElement('p');
+		let bodyText1 = document.createElement('p');
 		bodyText1.setAttribute('class', 'settings-sub-body');
 		bodyText1.innerHTML = `PassVault is an <a href="" onclick="openExternal('github')">open-source tool</a> 
 		developed by Hamza Alsarakbi that stores your encrypted passwords locally and not on the cloud to provide you 
 		with the highest privacy.`;
 		// open source link
-		var openSourceLink = document.createElement('a');
+		let openSourceLink = document.createElement('a');
 		openSourceLink.setAttribute('href', 'www.google.ca');
 		openSourceLink.textContent = 'open-source tool';
 
 		// create header of paragraph
-		var bodyHeader2 = document.createElement('p');
+		let bodyHeader2 = document.createElement('p');
 		bodyHeader2.setAttribute('class', 'settings-sub-body-header');
 		bodyHeader2.textContent = 'Support me \u{2665}';
 
 		// create paragraph
-		var bodyText2 = document.createElement('p');
+		let bodyText2 = document.createElement('p');
 		bodyText2.setAttribute('class', 'settings-sub-body');
 		bodyText2.innerHTML =
 			`If you enjoy this app, consider following me on Instagram 
 		<a href="" onclick="openExternal('instagram')">@hamza__sar</a>.
-		 If you encounter a bug with this app, tweet to <a href="" onclick="openExternal('twitter')">@Electr0d</a>. 
+		 If you encounter a bug with this app. 
 		 If you want to <a href="" onclick="openExternal('donate')">donate</a>, 
 		 you can. It helps maintain this app, and build future projects.
 		 <br>
@@ -1316,7 +1275,7 @@ function about() {
 
 		setTimeout(function() {
 			parentElement.classList.remove('toggleAbout');
-			var first = parentElement.firstElementChild;
+			let first = parentElement.firstElementChild;
 			while (first) {
 				first.remove();
 				first = parentElement.firstElementChild;
@@ -1342,27 +1301,27 @@ function showDialog(titleContent, promptContent, buttons, buttonActions) {
 	if (buttons.length == buttonActions.length) {
 		const body = document.querySelector('body');
 		// create overlay
-		var overlay = document.createElement('div');
+		let overlay = document.createElement('div');
 		overlay.setAttribute('class', 'overlay');
 		body.appendChild(overlay);
 		// create dialog box
-		var dialogBox = document.createElement('div');
+		let dialogBox = document.createElement('div');
 		dialogBox.setAttribute('class', 'dialog-box');
 		overlay.appendChild(dialogBox);
 
 		// create title
-		var title = document.createElement('p');
+		let title = document.createElement('p');
 		title.setAttribute('class', 'dialog-box-title');
 		title.textContent = titleContent;
 		dialogBox.appendChild(title);
 		// create prompt
-		var prompt = document.createElement('p');
+		let prompt = document.createElement('p');
 		prompt.setAttribute('class', 'dialog-box-prompt');
 		prompt.textContent = promptContent;
 		dialogBox.appendChild(prompt);
 		// create buttons
 		for (i = 0; i < buttons.length; i++) {
-			var button = document.createElement('button');
+			let button = document.createElement('button');
 			button.setAttribute('class', 'dialog-box-button');
 			button.setAttribute('id', 'dialog-box-button-' + i);
 			button.setAttribute('onclick', buttonActions[i]);
@@ -1375,7 +1334,7 @@ function showDialog(titleContent, promptContent, buttons, buttonActions) {
 	}
 }
 function closeDialog() {
-	var overlay = document.querySelector('.overlay');
+	let overlay = document.querySelector('.overlay');
 	if (overlay === undefined) {
 		// throw error
 	} else {
@@ -1386,10 +1345,10 @@ function closeDialog() {
 		}, 240);
 	}
 }
-var searchOn = false;
+let searchOn = false;
 function searchToggle() {
-	if (addOn) addFunc();
-	if (settingsOn) settingsFunc();
+	if (components.add.on) addFunc();
+	if (components.settings.on) settingsFunc();
 
 	// transitions
 	searchInput.classList.toggle('toggleSearch');
@@ -1407,18 +1366,18 @@ function searchToggle() {
 	}
 }
 // filters
-var filtersOn = false;
+let filtersOn = false;
 function toggleFilters() {
-	if (addOn) addFunc();
-	if (settingsOn) settingsFunc();
+	if (components.add.on) addFunc();
+	if (components.settings.on) settingsFunc();
 	if (!filtersOn) {
 		// make drop-down
-		var container = document.createElement('div');
+		let container = document.createElement('div');
 		container.setAttribute('class', 'drop-down');
 		document.querySelector('dropDown').appendChild(container);
 
 		// create header
-		var header = document.createElement('div');
+		let header = document.createElement('div');
 		header.setAttribute('class', 'header');
 		header.textContent = 'Search By:';
 		container.appendChild(header);
@@ -1426,13 +1385,13 @@ function toggleFilters() {
 		// create parameters
 		for (i = 0; i < id.length; i++) {
 			// create parameter
-			var label = document.createElement('label');
+			let label = document.createElement('label');
 			label.setAttribute('class', 'label');
 			label.textContent = id[i];
 			container.appendChild(label);
 
 			// create checkbox
-			var input = document.createElement('input');
+			let input = document.createElement('input');
 			input.setAttribute('type', 'checkbox');
 			input.setAttribute('id', id[i]);
 			input.setAttribute('onclick', 'setFilter(this)');
@@ -1442,7 +1401,7 @@ function toggleFilters() {
 			label.appendChild(input);
 
 			// create checkmark
-			var span = document.createElement('span');
+			let span = document.createElement('span');
 			span.setAttribute('class', 'checkmark');
 			label.appendChild(span);
 		}
@@ -1453,7 +1412,7 @@ function toggleFilters() {
 	}
 }
 function setFilter(e) {
-	var id = e.id;
+	let id = e.id;
 	if (searchBy[id]) {
 		searchBy[id] = false;
 	} else {
@@ -1473,7 +1432,7 @@ function search() {
 			for (c = 0; c < id.length; c++) {
 				// check if searchby is active
 				if (searchBy[id[c]]) {
-					var cellData = data['cell-' + i][id[c]].toLowerCase();
+					let cellData = data['cell-' + i][id[c]].toLowerCase();
 					if (cellData.includes(text)) {
 						document.querySelector('.row-' + i).classList.remove('no-match');
 					}
@@ -1486,11 +1445,11 @@ function search() {
 	}
 }
 function iconChecker(classList, id, text) {
-	var cell = document.querySelector(classList + id);
-	var originalText = text;
+	let cell = document.querySelector(classList + id);
+	let originalText = text;
 	text = text.toLowerCase();
-	var list = [];
-	var defaultList = [];
+	let list = [];
+	let defaultList = [];
 
 	// pull default icons
 	try {
@@ -1514,7 +1473,7 @@ function iconChecker(classList, id, text) {
 	}
 
 	if (!(list === undefined || list.length == 0)) {
-		for (var i = 0; i < list.length; i++) {
+		for (let i = 0; i < list.length; i++) {
 			if (text.includes(list[i].substring(0, list[i].length - 4))) {
 				cell.innerHTML =
 					`
@@ -1534,7 +1493,7 @@ function iconChecker(classList, id, text) {
 	}
 
 	function defaultAdd() {
-		for (var i = 0; i < defaultList.length; i++) {
+		for (let i = 0; i < defaultList.length; i++) {
 			if (text.includes(defaultList[i].substring(0, defaultList[i].length - 4))) {
 				cell.innerHTML =
 					`

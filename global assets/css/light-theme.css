@@ -1,21 +1,24 @@
 :root {
 	/** Global Settings **/
-	--body: rgb(240, 240, 240);
+	--body: rgb(220, 220, 220);
 	--secondary-background: rgb(200, 200, 200);
+
 	--primary-color: black;
 	--secondary-color: rgb(30, 30, 30);
 	--tertiary-color: rgb(75, 75, 75);
-	--primary-hover: rgb(200, 200, 200);
+	--primary-hover: rgb(190, 190, 190);
+	--primary-accent: rgb(66, 107, 196);
+	--primary-accent-transparent: rgba(45, 85, 170, 0.5);
 
 	/** Scrollbar **/
 	--scrollbar-track: rgb(190, 190, 190);
-	--scrollbar-thumb: rgb(160, 160, 160);
-	--scrollbar-thumb-hover: rgb(140, 140, 140);
+	--scrollbar-thumb: var(--primary-accent);
+	--scrollbar-thumb-hover: var(--primary-accent-transparent);
 
 	/** Controls **/
 	--toggle-controls: rgba(226, 226, 226, 0.4);
 	--toggle-controls-opaque: rgba(226, 226, 226, 1);
-	--primary-a: rgb(43, 85, 173);
+	--primary-a: var(--primary-accent);
 
 	/** Button **/
 	--primary-button: rgb(64, 124, 255);
@@ -28,8 +31,8 @@
 
 	/** Table **/
 	--primary-thead-border: 2px solid black;
-	--row-hover: rgb(220, 220, 220);
-	--cell-hover: rgb(200, 200, 200);
+	--row-hover: rgb(210, 210, 210);
+	--cell-hover: rgb(190, 190, 190);
 	--copy-color: rgb(75, 75, 75);
 
 	/** password **/

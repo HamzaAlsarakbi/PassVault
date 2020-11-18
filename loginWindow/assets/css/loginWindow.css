@@ -5,7 +5,7 @@
 	vertical-align: baseline;
 	outline: none;
 	user-select: none;
-	transition: 0.2s;
+	transition: 0.2s ease-out;
 }
 .container {
 	font-family: "Segoe UI", sans-serif;
@@ -40,7 +40,7 @@ input {
 	background: transparent;
 	height: 30px;
 	width: 80%;
-	border: 2px solid var(--primary-input);
+	border: 1px solid var(--primary-input);
 	border-radius: 5px;
 	color: var(--secondary-color);
 }
@@ -53,7 +53,7 @@ input#password {
 	margin: 10px;
 }
 
-button.submit {
+button {
 	margin: 10px;
 	height: 30px;
 	width: 60%;
@@ -61,11 +61,16 @@ button.submit {
 	border: none;
 	background: var(--primary-button);
 	color: var(--secondary-color);
-}
-button.submit:hover {
 	cursor: pointer;
+}
+button:hover {
 	color: var(--secondary-color);
-	background: var(--secondary-button);
+	transform: scale(1.05) translateZ(0) perspective(1px);
+	transition: 0.1s;
+}
+button:active {
+	transform: scale(0.95);
+	transition: 0.1s;
 }
 .noerror {
 	color: transparent;

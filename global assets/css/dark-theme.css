@@ -1,6 +1,6 @@
 :root {
 	/** Global colors **/
-	--body: rgb(32, 32, 32);
+	--body: rgb(20, 20, 20);
 	--secondary-background: rgb(60, 60, 60);
 
 	--primary-color: white;
@@ -8,16 +8,16 @@
 	--tertiary-color: rgb(190, 190, 190);
 	--primary-hover: rgb(60, 60, 60);
 	--primary-accent: rgb(66, 107, 196);
-	--primary-accent-transparent: rgba(45, 85, 170, 0.5);
+	--primary-accent-transparent: rgba(45, 85, 170, 0.8);
 
 	--secondary-accent: rgb(32, 32, 32);
 	--secondary-accent-transparent: rgba(32, 32, 32, 0.5);
 	--primary-important: rgb(200, 50, 50);
 
 	/** Scrollbar **/
-	--scrollbar-track: rgb(30, 30, 30);
-	--scrollbar-thumb: rgb(92, 92, 92);
-	--scrollbar-thumb-hover: rgb(80, 80, 80);
+	--scrollbar-track: rgb(40, 40, 40);
+	--scrollbar-thumb: var(--primary-accent);
+	--scrollbar-thumb-hover: var(--primary-accent-transparent);
 
 	/** Controls **/
 	--toggle-controls: rgba(50, 50, 50, 0.4);
@@ -26,11 +26,13 @@
 
 	/** Buttons **/
 	--primary-button: linear-gradient(-45deg, rgb(10, 66, 189), rgb(61, 118, 243));
+	--secondary-button: linear-gradient(45deg, rgb(10, 66, 189), rgb(61, 118, 243));
 	--secondary-button: rgb(45, 85, 170);
 	--primary-green: rgb(50, 200, 50);
 
 	/** Input **/
 	--primary-input: rgb(80, 80, 80);
+	--secondary-input: var(--primary-accent);
 
 	/** Table **/
 	--primary-thead-border: 2px solid white;

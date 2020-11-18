@@ -1,13 +1,3 @@
-/* Styling of window frame and titlebar */
-
-/* Track */
-::-webkit-scrollbar-track {
-	border-radius: 5px;
-}
-::-webkit-scrollbar-thumb {
-	border-radius: 5px;
-}
-
 html {
 	box-sizing: border-box;
 }
@@ -24,6 +14,7 @@ html {
 	width: 100%;
 	backdrop-filter: blur(5px);
 	z-index: 999;
+	backdrop-filter: brightness(0.7) blur(4px);
 }
 
 .maximized #titlebar {
@@ -50,6 +41,7 @@ html {
 	overflow-x: hidden;
 	font-family: "Segoe UI", sans-serif;
 	font-size: 12px;
+	overflow: hidden;
 }
 
 .maximized #window-title {
@@ -140,4 +132,8 @@ html {
 
 ::-webkit-scrollbar {
 	width: 12px;
+}
+
+.window-icon {
+	width: 10px;
 }

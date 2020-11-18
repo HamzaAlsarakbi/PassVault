@@ -51,6 +51,7 @@ try {
 var config = {
 	theme: 'dark',
 	gridlinesOn: false,
+	disableAnimations: false,
 	firstTime: true
 };
 var rawConfig, parsedConfig, decryptedConfig;

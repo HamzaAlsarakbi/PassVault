@@ -11,7 +11,7 @@ const fs = require('fs');
 function getUserHome() {
 	return process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME'];
 }
-var parentDir;
+let parentDir;
 if (process.platform == 'win32') {
 	// check if in development mode
 	if (isDev) {
@@ -47,25 +47,26 @@ const paramPath = path.join(dataDir, '/param.json');
 
 let loginWindow;
 let mainWindow;
-var mainWindowOn = 0;
+let mainWindowOn = 0;
 let loadFile;
 
-var config = {
+let config = {
 	theme: 'dark',
 	masterPassword: '',
 	gridlinesOn: false,
+	disableAnimations: false,
 	firstTime: true
 };
 console.log(config.firstTime);
-var key = crypto.randomBytes(32);
-var iv = crypto.randomBytes(16);
-var param = {
+let key = crypto.randomBytes(32);
+let iv = crypto.randomBytes(16);
+let param = {
 	keyO: key,
 	ivO: iv
 };
 
 try {
-	var rawParam = fs.readFileSync(paramPath);
+	let rawParam = fs.readFileSync(paramPath);
 	param = JSON.parse(rawParam);
 	key = new Buffer.from(param.keyO);
 	iv = new Buffer.from(param.ivO);
@@ -88,7 +89,7 @@ function decryptConfig(text) {
 app.on('ready', ready);
 function ready() {
 	try {
-		var rawConfig = fs.readFileSync(configFullPath);
+		let rawConfig = fs.readFileSync(configFullPath);
 		parsedConfig = JSON.parse(rawConfig);
 		decryptedConfig = decryptConfig(parsedConfig);
 		config = JSON.parse(decryptedConfig);
@@ -109,7 +110,8 @@ function ready() {
 		frame: false,
 		resizable: false,
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: true,
+			enableRemoteModule: true
 		},
 		icon: path.join(__dirname, 'global assets/img/icon.png')
 	});
@@ -169,7 +171,8 @@ function createMainWindow() {
 		minHeight: 500,
 		minWidth: 620,
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: true,
+			enableRemoteModule: true
 		},
 		icon: path.join(__dirname, 'global assets/img/icon.png')
 	});

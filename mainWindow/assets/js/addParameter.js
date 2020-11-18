@@ -1,4 +1,4 @@
-function addParameter(parent, text, interaction, id, onclick, on, returnStatement) {
+function addParameter(parent, text, interaction, id, onclick, config, on, returnStatement) {
 	// create parameter
 	var parameter = document.createElement('div');
 	parameter.setAttribute('class', 'settings-parameter');
@@ -17,7 +17,10 @@ function addParameter(parent, text, interaction, id, onclick, on, returnStatemen
 		var switchElement = document.createElement('div');
 		switchElement.setAttribute('class', 'switch-housing');
 		switchElement.setAttribute('id', 'switch-' + id);
-		switchElement.setAttribute('onclick', onclick);
+		switchElement.setAttribute(
+			'onclick',
+			onclick + '; transformSwitch(document.querySelector(".switch-circle#switch-' + id + '"))'
+		);
 		parameter.appendChild(switchElement);
 
 		// create circle
@@ -25,7 +28,7 @@ function addParameter(parent, text, interaction, id, onclick, on, returnStatemen
 		circle.setAttribute('class', 'switch-circle');
 		circle.setAttribute('id', 'switch-' + id);
 		switchElement.appendChild(circle);
-		if (data.users[data.users.currentUser].preferences[id] == on) tranformSwitch(circle);
+		if (config == on) transformSwitch(circle);
 	} else if (interaction == 'slider') {
 		var parameterContainer = document.createElement('div');
 		parameterContainer.setAttribute('class', 'parameter-container');
@@ -57,4 +60,7 @@ function addParameter(parent, text, interaction, id, onclick, on, returnStatemen
 		parameter.appendChild(button);
 	}
 	if (returnStatement) return data.users[data.users.currentUser].preferences[id] == on;
+}
+function transformSwitch(switchElement) {
+	switchElement.classList.toggle('switch-on');
 }

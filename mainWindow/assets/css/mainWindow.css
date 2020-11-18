@@ -28,19 +28,7 @@ body {
 	height: 100%;
 	margin: 0;
 }
-/** Scrollbar **/
-::-webkit-scrollbar-track {
-	background: var(--scrollbar-track);
-}
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: var(--scrollbar-thumb);
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: var(--scrollbar-thumb-hover);
-}
 /** Loading Menu **/
 .overlay {
 	position: fixed;
@@ -137,7 +125,8 @@ body {
 	width: 100%;
 	flex-direction: column;
 	margin-top: 30px;
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 /** controls **/
@@ -145,13 +134,14 @@ panel {
 	margin-top: 0px;
 	border-radius: 10px;
 	width: 100px;
-	height: 50px;
+	height: 55px;
 	width: 75%;
 	max-width: 1000px;
 	min-width: 600px;
 	position: fixed;
 	z-index: 2;
 	backdrop-filter: blur(10px);
+	margin-top: 10px;
 }
 controls {
 	margin: 8px;
@@ -265,6 +255,7 @@ menu {
 	margin-top: 20px;
 	width: 500px;
 	background: var(--toggle-controls);
+	backdrop-filter: brightness(0.8);
 }
 
 .toggleAbout {
@@ -273,6 +264,7 @@ menu {
 	margin-top: 10px !important;
 	height: 200px;
 	padding-right: 5px;
+	backdrop-filter: brightness(0.8);
 }
 .settings-parameters::-webkit-scrollbar {
 	width: 7px;
@@ -498,6 +490,7 @@ button:hover {
 .settingsToggle {
 	opacity: 1;
 	transform: translateX(0%);
+	width: 70%;
 }
 input {
 	margin: 5px;
@@ -699,7 +692,7 @@ input.change-password {
 }
 
 #thead {
-	padding-top: 60px;
+	padding-top: 70px;
 	position: sticky;
 	top: 0;
 	backdrop-filter: blur(5px);

@@ -1,0 +1,11 @@
+function addElement(element, attributes, text, parent) {
+  let e = document.createElement(element);
+  for (let attribute in attributes) {
+    e.setAttribute(attribute, attributes[attribute]);
+  }
+
+  let value = element == 'input' ? 'value': 'textContent';  
+  e[value] = text;
+  parent.appendChild(e);
+  return e;
+}
