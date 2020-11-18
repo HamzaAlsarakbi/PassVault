@@ -129,11 +129,10 @@ function settingsFunc() {
 		addElement('div', {class: 'settings-parameters'}, undefined, settingsBody);
 
 
-		components.settings.on = true;
 	} else {
 		menu.innerHTML = '';
-		components.settings.on = false;
 	}
+	components.settings.on = !components.settings.on;
 }
 
 // genaral
@@ -169,15 +168,11 @@ function general() {
 		components.settings.generalOn = true;
 
 		// create toggle gridlines button
-		toggleGridlinesButton = document.createElement('button');
-		toggleGridlinesButton.setAttribute('id', 'general-gridlines');
-		toggleGridlinesButton.setAttribute('onclick', 'toggleGridlines()');
-		parentElement.appendChild(toggleGridlinesButton);
-		if (!config.gridlinesOn) {
-			toggleGridlinesButton.textContent = 'Show Gridlines';
-		} else {
-			toggleGridlinesButton.textContent = 'Hide Gridlines';
-		}
+		addParameter(parentElement, {text: 'Show gridlines'}, 'switch', 'general-gridlines', 'toggleGridlines()', config.gridlinesOn, true);
+		addParameter(parentElement, {text: 'Animations'}, 'switch', 'enable-animations', 'toggleAnimations()', config.enableAnimations, true);
+
+
+		
 	} else {
 		// close general section
 		document.querySelector('#general').classList.toggle('button-header-active');
@@ -255,6 +250,20 @@ function error(msg) {
 		document.querySelector('#pass-error').classList.remove('error');
 	}
 }
+
+
+function toggleAnimations() {
+	config.enableAnimations = !config.enableAnimations;
+	
+	if(!config.enableAnimations) {
+		addElement('link', {class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../global assets/css/disableAnimations.css'}, undefined, document.head);
+	} else {
+		document.head.removeChild(document.querySelector('.disable-animations'));
+	}
+	save('config');
+}
+
+
 
 function addFunc() {
 	document.querySelector('#add').classList.toggle('rotate');
@@ -1143,22 +1152,11 @@ function quit() {
 function toggleGridlines() {
 	let gridlinesTable = document.querySelectorAll('#tr');
 	// Toggle gridlines
-	for (i = 0; i < gridlinesTable.length; i++) {
+	for (let i = 0; i < gridlinesTable.length; i++) {
 		gridlinesTable[i].classList.toggle('gridlinesOn');
 	}
-	if (!config.gridlinesOn) {
-		// Change Button content
-		document.querySelector('#general-gridlines').textContent = 'Hide Gridlines';
-
-		// set gridlines to false
-		config.gridlinesOn = true;
-	} else if (config.gridlinesOn) {
-		// Change Button content
-		document.querySelector('#general-gridlines').textContent = 'Show Gridlines';
-
-		// set gridlines to false
-		config.gridlinesOn = false;
-	}
+	// toggle gridlines
+	config.gridlinesOn = !config.gridlinesOn;
 	save('config');
 }
 function switchTheme() {

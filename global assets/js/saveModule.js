@@ -132,6 +132,9 @@ function parse() {
 				gridlinesTable[i].classList.toggle('gridlinesOn');
 			}
 		}
+		if(!config.enableAnimations) {
+			addElement('link', {class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../global assets/css/disableAnimations.css'}, undefined, document.head);
+		}
 	} catch (err) {
 		console.log('cell-' + i + " doesn't exist");
 	}

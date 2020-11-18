@@ -1,7 +1,6 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
 const isDev = require('electron-is-dev');
-const developerTools = true;
 const url = require('url'),
 	crypto = require('crypto'),
 	path = require('path');
@@ -125,28 +124,7 @@ function ready() {
 		})
 	);
 
-	// Toggle Developer Mode
-	const devTools = globalShortcut.register('Ctrl+Shift+I', () => {
-		if (developerTools) {
-			if (mainWindowOn == 0) {
-				loginWindow.webContents.toggleDevTools();
-			} else {
-				mainWindow.webContents.toggleDevTools();
-			}
-		}
-	});
-
-	// Refresh page
-	const refresh = globalShortcut.register('Ctrl+R', () => {
-		if (developerTools) {
-			if (mainWindowOn == 0) {
-				loginWindow.webContents.reloadIgnoringCache();
-			} else {
-				mainWindow.webContents.reloadIgnoringCache();
-			}
-		}
-	});
-
+if(!isDev) Menu.setApplicationMenu(false);
 	// Receive confirmation
 	ipcMain.on('loginConfirmation', function() {
 		console.log('received login request.');
@@ -158,8 +136,6 @@ function ready() {
 	});
 }
 
-// app properties
-Menu.setApplicationMenu(false);
 
 // mainWindow function
 function createMainWindow() {

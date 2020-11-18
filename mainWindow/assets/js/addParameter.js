@@ -1,20 +1,20 @@
-function addParameter(parent, text, interaction, id, onclick, config, on, returnStatement) {
+function addParameter(parent, text, type, id, onclick, config, on) {
 	// create parameter
-	var parameter = document.createElement('div');
+	let parameter = document.createElement('div');
 	parameter.setAttribute('class', 'settings-parameter');
 	parameter.setAttribute('id', 'parameter-' + id);
 	parent.appendChild(parameter);
 
 	// create text parameter
-	var parameterText = document.createElement('span');
+	let parameterText = document.createElement('span');
 	parameterText.setAttribute('class', 'parameter-text');
 	parameterText.setAttribute('id', 'parameter-text-' + id);
 	parameterText.textContent = text.text;
 	parameter.appendChild(parameterText);
 
-	if (interaction == 'switch') {
+	if (type == 'switch') {
 		// create switch
-		var switchElement = document.createElement('div');
+		let switchElement = document.createElement('div');
 		switchElement.setAttribute('class', 'switch-housing');
 		switchElement.setAttribute('id', 'switch-' + id);
 		switchElement.setAttribute(
@@ -24,18 +24,18 @@ function addParameter(parent, text, interaction, id, onclick, config, on, return
 		parameter.appendChild(switchElement);
 
 		// create circle
-		var circle = document.createElement('div');
+		let circle = document.createElement('div');
 		circle.setAttribute('class', 'switch-circle');
 		circle.setAttribute('id', 'switch-' + id);
 		switchElement.appendChild(circle);
 		if (config == on) transformSwitch(circle);
-	} else if (interaction == 'slider') {
-		var parameterContainer = document.createElement('div');
+	} else if (type == 'slider') {
+		let parameterContainer = document.createElement('div');
 		parameterContainer.setAttribute('class', 'parameter-container');
 		parameterContainer.setAttribute('id', 'parameter-container-' + id);
 		parameter.appendChild(parameterContainer);
 		// create slider
-		var slider = document.createElement('input');
+		let slider = document.createElement('input');
 		slider.setAttribute('class', 'slider');
 		slider.setAttribute('type', 'range');
 		slider.setAttribute('min', text.slider.min);
@@ -46,20 +46,20 @@ function addParameter(parent, text, interaction, id, onclick, config, on, return
 		parameterContainer.appendChild(slider);
 
 		// create span
-		var span = document.createElement('span');
+		let span = document.createElement('span');
 		span.setAttribute('class', 'slider-span');
 		span.setAttribute('id', 'span-' + id);
 		span.textContent = Math.round(text.slider.value);
 		parameterContainer.appendChild(span);
-	} else if (interaction == 'button') {
-		var button = document.createElement('button');
+	} else if (type == 'button') {
+		let button = document.createElement('button');
 		button.setAttribute('class', 'parameter-button');
 		button.setAttribute('id', 'parameter-button-' + id);
 		button.setAttribute('onclick', onclick);
 		button.textContent = text.button.text;
 		parameter.appendChild(button);
 	}
-	if (returnStatement) return data.users[data.users.currentUser].preferences[id] == on;
+	return parameter;
 }
 function transformSwitch(switchElement) {
 	switchElement.classList.toggle('switch-on');

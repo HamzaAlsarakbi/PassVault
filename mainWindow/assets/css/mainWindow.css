@@ -658,6 +658,7 @@ input.change-password {
 #controls {
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 }
 
 .padding-zero {
@@ -789,6 +790,7 @@ hideShow.change-password:hover {
 	flex-direction: row;
 	animation: tr-draw-in 0.25s ease-out;
 	border-radius: 5px;
+	border: 1px solid transparent;
 }
 .tbody-data #tr {
 	height: 80px;
@@ -905,8 +907,8 @@ hideShow.change-password:hover {
 	}
 }
 /** gridlines **/
-.gridlinesOn {
-	border: 1px solid var(--primary-color);
+#tr.gridlinesOn {
+	border-color: var(--secondary-color) !important;
 }
 #window-controls .button:hover {
 	background: (--primary-hover);
