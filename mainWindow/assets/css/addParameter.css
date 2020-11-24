@@ -5,14 +5,15 @@
 	justify-content: space-between;
 	align-items: center;
 	margin: 10px 0 10px 0;
-	width: 90%;
+	width: 100%;
 }
 
 .parameter-text {
 	color: var(--primary-color);
-	width: 50%;
 	font-size: 14px;
 }
+
+
 .parameter-container {
 	display: flex;
 	flex-direction: row;
@@ -36,17 +37,17 @@
 	height: 20px;
 	width: 20px;
 	border-radius: 10px;
-	background-color: var(--primary-color);
+	background: var(--primary-color);
 	transition: 0.1s;
 }
 .switch-on {
 	transform: translateX(100%);
-	background-color: var(--primary-accent);
+	background: var(--primary-accent);
 	transition: 0.1s;
 }
 .slider {
 	-webkit-appearance: none;
-	height: 7px;
+	height: 5px;
 	border-radius: 5px;
 	background: var(--secondary-background);
 	outline: none;
@@ -54,6 +55,7 @@
 	-webkit-transition: .2s;
 	transition: opacity .2s;
 	width: calc(100% - 55px);
+	border: none;
 }
 
 .slider:hover {
@@ -69,6 +71,10 @@
 	background: var(--primary-accent);
 	cursor: pointer;
 }
+
+.slider::-webkit-slider-thumb:active {
+	transform: scale(0.9 1.1);
+}
 .slider-span {
 	width: 30px;
 	margin-left: 25px;
@@ -83,4 +89,66 @@
 .button-important {
 	color: var(--primary-important);
 	border-color: var(--primary-important);
+}
+.radio-parameter {
+	justify-content: flex-start;
+}
+/* The container */
+.parameter-radio {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+}
+/* Hide the browser's default radio button */
+.parameter-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radio-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background: var(--radio-background);
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.parameter-radio:hover input ~ .radio-checkmark {
+  background: var(--radio-background-hover);
+}
+
+/* When the radio button is checked, add a blue background */
+.parameter-radio input:checked ~ .radio-checkmark {
+  background: var(--radio-background-active);
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-checkmark:after {
+  content: "";
+  position: absolute;
+	display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.parameter-radio input:checked ~ .radio-checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.parameter-radio .radio-checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--radio-checkmark);
 }

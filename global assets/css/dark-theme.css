@@ -46,6 +46,21 @@
 	--strength-2: rgb(200, 185, 50);
 	--strength-3: rgb(142, 200, 50);
 	--strength-4: rgb(50, 200, 50);
+
+
+
+	/* settings */
+	--settings-body-backdrop-filter: brightness(1);
+
+	--dialog-background: rgb(50, 50, 50);
+
+
+
+	/* radio buttons */
+	--radio-background: rgb(50, 50, 50);
+	--radio-background-hover: rgb(60, 60, 60);
+	--radio-background-active: var(--primary-accent);
+	--radio-checkmark: rgb(50, 50, 50);
 }
 
 a:hover {

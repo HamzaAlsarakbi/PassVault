@@ -7,6 +7,9 @@ document.onreadystatechange = () => {
 	}
 };
 
+document.querySelector('.window-title').textContent = document.title;
+
+
 function handleWindowControls() {
 	let win = remote.getCurrentWindow();
 	// Make minimise/maximise/restore/close buttons work when they are clicked
@@ -47,4 +50,32 @@ function handleWindowControls() {
 			document.body.classList.remove('maximized');
 		}
 	}
+}
+
+
+function lockVault() {
+	if (saved) {
+		showDialog(
+			'Confirmation',
+			'Do you want to save changes?',
+			[ 'Save', "Don't save", 'Cancel' ],
+			[ "save('all'); quit()", 'quit()', 'closeDialog()' ]
+		);
+	} else {
+		showDialog(
+			'Confirmation',
+			'Are you sure you want to lock vault?',
+			[ 'Lock', 'Cancel' ],
+			[ "quit()", 'closeDialog()' ]
+		);
+	}
+}
+
+// Lock Vault function
+function quit() {
+	ipcRenderer.send('logoutConfirmation');
+	win.close();
+	win.on('closed', () => {
+		win = null;
+	});
 }

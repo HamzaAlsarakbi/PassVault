@@ -1,0 +1,43 @@
+/* Menu Animation */
+.toggleSettings {
+	height: 355px;
+	margin-top: 20px;
+	width: 500px;
+	background: var(--toggle-controls);
+}
+
+.settings {
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.settings-body {
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	height: 280px;
+	backdrop-filter: var(--settings-body-backdrop-filter);
+	border-radius: 10px;
+}
+
+
+
+/** about **/
+.settings-sub-body-header {
+	font-size: 16px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+.settings-header-text {
+	text-align: center;
+	width: 100%;
+	padding-bottom: 20px;
+}
+.settings-sub-body {
+	font-size: 14px;
+}

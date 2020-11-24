@@ -1,0 +1,38 @@
+.dialog-box-title {
+	padding: 10px;
+	border-radius: 10px 10px 0 0;
+	width: 100%;
+	backdrop-filter: brightness(0.8);
+	text-transform: uppercase;
+}
+
+.dialog-box {
+	background: var(--dialog-background);
+	border-radius: 10px;
+	animation: dialog-box-draw-in 0.2s ease-out;
+}
+@keyframes dialog-box-draw-in {
+	0% {
+		transform: scale(0.9);
+		opacity: 0;
+	}
+	60% {
+		transform: scale(1.02);
+	}
+}
+.dialog-box-close {
+	transform: scale(0.9);
+	opacity: 0;
+}
+.container-freeze {
+	filter: grayscale(1) brightness(0.8);
+}
+
+
+.dialog-box-prompt {
+	padding: 10px;
+}
+.dialog-box-button {
+	width: calc(100% - 20px);
+	height: 40px;
+}

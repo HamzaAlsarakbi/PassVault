@@ -2,13 +2,18 @@
 <html lang="en">
   <head>
     <title>Vault</title>
+    <script>const version = 'v1.1.0';</script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="../global assets/js/config.js"></script>
     <script src='../global assets/js/themeLoader.js'></script>
     <link rel="stylesheet" type="text/css" href="../global assets/css/windowBar.css" />
     <link rel="stylesheet" type="text/css" href="../global assets/css/scrollBar.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/mainWindow.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/settings.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/panel.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/addParameter.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/dialog.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/addSection.css" />
   </head>
   <body>  
 
@@ -28,10 +33,13 @@
         <div id="drag-region">
           <div id="window-title">
             <img src="../global assets/img/icon.png" height="20px">
-            <span style="padding-left: 10px;">Vault</span>
+            <span class="window-title" style="padding-left: 10px;">Vault</span>
           </div>
           
           <div id="window-controls">
+            <div class="button" id="lock-button" onclick="lockVault()">
+              <img src="../global assets/img/window_icons/lock.png" class="window-icon">
+            </div>
             <div class="button" id="min-button">
               <img src="../global assets/img/window_icons/minimize.png" class="window-icon">
             </div>
@@ -53,21 +61,27 @@
       <div class="container container-draw-in">
         <panel>
           <controls>
-            <div class="control-collection">
-              <div class="control" id="filter" onclick="toggleFilters()">
-                <img height="20px" src="../global assets/img/dark/filter.png">
+            <div class="controls-label">
+              <img class="control-icon" height="30px">
+              <div class="control-text"></div>
+            </div>
+            <div class="controls-buttons">
+              <div class="control-collection">
+                <div class="control" id="filter" onclick="toggleFilters()">
+                  <img height="20px" src="../global assets/img/dark/filter.png">
+                </div>
+                <dropDown></dropDown>
               </div>
-              <dropDown></dropDown>
-            </div>
-            <input class="control" id="search-input" placeholder="Search for Keyword">
-            <div class="control" id="search" onclick="searchToggle()">
-              <img height="20px" src="../global assets/img/dark/search.png">
-            </div>
-            <div class="control" id="add" onclick="addFunc()">
-              <img height="20px" src="../global assets/img/dark/add.png">
-            </div>
-            <div class="control" id="settings" onclick="settingsFunc()">
-              <img height="30px" src="../global assets/img/dark/gear.png">
+              <input class="control" id="search-input" placeholder="Search for Keyword">
+              <div class="control" id="search" onclick="toggleSearch()">
+                <img height="20px" src="../global assets/img/dark/search.png">
+              </div>
+              <div class="control" id="add" onclick="toggleAdd()">
+                <img height="20px" src="../global assets/img/dark/add.png">
+              </div>
+              <div class="control" id="settings" onclick="toggleSettings()">
+                <img height="30px" src="../global assets/img/dark/gear.png">
+              </div>
             </div>
           </controls>
           <menu>
@@ -92,9 +106,12 @@
     <!-- Scripts -->
     <script src="../global assets/js/windowControls.js"></script>
     <script src="../global assets/js/addElement.js"></script>
-    <script src="assets/js/mainWindow.js"></script>
     <script src="assets/js/addParameter.js"></script>
+    <script src="assets/js/addSection.js"></script>
+    <script src="assets/js/mainWindow.js"></script>
+    <script src="assets/js/settings.js"></script>
     <script src="../global assets/js/saveModule.js"></script>
+    <script src="assets/js/timeout.js"></script>
     <script>
         document.querySelector('body').style.overflow = 'hidden';
       function loaded() {

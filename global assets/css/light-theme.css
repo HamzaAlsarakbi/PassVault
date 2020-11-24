@@ -1,6 +1,6 @@
 :root {
 	/** Global Settings **/
-	--body: rgb(220, 220, 220);
+	--body: rgb(230, 230, 230);
 	--secondary-background: rgb(200, 200, 200);
 
 	--primary-color: black;
@@ -16,8 +16,8 @@
 	--scrollbar-thumb-hover: var(--primary-accent-transparent);
 
 	/** Controls **/
-	--toggle-controls: rgba(226, 226, 226, 0.4);
-	--toggle-controls-opaque: rgba(226, 226, 226, 1);
+	--toggle-controls: rgba(190, 190, 190, 0.4);
+	--toggle-controls-opaque: rgb(190, 190, 190);
 	--primary-a: var(--primary-accent);
 
 	/** Button **/
@@ -41,6 +41,17 @@
 	--strength-2: rgb(200, 185, 50);
 	--strength-3: rgb(142, 200, 50);
 	--strength-4: rgb(50, 200, 50);
+
+	/* settings */
+	--settings-body-backdrop-filter: brightness(1.3);
+
+	--dialog-background: rgb(200, 200, 200);
+	
+	/* radio buttons */
+	--radio-background: rgb(220, 220, 220);
+	--radio-background-hover: rgb(210, 210, 210);
+	--radio-background-active: var(--primary-accent);
+	--radio-checkmark: rgb(220, 220, 220);
 }
 /** Icons **/
 img:not(#service-icon) {

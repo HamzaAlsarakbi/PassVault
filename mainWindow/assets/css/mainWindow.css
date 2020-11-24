@@ -39,40 +39,6 @@ body {
 	width: 100%;
 	height: 100vh;
 }
-.dialog-box {
-	background: rgb(50, 50, 50);
-	border-radius: 10px;
-	animation: dialog-box-draw-in 0.2s ease-out;
-}
-@keyframes dialog-box-draw-in {
-	0% {
-		transform: scale(1.4);
-		opacity: 0;
-	}
-}
-.dialog-box-close {
-	transform: scale(1.4);
-	opacity: 0;
-}
-.container-freeze {
-	filter: grayscale(1);
-}
-
-.dialog-box-title {
-	padding: 10px;
-	border-radius: 10px 10px 0 0;
-	width: 100%;
-	background: rgb(40, 40, 40);
-	text-transform: uppercase;
-}
-.dialog-box-prompt {
-	padding: 10px;
-	color: lightgray;
-}
-.dialog-box-button {
-	width: calc(100% - 20px);
-	height: 40px;
-}
 
 /** Loading Menu **/
 .loading-overlay {
@@ -129,28 +95,7 @@ body {
 	overflow-y: scroll;
 }
 
-/** controls **/
-panel {
-	margin-top: 0px;
-	border-radius: 10px;
-	width: 100px;
-	height: 55px;
-	width: 75%;
-	max-width: 1000px;
-	min-width: 600px;
-	position: fixed;
-	z-index: 2;
-	backdrop-filter: blur(10px);
-	margin-top: 10px;
-}
-controls {
-	margin: 8px;
-	margin-bottom: 0;
-	display: flex;
-	height: 45px;
-	justify-content: flex-end;
-	align-items: center;
-}
+
 
 .control,
 .parameter {
@@ -176,20 +121,7 @@ img {
 	cursor: pointer;
 }
 
-.settings-header {
-	margin-top: 5px;
-	margin-bottom: 15px;
-	font-size: 24px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	text-transform: uppercase;
-}
-/** rotate icon in each menu **/
-.rotate {
-	font-size: 20px;
-	transform: rotate(45deg);
-}
+
 
 /**** Add icon*/
 .add {
@@ -200,62 +132,17 @@ img {
 .add-div {
 	display: flex;
 	flex-direction: row;
-	padding: 20px;
 	padding-bottom: 5px;
 	width: 100%;
 	flex-wrap: wrap;
 }
 
-#pass-div,
-#change-password-input-div {
-	display: flex;
-	flex-direction: row;
-	margin: 0;
-	padding: 1px;
-}
-.settings {
-	padding-left: 20px;
-	padding-right: 20px;
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
 
-menu {
-	margin: 8px;
-	margin-top: 0;
-	opacity: 0;
-	transform: translateY(-100%);
-}
-.menu-down {
-	opacity: 1;
-	transform: translateY(0%);
-}
-.settings-body {
-	display: flex;
-	flex-direction: row;
-}
-.settings-buttons {
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-	border-right: none;
-	width: 180px;
-	z-index: 4;
-}
+
+
 .control:active:not(input#control) {
 	transform: scale(0.9);
 	transition: 0.1s;
-}
-
-/****** Menu Animation*/
-.toggleSettings {
-	height: 355px;
-	margin-top: 20px;
-	width: 500px;
-	background: var(--toggle-controls);
-	backdrop-filter: brightness(0.8);
 }
 
 .toggleAbout {
@@ -273,11 +160,17 @@ a {
 	color: var(--primary-a);
 }
 
-.toggleAdd {
+panel.toggleAdd {
 	margin-top: 20px;
-	height: 270px;
+	height: 200px;
 	width: 25%;
 	background: var(--toggle-controls);
+}
+#thead.toggleAdd {
+	padding-top: 240px !important;
+}
+panel.controlsSpan {
+	height: 218px;
 }
 input.control:hover {
 	background-color: transparent;
@@ -421,20 +314,6 @@ div.no-match {
 	font-size: 24px;
 }
 
-.settings-sub-body-header {
-	font-size: 16px;
-	font-weight: bold;
-	margin-top: 20px;
-	margin-bottom: 5px;
-}
-.settings-header-text {
-	text-align: center;
-	width: 100%;
-	padding-bottom: 20px;
-}
-.settings-sub-body {
-	font-size: 14px;
-}
 button {
 	background: var(--primary-button);
 	padding: 5px;
@@ -443,29 +322,9 @@ button {
 	height: 30px;
 	color: var(--primary-color);
 }
-button:not(.button-header):hover {
+button:hover {
 	color: var(--secondary-color);
 	background-color: var(--secondary-button);
-}
-.button-header {
-	background: transparent;
-	border-left: 4px solid transparent;
-	margin: 0;
-	border-radius: 0;
-	color: var(--secondary-color);
-	width: 100%;
-	text-align: left;
-	height: 30px;
-	margin-bottom: 10px;
-}
-
-.button-header:hover {
-	color: var(--tertiary-color);
-}
-.button-header-active {
-	border-left: 4px solid var(--secondary-button) !important;
-	color: var(--primary-color);
-	transition: 0.1s;
 }
 button:active {
 	transform: scale(0.95);
@@ -480,16 +339,9 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 300px;
-	transform: translateX(-100%);
-	opacity: 0;
 	height: 233px;
 	padding: 10px;
 	overflow: auto;
-}
-.settingsToggle {
-	opacity: 1;
-	transform: translateX(0%);
 	width: 70%;
 }
 input {
@@ -509,7 +361,7 @@ input:focus {
 	border-color: var(--primary-accent);
 }
 .noerror {
-	font-size: 11px;
+	font-size: 12px;
 	color: transparent;
 	height: 0px;
 }
@@ -590,57 +442,8 @@ input:focus {
 .margin-settings {
 	padding-top: 380px !important;
 }
-.margin-add {
-	padding-top: 320px !important;
-}
-#hide-show {
-	width: 100px;
-}
 
-.hide-show,
-hideShow.change-password {
-	text-align: center;
-	cursor: pointer;
-	padding: 2px;
-	border-radius: 0 2px 2px 0;
-	height: 26px;
-	width: 26px;
-}
 
-.hide-show:active,
-hideShow.change-password:active {
-	transform: scale(0.97);
-}
-#add-password,
-input.change-password {
-	width: 95%;
-	border: 0;
-	margin: 0;
-	border: 1px solid transparent;
-}
-
-#add-pass,
-#change-password-input-div {
-	width: 100%;
-	margin: 5px;
-	border: 2px solid rgb(80, 80, 80);
-	border-radius: 5px;
-	height: 30px;
-	display: flex;
-	flex-direction: row;
-}
-.add-div input,
-.pass-div#add-pass {
-	width: 47.5%;
-}
-.pass-div#add-pass:hover,
-#change-password-input-div:hover {
-	border-bottom-color: var(--primary-accent);
-}
-.pass-div#add-pass:focus-within,
-#change-password-input-div:focus-within {
-	border-color: var(--primary-accent);
-}
 #cell-edit,
 #cell-showHide,
 #cell-delete {
@@ -751,10 +554,7 @@ input.change-password {
 	transform: scale(1);
 }
 
-.hide-show:hover,
-hideShow.change-password:hover {
-	background: var(--cell-hover);
-}
+
 #type:hover:not(.header),
 #service:hover:not(.header),
 #email:hover:not(.header),
@@ -891,21 +691,7 @@ hideShow.change-password:hover {
 	}
 }
 
-.header-icon {
-	margin-right: 10px;
-}
 
-.settings-header img {
-	animation: rotation 2s linear;
-	animation-fill-mode: forwards;
-	animation-iteration-count: infinite;
-}
-
-@keyframes rotation {
-	100% {
-		transform: rotate(360deg);
-	}
-}
 /** gridlines **/
 #tr.gridlinesOn {
 	border-color: var(--secondary-color) !important;
@@ -913,12 +699,7 @@ hideShow.change-password:hover {
 #window-controls .button:hover {
 	background: (--primary-hover);
 }
-/**** Responsive */
-@media only screen and (max-width: 1200px) {
-	.controlsSpan {
-		height: 280px;
-	}
-}
+
 
 #service-icon {
 	width: 20px;
@@ -931,7 +712,4 @@ hideShow.change-password:hover {
 	justify-content: center;
 }
 
-/** change password **/
-placeholder {
-	font-size: 12px;
-}
+

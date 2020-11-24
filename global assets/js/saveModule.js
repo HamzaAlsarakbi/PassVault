@@ -1,5 +1,4 @@
 const fullPath = path.join(parentDir, '/Data/data.json');
-const version = 'v1.1.0';
 
 // console colors
 const errorColor = 'color: rgb(200, 50, 50);';
@@ -56,10 +55,7 @@ function save(type) {
 		setTimeout(function() {
 			saveButtonDOM.remove();
 		}, 300);
-		if (lockVaultOn) {
-			lockVault();
-			setTimeout(lockVault, 400);
-		} else if (type == 'close') {
+		if (type == 'close') {
 			win.close();
 		}
 	} else {
