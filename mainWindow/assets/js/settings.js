@@ -9,7 +9,7 @@ function toggleSettings() {
 	document.querySelector('#settings').classList.toggle('rotate');
 
 	// if one of the windows is open
-	if (searchOn) searchToggle();
+	if (components.search) toggleSearch();
 	if (filtersOn) toggleFilters();
 	if(components.add) toggleAdd();
 

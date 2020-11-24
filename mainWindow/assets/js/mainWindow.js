@@ -27,7 +27,8 @@ let components = {
 	strengthMeterOn: true,
 	settings: false,
 	add: false,
-	dialog: false
+	dialog: false,
+	search: false
 };
 
 const elements = {
@@ -103,7 +104,7 @@ function toggleAdd() {
 	if (components.settings) {
 		toggleSettings();
 	}
-	if (searchOn) {
+	if (components.search) {
 		toggleSearch();
 	}
 	if (filtersOn) {
@@ -873,25 +874,24 @@ function closeDialog() {
 	}
 	components.dialog = false;
 }
-let searchOn = false;
 function toggleSearch() {
 	if (components.add) toggleAdd();
 	if (components.settings) toggleSettings();
+	components.search = !components.search;
 
 	// transitions
 	searchInput.classList.toggle('toggleSearch');
 	document.querySelector('div.control#search').classList.toggle('toggleSearch');
 
-	// clear search input
+		// clear search input
 	searchInput.value = '';
-	if (!searchOn) {
-		// toggle on search
+	search();
+	if(components.search) {
 		searchInput.select();
-		searchOn = true;
-	} else if (searchOn) {
-		// toggle off search
-		searchOn = false;
+	} else {
+		searchInput.blur();
 	}
+	
 }
 // filters
 let filtersOn = false;
