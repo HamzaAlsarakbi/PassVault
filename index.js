@@ -55,7 +55,12 @@ let config = {
 	gridlinesOn: false,
 	disableAnimations: false,
 	firstTime: true,
-	devTools: false
+	devTools: false,
+	login: {
+		cooldown: 0,
+		cooldowns: 0,
+		attempts: 0
+	}
 };
 let key = crypto.randomBytes(32);
 let iv = crypto.randomBytes(16);

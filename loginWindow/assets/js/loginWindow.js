@@ -6,11 +6,11 @@ const { ipcRenderer } = electron;
 const submitButton = document.querySelector('.submit');
 const passDOM = document.querySelector('#password');
 const hideShowIcon = document.querySelector('.hide-show-icon');
+const error = document.querySelector('.noerror');
 
 const crossedEye = '../global assets/img/dark/crossed-eye.png';
 const eye = '../global assets/img/dark/eye.png';
 
-var passwordValue = passDOM.value;
 
 // Window controls
 let win = remote.getCurrentWindow();
@@ -35,39 +35,43 @@ function init() {
 	});
 }
 
-// packaging input.value
-passDOM.addEventListener('input', function() {
-	passwordValue = passDOM.value;
-});
 
-passDOM.addEventListener('keyup', function() {
-	if (event.keyCode == 13) {
+passDOM.addEventListener('keydown', e => {
+	if (e.keyCode == 13) {
 		submit();
 	}
 });
 
 // Password verification
 function submit() {
-	const errorSpan = document.querySelector('.noerror');
-	if (passwordValue == config.masterPassword) {
-		// Hide span if it were activated
-		errorSpan.classList.remove('error');
-
-		// send confirmation
-		ipcRenderer.send('loginConfirmation');
-		win.close();
-	} else if (passwordValue == '' || typeof passwordValue == undefined) {
-		// If password is empty
-		// Display span
-		errorSpan.classList.add('error');
-		errorSpan.textContent = 'Enter Password.';
-	} else {
-		// If password is wrong
-		// Display span
-		errorSpan.classList.add('error');
-
-		errorSpan.textContent = 'Password is incorrect.';
-		errorSpan.style = 'display: inline;';
+	if(config.login.cooldown == 0) {
+		if (passDOM.value == config.masterPassword) {
+			// Hide span if it were activated
+			error.classList.remove('error');
+			// reset cooldowns 
+			config.login.cooldown = 0;
+			config.login.cooldowns = 1;
+			config.login.attempts = 0;
+	
+			// send confirmation
+			ipcRenderer.send('loginConfirmation');
+			win.close();
+			save();
+		} else if (passDOM.value == '') {
+			// If password is empty
+			// Display span
+			error.classList.add('error');
+			error.textContent = 'Enter Password.';
+		} else {
+			// If password is wrong
+			// Display span
+			error.classList.add('error');
+	
+			error.textContent = 'Password is incorrect.';
+			updateAttempts();
+	
+			passDOM.value = '';
+		}
 	}
 }
 

@@ -71,7 +71,7 @@ function JSONparse(object) {
 }
 
 function encrypt(text) {
-	// encrypt some stuff here
+	// encrypt string
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
 	let encrypted = cipher.update(text);
 	encrypted = Buffer.concat([ encrypted, cipher.final() ]);

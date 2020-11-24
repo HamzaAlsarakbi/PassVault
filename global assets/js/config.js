@@ -57,7 +57,12 @@ var config = {
 	enableAnimations: true,
 	firstTime: true,
 	timeout: 2,
-	devTools: false
+	devTools: false,
+	login: {
+		cooldown: 0,
+		cooldowns: 0,
+		attempts: 0
+	}
 };
 var rawConfig, parsedConfig, decryptedConfig;
 try {

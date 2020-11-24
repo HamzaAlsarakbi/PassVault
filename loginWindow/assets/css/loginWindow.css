@@ -27,7 +27,6 @@ body {
 }
 
 .h1 {
-	margin: 10px;
 	font-size: 24px;
 }
 .h2 {
@@ -74,11 +73,10 @@ button:active {
 }
 .noerror {
 	color: transparent;
-	height: 0px;
+	text-align: center;
 }
 .error {
 	color: rgb(252, 61, 61);
-	height: 21px;
 }
 
 button:active {
