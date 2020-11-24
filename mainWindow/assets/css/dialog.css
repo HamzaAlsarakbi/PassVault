@@ -36,3 +36,15 @@
 	width: calc(100% - 20px);
 	height: 40px;
 }
+
+
+.dialog-box button:last-child {
+  background: transparent;
+  height: unset;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.dialog-box button:last-child:hover {
+  text-decoration: underline;
+}

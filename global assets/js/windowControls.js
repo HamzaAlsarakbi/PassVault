@@ -1,13 +1,18 @@
 const remote = require('electron').remote;
-
+let windowTitle = document.title;
 // When document has loaded, initialise
 document.onreadystatechange = () => {
 	if (document.readyState == 'complete') {
 		handleWindowControls();
 	}
 };
-
-document.querySelector('.window-title').textContent = document.title;
+function updateTitle(text) {
+	let suffix;
+	if(isDev) suffix = ' - Dev Build';
+	document.title = text + suffix;
+	document.querySelector('.window-title').textContent = text + suffix;
+}
+updateTitle(windowTitle);
 
 
 function handleWindowControls() {

@@ -41,14 +41,14 @@ function save(type) {
 			if (err) throw err;
 			console.log('Saved ' + param + '!');
 		});
-
+		
 		dataStringified = JSONstringify(data);
 		dataEncrypted = encrypt(dataStringified);
 		dataStringified = JSONstringify(dataEncrypted);
 		package(dataStringified, fullPath);
 		// save config.json
 		save('config');
-
+		
 		saved = false;
 		var saveButtonDOM = document.querySelector('.save');
 		saveButtonDOM.classList.toggle('button-slide-out');
@@ -155,18 +155,16 @@ function changesChecker() {
 			saved = false;
 			var saveButtonDOM = document.querySelector('.save');
 			saveButtonDOM.classList.toggle('button-slide-out');
+			updateTitle(windowTitle);
 			setTimeout(function() {
 				saveButtonDOM.remove();
 			}, 300);
-			if (lockVaultOn) {
-				lockVault();
-				setTimeout(lockVault, 400);
-			}
 		}
 	} else {
 		if (!saved) {
 			console.log('%c dataSave & data are NOT equal.', errorColor);
 			save('show');
+			updateTitle(windowTitle + '*');
 			if (lockVaultOn) {
 				lockVault();
 				setTimeout(lockVault, 400);

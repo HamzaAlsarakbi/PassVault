@@ -45,6 +45,9 @@
 	background: var(--primary-accent);
 	transition: 0.1s;
 }
+#switch-enable-devtools.switch-on {
+	background: var(--primary-important);
+}
 .slider {
 	-webkit-appearance: none;
 	height: 5px;

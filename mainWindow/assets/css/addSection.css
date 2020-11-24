@@ -20,3 +20,8 @@
 .section-body {
 	padding: 10px;
 }
+
+#danger-zone-section-header {
+	border-bottom-color: var(--primary-important);
+	color: var(--primary-important);
+}

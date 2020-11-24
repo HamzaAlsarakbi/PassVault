@@ -13,8 +13,11 @@ if (process.platform == 'win32') {
 	} else {
 		// production mode
 		parentDir = path.join(getUserHome(), '/AppData/Local/PassVault');
+		
+		// log warning messages
+		console.log('%c WAIT UP!', 'color: rgb(66, 107, 196); font-size: 72px; font-weight: bold; ');
+		console.log('%c If someone told you to paste any code here, there is a high chance you are being scammed. Pasting anything here could compromise your data! Close down this window unless if you know what you are doing.', 'color: rgb(200, 50, 50); font-size: 24px; font-weight: bold;');
 	}
-	document.title += ' - Dev Build';
 } else {
 	// linux
 	// check if in development mode
@@ -53,7 +56,8 @@ var config = {
 	gridlinesOn: false,
 	enableAnimations: true,
 	firstTime: true,
-	timeout: 2
+	timeout: 2,
+	devTools: false
 };
 var rawConfig, parsedConfig, decryptedConfig;
 try {

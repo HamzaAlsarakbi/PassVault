@@ -67,7 +67,10 @@ function toggleSettings() {
 		 <br>
 		 Version: ` + version, aboutSection.body);
 		
-		
+		// developer settings
+		let dangerSection = addSection('Danger Zone', 'danger-zone', settingsBody);
+		addParameter(dangerSection.body, { text: 'Enable Developer Tools (not recommended. Restart for setting to take action)', on: true, important: true }, 'switch', 'enable-devtools', 'toggleDevTools()',  config.devTools);
+
 
 
 	} else {
@@ -76,6 +79,17 @@ function toggleSettings() {
 		menu.innerHTML = '';
 	}
   components.settings = !components.settings;
+}
+
+function toggleAnimations() {
+	config.enableAnimations = !config.enableAnimations;
+	
+	if(!config.enableAnimations) {
+		addElement('link', {class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../global assets/css/disableAnimations.css'}, undefined, document.head);
+	} else {
+		document.head.removeChild(document.querySelector('.disable-animations'));
+	}
+	save('config');
 }
 
 function inactivityTimeout(e) {
@@ -169,4 +183,9 @@ function openExternal(type) {
 	} else if (type == 'donate') {
 		shell.openExternal('https://www.patreon.com/Hamza_Sar');
 	}
+}
+
+function toggleDevTools() {
+	config.devTools = !config.devTools;
+	save('config');
 }

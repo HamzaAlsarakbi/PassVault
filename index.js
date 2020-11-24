@@ -1,6 +1,6 @@
 const electron = require('electron');
 const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
-const isDev = require('electron-is-dev');
+let isDev = require('electron-is-dev');
 const url = require('url'),
 	crypto = require('crypto'),
 	path = require('path');
@@ -54,9 +54,9 @@ let config = {
 	masterPassword: '',
 	gridlinesOn: false,
 	disableAnimations: false,
-	firstTime: true
+	firstTime: true,
+	devTools: false
 };
-console.log(config.firstTime);
 let key = crypto.randomBytes(32);
 let iv = crypto.randomBytes(16);
 let param = {
@@ -123,8 +123,6 @@ function ready() {
 			slashes: true
 		})
 	);
-
-if(!isDev) Menu.setApplicationMenu(false);
 	// Receive confirmation
 	ipcMain.on('loginConfirmation', function() {
 		console.log('received login request.');
@@ -134,6 +132,7 @@ if(!isDev) Menu.setApplicationMenu(false);
 			createMainWindow();
 		}
 	});
+	if(!isDev && !config.devTools) Menu.setApplicationMenu(null);
 }
 
 

@@ -1,6 +1,4 @@
 const electron = require('electron');
-const { TouchBarSegmentedControl } = require('electron');
-const shell = electron.shell;
 const { ipcRenderer } = electron;
 let win = electron.remote.getCurrentWindow();
 let parentElement;
@@ -87,40 +85,13 @@ document.onkeydown = (e) => {
 };
 
 
-function closeSubmenus(exception) {
-	let closed = false;
-	let menus = components.settings.subMenus;
-	// go through ever sub menu
-	for(let menu in menus) {
-		if(menus[menu]) {
-
-			// if it is not an exception
-			if(menu != exception) {
-				window['toggle' + capitalize(menu)]();
-				closed = true;
-			}
-		}
-	}
-	
-	return closed;
-}
-
 function capitalize(text) {
 	return text.replace(text.substring(0, 1), text.substring(0, 1).toUpperCase());
 }
 
 
 
-function toggleAnimations() {
-	config.enableAnimations = !config.enableAnimations;
-	
-	if(!config.enableAnimations) {
-		addElement('link', {class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../global assets/css/disableAnimations.css'}, undefined, document.head);
-	} else {
-		document.head.removeChild(document.querySelector('.disable-animations'));
-	}
-	save('config');
-}
+
 
 
 
@@ -838,20 +809,6 @@ function toggleGridlines() {
 // About section
 function toggleAbout() {
 		
-		// create paragraph
-
-		let bodyText1 = document.createElement('p');
-		bodyText1.setAttribute('class', 'settings-sub-body');
-		bodyText1.innerHTML = `PassVault is an <a href="" onclick="openExternal('github')">open-source tool</a> 
-		developed by Hamza Alsarakbi that stores your encrypted passwords locally and not on the cloud to provide you 
-		with the highest privacy.`;
-		
-		// create header of paragraph
-		let bodyHeader2 = document.createElement('p');
-		bodyHeader2.setAttribute('class', 'settings-sub-body-header');
-		bodyHeader2.textContent = 'Support me ';
-
-		// create paragraph
 		let bodyText2 = document.createElement('p');
 		bodyText2.setAttribute('class', 'settings-sub-body');
 		bodyText2.innerHTML =
