@@ -62,14 +62,14 @@ function lockVault() {
 	if (saved) {
 		showDialog(
 			'Confirmation',
-			'Do you want to save changes?',
+			'Save changes?',
 			[ 'Save', "Don't save", 'Cancel' ],
 			[ "save('all'); quit()", 'quit()', 'closeDialog()' ]
 		);
 	} else {
 		showDialog(
 			'Confirmation',
-			'Are you sure you want to lock vault?',
+			'Lock the vault?',
 			[ 'Lock', 'Cancel' ],
 			[ "quit()", 'closeDialog()' ]
 		);

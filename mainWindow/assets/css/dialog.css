@@ -4,12 +4,16 @@
 	width: 100%;
 	backdrop-filter: brightness(0.8);
 	text-transform: uppercase;
+	color: var(--primary-accent);
+	border-bottom: 2px solid var(--primary-accent);
 }
 
 .dialog-box {
 	background: var(--dialog-background);
 	border-radius: 10px;
 	animation: dialog-box-draw-in 0.2s ease-out;
+	box-shadow: -2px 2px 4px var(--primary-shadow);
+	min-width: 250px;
 }
 @keyframes dialog-box-draw-in {
 	0% {

@@ -1,3 +1,4 @@
+const { shell } = electron;
 function toggleSettings() {
 	document.querySelector('controls').classList.toggle('enabled');
   document.querySelector('#thead').classList.toggle('margin-settings');
@@ -30,6 +31,7 @@ function toggleSettings() {
 		addParameter(generalSection.body, { text: 'Show gridlines', on: true }, 'switch', 'general-gridlines', 'toggleGridlines()', config.gridlinesOn);
 		addParameter(generalSection.body, { text: 'Animations', on: true }, 'switch', 'enable-animations', 'toggleAnimations()', config.enableAnimations);
 		addParameter(generalSection.body, { text: 'Inactivity Timeout', slider: { min: 1, max: 10, value: config.timeout } }, 'slider', 'inactivity-timeout', inactivityTimeout, config.timeout);
+		addParameter(generalSection.body, { text: 'Open icons folder', button: { text: 'Open folder' } }, 'button', 'open-icons-folder', 'shell.openExternal(path.join(parentDir, "/Data/icons"))');
 
 		// themes section
 		let themeSection = addSection('Themes', 'themes', settingsBody);
