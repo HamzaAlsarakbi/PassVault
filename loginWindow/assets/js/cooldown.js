@@ -3,6 +3,7 @@ function updateAttempts() {
   if(config.login.attempts >= 5) {
     startCooldown();
   }
+  save();
 }
 
 

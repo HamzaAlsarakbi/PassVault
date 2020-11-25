@@ -4,6 +4,7 @@
     <title>Welcome - PassVault</title>
     <link rel="stylesheet" href="assets/css/setupWindow.css">
     <script src="../global assets/js/config.js"></script>
+    <script> if(config.masterPassword != undefined) window.location.replace('../loginWindow/loginWindow.html');</script>
     <script src='../global assets/js/themeLoader.js'></script>
     <link rel="stylesheet" type="text/css" href="../global assets/css/windowBar.css">
   </head>
@@ -16,11 +17,11 @@
         </div>
         <div id="window-controls">
           <div class="button dialog" id="min-button">
-            <span>&#xE921;</span>
-          </div>
-          <div class="button" id="close-button">
-            <span>&#xE8BB;</span>
-          </div>
+            <img src="../global assets/img/window_icons/minimize.png" class="window-icon">
+            </div>
+            <div class="button" id="close-button">
+              <img src="../global assets/img/window_icons/close.png" class="window-icon">
+            </div>
         </div>
       </div>
     </header>

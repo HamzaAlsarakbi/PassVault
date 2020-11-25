@@ -4,7 +4,6 @@ let isDev = require('electron-is-dev');
 const url = require('url'),
 	crypto = require('crypto'),
 	path = require('path');
-algorithm = 'aes-256-cbc';
 const fs = require('fs');
 
 function getUserHome() {
@@ -89,9 +88,7 @@ function decryptConfig(text) {
 	return decrypted.toString();
 }
 
-// Listen for app to be ready
-app.on('ready', ready);
-function ready() {
+function loadConfig() {
 	try {
 		let rawConfig = fs.readFileSync(configFullPath);
 		parsedConfig = JSON.parse(rawConfig);
@@ -100,13 +97,21 @@ function ready() {
 		console.log('config parsed!');
 		// check if first time setup
 	} catch (err) {
+		console.error(err);
 		console.log("config doesn't exist!");
 	}
+	// loadFile = config.firstTime ? 'setupWindow' : 'loginWindow';
 	if (config.firstTime == false) {
 		loadFile = 'loginWindow';
 	} else {
 		loadFile = 'setupWindow';
 	}
+}
+
+// Listen for app to be ready
+app.on('ready', ready);
+function ready() {
+	loadConfig();
 	//Create new window
 	loginWindow = new BrowserWindow({
 		width: 250,

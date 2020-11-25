@@ -54,9 +54,9 @@ function submit() {
 			config.login.attempts = 0;
 	
 			// send confirmation
+			save();
 			ipcRenderer.send('loginConfirmation');
 			win.close();
-			save();
 		} else if (passDOM.value == '') {
 			// If password is empty
 			// Display span

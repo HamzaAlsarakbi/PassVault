@@ -29,7 +29,8 @@ let components = {
 	add: false,
 	dialog: false,
 	search: false,
-	tooltip: false
+	tooltip: false,
+	filters: false
 };
 
 const elements = {
@@ -108,7 +109,7 @@ function toggleAdd() {
 	if (components.search) {
 		toggleSearch();
 	}
-	if (filtersOn) {
+	if (components.filters) {
 		toggleFilters();
 	}
 	if (!components.add) {
@@ -911,11 +912,10 @@ function toggleSearch() {
 	
 }
 // filters
-let filtersOn = false;
 function toggleFilters() {
 	if (components.add) toggleAdd();
 	if (components.settings) toggleSettings();
-	if (!filtersOn) {
+	if (!components.filters) {
 		// make drop-down
 		let container = document.createElement('div');
 		container.setAttribute('class', 'drop-down');
@@ -950,10 +950,10 @@ function toggleFilters() {
 			span.setAttribute('class', 'checkmark');
 			label.appendChild(span);
 		}
-		filtersOn = true;
+		components.filters = true;
 	} else {
 		document.querySelector('dropDown').innerHTML = '';
-		filtersOn = false;
+		components.filters = false;
 	}
 }
 function setFilter(e) {
