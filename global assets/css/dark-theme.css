@@ -22,8 +22,9 @@
 
 	/** Controls **/
 	--toggle-controls: rgba(50, 50, 50, 0.4);
-	--toggle-controls-opaque: rgba(50, 50, 50, 1);
+	--toggle-controls-opaque: rgb(30, 30, 30);
 	--primary-a: rgb(64, 124, 255);
+	--controls-background: rgba(20, 20, 20, 0.7);
 
 	/** Buttons **/
 	--primary-button: linear-gradient(-45deg, rgb(10, 66, 189), rgb(61, 118, 243));

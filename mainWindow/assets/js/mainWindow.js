@@ -99,6 +99,7 @@ function capitalize(text) {
 
 
 function toggleAdd() {
+	document.querySelector('controls').classList.toggle('enabled');
 	document.querySelector('#add img').classList.toggle('rotate');
 	panel.classList.toggle('toggleAdd');
 	document.querySelector('#thead').classList.toggle('toggleAdd');
@@ -910,60 +911,6 @@ function toggleSearch() {
 		searchInput.blur();
 	}
 	
-}
-// filters
-function toggleFilters() {
-	if (components.add) toggleAdd();
-	if (components.settings) toggleSettings();
-	if (!components.filters) {
-		// make drop-down
-		let container = document.createElement('div');
-		container.setAttribute('class', 'drop-down');
-		document.querySelector('dropDown').appendChild(container);
-
-		// create header
-		let header = document.createElement('div');
-		header.setAttribute('class', 'header');
-		header.textContent = 'Search By:';
-		container.appendChild(header);
-
-		// create parameters
-		for (i = 0; i < id.length; i++) {
-			// create parameter
-			let label = document.createElement('label');
-			label.setAttribute('class', 'label');
-			label.textContent = id[i];
-			container.appendChild(label);
-
-			// create checkbox
-			let input = document.createElement('input');
-			input.setAttribute('type', 'checkbox');
-			input.setAttribute('id', id[i]);
-			input.setAttribute('onclick', 'setFilter(this)');
-
-			// if search by is turned off for this specific parameter, then don't 'check' it.
-			if (searchBy[id[i]]) input.setAttribute('checked', 'checked');
-			label.appendChild(input);
-
-			// create checkmark
-			let span = document.createElement('span');
-			span.setAttribute('class', 'checkmark');
-			label.appendChild(span);
-		}
-		components.filters = true;
-	} else {
-		document.querySelector('dropDown').innerHTML = '';
-		components.filters = false;
-	}
-}
-function setFilter(e) {
-	let id = e.id;
-	if (searchBy[id]) {
-		searchBy[id] = false;
-	} else {
-		searchBy[id] = true;
-	}
-	search();
 }
 searchInput.addEventListener('input', search);
 

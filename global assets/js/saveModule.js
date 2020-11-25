@@ -150,12 +150,12 @@ function changesChecker() {
 	// compare two objects
 	if (dataSave == currentData) {
 		// console.log('%c dataSave & data are equal.', greenColor);
+		updateTitle(windowTitle);
 		if (saved) {
 			// if the user reversed changes, has a side effect when triggering save from console
 			saved = false;
 			var saveButtonDOM = document.querySelector('.save');
 			saveButtonDOM.classList.toggle('button-slide-out');
-			updateTitle(windowTitle);
 			setTimeout(function() {
 				saveButtonDOM.remove();
 			}, 300);
@@ -165,10 +165,6 @@ function changesChecker() {
 			console.log('%c dataSave & data are NOT equal.', errorColor);
 			save('show');
 			updateTitle(windowTitle + '*');
-			if (lockVaultOn) {
-				lockVault();
-				setTimeout(lockVault, 400);
-			}
 		} else {
 			// console.log('%c ERROR: caught in stalemate.', orangeColor);
 		}

@@ -1,4 +1,5 @@
 function toggleSettings() {
+	document.querySelector('controls').classList.toggle('enabled');
   document.querySelector('#thead').classList.toggle('margin-settings');
 	panel.classList.toggle('toggleSettings');
 
@@ -10,7 +11,7 @@ function toggleSettings() {
 
 	// if one of the windows is open
 	if (components.search) toggleSearch();
-	if (filtersOn) toggleFilters();
+	if (components.filters) toggleFilters();
 	if(components.add) toggleAdd();
 
 	if (!components.settings) {

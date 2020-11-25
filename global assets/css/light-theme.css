@@ -9,7 +9,8 @@
 	--primary-hover: rgb(190, 190, 190);
 	--primary-accent: rgb(66, 107, 196);
 	--primary-accent-transparent: rgba(45, 85, 170, 0.5);
-	--primary-shadow: rgb(150, 150, 150);
+	--primary-shadow: rgb(207, 207, 207);
+	--primary-important: rgb(250, 100, 100);
 
 	/** Scrollbar **/
 	--scrollbar-track: rgb(190, 190, 190);
@@ -18,8 +19,9 @@
 
 	/** Controls **/
 	--toggle-controls: rgba(190, 190, 190, 0.4);
-	--toggle-controls-opaque: rgb(190, 190, 190);
+	--toggle-controls-opaque: rgba(230, 230, 230, 0.9);
 	--primary-a: var(--primary-accent);
+	--controls-background: rgba(187, 187, 187, 0.7);
 
 	/** Button **/
 	--primary-button: rgb(64, 124, 255);
