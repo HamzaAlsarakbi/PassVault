@@ -6,7 +6,7 @@ function toggleSettings() {
 	menu.classList.toggle('menu-down');
 
 	// rotate icon
-	document.querySelector('#settings').classList.toggle('rotate');
+	document.querySelector('#settings img').classList.toggle('rotate');
 
 	// if one of the windows is open
 	if (components.search) toggleSearch();

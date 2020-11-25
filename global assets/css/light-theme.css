@@ -9,6 +9,7 @@
 	--primary-hover: rgb(190, 190, 190);
 	--primary-accent: rgb(66, 107, 196);
 	--primary-accent-transparent: rgba(45, 85, 170, 0.5);
+	--primary-shadow: rgb(150, 150, 150);
 
 	/** Scrollbar **/
 	--scrollbar-track: rgb(190, 190, 190);
@@ -52,6 +53,11 @@
 	--radio-background-hover: rgb(210, 210, 210);
 	--radio-background-active: var(--primary-accent);
 	--radio-checkmark: rgb(220, 220, 220);
+
+
+	/* tooptips */
+	--tooltip-background: rgb(240, 240, 240);
+	--tooltip-shadow: rgb(200, 200, 200);
 }
 /** Icons **/
 img:not(#service-icon) {

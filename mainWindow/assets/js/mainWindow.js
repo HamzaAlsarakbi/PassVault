@@ -28,7 +28,8 @@ let components = {
 	settings: false,
 	add: false,
 	dialog: false,
-	search: false
+	search: false,
+	tooltip: false
 };
 
 const elements = {
@@ -97,7 +98,7 @@ function capitalize(text) {
 
 
 function toggleAdd() {
-	document.querySelector('#add').classList.toggle('rotate');
+	document.querySelector('#add img').classList.toggle('rotate');
 	panel.classList.toggle('toggleAdd');
 	document.querySelector('#thead').classList.toggle('toggleAdd');
 	menu.classList.toggle('menu-down');
@@ -323,6 +324,7 @@ function addRow(type, service, email, password, index) {
 	let edit = document.createElement('div');
 	edit.setAttribute('class', 'cell-' + index);
 	edit.setAttribute('id', 'cell-edit');
+	edit.setAttribute('onmouseover', 'addTooltip(this, "Edit")');
 	edit.setAttribute('onclick', 'editRow(this, "show")');
 	tdControls.appendChild(edit);
 
@@ -338,6 +340,7 @@ function addRow(type, service, email, password, index) {
 	let showHideButton = document.createElement('div');
 	showHideButton.setAttribute('class', 'cell-' + index);
 	showHideButton.setAttribute('id', 'cell-showHide');
+	showHideButton.setAttribute('onmouseover', 'addTooltip(this, "Show/Hide")');
 	showHideButton.setAttribute('onclick', 'hideShow(this)');
 	tdControls.appendChild(showHideButton);
 
@@ -357,6 +360,7 @@ function addRow(type, service, email, password, index) {
 	let deleteButton = document.createElement('div');
 	deleteButton.setAttribute('class', 'cell-' + index);
 	deleteButton.setAttribute('id', 'cell-delete');
+	deleteButton.setAttribute('onmouseover', 'addTooltip(this, "Delete")');
 	deleteButton.setAttribute('onclick', 'deleteFunc(this)');
 	tdControls.appendChild(deleteButton);
 
@@ -536,8 +540,17 @@ function editRow(properties, action) {
 		// when edit is toggled
 
 		// change controls
-		document.querySelector('#cell-edit.' + c).setAttribute('onclick', 'editRow(this, "hide")');
-		document.querySelector('#cell-delete.' + c).setAttribute('onclick', 'cancelEdit(this)');
+		{
+			let cell = document.querySelector('#cell-edit.' + c);
+			cell.setAttribute('onclick', 'editRow(this, "hide")');
+			cell.setAttribute('onmouseover', 'addTooltip(this, "Confirm")');
+		}
+		{
+			let cell = document.querySelector('#cell-delete.' + c);
+			cell.setAttribute('onclick', 'cancelEdit(this)');
+			cell.setAttribute('onmouseover', 'addTooltip(this, "Cancel")');	
+		}
+
 
 		// change icons
 		document.querySelector('#delete-icon.' + c).setAttribute('src', icons.remove);
@@ -620,7 +633,9 @@ function editRow(properties, action) {
 			// confirm edits
 			document.querySelector('.' + tr).classList.toggle('tr-edit');
 			document.querySelector('#cell-edit.' + c).setAttribute('onclick', 'editRow(this, "show")');
+			document.querySelector('#cell-edit.' + c).setAttribute('onmouseover', 'addTooltip(this, "Edit")');
 			document.querySelector('#cell-delete.' + c).setAttribute('onclick', 'deleteFunc(this)');
+			document.querySelector('#cell-delete.' + c).setAttribute('onmouseover', 'addTooltip(this, "Delete")');
 
 			// reset icons
 			document.querySelector('#edit-icon.' + c).setAttribute('src', icons.pencil);
@@ -661,7 +676,9 @@ function cancelEdit(properties) {
 
 	// reset controls
 	document.querySelector('#cell-edit.' + c).setAttribute('onclick', 'editRow(this, "show")');
+	document.querySelector('#cell-edit.' + c).setAttribute('onmouseover', 'addTooltip(this, "Edit")');
 	document.querySelector('#cell-delete.' + c).setAttribute('onclick', 'deleteFunc(this)');
+	document.querySelector('#cell-delete.' + c).setAttribute('onmouseover', 'addTooltip(this, "Delete")');
 
 	// reset icons
 	document.querySelector('#delete-icon.' + c).setAttribute('src', icons.trashcan);
@@ -881,7 +898,7 @@ function toggleSearch() {
 
 	// transitions
 	searchInput.classList.toggle('toggleSearch');
-	document.querySelector('div.control#search').classList.toggle('toggleSearch');
+	document.querySelector('div.control#search img').classList.toggle('toggleSearch');
 
 		// clear search input
 	searchInput.value = '';

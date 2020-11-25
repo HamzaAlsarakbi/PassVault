@@ -200,7 +200,7 @@ input.toggleSearch:focus {
 	border-color: var(--primary-accent) !important;
 }
 
-div.toggleSearch {
+img.toggleSearch {
 	transform: rotate(-90deg);
 }
 dropDown {
@@ -500,7 +500,6 @@ input:focus {
 	position: sticky;
 	top: 0;
 	backdrop-filter: blur(5px);
-	z-index: 1;
 	border-bottom: var(--primary-thead-border);
 }
 #type,

@@ -9,6 +9,7 @@
 	--primary-hover: rgb(60, 60, 60);
 	--primary-accent: rgb(66, 107, 196);
 	--primary-accent-transparent: rgba(45, 85, 170, 0.8);
+	--primary-shadow: rgb(50, 50, 50);
 
 	--secondary-accent: rgb(32, 32, 32);
 	--secondary-accent-transparent: rgba(32, 32, 32, 0.5);
@@ -61,6 +62,11 @@
 	--radio-background-hover: rgb(60, 60, 60);
 	--radio-background-active: var(--primary-accent);
 	--radio-checkmark: rgb(50, 50, 50);
+
+
+	/* tooptips */
+	--tooltip-background: rgb(35, 35, 35);
+	--tooltip-shadow: rgb(10, 10, 10);
 }
 
 a:hover {

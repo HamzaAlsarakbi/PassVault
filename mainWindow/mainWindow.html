@@ -6,14 +6,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="../global assets/js/config.js"></script>
     <script src='../global assets/js/themeLoader.js'></script>
-    <link rel="stylesheet" type="text/css" href="../global assets/css/windowBar.css" />
-    <link rel="stylesheet" type="text/css" href="../global assets/css/scrollBar.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/mainWindow.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/settings.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/panel.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/addParameter.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/dialog.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/addSection.css" />
+    <link rel="stylesheet" type="text/css" href="../global assets/css/windowBar.css"/>
+    <link rel="stylesheet" type="text/css" href="../global assets/css/scrollBar.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/tooltip.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/settings.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/panel.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/addParameter.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/addSection.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/mainWindow.css"/>
   </head>
   <body>  
 
@@ -37,7 +38,7 @@
           </div>
           
           <div id="window-controls">
-            <div class="button" id="lock-button" onclick="lockVault()">
+            <div class="button" onmouseover="addTooltip(this, 'Lock')" id="lock-button" onclick="lockVault()">
               <img src="../global assets/img/window_icons/lock.png" class="window-icon">
             </div>
             <div class="button" id="min-button">
@@ -67,19 +68,19 @@
             </div>
             <div class="controls-buttons">
               <div class="control-collection">
-                <div class="control" id="filter" onclick="toggleFilters()">
+                <div class="control" onmouseover="addTooltip(this, 'Filters')" id="filter" onclick="toggleFilters()">
                   <img height="20px" src="../global assets/img/dark/filter.png">
                 </div>
                 <dropDown></dropDown>
               </div>
               <input class="control" id="search-input" placeholder="Search for Keyword">
-              <div class="control" id="search" onclick="toggleSearch()">
+              <div class="control" onmouseover="addTooltip(this, 'Search')" id="search" onclick="toggleSearch()">
                 <img height="20px" src="../global assets/img/dark/search.png">
               </div>
-              <div class="control" id="add" onclick="toggleAdd()">
+              <div class="control" onmouseover="addTooltip(this, 'Add')" id="add" onclick="toggleAdd()">
                 <img height="20px" src="../global assets/img/dark/add.png">
               </div>
-              <div class="control" id="settings" onclick="toggleSettings()">
+              <div class="control" onmouseover="addTooltip(this, 'Settings')" id="settings" onclick="toggleSettings()">
                 <img height="30px" src="../global assets/img/dark/gear.png">
               </div>
             </div>
@@ -105,6 +106,7 @@
     
     <!-- Scripts -->
     <script src="../global assets/js/windowControls.js"></script>
+    <script src="../global assets/js/tooltip.js"></script>
     <script src="../global assets/js/addElement.js"></script>
     <script src="assets/js/addParameter.js"></script>
     <script src="assets/js/addSection.js"></script>

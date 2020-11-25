@@ -1,6 +1,5 @@
 function updateAttempts() {
   config.login.attempts++;
-  console.log(config.login)
   if(config.login.attempts >= 5) {
     startCooldown();
   }
@@ -9,6 +8,7 @@ function updateAttempts() {
 
 if(config.login.cooldown > 0) startCooldown();
 function startCooldown() {
+  console.log('started cooldown');
   config.login.cooldown = 5 * 60 * config.login.cooldowns;
   error.classList.add('error');
   error.textContent = 'Login disabled. Please wait ' + ((config.login.cooldown - (config.login.cooldown % 60)) / 60) + ' minute(s) and 0 second(s)';

@@ -39,7 +39,6 @@ html {
 	align-items: center;
 	margin-left: 8px;
 	overflow-x: hidden;
-	font-family: "Segoe UI", sans-serif;
 	font-size: 12px;
 	overflow: hidden;
 }
@@ -61,7 +60,6 @@ html {
 	top: 0;
 	right: 0;
 	height: 100%;
-	font-family: "Segoe MDL2 Assets";
 	font-size: 10px;
 }
 
@@ -86,7 +84,6 @@ html {
 
 /*** Hover over buttons */
 #window-controls .button:hover {
-	opacity: 0.8;
 	background-color: var(--primary-hover);
 }
 

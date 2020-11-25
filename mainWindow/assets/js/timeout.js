@@ -20,14 +20,14 @@ let timeoutDialog = null;
 function timeoutAction() {
 	if (saved) {
 		timeoutDialog = showDialog(
-			'Timeout',
+			'Timeout Warning',
 			'You have been inactive for ' + config.timeout + ' minute(s). Discarding changes in 1 minute',
 			[ 'Save', "Don't save", 'Cancel' ],
 			[ "save('close')", 'win.close()', 'closeDialog()' ]
 		);
 	} else {
 		timeoutDialog = showDialog(
-			'Timeout',
+			'Timeout Warning',
 			'You have been inactive for ' + config.timeout + ' minute(s). Locking vault in 1 minute',
 			[ 'Close', 'Cancel' ],
 			[ 'win.close()', 'closeDialog()' ]
