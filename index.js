@@ -57,7 +57,7 @@ let config = {
 	devTools: false,
 	login: {
 		cooldown: 0,
-		cooldowns: 0,
+		cooldowns: 1,
 		attempts: 0
 	}
 };

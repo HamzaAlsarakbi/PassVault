@@ -54,16 +54,17 @@ try {
 var config = {
 	theme: 'dark',
 	gridlinesOn: false,
-	enableAnimations: true,
 	firstTime: true,
+	enableAnimations: true,
 	timeout: 2,
 	devTools: false,
 	login: {
 		cooldown: 0,
-		cooldowns: 0,
+		cooldowns: 1,
 		attempts: 0
 	}
 };
+
 var rawConfig, parsedConfig, decryptedConfig;
 try {
 	rawConfig = fs.readFileSync(configFullPath);
@@ -75,6 +76,20 @@ try {
 	console.error(err);
 	console.log('%c ERROR: failed to parse object', 'color: rgb(200, 50, 50);');
 }
+// check if any new components are missing
+if(config.devTools == undefined) config.devTools = false;
+if(config.enableAnimations == undefined) config.enableAnimations = true;
+if(config.login == undefined) config.login = {
+	cooldown: 0,
+	cooldowns: 1,
+	attempts: 0
+}
+if(config.timeout == undefined) config.timeout = 2;
+
+
+
+
+
 function decryptConfig(text) {
 	let iv = Buffer.from(text.iv, 'hex');
 	let encryptedText = Buffer.from(text.encryptedData, 'hex');
