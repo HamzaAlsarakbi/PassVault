@@ -28,9 +28,6 @@
 	transform: scale(0.9);
 	opacity: 0;
 }
-.container-freeze {
-	filter: grayscale(1) brightness(0.8);
-}
 
 
 .dialog-box-prompt {
