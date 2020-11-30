@@ -7,7 +7,7 @@ document.onreadystatechange = () => {
 	}
 };
 function updateTitle(text) {
-	let suffix;
+	let suffix = '';
 	if(isDev) suffix = ' - Dev Build';
 	document.title = text + suffix;
 	document.querySelector('.window-title').textContent = text + suffix;
