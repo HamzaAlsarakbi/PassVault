@@ -943,7 +943,7 @@ function iconChecker(classList, id, text) {
 
 	// pull default icons
 	try {
-		fs.readdirSync('global assets/img/icons').forEach((file) => {
+		fs.readdirSync(path.join(__dirname, '../global assets/img/icons')).forEach((file) => {
 			defaultList.push(file);
 		});
 	} catch (err) {
