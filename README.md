@@ -4,7 +4,7 @@ A simple program that stores your passwords, locally, and encrypted. Unlike othe
 
 ## Features
 ### Add Menu
-Add email/username and password. Duh.
+Add email/username and password.
 
 ![](https://github.com/Electr0d/PassVault/blob/master/gifs/add%20menu/add%20menu.gif)
 
@@ -61,14 +61,16 @@ Everytime you add something, a save button will appear to asking you to confirm 
 
 - Service icons
 
-To make scrolling through rows looking for something even easier, I added a service icon. With support for nearly 60+ services. Check mainWindow.js for the icons supported.
+To make scrolling through rows looking for something even easier, I added a service icon. With support for 70+ services. To add your own icons. Click the "open icons folder" button in the settings menu.
 
 ![](https://github.com/Electr0d/PassVault/blob/master/gifs/table/icons.gif)
 
-### Search
+### Search & Filters
 
 Have a ton of rows and want to get to one quickly? The search bar is for you. Just click on the magnifier icon, or press **Ctrl + F** to open the search bar.
 Every cell checked if it includes your keyword. You can check what columns is searched by in the filter menu, which you can open by clicking on the filter icon, or by pressing **Alt + F**
+
+![](https://github.com/Electr0d/PassVault/blob/master/gifs/search%20bar/search.gif)
 
 For example, if you have only "service" checked and type "Google", then the program lists every row that contains "Google" in the service column.
 
@@ -77,14 +79,26 @@ This is where you tweak your vault. You can open the settings menu by clicking o
 
 ![](https://github.com/Electr0d/PassVault/blob/master/gifs/settings/settings.gif)
 
-- Toggle Gridlines
+- Show Gridlines
 
 This shows border around every row. It is off by default.
 
+- Animations
 
-- Toggle themes
+Animations are enabled by default. This can be switched off.
 
-Set to dark theme by default to protect you from the blinding light mode.
+- Inactivity timeout
+
+After the set amount of minutes (2 by default) you will be prompted by either closing PassVault or closing the prompt. After 1 minute of inactivity. You will be sent back to the login screen.
+
+- Open icons folder
+
+An ease way to drag and drop your favourite icons!
+
+
+- Themes
+
+Switch to different themes. Dark mode is the default option.
 
 
 - Change password
@@ -92,24 +106,27 @@ Set to dark theme by default to protect you from the blinding light mode.
 This is where you change the master password you use to enter the vault.
 
 
-- Lock Vault
-
-Go back to the login menu.
-
 
 - About
 
 About me!
 
-## Security
-PassVault uses AES 256 bits encryption algorithm, meaning that your data is secure... somewhat. The problem is that the key is also stored locally. It is the same as if you have the key to your house under a doormat.
 
-I personally recommend you change around the security settings if you want to be more secure, but you should be fine either way.
+### Lock Vault
+
+Go back to the login menu.
+
+## Security
+### Encryption
+PassVault uses AES 256 bits encryption algorithm, meaning that your data is secure.
+
+### Cooldown
+When wrong password is entered 5 times. User will be locked out for 5 minutes. The period increases every cooldown
+
+
+### Timeout
+After a set period of time. User will be warned, then sent back to the login menu. The timeout period can be changed in the settings menu.
 
 
 ## Feedback
-I built this program on feedback, if you have any. Please DM me on [Twitter](https://www.twitter.com/Electr0d), or [Instagram](https://www.instagram.com/hamza__sar). I will help you out with any problems and add features you want.
-
-
-
-
+I built this program on feedback, if you have any. Please file an issue and/or DM me on [Instagram](https://www.instagram.com/hamza__sar).
