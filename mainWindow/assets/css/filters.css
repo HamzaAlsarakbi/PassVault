@@ -62,7 +62,7 @@ dropDown,
 	left: 0;
 	height: 25px;
 	width: 25px;
-	background-color: var(--secondary-accent);
+	background: var(--checkmark-background);
 	border-radius: 10px;
 }
 /* On mouse-over, add a grey background color */
@@ -79,7 +79,7 @@ dropDown,
 
 /* When the checkbox is checked, add a blue background */
 .label input:checked ~ .checkmark {
-	background-color: var(--primary-accent);
+	background: var(--primary-accent);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

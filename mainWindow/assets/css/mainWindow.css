@@ -208,6 +208,7 @@ div.no-match {
 	opacity: 0 !important;
 	padding: 0 !important;
 	margin: 0 !important;
+	border: none !important;
 	background-color: rgb(200, 50, 50) !important;
 }
 

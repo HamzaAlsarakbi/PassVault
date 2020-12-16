@@ -68,6 +68,10 @@
 	/* tooltips */
 	--tooltip-background: rgb(35, 35, 35);
 	--tooltip-shadow: rgb(10, 10, 10);
+
+
+	/* checkmark */
+	--checkmark-background: var(--primary-hover);
 }
 
 a:hover {

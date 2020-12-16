@@ -57,9 +57,13 @@
 	--radio-checkmark: rgb(220, 220, 220);
 
 
-	/* tooptips */
+	/* tooltips */
 	--tooltip-background: rgb(240, 240, 240);
 	--tooltip-shadow: rgb(200, 200, 200);
+
+	
+	/* checkmark */
+	--checkmark-background: var(--primary-hover);
 }
 /** Icons **/
 img:not(#service-icon) {

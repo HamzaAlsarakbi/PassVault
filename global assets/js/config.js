@@ -1,4 +1,4 @@
-const { platform } = require('os');
+const version = 'v1.1.1';
 const isDev = require('electron-is-dev');
 const fs = require('fs'),
 	crypto = require('crypto'),
