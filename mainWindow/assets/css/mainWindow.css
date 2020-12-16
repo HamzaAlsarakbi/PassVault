@@ -362,6 +362,7 @@ input:focus {
 	cursor: pointer;
 	height: 28px;
 	border-radius: 5px;
+	position: relative;
 }
 #tbody #tr #cell-edit:active,
 #tbody #tr #cell-showHide:active,
