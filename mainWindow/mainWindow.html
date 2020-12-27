@@ -28,7 +28,7 @@
           <img class="loading-icon" id="loading-backdrop" src="../global assets/img/icon-backdrop.png" height="100px">
           <img class="loading-icon" id="loading-cog" src="../global assets/img/icon-cog.png" height="50px">
         </div>
-        <div class="loading-msg">Loading...</div>
+        <div class="loading-msg"></div>
       </div>
     </div>
     
@@ -120,23 +120,6 @@
     <script src="assets/js/settings.js"></script>
     <script src="../global assets/js/saveModule.js"></script>
     <script src="assets/js/timeout.js"></script>
-    <script>
-        document.querySelector('body').style.overflow = 'hidden';
-      function loaded() {
-        console.log('loaded');
-        setTimeout(function() {
-        // loading overlay draw-out animation
-        console.log('%c NOTICE: content loaded.', greenColor);
-        document.querySelector('.loading-overlay').classList.add('loading-overlay-draw-out');
-        
-        // container animation
-          document.querySelector('.container').classList.remove('container-draw-in');
-        setTimeout(function() {
-          document.querySelector('body').removeChild(document.querySelector('.loading-overlay'));
-        }, 1000);
-        }, 2000);
-      }
-      document.addEventListener('DOMContentLoaded', loaded, false);
-    </script>
+    <script src="assets/js/startupAnimation.js"></script>
   </body>
 </html>
