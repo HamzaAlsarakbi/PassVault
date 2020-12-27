@@ -68,6 +68,8 @@ function toggleSettings() {
 		 you can. It helps maintain this app, and build future projects.
 		 <br>
 		 <br>
+		 Copyright (C) 2020-present Hamza Alsarakbi, licensed under GNU GPL v3
+		 <br>
 		 Version: ` + version, aboutSection.body);
 		
 		// developer settings
