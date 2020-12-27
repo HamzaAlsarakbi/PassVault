@@ -255,6 +255,7 @@ function addData() {
 		data.cellIndex++;
 		// go back to type input field (convenience)
 		typeDOM.select();
+		search();
 	}
 }
 function addRow(type, service, email, password, index) {
