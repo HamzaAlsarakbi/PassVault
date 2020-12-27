@@ -3,7 +3,7 @@ div.tooltip {
   padding: 10px !important;
   font-size: 12px;
   border-radius: 5px;
-  position: fixed;
+  position: absolute;
   transform: translateY(120%);
   box-shadow: -2px 2px 2px var(--tooltip-shadow);
   z-index: 2;

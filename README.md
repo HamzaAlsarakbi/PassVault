@@ -130,3 +130,6 @@ After a set period of time. User will be warned, then sent back to the login men
 
 ## Feedback
 I built this program on feedback, if you have any. Please file an issue and/or DM me on [Instagram](https://www.instagram.com/hamza__sar).
+
+## Roadmap
+New updates/bug fixes can be found [here](https://trello.com/b/6yG9npca/passvault)!
