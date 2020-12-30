@@ -4,7 +4,7 @@
 	"description": "Password Manager.",
 	"main": "src/index.js",
 	"scripts": {
-		"start": "electron .",
+		"start": "electron . --inspect=5858",
 		"package-mac": "electron-packager . --overwrite --platform=darwgiin --arch=x64 --icon=global assets/img/icon.png --prune=true --out=release-builds",
 		"package-win32": "electron-packager . PassVault --overwrite --asar=true --platform=win32 --arch=ia32 --icon=appIcon/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"PassVault\"",
 		"package-win64": "electron-packager . PassVault --overwrite --asar=true --platform=win32 --arch=x64 --icon=appIcon/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"PassVault\"",

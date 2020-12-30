@@ -78,9 +78,6 @@ function lockVault() {
 
 // Lock Vault function
 function quit() {
-	ipcRenderer.send('logoutConfirmation');
+	ipcRenderer.send('logout');
 	win.close();
-	win.on('closed', () => {
-		win = null;
-	});
 }

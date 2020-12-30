@@ -30,14 +30,13 @@ html {
 
 #titlebar #drag-region {
 	display: grid;
-	grid-template-columns: auto 138px;
 }
 
 #window-title {
 	grid-column: 1;
 	display: flex;
 	align-items: center;
-	margin-left: 8px;
+	margin-left: 5px;
 	overflow-x: hidden;
 	font-size: 12px;
 	overflow: hidden;
@@ -51,6 +50,7 @@ html {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	line-height: 1.5;
+	white-space: nowrap;
 }
 
 #window-controls {
@@ -91,18 +91,16 @@ html {
 	background-color: rgb(238, 37, 30);
 }
 
-.dialog {
-	grid-column: 3;
-}
-#min-button:not(.dialog) {
+
+#min-button {
 	grid-column: 2;
 }
 #max-button,
 #restore-button {
 	grid-column: 3;
 }
-#close-button:active {
-	opacity: 0.8;
+#window-controls .button:active {
+	backdrop-filter: brightness(0.8);
 }
 
 #close-button {

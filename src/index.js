@@ -1,52 +1,36 @@
-const electron = require('electron');
-const { app, BrowserWindow, Menu, globalShortcut, focusedWindow, ipcMain, autoUpdater, dialog } = electron;
-let isDev = require('electron-is-dev');
-const url = require('url'),
-	crypto = require('crypto'),
-	path = require('path');
+const { app, BrowserWindow, Menu,  ipcMain, autoUpdater } = require('electron');
+const isDev = require('electron-is-dev');
+const url = require('url');
+const crypto = require('crypto');
+const path = require('path');
 const fs = require('fs');
+let popWindow, mainWindow, loadFile;
 
 function getUserHome() {
 	return process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME'];
 }
-let parentDir;
-if (process.platform == 'win32') {
-	// check if in development mode
-	if (isDev) {
-		parentDir = path.join(getUserHome(), '/AppData/Local/PassVaultDev');
-	} else {
-		// production mode
-		parentDir = path.join(getUserHome(), '/AppData/Local/PassVault');
-	}
-} else {
-	// linux
-	// check if in development mode
-	if (isDev) {
-		parentDir = path.join(getUserHome(), '/PassVaultDev');
-	} else {
-		// production mode
-		parentDir = path.join(getUserHome(), '/PassVault');
-	}
-}
+
+let parentRelDir = '/PassVault';
+if(isDev) parentRelDir += 'Dev';
+if(process.platform == 'win32') parentRelDir = '/AppData/Local' + parentRelDir;
+
+let parentDir = path.join(getUserHome(), parentRelDir);
+
 const dataDir = path.join(parentDir, '/Data');
 
+
 console.log(dataDir);
-console.log('Checking if directory exists...');
+console.log('Checking if parent directory exists...');
 if (!fs.existsSync(parentDir)) {
 	console.log("Parent directory doesn't exist");
 	fs.mkdirSync(parentDir);
 }
 if (!fs.existsSync(dataDir)) {
-	console.log("Directory doesn't exist!");
+	console.log("Data directory doesn't exist!");
 	fs.mkdirSync(dataDir);
 }
-const configFullPath = path.join(dataDir, '/config.json');
+const configPath = path.join(dataDir, '/config.json');
 const paramPath = path.join(dataDir, '/param.json');
-
-let loginWindow;
-let mainWindow;
-let mainWindowOn = 0;
-let loadFile;
 
 let config = {
 	theme: 'dark',
@@ -61,6 +45,7 @@ let config = {
 		attempts: 0
 	}
 };
+
 let key = crypto.randomBytes(32);
 let iv = crypto.randomBytes(16);
 let param = {
@@ -69,8 +54,7 @@ let param = {
 };
 
 try {
-	let rawParam = fs.readFileSync(paramPath);
-	param = JSON.parse(rawParam);
+	param = JSON.parse(fs.readFileSync(paramPath));
 	key = new Buffer.from(param.keyO);
 	iv = new Buffer.from(param.ivO);
 } catch (err) {
@@ -90,30 +74,25 @@ function decryptConfig(text) {
 
 function loadConfig() {
 	try {
-		let rawConfig = fs.readFileSync(configFullPath);
-		parsedConfig = JSON.parse(rawConfig);
-		decryptedConfig = decryptConfig(parsedConfig);
-		config = JSON.parse(decryptedConfig);
+		// parse .json file into an object
+		parsedConfig = JSON.parse(fs.readFileSync(configPath));
+
+		// decrypt then parse into object
+		config = JSON.parse(decryptConfig(parsedConfig));
 		console.log('config parsed!');
 		// check if first time setup
 	} catch (err) {
 		console.error(err);
 		console.log("config doesn't exist!");
 	}
-	// loadFile = config.firstTime ? 'setupWindow' : 'loginWindow';
-	if (config.firstTime == false) {
-		loadFile = 'loginWindow';
-	} else {
-		loadFile = 'setupWindow';
-	}
+	loadFile = config.firstTime ? 'setupWindow' : 'loginWindow';
 }
 
-// Listen for app to be ready
-app.on('ready', ready);
-function ready() {
+app.on('ready', createPopWindow);
+function createPopWindow() {
 	loadConfig();
-	//Create new window
-	loginWindow = new BrowserWindow({
+	// Create new window
+	popWindow = new BrowserWindow({
 		width: 250,
 		height: 375,
 		frame: false,
@@ -126,29 +105,29 @@ function ready() {
 	});
 
 	// Load HTML file into window
-	loginWindow.loadURL(
+	popWindow.loadURL(
 		url.format({
-			pathname: path.join(__dirname, loadFile + '/' + loadFile + '.html'),
+			pathname: path.join(__dirname, `${loadFile}/${loadFile}.html`),
 			protocol: 'file:',
 			slashes: true
 		})
 	);
-	// Receive confirmation
-	ipcMain.on('loginConfirmation', function() {
-		console.log('received login request.');
-		// If mainWinow is opened
-		if (mainWindowOn == 0) {
-			mainWindowOn = 1;
-			createMainWindow();
-		}
-	});
 	if(!isDev && !config.devTools) Menu.setApplicationMenu(null);
+	
+	popWindow.on('close', () => {
+		popWindow = null;
+	})
+
+	// Receive confirmation
+	ipcMain.on('login', e => {
+		console.log('received login request.');
+		if(!mainWindow) createMainWindow();
+	});
 }
 
 
 // mainWindow function
 function createMainWindow() {
-	win = 'mainWindow';
 	mainWindow = new BrowserWindow({
 		frame: false,
 		height: 700,
@@ -170,41 +149,17 @@ function createMainWindow() {
 			slashes: true
 		})
 	);
+	mainWindow.on('close', () => {
+		mainWindow = null;
+	});
+
+
 	// Receive logout confirmation
-	ipcMain.on('logoutConfirmation', function() {
+	ipcMain.on('logout', function() {
 		console.log('received logout request.');
-		// If mainWinow is opened
-		if (mainWindowOn == 1) {
-			mainWindowOn = 0;
-			ready();
-			console.log('firstTime: ' + config.firstTime);
-			mainWindow.on('close', function() {
-				mainWindow = null;
-			});
-		}
+		if(!popWindow) createPopWindow();
 	});
 }
 
-/*
-autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
-	const dialogOpts = {
-		type: 'info',
-		buttons: [ 'Restart', 'Later' ],
-		title: 'Application Update',
-		message: process.platform === 'win32' ? releaseNotes : releaseName,
-		detail: 'A new version has been downloaded. Restart the application to apply the updates.'
-	};
-	
-	dialog.showMessageBox(dialogOpts).then((returnValue) => {
-		if (returnValue.response === 0) autoUpdater.quitAndInstall();
-	});
-});
-autoUpdater.on('error', (message) => {
-	console.error('There was a problem updating the application');
-	console.error(message);
-});
 
-setInterval(() => {
-	autoUpdater.checkForUpdates();
-}, 60000);
-*/
+

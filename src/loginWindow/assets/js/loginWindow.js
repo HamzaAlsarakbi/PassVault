@@ -1,7 +1,13 @@
 const electron = require('electron');
 const remote = electron.remote;
 const { ipcRenderer } = electron;
-
+function updateTitle(text) {
+	let suffix = '';
+	if(isDev) suffix = ' - Dev Build';
+	document.title = text + suffix;
+	document.querySelector('.window-title').textContent = text + suffix;
+}
+updateTitle('Login');
 // Assigning variables
 const submitButton = document.querySelector('.submit');
 const passDOM = document.querySelector('#password');
@@ -55,7 +61,7 @@ function submit() {
 	
 			// send confirmation
 			save();
-			ipcRenderer.send('loginConfirmation');
+			ipcRenderer.send('login');
 			win.close();
 		} else if (passDOM.value == '') {
 			// If password is empty

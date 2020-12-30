@@ -7,6 +7,18 @@
 	user-select: none;
 	transition: 0.2s ease-out;
 	font-family: "Segoe UI", sans-serif;
+	-webkit-user-drag: none;
+}
+
+#window-controls {
+	grid-template-columns: repeat(2, 30px);
+}
+
+#min-button {
+	grid-column: 1;
+}
+#close-button {
+	grid-column: 2;
 }
 .container {
 	display: flex;
