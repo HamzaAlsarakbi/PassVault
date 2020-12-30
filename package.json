@@ -1,8 +1,8 @@
 {
 	"name": "passvault",
-	"version": "1.0.0",
-	"description": "Password Vault.",
-	"main": "index.js",
+	"version": "1.2.0",
+	"description": "Password Manager.",
+	"main": "src/index.js",
 	"scripts": {
 		"start": "electron .",
 		"package-mac": "electron-packager . --overwrite --platform=darwgiin --arch=x64 --icon=global assets/img/icon.png --prune=true --out=release-builds",

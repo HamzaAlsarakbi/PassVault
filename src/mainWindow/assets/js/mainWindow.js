@@ -437,7 +437,6 @@ function strengthMeter(text) {
 		return strength;
 	}
 }
-let editOn = false;
 function hideShow(e, value) {
 	let d = e.id;
 	let c = e.classList;
@@ -466,30 +465,28 @@ function hideShow(e, value) {
 		}
 	} else {
 		// if it is table
-		let querySelect = '#password-content' + '.' + c;
-		let querySelectInput = '#table-password' + '.input-' + data[c].index;
-		if (!editOn) {
+		let cell = document.querySelector('#password-content' + '.' + c);
+		let cellInput = document.querySelector('#table-password' + '.input-' + data[c].index);
+
+		if (cellInput) {
 			if (data[c].hidden) {
 				document.querySelector('#eye-icon.' + c).setAttribute('src', icons.eye.crossed);
-				document.querySelector(querySelect).textContent = data[c].password;
-				data[c].hidden = false;
+				cellInput.setAttribute('type', 'text');
+				
 			} else {
 				document.querySelector('#eye-icon.' + c).setAttribute('src', icons.eye.eye);
-				document.querySelector(querySelect).textContent = icons.bullet.repeat(data[c].password.length);
-				data[c].hidden = true;
+				cellInput.setAttribute('type', 'password');
 			}
 		} else {
 			if (data[c].hidden) {
 				document.querySelector('#eye-icon.' + c).setAttribute('src', icons.eye.crossed);
-
-				document.querySelector(querySelectInput).setAttribute('type', 'text');
-				data[c].hidden = false;
+				cell.textContent = data[c].password;
 			} else {
 				document.querySelector('#eye-icon.' + c).setAttribute('src', icons.eye.eye);
-				document.querySelector(querySelectInput).setAttribute('type', 'password');
-				data[c].hidden = true;
+				cell.textContent = icons.bullet.repeat(data[c].password.length);
 			}
 		}
+		data[c].hidden = !data[c].hidden;
 	}
 }
 function toast(message) {
