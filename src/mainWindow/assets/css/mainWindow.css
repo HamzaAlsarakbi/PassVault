@@ -7,6 +7,7 @@
 	outline: none;
 	transition: 0.2s ease-out;
 	backface-visibility: hidden;
+	-webkit-user-drag: none;
 }
 html,
 body {
@@ -28,61 +29,6 @@ body {
 	margin: 0;
 }
 
-/** Loading Menu **/
-.overlay {
-	position: fixed;
-	z-index: 3;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100vh;
-	backdrop-filter: brightness(0.8) grayscale(0.5);
-}
-
-/** Loading Menu **/
-.loading-overlay {
-	background: var(--body);
-	position: fixed;
-	z-index: 999;
-	width: 100%;
-	height: 100%;
-}
-.loading-container {
-	display: flex;
-	width: 100%;
-	height: 100%;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-.loading-icons {
-	height: 120px;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	transform: scale(1.5);
-}
-.loading-icon {
-	position: relative;
-}
-#loading-cog {
-	animation: rotation 1.5s infinite;
-	top: -90px;
-	left: -2px;
-}
-.loading-msg {
-	margin-top: 20px;
-	height: 40px;
-	font-size: 22px;
-}
-.loading-overlay-draw-out {
-	opacity: 0;
-	transform: scale3d(1.5, 1.5, 1.5);
-	transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-	will-change: transform, opacity;
-}
-
 /** container **/
 .container {
 	margin-top: 80px;
@@ -95,8 +41,6 @@ body {
 	overflow-y: scroll;
 }
 
-
-
 .control,
 .parameter {
 	display: flex;
@@ -104,10 +48,7 @@ body {
 	align-items: center;
 	flex-direction: row;
 }
-/** icon settings **/
-img {
-	-webkit-user-drag: none;
-}
+
 .control {
 	display: flex;
 	padding: 5px;
@@ -155,16 +96,6 @@ button:active {
 	transform: scale(0.95);
 	transition: 0.1s;
 }
-
-.settings-parameters {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	height: 233px;
-	padding: 10px;
-	overflow: auto;
-	width: 70%;
-}
 input {
 	margin: 5px;
 	padding: 5px;
@@ -180,32 +111,6 @@ input:hover {
 }
 input:focus {
 	border-color: var(--primary-accent);
-}
-.noerror {
-	font-size: 12px;
-	color: transparent;
-	height: 0px;
-}
-.error {
-	color: rgb(252, 61, 61);
-	height: 18px;
-	animation: tr-draw-in 0.25s ease-out;
-}
-.confirm {
-	height: 18px;
-	animation: tr-draw-in 0.25s ease-out;
-	color: var(--primary-green);
-}
-.change-password-confirm {
-	width: calc(100% - 20px);
-}
-/**** Lock */
-.lock-param {
-	height: 30px;
-	width: calc(100% - 10px);
-}
-.disabled {
-	background: rgb(252, 61, 61);
 }
 
 #tbody cell {
@@ -517,10 +422,6 @@ input:focus {
 #tr.gridlinesOn {
 	border-color: var(--secondary-color) !important;
 }
-#window-controls .button:hover {
-	background: (--primary-hover);
-}
-
 
 #service-icon {
 	width: 20px;
@@ -532,5 +433,3 @@ input:focus {
 	align-items: center;
 	justify-content: center;
 }
-
-

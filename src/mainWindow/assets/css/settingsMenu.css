@@ -5,16 +5,6 @@
 	background: var(--toggle-controls);
 }
 
-.settings {
-	padding-left: 20px;
-	padding-right: 20px;
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
-
 .toggleSettings menu.menu-down {
 	display: flex;
 	flex-direction: column;
@@ -27,10 +17,16 @@
 .password-change {
 	padding: 10px;
 }
-.change-password-input {
-	/* width: 98%; */
+/* span confirmation css */
+.confirm-password-change {
+	height: 18px;
+	animation: tr-draw-in 0.25s ease-out;
+	color: var(--primary-green);
 }
-
+/* change password button */
+.change-password-button {
+	width: calc(100% - 20px);
+}
 
 /** about **/
 .settings-sub-body-header {
@@ -38,11 +34,6 @@
 	font-weight: bold;
 	margin-top: 20px;
 	margin-bottom: 5px;
-}
-.settings-header-text {
-	text-align: center;
-	width: 100%;
-	padding-bottom: 20px;
 }
 .settings-sub-body {
 	font-size: 14px;

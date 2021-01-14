@@ -1,0 +1,55 @@
+
+/** Loading Menu **/
+.overlay {
+	position: fixed;
+	z-index: 3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+	backdrop-filter: brightness(0.8) grayscale(0.5);
+}
+
+/** Loading Menu **/
+.loading-overlay {
+	background: var(--body);
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+}
+.loading-container {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.loading-icons {
+	height: 120px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	transform: scale(1.5);
+}
+.loading-icon {
+	position: relative;
+}
+#loading-cog {
+	animation: rotation 1.5s infinite;
+	top: -90px;
+	left: -2px;
+}
+.loading-msg {
+	margin-top: 20px;
+	height: 40px;
+	font-size: 22px;
+}
+.loading-overlay-draw-out {
+	opacity: 0;
+	transform: scale3d(1.5, 1.5, 1.5);
+	transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+	will-change: transform, opacity;
+}

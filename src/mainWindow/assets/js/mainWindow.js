@@ -46,20 +46,20 @@ const table = document.querySelector('.tbody-data');
 const id = [ 'type', 'service', 'email', 'password' ];
 
 // shortcuts
-document.onkeydown = (e) => {
-	if (e.altKey && e.which == 65) {
+document.onkeydown = e => {
+	if (e.altKey && e.code == "KeyA") {
 		toggleAdd();
 	}
-	if (e.altKey && e.which == 83) {
+	if (e.altKey && e.code == "KeyS") {
 		toggleSettings();
 	}
-	if (e.altKey && e.which == 70) {
+	if (e.altKey && e.code == "KeyF") {
 		toggleFilters();
 	}
-	if (e.ctrlKey && e.which == 70) {
+	if (e.ctrlKey && e.code == "KeyF") {
 		toggleSearch();
 	}
-	if (e.ctrlKey && e.which == 83) {
+	if (e.ctrlKey && e.code == "KeyS") {
 		if (saved) {
 			save('all');
 		}
@@ -195,6 +195,7 @@ function addRow(type, service, email, password, index) {
 	setTimeout(function() {
 		table.classList.remove('tbody-animation');
 	}, 250);
+	return tr;
 }
 
 function strengthMeter(text) {

@@ -4,14 +4,15 @@ panel.toggleAdd {
 	background: var(--toggle-controls);
 }
 #thead.toggleAdd {
-	padding-top: 240px !important;
+	padding-top: 250px !important;
 }
 
 form.add-container {
   width: 100%;
+  justify-content: space-between
 }
 .add-input {
-  width: 48%;
+  width: calc(50% - 6px);
   margin: 3px;
 }
 
@@ -28,4 +29,9 @@ form.add-container {
 	padding-bottom: 5px;
 	width: 100%;
   flex-wrap: wrap;
+}
+
+/* expand panel when error is active */
+panel.panel-extend {
+  height: 230px !important;
 }

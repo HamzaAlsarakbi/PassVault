@@ -68,22 +68,26 @@ menu {
 	font-size: 20px;
 	transform: rotate(45deg);
 }
-
-
 .control-text {
 	font-size: 24px;
 	text-transform: uppercase;
 }
-
-
-
 @keyframes rotation {
 	100% {
 		transform: rotate(360deg);
 	}
 }
 
-
-.placeholder {
+/* error for form span */
+.noerror {
 	font-size: 12px;
+	color: rgb(250, 50, 50);
+	transform: translateX(-100%);
+	opacity: 0;
+	height: 0px;
+}
+.error {
+	transform: translateX(0%);
+	opacity: 1;
+	height: 18px;
 }

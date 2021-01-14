@@ -110,11 +110,11 @@ function openChangePasswordDialog() {
 		confirmPassword: addRichInput({ class: 'change-password-input', id: 'confirm-password', hidden: true }, 'Confirm new password', form)
 	}
 	addElement('span', { class: 'noerror', id: 'password-error' }, 'ERROR', form);
-	addElement('button', { class: 'change-password-confirm', onclick: 'passChangeRequest()', type: 'button' }, 'Change Password', form);
+	addElement('button', { class: 'change-password-button', onclick: 'passChangeRequest()', type: 'button' }, 'Change Master Password', form);
 	for(let p in passwords) {
-		passwords[p].addEventListener('keydown', (e) => { if(e.which == 13) passChangeRequest(); });
+		passwords[p].addEventListener('keydown', (e) => { if(e.keyCode == 13) passChangeRequest(); });
 	}
-
+	passwords.oldPassword.select();
 }
 
 
@@ -156,7 +156,7 @@ function passChangeRequest() {
 				error(false);
 				save('config');
 				setTimeout(() => {
-					p.classList.remove('confirm');
+					p.classList.remove('confirm-password-change');
 					setTimeout(() => {
 						removePopup('change-master-password');
 					}, 250);
