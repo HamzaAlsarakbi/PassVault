@@ -1,4 +1,4 @@
-
+const { shell } = electron;
 let parentElement;
 const strengthTier = [ 'Very weak', 'Weak', 'Medium', 'Strong', 'Very strong' ];
 // data object

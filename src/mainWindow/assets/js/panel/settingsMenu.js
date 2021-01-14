@@ -31,25 +31,12 @@ function toggleSettings() {
 		addParameter(generalSection.body, { text: 'Animations', on: true }, 'switch', 'enable-animations', 'toggleAnimations()', config.enableAnimations);
 		addParameter(generalSection.body, { text: 'Inactivity Timeout', slider: { min: 1, max: 10, value: config.timeout } }, 'slider', 'inactivity-timeout', inactivityTimeout, config.timeout);
 		addParameter(generalSection.body, { text: 'Open icons folder', button: { text: 'Open folder' } }, 'button', 'open-icons-folder', 'shell.openExternal(path.join(parentDir, "/Data/icons"))');
+		addParameter(generalSection.body, { text: 'Change Master Password', button: { text: 'Change' } }, 'button', 'change-master-password', 'openChangePasswordDialog()');
 
 		// themes section
 		let themeSection = addSection('Themes', 'themes', settingsBody);
 		addParameter(themeSection.body, { radio:{ text: 'Dark theme' }, name: 'theme', on: 'dark'}, 'radio', 'dark-theme', selectTheme,  config.theme);
 		addParameter(themeSection.body, { radio:{ text: 'Light theme' }, name: 'theme', on: 'light'}, 'radio', 'light-theme', selectTheme,  config.theme);
-
-		// change password section
-		let passwordSection = addSection('Change Password', 'password-change', settingsBody);
-
-		let passwords = {
-			oldPassword: addParameter(passwordSection.body, { input: { placeholder: 'Old password', type: 'password' }}, 'input', 'old-password'),
-			newPassword: addParameter(passwordSection.body, { input: { placeholder: 'New password', type: 'password' }}, 'input', 'new-password'),
-			confirmPassword: addParameter(passwordSection.body, { input: { placeholder: 'Confirm new password', type: 'password' }}, 'input', 'confirm-password')
-		}
-		addElement('span', { class: 'noerror', id: 'password-error' }, 'ERROR', passwordSection.body);
-		addElement('button', { class: 'change-password-confirm', onclick: 'passChangeRequest()' }, 'Change Password', passwordSection.body);
-		for(let p in passwords) {
-			passwords[p].addEventListener('keydown', (e) => { if(e.which == 13) passChangeRequest(); });
-		}
 
 		// about
 		let aboutSection = addSection('About', 'about', settingsBody);
@@ -111,12 +98,35 @@ function selectTheme(e) {
 	initTheme();
 	save('config');
 }
+function openChangePasswordDialog() {
+	let popup = addPopup('change-master-password', 'Change Master Password', '').body;
+
+	// change password section
+	let form = addForm({ class: 'password-change', id: 'password-change' }, popup);
+
+	let passwords = {
+		oldPassword: addRichInput({ class: 'change-password-input', id: 'old-password', hidden: true }, 'Old password', form),
+		newPassword: addRichInput({ class: 'change-password-input', id: 'new-password', hidden: true }, 'New password', form),
+		confirmPassword: addRichInput({ class: 'change-password-input', id: 'confirm-password', hidden: true }, 'Confirm new password', form)
+	}
+	addElement('span', { class: 'noerror', id: 'password-error' }, 'ERROR', form);
+	addElement('button', { class: 'change-password-confirm', onclick: 'passChangeRequest()', type: 'button' }, 'Change Password', form);
+	for(let p in passwords) {
+		passwords[p].addEventListener('keydown', (e) => { if(e.which == 13) passChangeRequest(); });
+	}
+
+}
+
+
+
+
+
 
 // Change password function
 function passChangeRequest() {
-	let oldPass = document.querySelector('#old-password-input-parameter');
-	let newPass = document.querySelector('#new-password-input-parameter');
-	let newConfirmPass = document.querySelector('#confirm-password-input-parameter');
+	let oldPass = document.querySelector('#old-password-rich-input');
+	let newPass = document.querySelector('#new-password-rich-input');
+	let newConfirmPass = document.querySelector('#confirm-password-rich-input');
 	let p = document.querySelector('#password-error');
 	p.classList.remove('confirm');
 	// validate password
@@ -134,7 +144,7 @@ function passChangeRequest() {
 		}
 	} else if (oldPass.value == config.masterPassword) {
 		if (newPass.value == newConfirmPass.value) {
-			if (newPass.value !== oldPass.value) {
+			if (newPass.value != oldPass.value) {
 
 				p.classList.add('confirm');
 				p.innerHTML = 'Password Changed!';
@@ -145,8 +155,11 @@ function passChangeRequest() {
 				oldPass.select();
 				error(false);
 				save('config');
-				setTimeout(function() {
+				setTimeout(() => {
 					p.classList.remove('confirm');
+					setTimeout(() => {
+						removePopup('change-master-password');
+					}, 250);
 				}, 1000);
 			} else {
 				console.log('Notice: Old and new passwords match!');

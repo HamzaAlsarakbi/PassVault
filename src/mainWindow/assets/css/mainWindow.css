@@ -120,84 +120,11 @@ img {
 	background: var(--primary-hover);
 	cursor: pointer;
 }
-
-
-
-
-
-
-.control:active:not(input#control) {
-	transform: scale(0.9);
-	transition: 0.1s;
-}
-
-.toggleAbout {
-	width: 404px !important;
-	display: block !important;
-	margin-top: 10px !important;
-	height: 200px;
-	padding-right: 5px;
-	backdrop-filter: brightness(0.8);
-}
-.settings-parameters::-webkit-scrollbar {
-	width: 7px;
-}
 a {
 	color: var(--primary-a);
 }
 
-panel.toggleAdd {
-	margin-top: 20px;
-	height: 200px;
-	background: var(--toggle-controls);
-}
-#thead.toggleAdd {
-	padding-top: 240px !important;
-}
-panel.controlsSpan {
-	height: 218px;
-}
-input.control:hover {
-	background-color: transparent;
-	cursor: unset;
-}
-input.control {
-	opacity: 0;
-	width: 0;
-	height: auto;
-	border: none;
-	padding: 0;
-	margin: 0;
-	font-size: 16px;
-}
-input.toggleSearch {
-	border-radius: 10px;
-	opacity: 1 !important;
-	margin: 5px !important;
-	padding: 5px !important;
-	width: calc(100% - 120px) !important;
-	border: 2px solid var(--primary-input) !important;
-}
-input.toggleSearch:hover {
-	border-bottom-color: var(--primary-accent) !important;
-}
-input.toggleSearch:focus {
-	border-color: var(--primary-accent) !important;
-}
-
-img.toggleSearch {
-	transform: rotate(-90deg);
-}
-div.no-match {
-	height: 0 !important;
-	opacity: 0 !important;
-	padding: 0 !important;
-	border: none !important;
-	transform: scaleY(0) !important;
-	background-color: rgb(200, 50, 50) !important;
-}
-
-/***** password */
+/* password */
 .password-parameters {
 	display: flex;
 	flex-direction: column;
@@ -218,6 +145,7 @@ button {
 	border-radius: 5px;
 	height: 30px;
 	color: var(--primary-color);
+	cursor: pointer;
 }
 button:hover {
 	color: var(--secondary-color);
@@ -226,10 +154,6 @@ button:hover {
 button:active {
 	transform: scale(0.95);
 	transition: 0.1s;
-}
-button:hover {
-	cursor: pointer;
-	color: var(--secondary-color);
 }
 
 .settings-parameters {

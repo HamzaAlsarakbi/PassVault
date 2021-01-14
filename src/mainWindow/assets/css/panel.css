@@ -27,7 +27,10 @@ controls.enabled {
 	background: var(--controls-background);
 	border-bottom-color: var(--primary-accent);
 }
-
+.control:not(#controls):active {
+	transform: scale(0.9);
+	transition: 0.1s;
+}
 
 menu {
 	opacity: 0;

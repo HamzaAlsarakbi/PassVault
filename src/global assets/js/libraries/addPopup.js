@@ -5,7 +5,6 @@ function addPopup(id, title, icon) {
   // create window
   let window = addElement('div', { class: 'popup window', id: id + '-window' }, '', overlay);
 
-  console.log(window);
   // create titlebar
   let titlebar = addElement('div', { class: 'title-bar', id: id + '-title-bar' }, '', window);
 
@@ -18,14 +17,14 @@ function addPopup(id, title, icon) {
   addElement('div', { class: 'window-title', id: id + '-window-title' }, title, info);
 
   // create controls
-  let controls = addElement('div', { class: 'window-controls controls', id: id + '-window-controls', onclick: `destroyPopup('${id}')` }, '', titlebar);
+  let controls = addElement('div', { class: 'window-controls controls', id: id + '-window-controls', onclick: `removePopup('${id}')` }, '', titlebar);
   addElement('img', { class: 'window-controls-item window-close', id: id + '-window-close', src: '../../src/global assets/img/window_icons/close.png' }, '', controls);
 
   // create window body
   let body = addElement('div', { class: 'window-body', id: id + '-window-body' }, '', window);
   return {overlay: overlay, body: body}
 }
-function destroyPopup(id) {
+function removePopup(id) {
   document.querySelector('#' + id + '-window').classList.add('popup-draw-out');
   document.querySelector('#' + id + '-overlay').classList.add('popup-draw-out');
   setTimeout(() => {

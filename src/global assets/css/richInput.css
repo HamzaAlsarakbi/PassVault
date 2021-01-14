@@ -1,6 +1,7 @@
 .rich-input {
   margin: 5px;
   padding: 5px;
+  width: calc(100% - 10px);
 }
 
 input.rich-input,
@@ -12,21 +13,22 @@ input.rich-input:hover {
 input.rich-input:focus {
   border-color: transparent;
 }
-.rich-input-container * {
-  width: 100%;
-}
 input.hidden-rich-input {
-  padding-right: 30px;
+  padding-right: 29px;
 }
 
 .rich-input-container {
   position: relative;
+  margin: 10px;
+  padding-top: 6px;
+  width: calc(100% - 20px);
+  overflow-x: hidden;
 }
 
 .rich-input-container label {
   position: absolute;
   bottom: 15%;
-  left: 8%;
+  left: 20px;
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -37,10 +39,10 @@ input.hidden-rich-input {
 .rich-input-container label::after {
   content: "";
   position: absolute;
-  left: -6%;
-  bottom: 0;
+  left: -15px;
+  top: 1px;
   height: 100%;
-  width: 100%;
+  width: calc(100% - 10px);
   border-bottom: 2px solid var(--primary-accent);
   border-radius: 5px;
   transform: scaleX(0);
@@ -66,18 +68,24 @@ form .rich-input:valid + .rich-input-label::after {
 
 .hide-show {
   position: absolute;
-  right: -3px;
-  top: 7px;
+  right: 5px;
+  top: 13px;
   cursor: pointer;
   padding: 4px;
   height: 26px;
   width: 26px !important;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hide-show:active {
-	transform: scale(0.97);
+	transform: scale(0.9);
 }
 .hide-show:hover {
 	background: var(--cell-hover);
+}
+.hide-show img { 
+  width: 100%;
 }

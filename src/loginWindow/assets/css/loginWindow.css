@@ -30,6 +30,9 @@ form.login-form {
 	height: 100%;
 	width: 100%;
 }
+form.login-form {
+	margin-top: 10px;
+}
 body {
 	background: var(--body);
 	color: var(--primary-color);

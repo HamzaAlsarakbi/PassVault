@@ -23,6 +23,15 @@
 	border-radius: 10px;
 }
 
+/* change password */
+.password-change {
+	padding: 10px;
+}
+.change-password-input {
+	/* width: 98%; */
+}
+
+
 /** about **/
 .settings-sub-body-header {
 	font-size: 16px;
