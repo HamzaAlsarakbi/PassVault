@@ -1,4 +1,3 @@
-const { shell } = electron;
 function toggleSettings() {
 	document.querySelector('controls').classList.toggle('enabled');
   document.querySelector('#thead').classList.toggle('margin-settings');
@@ -23,7 +22,7 @@ function toggleSettings() {
 		
 	
 		// create settingsBody
-		let settingsBody = addElement('div', {class: 'settings-body'}, undefined, menu);
+		let settingsBody = document.querySelector('menu.menu-down');
 
 
 		// general section
@@ -192,5 +191,19 @@ function openExternal(type) {
 
 function toggleDevTools() {
 	config.devTools = !config.devTools;
+	save('config');
+}
+
+
+
+// Gridlines
+function toggleGridlines() {
+	let gridlinesTable = document.querySelectorAll('#tr');
+	// Toggle gridlines
+	for (let i = 0; i < gridlinesTable.length; i++) {
+		gridlinesTable[i].classList.toggle('gridlinesOn');
+	}
+	// toggle gridlines
+	config.gridlinesOn = !config.gridlinesOn;
 	save('config');
 }

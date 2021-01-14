@@ -8,10 +8,13 @@ function updateTitle(text) {
 	document.querySelector('.window-title').textContent = text + suffix;
 }
 updateTitle('Login');
+
+
 // Assigning variables
+const container = document.querySelector('.container');
+init();
 const submitButton = document.querySelector('.submit');
-const passDOM = document.querySelector('#password');
-const hideShowIcon = document.querySelector('.hide-show-icon');
+const passDOM = document.querySelector('#password-rich-input');
 const error = document.querySelector('.noerror');
 
 const crossedEye = '../global assets/img/dark/crossed-eye.png';
@@ -21,12 +24,6 @@ const eye = '../global assets/img/dark/eye.png';
 // Window controls
 let win = remote.getCurrentWindow();
 
-// When document has loaded, initialise
-document.onreadystatechange = () => {
-	if (document.readyState == 'complete') {
-		init();
-	}
-};
 
 function init() {
 	// Make minimise/maximise/restore/close buttons work when they are clicked
@@ -39,21 +36,28 @@ function init() {
 	document.getElementById('min-button').addEventListener('click', (event) => {
 		win.minimize();
 	});
+
+	// add form
+	let form = addForm({ class: 'login-form', id: 'login-form' }, container)
+	addRichInput({ class: 'password', id: 'password', hidden: true }, 'Password', form);
+	addElement('span', { class: 'noerror' }, 'ERROR', form);
+	addElement('button', { class: 'submit', id: 'login', onclick: 'unlock()', type: 'button' }, 'Unlock', form);
 }
 
 
 passDOM.addEventListener('keydown', e => {
 	if (e.keyCode == 13) {
-		submit();
+		unlock();
 	}
 });
 
 // Password verification
-function submit() {
+function unlock() {
 	if(config.login.cooldown == 0) {
 		if (passDOM.value == config.masterPassword) {
 			// Hide span if it were activated
 			error.classList.remove('error');
+			
 			// reset cooldowns 
 			config.login.cooldown = 0;
 			config.login.cooldowns = 1;
@@ -78,21 +82,5 @@ function submit() {
 	
 			passDOM.value = '';
 		}
-	}
-}
-
-var passwordHidden = true;
-function hideShow() {
-	if (passwordHidden) {
-		// unhide password
-		passDOM.setAttribute('type', 'text');
-		hideShowIcon.setAttribute('src', crossedEye);
-
-		passwordHidden = false;
-	} else {
-		// hide password
-		passDOM.setAttribute('type', 'password');
-		hideShowIcon.setAttribute('src', eye);
-		passwordHidden = true;
 	}
 }

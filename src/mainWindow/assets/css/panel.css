@@ -34,11 +34,10 @@ menu {
 	transform: translateY(-100%);
 }
 .menu-down {
-	margin: 8px;
-	margin-top: 0;
 	opacity: 1;
 	transform: translateY(0%);
 	padding: 10px;
+	overflow-y: auto;
 }
 .controls-buttons {
 	display: flex;
@@ -79,76 +78,6 @@ menu {
 	100% {
 		transform: rotate(360deg);
 	}
-}
-
-
-
-/* inputs */
-
-
-#pass-div,
-.parent-input-parameter {
-	display: flex;
-	flex-direction: row;
-	margin: 0;
-	padding: 1px;
-}
-
-#hide-show {
-	width: 100px;
-}
-
-.hide-show,
-.input-icon-parameter {
-	text-align: center;
-	cursor: pointer;
-	padding: 2px;
-	border-radius: 0 2px 2px 0;
-	height: 26px;
-	width: 26px;
-}
-.input-icon-parameter {
-	padding: 7px 5px 7px 5px;
-}
-
-.hide-show:active,
-.input-icon-parameter:active {
-	transform: scale(0.97);
-}
-.hide-show:hover,
-.input-icon-parameter:hover {
-	background: var(--cell-hover);
-}
-
-#add-password,
-input.input-parameter {
-	width: 95%;
-	border: 0;
-	margin: 0;
-	border: 1px solid transparent;
-}
-
-#add-pass,
-.parent-input-parameter {
-	width: 100%;
-	margin: 5px;
-	border: 2px solid rgb(80, 80, 80);
-	border-radius: 5px;
-	height: 30px;
-	display: flex;
-	flex-direction: row;
-}
-.add-div input,
-.pass-div#add-pass {
-	width: 47.5%;
-}
-.pass-div#add-pass:hover,
-.parent-input-parameter:hover {
-	border-bottom-color: var(--primary-accent);
-}
-.pass-div#add-pass:focus-within,
-.parent-input-parameter:focus-within {
-	border-color: var(--primary-accent);
 }
 
 

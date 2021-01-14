@@ -1,4 +1,6 @@
-const remote = require('electron').remote;
+const electron = require('electron');
+const { ipcRenderer } = electron;
+let win = electron.remote.getCurrentWindow();
 let windowTitle = document.title;
 // When document has loaded, initialise
 document.onreadystatechange = () => {
@@ -16,7 +18,6 @@ updateTitle(windowTitle);
 
 
 function handleWindowControls() {
-	let win = remote.getCurrentWindow();
 	// Make minimise/maximise/restore/close buttons work when they are clicked
 	document.getElementById('min-button').addEventListener('click', (event) => {
 		win.minimize();

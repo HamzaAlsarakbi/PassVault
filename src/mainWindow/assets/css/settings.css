@@ -2,7 +2,6 @@
 .toggleSettings {
 	height: 355px;
 	margin-top: 20px;
-	width: 500px;
 	background: var(--toggle-controls);
 }
 
@@ -15,16 +14,14 @@
 	justify-content: center;
 }
 
-.settings-body {
+
+.toggleSettings menu.menu-down {
 	display: flex;
 	flex-direction: column;
 	overflow-y: auto;
-	height: 280px;
-	backdrop-filter: var(--settings-body-backdrop-filter);
+	height: calc(100% - 50px);
 	border-radius: 10px;
 }
-
-
 
 /** about **/
 .settings-sub-body-header {

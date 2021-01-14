@@ -123,20 +123,6 @@ img {
 
 
 
-/**** Add icon*/
-.add {
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-bottom: 10px;
-}
-.add-div {
-	display: flex;
-	flex-direction: row;
-	padding-bottom: 5px;
-	width: 100%;
-	flex-wrap: wrap;
-}
-
 
 
 
@@ -163,7 +149,6 @@ a {
 panel.toggleAdd {
 	margin-top: 20px;
 	height: 200px;
-	width: 25%;
 	background: var(--toggle-controls);
 }
 #thead.toggleAdd {
@@ -262,7 +247,7 @@ input {
 	background: transparent;
 	border: 2px solid var(--primary-input);
 	font-family: "Segoe UI", sans-serif;
-
+	font-size: 14px;
 	border-radius: 5px;
 	color: var(--secondary-color);
 }

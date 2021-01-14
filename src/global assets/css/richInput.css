@@ -1,0 +1,83 @@
+.rich-input {
+  margin: 5px;
+  padding: 5px;
+}
+
+input.rich-input,
+input.rich-input:hover {
+  border: none;
+  border-bottom: 2px solid var(--primary-input);
+  border-radius: 5px;
+}
+input.rich-input:focus {
+  border-color: transparent;
+}
+.rich-input-container * {
+  width: 100%;
+}
+input.hidden-rich-input {
+  padding-right: 30px;
+}
+
+.rich-input-container {
+  position: relative;
+}
+
+.rich-input-container label {
+  position: absolute;
+  bottom: 15%;
+  left: 8%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  color: grey;
+  font-size: 14px;
+}
+
+.rich-input-container label::after {
+  content: "";
+  position: absolute;
+  left: -6%;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border-bottom: 2px solid var(--primary-accent);
+  border-radius: 5px;
+  transform: scaleX(0);
+  transform-origin: 0% 0%;
+  transition: 0.2s ease;
+}
+
+.rich-input-placeholder {
+  position: absolute;
+  bottom: 5px;
+}
+form .rich-input:focus + .rich-input-label .rich-input-placeholder,
+form .rich-input:valid + .rich-input-label .rich-input-placeholder {
+  transform: translate(-10px, -140%);
+  color: var(--primary-accent); 
+  font-size: 12px;
+}
+
+form .rich-input:focus + .rich-input-label::after,
+form .rich-input:valid + .rich-input-label::after {
+  transform: scaleX(1);
+}
+
+.hide-show {
+  position: absolute;
+  right: -3px;
+  top: 7px;
+  cursor: pointer;
+  padding: 4px;
+  height: 26px;
+  width: 26px !important;
+  border-radius: 5px;
+}
+
+.hide-show:active {
+	transform: scale(0.97);
+}
+.hide-show:hover {
+	background: var(--cell-hover);
+}

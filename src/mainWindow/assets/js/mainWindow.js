@@ -1,6 +1,4 @@
-const electron = require('electron');
-const { ipcRenderer } = electron;
-let win = electron.remote.getCurrentWindow();
+
 let parentElement;
 const strengthTier = [ 'Very weak', 'Weak', 'Medium', 'Strong', 'Very strong' ];
 // data object
@@ -43,25 +41,6 @@ const elements = {
 	}
 }
 
-const icons = {
-	eye: {
-		eye: '../global assets/img/dark/eye.png',
-		crossed: '../global assets/img/dark/crossed-eye.png'
-	},
-	pencil: '../global assets/img/dark/pencil.png',
-	bullet: '\u{2022}',
-	trashcan: '../global assets/img/dark/trashcan.png',
-	remove: '../global assets/img/dark/remove.png',
-	confirm: '../global assets/img/dark/confirm.png',
-	add: '../global assets/img/dark/add.png',
-	gear: '../global assets/img/dark/gear.png',
-	PassVault: {
-		icon: '../global assets/img/icon-transparent.png'
-	}
-}
-
-// icons
-
 // table
 const table = document.querySelector('.tbody-data');
 const id = [ 'type', 'service', 'email', 'password' ];
@@ -94,170 +73,6 @@ function capitalize(text) {
 
 
 
-
-
-
-
-function toggleAdd() {
-	document.querySelector('controls').classList.toggle('enabled');
-	document.querySelector('#add img').classList.toggle('rotate');
-	panel.classList.toggle('toggleAdd');
-	document.querySelector('#thead').classList.toggle('toggleAdd');
-	menu.classList.toggle('menu-down');
-	if (components.settings) {
-		toggleSettings();
-	}
-	if (components.search) {
-		toggleSearch();
-	}
-	if (components.filters) {
-		toggleFilters();
-	}
-	if (!components.add) {
-
-		elements.panel.controls.icon.setAttribute('src', icons.add);
-		elements.panel.controls.icon.setAttribute('height', '20px');
-		elements.panel.controls.text.textContent = 'Add';
-
-		// Create div for input
-		div = document.createElement('div');
-		div.setAttribute('class', 'add-div');
-		menu.appendChild(div);
-
-		// create type input
-		let typeInput = document.createElement('input');
-		typeInput.setAttribute('class', 'add-input');
-		typeInput.setAttribute('id', 'add-type');
-		typeInput.setAttribute('placeholder', 'Type (Personal, Work)');
-		div.appendChild(typeInput);
-
-		// create service input
-		let serviceInput = document.createElement('input');
-		serviceInput.setAttribute('class', 'add-input');
-		serviceInput.setAttribute('id', 'add-service');
-		serviceInput.setAttribute('placeholder', 'Service (Gmail, Twitter)');
-		div.appendChild(serviceInput);
-
-		// create email input
-		let emailInput = document.createElement('input');
-		emailInput.setAttribute('class', 'add-input');
-		emailInput.setAttribute('id', 'add-email');
-		emailInput.setAttribute('placeholder', 'Email (name@service.com)');
-		div.appendChild(emailInput);
-
-		// create password div
-		let passwordDiv = document.createElement('div');
-		passwordDiv.setAttribute('class', 'pass-div');
-		passwordDiv.setAttribute('id', 'add-pass');
-		div.appendChild(passwordDiv);
-
-		// create password input
-		let passwordInput = document.createElement('input');
-		passwordInput.setAttribute('class', 'add-input');
-		passwordInput.setAttribute('id', 'add-password');
-		passwordInput.setAttribute('placeholder', 'Password');
-		passwordInput.setAttribute('type', 'password');
-		passwordDiv.appendChild(passwordInput);
-
-		// create password hide/show switch
-		let hideShow = document.createElement('div');
-		hideShow.setAttribute('class', 'hide-show');
-		hideShow.setAttribute('id', 'add-switch');
-		hideShow.setAttribute('onclick', 'hideShow(this)');
-		passwordDiv.appendChild(hideShow);
-
-		// create eye icon
-		let eyeIcon = document.createElement('img');
-		eyeIcon.setAttribute('class', 'eye-icon');
-		eyeIcon.setAttribute('id', 'add-icon');
-		eyeIcon.setAttribute('height', '10px');
-		eyeIcon.setAttribute('src', icons.eye.eye);
-		hideShow.appendChild(eyeIcon);
-
-		// create error message
-		let span = document.createElement('span');
-		span.setAttribute('class', 'noerror');
-		span.setAttribute('id', 'add-error');
-		span.textContent = 'One or more of the fields is empty.';
-		div.appendChild(span);
-
-		// create add button
-		let addButton = document.createElement('button');
-		addButton.setAttribute('class', 'add-button');
-		addButton.setAttribute('onclick', 'addData()');
-		addButton.textContent = 'Add';
-		div.appendChild(addButton);
-		components.add = true;
-
-		typeInput.addEventListener('keyup', enterFunc);
-		serviceInput.addEventListener('keyup', enterFunc);
-		emailInput.addEventListener('keyup', enterFunc);
-		passwordInput.addEventListener('keyup', enterFunc);
-		typeInput.select();
-	} else {
-		elements.panel.controls.icon.setAttribute('src', '');
-		elements.panel.controls.text.textContent = '';
-		panel.classList.remove('controlsSpan');
-		menu.innerHTML = '';
-		components.add = false;
-	}
-}
-function enterFunc(event) {
-	if (event.keyCode === 13) {
-		addData();
-	}
-}
-function addData() {
-	const typeDOM = document.getElementById('add-type');
-	const serviceDOM = document.getElementById('add-service');
-	const emailDOM = document.getElementById('add-email');
-	const passwordDOM = document.getElementById('add-password');
-	const span = document.getElementById('add-error');
-
-	// verify that all entries are full
-	if (typeDOM.value == '' || serviceDOM.value == '' || emailDOM.value == '' || passwordDOM.value == '') {
-		span.classList.add('error');
-		panel.classList.add('controlsSpan');
-		if (typeDOM.value == '') {
-			typeDOM.select();
-		} else if (serviceDOM.value == '') {
-			serviceDOM.select();
-		} else if (emailDOM.value == '') {
-			emailDOM.select();
-		} else if (passwordDOM.value == '') {
-			passwordDOM.select();
-		}
-	} else {
-		// remove error if it were correct
-		span.classList.remove('error');
-		panel.classList.remove('controlsSpan');
-
-		data['cell-' + data.cellIndex] = {
-			type: typeDOM.value,
-			service: serviceDOM.value,
-			email: emailDOM.value,
-			password: passwordDOM.value,
-			index: data.cellIndex,
-			class: 'cell-' + data.cellIndex,
-			hidden: true,
-			onCopy: false
-		};
-		addRow(typeDOM.value, serviceDOM.value, emailDOM.value, passwordDOM.value, data.cellIndex);
-		if (config.gridlinesOn) {
-			document.querySelector('.row-' + data.cellIndex).classList.add('gridlinesOn');
-		}
-
-		// empty out input fields
-		typeDOM.value = '';
-		serviceDOM.value = '';
-		emailDOM.value = '';
-		passwordDOM.value = '';
-		data.cellIndex++;
-		// go back to type input field (convenience)
-		typeDOM.select();
-		search();
-	}
-}
 function addRow(type, service, email, password, index) {
 	// create table row
 	tr = document.createElement('div');
@@ -437,7 +252,7 @@ function strengthMeter(text) {
 		return strength;
 	}
 }
-function hideShow(e, value) {
+function hideShowTable(e, value) {
 	let d = e.id;
 	let c = e.classList;
 	// if it is an input
@@ -758,87 +573,6 @@ function toggleParameters() {
 	document.querySelector('.settings-parameters').classList.toggle('settingsToggle');
 }
 
-
-
-// Lock Vault
-function toggleLockVault() {
-	if (!components.settings.subMenus.lockVault) {
-		document.querySelector('#lock').classList.toggle('button-header-active');
-
-		// Are you sure?
-		let p = document.createElement('p');
-		p.setAttribute('class', 'lock-param');
-		p.setAttribute('id', 'confirmation');
-		p.textContent = 'Are you sure you want to lock vault?';
-		appendChildElement = parentElement.appendChild(p);
-
-		// confimation div **div class="yesno"**
-		let div = document.createElement('div');
-		div.setAttribute('class', 'yesno');
-
-		// save & quit Button
-		if (saved) {
-			let saveQuitButton = document.createElement('button');
-			saveQuitButton.setAttribute('class', 'lock-param');
-			saveQuitButton.setAttribute('id', 'save-quit-button');
-			saveQuitButton.textContent = 'Save and quit';
-			appendChildElement = parentElement.appendChild(saveQuitButton);
-		}
-
-		// Quit
-		let quitButton = document.createElement('button');
-		quitButton.setAttribute('class', 'lock-param');
-		quitButton.setAttribute('id', 'quit-button');
-		quitButton.setAttribute('onclick', 'quit()');
-		if (saved) {
-			quitButton.textContent = 'Lock without saving changes';
-		} else {
-			quitButton.textContent = 'Yes';
-		}
-
-		// Package Elements
-		appendChildElement = parentElement.appendChild(quitButton);
-
-		// letiable manipulation
-		components.settings.subMenus.lockVault = true;
-	} else {
-		document.querySelector('#lock').classList.toggle('button-header-active');
-
-		setTimeout(function() {
-			parentElement.innerHTML = '';
-		}, 200);
-		components.settings.subMenus.lockVault = false;
-	}
-}
-
-// Gridlines
-function toggleGridlines() {
-	let gridlinesTable = document.querySelectorAll('#tr');
-	// Toggle gridlines
-	for (let i = 0; i < gridlinesTable.length; i++) {
-		gridlinesTable[i].classList.toggle('gridlinesOn');
-	}
-	// toggle gridlines
-	config.gridlinesOn = !config.gridlinesOn;
-	save('config');
-}
-
-
-// About section
-function toggleAbout() {
-		
-		let bodyText2 = document.createElement('p');
-		bodyText2.setAttribute('class', 'settings-sub-body');
-		bodyText2.innerHTML =
-			`If you enjoy this app, consider following me on Instagram 
-		<a href="" onclick="openExternal('instagram')">@hamza__sar</a>.
-		 If you encounter a bug with this app. 
-		 If you want to <a href="" onclick="openExternal('donate')">donate</a>, 
-		 you can. It helps maintain this app, and build future projects.
-		 <br>
-		 <br>
-		 Version: ` + version;
-}
 
 
 function showDialog(titleContent, promptContent, buttons, buttonActions) {

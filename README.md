@@ -140,3 +140,5 @@ I built this program on feedback, if you have any. Please file an issue and/or D
 
 ## Roadmap
 New updates/bug fixes can be found [here](https://trello.com/b/6yG9npca/passvault)!
+
+Copyright (C) 2020-present Hamza Alsarakbi, licensed under GNU GPL v3

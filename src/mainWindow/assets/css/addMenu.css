@@ -1,0 +1,22 @@
+form.add-container {
+  width: 100%;
+}
+.add-input {
+  width: 48%;
+  margin: 3px;
+}
+
+
+/**** Add icon*/
+.add {
+  padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+}
+.add-container {
+  display: flex;
+	flex-direction: row;
+	padding-bottom: 5px;
+	width: 100%;
+  flex-wrap: wrap;
+}

@@ -1,4 +1,4 @@
-const version = 'v1.1.1';
+const version = 'v1.2.0';
 const isDev = require('electron-is-dev');
 const fs = require('fs'),
 	crypto = require('crypto'),
@@ -16,7 +16,7 @@ if (process.platform == 'win32') {
 		
 		// log warning messages
 		console.log('%c WAIT UP!', 'color: rgb(66, 107, 196); font-size: 72px; font-weight: bold; ');
-		console.log('%c If someone told you to paste any code here, there is a high chance you are being scammed. Pasting anything here could compromise your data! Close down this window unless if you know what you are doing.', 'color: rgb(200, 50, 50); font-size: 24px; font-weight: bold;');
+		console.log('%c If someone told you to paste any code here, there is a high chance you are being scammed. Pasting anything here could compromise your data! Close this window unless if you know what you are doing.', 'color: rgb(200, 50, 50); font-size: 24px; font-weight: bold;');
 	}
 } else {
 	// linux
