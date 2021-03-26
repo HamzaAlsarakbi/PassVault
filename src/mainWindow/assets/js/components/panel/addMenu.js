@@ -18,34 +18,35 @@ function toggleAdd() {
 		elements.panel.controls.icon.setAttribute('src', icons.add);
 		elements.panel.controls.icon.setAttribute('height', '20px');
 		elements.panel.controls.text.textContent = 'Add';
+		panelTitle('add');
 		
-		let addContainer = addForm({ class: 'add-container' }, menu);
-		
+		let addContainer = new Form({ class: 'add-container' }, menu).form;
 		// Create inputs
 		let inputs = {
-			type: addRichInput({ class: 'add-input', id: 'add-type' }, 'Type (Personal, Work)', addContainer),
-			service: addRichInput({ class: 'add-input', id: 'add-service' }, 'Service (Gmail, Twitter)', addContainer),
-			email: addRichInput({ class: 'add-input', id: 'add-email' }, 'Email (name@service.com)', addContainer),
-			password: addRichInput({ class: 'add-input', id: 'add-password', hidden: true }, 'Password', addContainer)
+			type: new RichInput({ class: 'add-input', id: 'add-type' }, 'Type (Personal, Work)', addContainer),
+			service: new RichInput({ class: 'add-input', id: 'add-service' }, 'Service (Gmail, Twitter)', addContainer),
+			email: new RichInput({ class: 'add-input', id: 'add-email' }, 'Email (name@service.com)', addContainer),
+			password: new RichInput({ class: 'add-input', id: 'add-password', hidden: true }, 'Password', addContainer)
 		}
 		addElement('span', { class: 'noerror', id: 'add-error' }, 'At least one field is empty.', addContainer);
 		addElement('button', { class: 'add-button', onclick: 'addData()', type: 'button' }, 'Add', addContainer);
 
 		for(input in inputs) {
-			inputs[input].addEventListener('keydown', addEnter);
+			inputs[input].input.addEventListener('keydown', addEnter);
 		}
-		inputs.type.select();
+		inputs.type.input.select();
 	} else {
 		elements.panel.controls.icon.setAttribute('src', '');
 		elements.panel.controls.text.textContent = '';
-		panel.classList.remove('controlsSpan');
+		panelTitle('remove');
+		panel.classList.remove('panel-extend');
 		menu.innerHTML = '';
   }
   
   components.add = !components.add;
 }
-function addEnter(event) {
-	if (event.keyCode === 13) {
+function addEnter(e) {
+	if (e.keyCode === 13) {
 		addData();
 	}
 }
@@ -62,16 +63,22 @@ function addData() {
 
 	// verify that all entries are full
 	let empty = false;
+	let invalidInputs = [];
 	for(let input in inputs) {
 		if(inputs[input].value == '') {
+			invalidInputs.push(inputs[input]);
 			span.classList.add('error');
 			panel.classList.add('panel-extend');
 			inputs[input].select();
+			inputInvalid(inputs[input], 'add');
 			empty = true;
-			break;
 		}
 	}
-	if(!empty) {
+	if(empty) {
+		invalidInputs[0].select();
+
+
+	} else {
 		// remove error
 		span.classList.remove('error');
 		panel.classList.remove('panel-extend');

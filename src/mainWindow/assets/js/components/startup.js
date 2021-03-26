@@ -21,7 +21,7 @@ function loaded() {
     console.log('%c NOTICE: content loaded.', greenColor);
     document.querySelector('.loading-overlay').classList.add('loading-overlay-draw-out');
     // update icon
-    document.querySelector('#loading-backdrop').src = path.join(__dirname, '../global assets/img/icon-backdrop-green.png');
+    document.querySelector('#loading-backdrop').src = path.join(__dirname, '../assets/img/icon-backdrop-green.png');
     // update text
     clearInterval(startupText);
     document.querySelector('.loading-msg').textContent = 'Loaded';

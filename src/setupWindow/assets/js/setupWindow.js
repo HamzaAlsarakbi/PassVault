@@ -2,11 +2,17 @@ const remote = require('electron').remote,
 	backdrop = document.querySelector('#loading-backdrop'),
 	welcomeContainer = document.querySelector('.welcome'),
 	passwordContainer = document.querySelector('.master-password'),
-	input = document.querySelector('input'),
 	errorDOM = document.querySelector('.noerror'),
+	masterPasswordForm = document.querySelector('.masterpassword-form'),
 	themeContainer = document.querySelector('.theme');
 
 let win = remote.getCurrentWindow();
+// create a master password input
+
+
+let input = new RichInput({ hidden: 'true' }, 'Master Password', masterPasswordForm).input;
+
+
 // Make minimise/maximise/restore/close buttons work when they are clicked
 document.getElementById('close-button').addEventListener('click', (event) => {
 	win.close();
@@ -19,7 +25,7 @@ document.getElementById('min-button').addEventListener('click', (event) => {
 });
 
 function start() {
-	backdrop.setAttribute('src', '../global assets/img/icon-backdrop-green.png');
+	backdrop.setAttribute('src', '../assets/img/icon-backdrop-green.png');
 	collapse(welcomeContainer);
 	expand(passwordContainer);
 }
@@ -31,7 +37,7 @@ function expand(container) {
 	container.style = 'width: 100vw; padding: 10px; transition: 0.5s; opacity: 1; z-index: 2';
 }
 
-var hidden = true;
+let hidden = true;
 function toggleHide() {
 	if (hidden) {
 		input.setAttribute('type', 'text');
@@ -53,7 +59,7 @@ function back(type) {
 }
 
 function setTheme() {
-	var password = input.value;
+	let password = input.value;
 	if (password === undefined || password == '') {
 		errorDOM.classList.add('error');
 		errorDOM.textContent = 'Enter password.';
@@ -77,25 +83,19 @@ function exit() {
 	iv = crypto.randomBytes(16);
 	param.keyO = key;
 	param.ivO = iv;
-	var stringifiedParam = JSON.stringify(param);
+	let stringifiedParam = JSON.stringify(param);
 	fs.writeFileSync(paramPath, stringifiedParam, function(err) {
 		if (err) throw err;
 		console.log('Saved param!');
 	});
 
-	var configStringified = JSON.stringify(config);
-	console.log(configStringified);
-
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-	let encrypted = cipher.update(configStringified);
+	let encrypted = cipher.update(JSON.stringify(config));
 	encrypted = Buffer.concat([ encrypted, cipher.final() ]);
-	var configEncrypted = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-	console.log(configEncrypted);
+	let configEncrypted = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+	
 
-	var configStringified = JSON.stringify(configEncrypted);
-	console.log(configStringified);
-
-	fs.writeFileSync(configFullPath, configStringified, function(err) {
+	fs.writeFileSync(configFullPath, JSON.stringify(configEncrypted), function(err) {
 		if (err) throw err;
 		console.log('Saved config !');
 	});

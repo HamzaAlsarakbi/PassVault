@@ -101,7 +101,7 @@ function createPopWindow() {
 			nodeIntegration: true,
 			enableRemoteModule: true
 		},
-		icon: path.join(__dirname, 'global assets/img/icon.png')
+		icon: path.join(__dirname, 'assets/img/icon.png')
 	});
 
 	// Load HTML file into window
@@ -138,7 +138,7 @@ function createMainWindow() {
 			nodeIntegration: true,
 			enableRemoteModule: true
 		},
-		icon: path.join(__dirname, 'global assets/img/icon.png')
+		icon: path.join(__dirname, 'assets/img/icon.png')
 	});
 
 	// Load HTML file into window

@@ -1,13 +1,13 @@
 function toggleSettings() {
-	document.querySelector('controls').classList.toggle('enabled');
-  document.querySelector('#thead').classList.toggle('margin-settings');
+	$('controls')[0].classList.toggle('enabled');
+  $('#thead')[0].classList.toggle('margin-settings');
 	panel.classList.toggle('toggleSettings');
 
 	// menu transitions
 	menu.classList.toggle('menu-down');
 
 	// rotate icon
-	document.querySelector('#settings img').classList.toggle('rotate');
+	$('#settings img')[0].classList.toggle('rotate');
 
 	// if one of the windows is open
 	if (components.search) toggleSearch();
@@ -48,7 +48,7 @@ function toggleSettings() {
 		with the highest privacy.`, aboutSection.body);
 		addElement('p', { class: 'settings-sub-body-header' }, 'Support me \u{2665}', aboutSection.body);
 		addElement('p', { class: 'settings-sub-body', innerHTML: true }, `If you enjoy this app, consider following me on Instagram 
-		<a href="" onclick="openExternal('instagram')">@hamza__sar</a>.
+		<a href="" onclick="openExternal('instagram')">@hamza.alsarakbi</a>.
 		 If you encounter a bug with this app. 
 		 If you want to <a href="" onclick="openExternal('donate')">donate</a>, 
 		 you can. It helps maintain this app, and build future projects.
@@ -102,12 +102,12 @@ function openChangePasswordDialog() {
 	let popup = addPopup('change-master-password', 'Change Master Password', '').body;
 
 	// change password section
-	let form = addForm({ class: 'password-change', id: 'password-change' }, popup);
+	let form = new Form({ class: 'password-change', id: 'password-change' }, popup).form;
 
 	let passwords = {
-		oldPassword: addRichInput({ class: 'change-password-input', id: 'old-password', hidden: true }, 'Old password', form),
-		newPassword: addRichInput({ class: 'change-password-input', id: 'new-password', hidden: true }, 'New password', form),
-		confirmPassword: addRichInput({ class: 'change-password-input', id: 'confirm-password', hidden: true }, 'Confirm new password', form)
+		oldPassword: new RichInput({ class: 'change-password-input', id: 'old-password', hidden: true }, 'Old password', form).input,
+		newPassword: new RichInput({ class: 'change-password-input', id: 'new-password', hidden: true }, 'New password', form).input,
+		confirmPassword: new RichInput({ class: 'change-password-input', id: 'confirm-password', hidden: true }, 'Confirm new password', form).input
 	}
 	addElement('span', { class: 'noerror', id: 'password-error' }, 'ERROR', form);
 	addElement('button', { class: 'change-password-button', onclick: 'passChangeRequest()', type: 'button' }, 'Change Master Password', form);
@@ -124,10 +124,10 @@ function openChangePasswordDialog() {
 
 // Change password function
 function passChangeRequest() {
-	let oldPass = document.querySelector('#old-password-rich-input');
-	let newPass = document.querySelector('#new-password-rich-input');
-	let newConfirmPass = document.querySelector('#confirm-password-rich-input');
-	let p = document.querySelector('#password-error');
+	let oldPass = $('#old-password-rich-input')[0];
+	let newPass = $('#new-password-rich-input')[0];
+	let newConfirmPass = $('#confirm-password-rich-input')[0];
+	let p = $('#password-error')[0];
 	p.classList.remove('confirm');
 	// validate password
 	// check if old password is correct
@@ -146,7 +146,7 @@ function passChangeRequest() {
 		if (newPass.value == newConfirmPass.value) {
 			if (newPass.value != oldPass.value) {
 
-				p.classList.add('confirm');
+				p.classList.add('confirm-password-change');
 				p.innerHTML = 'Password Changed!';
 				config.masterPassword = newPass.value;
 				oldPass.value = '';
@@ -183,22 +183,26 @@ function passChangeRequest() {
 function error(action) {
 	console.log('error provoked');
 	if (action) {
-		document.querySelector('#password-error').classList.add('error');
+		$('#password-error')[0].classList.add('error');
 	} else {
-		document.querySelector('#password-error').classList.remove('error');
+		$('#password-error')[0].classList.remove('error');
 	}
 }
 
 
 function openExternal(type) {
-	if (type == 'github') {
-		shell.openExternal('https://github.com/Electr0d');
-	} else if (type == 'instagram') {
-		shell.openExternal('https://www.instagram.com/hamza__sar/');
-	} else if (type == 'twitter') {
-		shell.openExternal('https://twitter.com/Electr0d');
-	} else if (type == 'donate') {
+	switch (type) {
+		case 'github':
+			shell.openExternal('https://github.com/Electr0d');
+			break;
+
+		case 'instagram':
+			shell.openExternal('https://www.instagram.com/hamza.alsarakbi/');
+			break;
+		
+		case 'donate':
 		shell.openExternal('https://www.patreon.com/Hamza_Sar');
+		break;
 	}
 }
 
@@ -211,7 +215,7 @@ function toggleDevTools() {
 
 // Gridlines
 function toggleGridlines() {
-	let gridlinesTable = document.querySelectorAll('#tr');
+	let gridlinesTable = $('#tr');
 	// Toggle gridlines
 	for (let i = 0; i < gridlinesTable.length; i++) {
 		gridlinesTable[i].classList.toggle('gridlinesOn');

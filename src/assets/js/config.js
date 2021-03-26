@@ -98,4 +98,3 @@ function decryptConfig(text) {
 	decrypted = Buffer.concat([ decrypted, decipher.final() ]);
 	return decrypted.toString();
 }
-console.log(config);

@@ -20,7 +20,7 @@ body {
 	color: var(--primary-color);
 	display: flex;
 	justify-content: center;
-	user-select: none;
+user-select: none;
 	overflow: hidden;
 }
 html,
@@ -432,4 +432,31 @@ input:focus {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+/* Serach popup */
+.search-window {
+	position: absolute;
+	top: 30px;
+	left: 0;
+	padding: 2px;
+	border-radius: 0 0 10px 0;
+	background: var(--toggle-controls-opaque);
+	backdrop-filter: blur(4px);
+	z-index: 10;
+	animation: searchbar-draw-in 0.2s ease-out;
+	width: 300px;
+}
+
+@keyframes searchbar-draw-in {
+	from {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+}
+
+
+.search-window-draw-out {
+	transform: translateY(-100%);
+	opacity: 0;
 }

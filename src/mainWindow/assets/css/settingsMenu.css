@@ -20,7 +20,7 @@
 /* span confirmation css */
 .confirm-password-change {
 	height: 18px;
-	animation: tr-draw-in 0.25s ease-out;
+	opacity: 1;
 	color: var(--primary-green);
 }
 /* change password button */

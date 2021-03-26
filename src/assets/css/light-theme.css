@@ -3,6 +3,7 @@
 	--body: rgb(230, 230, 230);
 	--primary-background: var(--body);
 	--secondary-background: rgb(200, 200, 200);
+	--error: rgb(250, 50, 50);
 
 	--primary-color: black;
 	--secondary-color: rgb(30, 30, 30);
@@ -65,6 +66,9 @@
 	
 	/* checkmark */
 	--checkmark-background: var(--primary-hover);
+	
+	/* form */
+	--form-invalid: var(--error);
 }
 /** Icons **/
 img:not(#service-icon) {

@@ -38,8 +38,8 @@ function init() {
 	});
 
 	// add form
-	let form = addForm({ class: 'login-form', id: 'login-form' }, container)
-	addRichInput({ class: 'password', id: 'password', hidden: true }, 'Password', form);
+	let form = new Form({ class: 'login-form', id: 'login-form' }, container).form
+	new RichInput({ class: 'password', id: 'password', hidden: true }, 'Password', form);
 	addElement('span', { class: 'noerror' }, 'ERROR', form);
 	addElement('button', { class: 'submit', id: 'login', onclick: 'unlock()', type: 'button' }, 'Unlock', form);
 }

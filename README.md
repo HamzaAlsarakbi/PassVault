@@ -93,7 +93,7 @@ After the set amount of minutes (2 by default) you will be prompted by either cl
 
 - Open icons folder
 
-An ease way to drag and drop your favourite icons!
+An easy way to drag and drop your favourite icons!
 
 
 - Themes
@@ -136,7 +136,7 @@ npm start
 ```
 
 ## Feedback
-I built this program on feedback, if you have any. Please file an issue and/or DM me on [Instagram](https://www.instagram.com/hamza__sar).
+I built this program on feedback, if you have any. Please file an issue and/or DM me on [Instagram](https://www.instagram.com/hamza.alsarakbi).
 
 ## Roadmap
 New updates/bug fixes can be found [here](https://trello.com/b/6yG9npca/passvault)!

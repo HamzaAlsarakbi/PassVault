@@ -2,6 +2,7 @@
   margin: 5px;
   padding: 5px;
   width: calc(100% - 10px);
+  background: transparent;
 }
 
 input.rich-input,
@@ -20,7 +21,7 @@ input.hidden-rich-input {
 .rich-input-container {
   position: relative;
   margin: 10px;
-  padding-top: 6px;
+  padding-top: 10px;
   width: calc(100% - 20px);
   overflow-x: hidden;
 }
@@ -40,7 +41,7 @@ input.hidden-rich-input {
   content: "";
   position: absolute;
   left: -15px;
-  top: 1px;
+  top: 3px;
   height: 100%;
   width: calc(100% - 10px);
   border-bottom: 2px solid var(--primary-accent);
@@ -54,22 +55,23 @@ input.hidden-rich-input {
   position: absolute;
   bottom: 5px;
 }
-form .rich-input:focus + .rich-input-label .rich-input-placeholder,
-form .rich-input:valid + .rich-input-label .rich-input-placeholder {
-  transform: translate(-10px, -140%);
+.rich-input:focus + .rich-input-label .rich-input-placeholder {
   color: var(--primary-accent); 
+}
+.rich-input:valid + .rich-input-label .rich-input-placeholder,
+.rich-input:focus + .rich-input-label .rich-input-placeholder {
+  transform: translate(-10px, -140%);
   font-size: 12px;
 }
-
-form .rich-input:focus + .rich-input-label::after,
-form .rich-input:valid + .rich-input-label::after {
+.rich-input-label.invalid::after,
+form .rich-input:focus + .rich-input-label::after {
   transform: scaleX(1);
 }
 
 .hide-show {
   position: absolute;
   right: 5px;
-  top: 13px;
+  top: 18px;
   cursor: pointer;
   padding: 4px;
   height: 26px;
@@ -88,4 +90,11 @@ form .rich-input:valid + .rich-input-label::after {
 }
 .hide-show img { 
   width: 100%;
+}
+.rich-input-placeholder.invalid {
+  color: var(--form-invalid) !important;
+}
+
+.rich-input-label.invalid::after {
+  border-bottom-color: var(--form-invalid) !important;
 }

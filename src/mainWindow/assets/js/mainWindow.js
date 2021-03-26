@@ -1,6 +1,7 @@
 const { shell } = electron;
 let parentElement;
 const strengthTier = [ 'Very weak', 'Weak', 'Medium', 'Strong', 'Very strong' ];
+const app = $('.container')[0]
 // data object
 let data = {
 	cellIndex: 0
@@ -15,9 +16,6 @@ let searchBy = {
 // menu
 const panel = document.querySelector('panel');
 const menu = document.querySelector('menu');
-
-// search
-const searchInput = document.querySelector('input.control');
 
 // settings
 let components = {
@@ -373,7 +371,7 @@ function editRow(properties, action) {
 		document.querySelector('#edit-icon.' + c).setAttribute('src', icons.confirm);
 
 		// tr effects
-		document.querySelector('.' + tr).classList.toggle('tr-edit');
+		document.querySelector('.' + tr).classList.add('tr-edit');
 		// remove overflow thingy
 
 		// remove text
@@ -447,7 +445,7 @@ function editRow(properties, action) {
 			}
 		} else {
 			// confirm edits
-			document.querySelector('.' + tr).classList.toggle('tr-edit');
+			document.querySelector('.' + tr).classList.remove('tr-edit');
 			document.querySelector('#cell-edit.' + c).setAttribute('onclick', 'editRow(this, "show")');
 			document.querySelector('#cell-edit.' + c).setAttribute('onmouseover', 'addTooltip(this, "Edit")');
 			document.querySelector('#cell-delete.' + c).setAttribute('onclick', 'deleteFunc(this)');
@@ -513,8 +511,8 @@ function cancelEdit(properties) {
 	document.querySelector('#service.' + c).setAttribute('onclick', 'copy(this)');
 	document.querySelector('#email.' + c).setAttribute('onclick', 'copy(this)');
 	document.querySelector('#password.' + c).setAttribute('onclick', 'copy(this)');
-	editOn = false;
-	document.querySelector('.' + tr).classList.toggle('tr-edit');
+	
+	document.querySelector('.' + tr).classList.remove('tr-edit');
 
 	// add service icon
 	iconChecker('.' + c, '#service-content', document.querySelector('#service-content.' + c).textContent);
@@ -626,47 +624,7 @@ function closeDialog() {
 	}
 	components.dialog = false;
 }
-function toggleSearch() {
-	if (components.add) toggleAdd();
-	if (components.settings) toggleSettings();
-	components.search = !components.search;
 
-	// transitions
-	searchInput.classList.toggle('toggleSearch');
-	document.querySelector('div.control#search img').classList.toggle('toggleSearch');
-
-		// clear search input
-	searchInput.value = '';
-	search();
-	if(components.search) {
-		searchInput.select();
-	} else {
-		searchInput.blur();
-	}
-	
-}
-searchInput.addEventListener('input', search);
-
-function search() {
-	// get input value
-	text = searchInput.value.toLowerCase();
-	for (i = 0; i < data.cellIndex; i++) {
-		try {
-			document.querySelector('.row-' + i).classList.add('no-match');
-			for (c = 0; c < id.length; c++) {
-				// check if searchby is active
-				if (searchBy[id[c]]) {
-					let cellData = data['cell-' + i][id[c]].toLowerCase();
-					if (cellData.includes(text)) {
-						document.querySelector('.row-' + i).classList.remove('no-match');
-					}
-				}
-			}
-		} catch (err) {
-			console.error(err);
-		}
-	}
-}
 function iconChecker(classList, id, text) {
 	let cell = document.querySelector(classList + id);
 	let originalText = text;
@@ -676,7 +634,7 @@ function iconChecker(classList, id, text) {
 
 	// pull default icons
 	try {
-		fs.readdirSync(path.join(__dirname, '../global assets/img/icons')).forEach((file) => {
+		fs.readdirSync(path.join(__dirname, '../assets/img/icons')).forEach((file) => {
 			defaultList.push(file);
 		});
 	} catch (err) {
@@ -722,7 +680,7 @@ function iconChecker(classList, id, text) {
 					`
 				<img class="` +
 					classList.replace('.', '') +
-					`" id="service-icon" src="../global assets/img/icons/` +
+					`" id="service-icon" src="../assets/img/icons/` +
 					defaultList[i] +
 					`">` +
 					originalText;

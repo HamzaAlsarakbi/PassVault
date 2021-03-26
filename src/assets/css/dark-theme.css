@@ -3,6 +3,7 @@
 	--body: rgb(20, 20, 20);
 	--primary-background: var(--body);
 	--secondary-background: rgb(60, 60, 60);
+	--error: rgb(250, 50, 50);
 
 	--primary-color: rgb(240, 240, 240);
 	--secondary-color: rgb(220, 220, 220);
@@ -73,6 +74,9 @@
 
 	/* checkmark */
 	--checkmark-background: var(--primary-hover);
+
+	/* form */
+	--form-invalid: var(--error);
 }
 
 a:hover {

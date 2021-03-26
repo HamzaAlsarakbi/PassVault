@@ -36,12 +36,21 @@ menu {
 	opacity: 0;
 	transform: translateY(-100%);
 }
-.menu-down {
+menu.menu-down {
 	opacity: 1;
 	transform: translateY(0%);
 	padding: 10px;
 	overflow-y: auto;
 }
+.controls-label {
+	transform: translateX(-100px);
+	opacity: 0;
+}
+.controls-label {
+	opacity: 1;
+	transform: translateX(0%)
+}
+
 .controls-buttons {
 	display: flex;
 	flex-direction: row;
@@ -81,7 +90,7 @@ menu {
 /* error for form span */
 .noerror {
 	font-size: 12px;
-	color: rgb(250, 50, 50);
+	color: var(--error);
 	transform: translateX(-100%);
 	opacity: 0;
 	height: 0px;

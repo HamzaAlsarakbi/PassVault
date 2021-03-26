@@ -2,15 +2,16 @@
 <html lang="en">
   <head>
     <title>Vault</title>
+    <script>const $ = require( "jquery" );</script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="../global assets/js/config.js"></script>
-    <script src='../global assets/js/themeLoader.js'></script>
+    <script src="../assets/js/config.js"></script>
+    <script src='../assets/js/themeLoader.js'></script>
     <!-- Libraries -->
-    <link rel="stylesheet" type="text/css" href="../global assets/css/windowBar.css"/>
-    <link rel="stylesheet" type="text/css" href="../global assets/css/scrollBar.css"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/windowBar.css"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/scrollBar.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/addParameter.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/addSection.css"/>
-    <link rel="stylesheet" type="text/css" href="../global assets/css/richInput.css"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/richInput.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/popup.css"/>
 
     <!-- Components -->
@@ -30,8 +31,8 @@
     <div class="loading-overlay">
       <div class="loading-container">
         <div class="loading-icons">
-          <img class="loading-icon" id="loading-backdrop" src="../global assets/img/icon-backdrop.png" height="100px">
-          <img class="loading-icon" id="loading-cog" src="../global assets/img/icon-cog.png" height="50px">
+          <img class="loading-icon" id="loading-backdrop" src="../assets/img/icon-backdrop.png" height="100px">
+          <img class="loading-icon" id="loading-cog" src="../assets/img/icon-cog.png" height="50px">
         </div>
         <div class="loading-msg">Loading</div>
       </div>
@@ -41,25 +42,25 @@
       <header id="titlebar">
         <div id="drag-region">
           <div id="window-title">
-            <img src="../global assets/img/icon.png" height="20px">
+            <img src="../assets/img/icon.png" height="20px">
             <span class="window-title" style="padding-left: 10px;">Vault</span>
           </div>
           
           <div id="window-controls">
             <div class="button" onmouseover="addTooltip(this, 'Lock')" id="lock-button" onclick="lockVault()">
-              <img src="../global assets/img/window_icons/lock.png" class="window-icon">
+              <img src="../assets/img/window_icons/lock.png" class="window-icon">
             </div>
             <div class="button" id="min-button">
-              <img src="../global assets/img/window_icons/minimize.png" class="window-icon">
+              <img src="../assets/img/window_icons/minimize.png" class="window-icon">
             </div>
             <div class="button" id="max-button">
-              <img src="../global assets/img/window_icons/maximize.png" class="window-icon">
+              <img src="../assets/img/window_icons/maximize.png" class="window-icon">
             </div>
             <div class="button" id="restore-button">
-              <img src="../global assets/img/window_icons/restore.png" class="window-icon">
+              <img src="../assets/img/window_icons/restore.png" class="window-icon">
             </div>
             <div class="button" id="close-button">
-              <img src="../global assets/img/window_icons/close.png" class="window-icon">
+              <img src="../assets/img/window_icons/close.png" class="window-icon">
             </div>
           </div>
         </div>
@@ -77,19 +78,18 @@
             <div class="controls-buttons">
               <div class="control-collection">
                 <div class="control" onmouseover="addTooltip(this, 'Filters')" id="filter" onclick="toggleFilters()">
-                  <img height="20px" src="../global assets/img/dark/filter.png">
+                  <img height="20px" src="../assets/img/dark/filter.png">
                 </div>
                 <dropDown></dropDown>
               </div>
-              <input class="control" id="search-input" placeholder="Search for keyword">
               <div class="control" onmouseover="addTooltip(this, 'Search')" id="search" onclick="toggleSearch()">
-                <img height="20px" src="../global assets/img/dark/search.png">
+                <img height="20px" src="../assets/img/dark/search.png">
               </div>
               <div class="control" onmouseover="addTooltip(this, 'Add')" id="add" onclick="toggleAdd()">
-                <img height="20px" src="../global assets/img/dark/add.png">
+                <img height="20px" src="../assets/img/dark/add.png">
               </div>
               <div class="control" onmouseover="addTooltip(this, 'Settings')" id="settings" onclick="toggleSettings()">
-                <img height="30px" src="../global assets/img/dark/gear.png">
+                <img height="30px" src="../assets/img/dark/gear.png">
               </div>
             </div>
           </controls>
@@ -115,22 +115,24 @@
 
     
     <!-- Libraries -->
-    <script src="../global assets/js/icons.js"></script>
-    <script src="../global assets/js/windowControls.js"></script>
-    <script src="../global assets/js/libraries/tooltip.js"></script>
-    <script src="../global assets/js/libraries/addElement.js"></script>
-    <script src="../global assets/js/libraries/addParameter.js"></script>
-    <script src="../global assets/js/libraries/addSection.js"></script>
-    <script src="../global assets/js/libraries/addPopup.js"></script>
-    <script src="../global assets/js/libraries/richInput.js"></script>
+    <script src="../assets/js/icons.js"></script>
+    <script src="../assets/js/windowControls.js"></script>
+    <script src="../assets/js/libraries/tooltip.js"></script>
+    <script src="../assets/js/libraries/addElement.js"></script>
+    <script src="../assets/js/libraries/addParameter.js"></script>
+    <script src="../assets/js/libraries/addSection.js"></script>
+    <script src="../assets/js/libraries/addPopup.js"></script>
+    <script src="../assets/js/libraries/richInput.js"></script>
 
     <!-- Components -->
     <script src="assets/js/mainWindow.js"></script>
-    <script src="assets/js/panel/filters.js"></script>
-    <script src="assets/js/panel/settingsMenu.js"></script>
-    <script src="assets/js/panel/addMenu.js"></script>
-    <script src="../global assets/js/saveModule.js"></script>
-    <script src="assets/js/timeout.js"></script>
-    <script src="assets/js/startup.js"></script>
+    <script src="assets/js/components/search.js"></script>
+    <script src="assets/js/components/panel/panel.js"></script>
+    <script src="assets/js/components/panel/filters.js"></script>
+    <script src="assets/js/components/panel/settingsMenu.js"></script>
+    <script src="assets/js/components/panel/addMenu.js"></script>
+    <script src="../assets/js/saveModule.js"></script>
+    <script src="assets/js/components/timeout.js"></script>
+    <script src="assets/js/components/startup.js"></script>
   </body>
 </html>

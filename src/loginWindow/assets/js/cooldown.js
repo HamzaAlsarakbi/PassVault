@@ -21,7 +21,7 @@ function startCooldown() {
     config.login.cooldown--;
     // calculate minutes and seconds remainaing
     error.textContent = 'Login disabled. Please wait ' + ((config.login.cooldown - (config.login.cooldown % 60)) / 60) + ' minute(s) and ' + (config.login.cooldown % 60) + ' second(s).';
-    if(config.login.cooldown >= 0) {
+    if(config.login.cooldown <= 0) {
       // clear interval, double cooldowns reset attempts, and remove error message
       clearInterval(cooldown);
       config.login.cooldowns *= 2;

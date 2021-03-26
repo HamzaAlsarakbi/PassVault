@@ -20,6 +20,9 @@ body {
 	flex-direction: column;
 	font-family: "Segoe UI", sans-serif;
 }
+#min-button {
+	grid-column: 3;
+}
 
 content {
 	display: flex;
@@ -117,28 +120,7 @@ nav {
 	opacity: 0;
 	z-index: -1;
 }
-.password-div {
-	display: flex;
-	flex-direction: row;
-	width: 80%;
-	border: 2px solid var(--primary-input);
-	height: 35px;
-	border-radius: 5px;
-}
-.password-div:hover,
-.password-div:focus-within {
-	border-color: var(--secondary-input);
-}
-input {
-	padding: 5px;
-	background: transparent;
 
-	transition: 0.4s;
-	color: var(--secondary-color);
-	height: 100%;
-	width: calc(100% - 35px);
-	font-size: 14px;
-}
 .show-hide {
 	display: flex;
 	justify-content: center;
