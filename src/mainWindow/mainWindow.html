@@ -24,6 +24,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/settingsMenu.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/dialog.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/mainWindow.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/table.css"/>
+    
   </head>
   <body>  
 
@@ -68,7 +70,7 @@
       
       
       <!-- Contents -->
-      <div class="container container-draw-in">
+      <div class="app">
         <panel>
           <controls>
             <div class="controls-label">
@@ -101,11 +103,11 @@
         <div class="data" id="table">
           <div id="thead">
             <div id="tr">
-              <div class="header" id="type">Type</div>
-              <div class="header" id="service">Service</div>
-              <div class="header" id="email">Email</div>
-              <div class="header" id="password">Password</div>
-              <div class="header" id="hide-show">Controls</div>
+              <div class="table-header" id="type">Type</div>
+              <div class="table-header" id="service">Service</div>
+              <div class="table-header" id="email">Email</div>
+              <div class="table-header" id="password">Password</div>
+              <div class="table-header controls" id="controls">Controls</div>
             </div>
           </div>
           <div class="tbody-data" id="tbody"></div>
@@ -131,6 +133,13 @@
     <script src="assets/js/components/panel/filters.js"></script>
     <script src="assets/js/components/panel/settingsMenu.js"></script>
     <script src="assets/js/components/panel/addMenu.js"></script>
+
+    <!-- Table -->
+    <script src="assets/js/components/table/serviceIcon.js"></script>
+    <script src="assets/js/components/table/table.js"></script>
+    <script src="assets/js/components/table/controls/edit.js"></script>
+    <script src="assets/js/components/table/passwordStrength.js"></script>
+
     <script src="../assets/js/saveModule.js"></script>
     <script src="assets/js/components/timeout.js"></script>
     <script src="assets/js/components/startup.js"></script>

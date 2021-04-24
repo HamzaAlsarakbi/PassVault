@@ -1,11 +1,11 @@
-document.querySelector('body').style.overflow = 'hidden';
+document.body.style.overflow = 'hidden';
 let startupText;
 function startupTextAnimation() {
   let i = 1;
   startupText = setInterval(() => {
     document.querySelector('.loading-msg').textContent = 'Loading' + '.'.repeat(i);
     
-
+    
     // increment i and restart if above 3
     i++;
     if(i > 3) i = 1;
@@ -26,11 +26,12 @@ function loaded() {
     clearInterval(startupText);
     document.querySelector('.loading-msg').textContent = 'Loaded';
     
-  
-  // container animation
-    document.querySelector('.container').classList.remove('container-draw-in');
-  setTimeout(function() {
-    document.querySelector('body').removeChild(document.querySelector('.loading-overlay'));
+    
+    // container animation
+    app.classList.remove('container-draw-in');
+    setTimeout(function() {
+      document.body.removeChild(document.querySelector('.loading-overlay'));
+      document.body.style.overflow = '';
   }, 1000);
   }, 1000);
 }

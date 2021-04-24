@@ -1,3 +1,10 @@
+let searchBy = {
+	type: true,
+	service: true,
+	email: true,
+	password: true
+};
+
 // filters
 function toggleFilters() {
   let dropdown = document.querySelector('dropDown');

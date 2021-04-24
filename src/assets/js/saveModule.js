@@ -11,7 +11,7 @@ var saved;
 
 // save function
 function save(type) {
-	const container = document.querySelector('.container');
+	const container = document.querySelector('.app');
 
 	if (type == 'config') {
 		// encrypt config
@@ -37,22 +37,22 @@ function save(type) {
 		param.keyO = key;
 		param.ivO = iv;
 		var stringifiedParam = JSON.stringify(param);
-		fs.writeFileSync(paramPath, stringifiedParam, function(err) {
+		fs.writeFileSync(paramPath, stringifiedParam, function (err) {
 			if (err) throw err;
 			console.log('Saved ' + param + '!');
 		});
-		
+
 		dataStringified = JSONstringify(data);
 		dataEncrypted = encrypt(dataStringified);
 		dataStringified = JSONstringify(dataEncrypted);
 		package(dataStringified, fullPath);
 		// save config.json
 		save('config');
-		
+
 		saved = false;
 		var saveButtonDOM = document.querySelector('.save');
 		saveButtonDOM.classList.toggle('button-slide-out');
-		setTimeout(function() {
+		setTimeout(function () {
 			saveButtonDOM.remove();
 		}, 300);
 		if (type == 'close') {
@@ -74,11 +74,11 @@ function encrypt(text) {
 	// encrypt string
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
 	let encrypted = cipher.update(text);
-	encrypted = Buffer.concat([ encrypted, cipher.final() ]);
+	encrypted = Buffer.concat([encrypted, cipher.final()]);
 	return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 }
 function package(object, pathOfObject) {
-	fs.writeFileSync(pathOfObject, object, function(err) {
+	fs.writeFileSync(pathOfObject, object, function (err) {
 		if (err) throw err;
 		console.log('Saved ' + object + '!');
 	});
@@ -89,7 +89,7 @@ function decrypt(text) {
 	let encryptedText = Buffer.from(text.encryptedData, 'hex');
 	let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
 	let decrypted = decipher.update(encryptedText);
-	decrypted = Buffer.concat([ decrypted, decipher.final() ]);
+	decrypted = Buffer.concat([decrypted, decipher.final()]);
 	return decrypted.toString();
 }
 
@@ -104,35 +104,37 @@ function checkSaveFile() {
 	}
 }
 
+function unpack(pathOfObject) {
+	return JSON.parse(decrypt(JSON.parse(fs.readFileSync(fullPath))));
+}
+
 function parse() {
 	console.log('%c parsing...', orangeColor);
-	var rawData = fs.readFileSync(fullPath);
-	var parsedData = JSON.parse(rawData);
-	decryptedData = decrypt(parsedData);
-	data = JSON.parse(decryptedData);
-	try {
-		for (var i = 0; i < data.cellIndex; i++) {
-			// add rows
+	data = unpack(fullPath);
+	// add rows
+	for (let cell in data) {
+		if (cell != 'cellIndex') {
 			addRow(
-				data['cell-' + i].type,
-				data['cell-' + i].service,
-				data['cell-' + i].email,
-				data['cell-' + i].password,
-				i
-			);
+				{
+					type: data[cell].type,
+					service: data[cell].service,
+					email: data[cell].email,
+					password: data[cell].password
+				}, data[cell].index);
 		}
-		if (config.gridlinesOn) {
-			var gridlinesTable = document.querySelectorAll('#tr');
-			// Toggle gridlines
-			for (i = 0; i < gridlinesTable.length; i++) {
-				gridlinesTable[i].classList.toggle('gridlinesOn');
-			}
+	}
+
+	// Toggle gridlines if enabled
+	if (config.gridlinesOn) {
+		let gridlinesTable = document.querySelectorAll('#tr');
+		for (let i = 0; i < gridlinesTable.length; i++) {
+			gridlinesTable[i].classList.add('gridlinesOn');
 		}
-		if(!config.enableAnimations) {
-			addElement('link', {class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../global assets/css/disableAnimations.css'}, undefined, document.head);
-		}
-	} catch (err) {
-		console.log('cell-' + i + " doesn't exist");
+	}
+
+	// disable animations if enabled
+	if (!config.enableAnimations) {
+		addElement('link', { class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../global assets/css/disableAnimations.css' }, undefined, document.head);
 	}
 }
 
@@ -156,7 +158,7 @@ function changesChecker() {
 			saved = false;
 			var saveButtonDOM = document.querySelector('.save');
 			saveButtonDOM.classList.toggle('button-slide-out');
-			setTimeout(function() {
+			setTimeout(function () {
 				saveButtonDOM.remove();
 			}, 300);
 		}

@@ -9,9 +9,7 @@ div.tooltip {
   z-index: 2;
 }
 
-#cell-showHide-tooltip,
-#cell-edit-tooltip,
-#cell-delete-tooltip {
+div.control-tooltip {
   transform: translate(-50%, 20%);
-  animation: none;
+  animation: none !important;
 }

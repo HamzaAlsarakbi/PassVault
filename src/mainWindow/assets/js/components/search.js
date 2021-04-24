@@ -3,13 +3,16 @@ function toggleSearch() {
 	// close other panels
   if (components.add) toggleAdd();
 	if (components.settings) toggleSettings();
-
+	document.querySelector('.control#search img').classList.toggle('toggleSearch');
 
 	if(!components.search) {
     let popup = addElement('div', { class: 'search-window' }, '', app);
     let form = new Form({ class: 'search-form' }, popup).form;
     searchInput = new RichInput({ class: 'controls', id: 'search-input', ignoreInvalid: true }, 'Search for keyword', form).input
     searchInput.select();
+		searchInput.addEventListener('keydown', e => {
+			if(e.code == 'Escape') toggleSearch();
+		});
     searchInput.addEventListener('input', search)
   } else {
     let popup = $('.search-window')[0];
@@ -33,7 +36,7 @@ function toggleSearch() {
 
 function search() {
 	// get input value
-	text = searchInput.value.toLowerCase();
+	text = searchInput ? searchInput.value.toLowerCase() : '';
 	for (i = 0; i < data.cellIndex; i++) {
 		try {
 			document.querySelector('.row-' + i).classList.add('no-match');
@@ -43,6 +46,7 @@ function search() {
 					let cellData = data['cell-' + i][id[c]].toLowerCase();
 					if (cellData.includes(text)) {
 						document.querySelector('.row-' + i).classList.remove('no-match');
+						break;
 					}
 				}
 			}

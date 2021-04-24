@@ -1,0 +1,178 @@
+.tbody-data {
+	display: flex;
+	flex-direction: column-reverse;
+}
+/** Table **/
+#table {
+	width: 90%;
+	max-width: 1500px;
+	min-width: 600px;
+	display: flex;
+	flex-direction: column;
+	animation: slide-in 0.15s ease-out;
+}
+
+
+.cell-control {
+	padding: 6px;
+	cursor: pointer;
+	height: 28px;
+	border-radius: 5px;
+	position: relative;
+}
+
+.cell-control-icon {
+	height: 15px;
+}
+.cell-control:active {
+	transform: scale(0.85);
+	transition: 0.1s ease-out;
+}
+.controls {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.padding-zero {
+	padding: 0;
+}
+
+@keyframes slide-in {
+	0% {
+		transform: translateY(-48px);
+		opacity: 0;
+	}
+}
+
+#tr {
+	animation: slide-in 0.25s ease-out;
+	padding: 5px;
+}
+
+.tbody-data #tr:hover {
+	background: var(--row-hover);
+}
+.tbody-animation {
+	animation: slide-in 0.25s ease-out;
+}
+
+#thead {
+	padding-top: 70px;
+	position: sticky;
+	top: 0;
+	backdrop-filter: blur(5px);
+	border-bottom: var(--primary-thead-border);
+	z-index: 1; /* Important for blur affect to cover controls column*/
+}
+input.cell-content {
+  cursor: pointer;
+  font-size: 16px;
+  height: 100%;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+.tr-edit input.cell-content {
+  cursor: auto; 
+}
+.table-cell,
+.table-header:not(.controls) {
+	width: calc(25%);
+	text-align: center;
+	overflow: hidden;
+	overflow-x: visible;
+	border-radius: 5px !important;
+	display: flex;
+	flex-direction: column;
+  padding: 5px;
+}
+.table-cell.service {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.table-cell:not(.control)::-webkit-scrollbar {
+	height: 7px;
+	border-radius: 5px;
+}
+
+#password {
+	user-select: none;
+	overflow-x: hidden !important;
+}
+
+#strength-text {
+	font-size: 10px;
+	text-align: left;
+	padding-bottom: 1px;
+}
+#strength-bar {
+	height: 4px;
+	border-radius: 2px;
+	padding: 0;
+}
+.table-cell:active {
+	transform: scale(0.9);
+	transition: 0.1s ease-out;
+}
+.tr-edit .table-cell:active {
+	transform: scale(1);
+}
+
+.table-cell:not(.controls):hover,
+.cell-control:hover {
+	background: var(--cell-hover);
+}
+
+.tr-edit .table-cell:hover {
+	background: transparent;
+}
+
+.table-header {
+	padding: 5px;
+	height: 35px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#tr {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	animation: tr-draw-in 0.25s ease-out;
+	border-radius: 5px;
+	border: 1px solid transparent;
+}
+.tbody-data #tr {
+	height: 80px;
+}
+@keyframes tr-draw-in {
+	0% {
+		transform: scale(0.5);
+	}
+}
+/******* draw out animation*/
+.draw-out-animation {
+	animation: tr-draw-out 0.3s ease-in !important;
+	animation-direction: reverse !important;
+	animation-fill-mode: forwards !important;
+}
+@keyframes tr-draw-out {
+	0% {
+		opacity: 0;
+		transform: scale(0.2) translateY(-48px);
+		height: 0;
+	}
+}
+
+/** gridlines **/
+#tr.gridlinesOn {
+	border-color: var(--secondary-color) !important;
+}
+
+#service-icon {
+	width: 30px;
+	margin: 5px;
+	border-radius: 5px;
+}

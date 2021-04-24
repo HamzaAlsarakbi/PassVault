@@ -9,10 +9,8 @@
 	backface-visibility: hidden;
 	-webkit-user-drag: none;
 }
-html,
-body {
+html, body {
 	height: 100%;
-	margin: 0;
 }
 body {
 	font-family: "Segoe UI", sans-serif;
@@ -20,23 +18,17 @@ body {
 	color: var(--primary-color);
 	display: flex;
 	justify-content: center;
-user-select: none;
+	user-select: none;
 	overflow: hidden;
 }
-html,
-body {
-	height: 100%;
-	margin: 0;
-}
 
-/** container **/
-.container {
-	margin-top: 80px;
+/** app **/
+.app {
+	padding-top: 30px;
 	display: flex;
 	align-items: center;
 	width: 100%;
 	flex-direction: column;
-	margin-top: 30px;
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
@@ -100,10 +92,8 @@ input {
 	margin: 5px;
 	padding: 5px;
 	background: transparent;
-	border: 2px solid var(--primary-input);
 	font-family: "Segoe UI", sans-serif;
 	font-size: 14px;
-	border-radius: 5px;
 	color: var(--secondary-color);
 }
 input:hover {
@@ -113,38 +103,6 @@ input:focus {
 	border-color: var(--primary-accent);
 }
 
-#tbody cell {
-	padding: 5px;
-	height: 35px;
-}
-.tr-edit {
-	height: 55px;
-}
-#tr div input {
-	text-align: center;
-}
-.tr-edit div input {
-	animation: glide-in 0.2s ease-out;
-}
-
-@keyframes glide-in {
-	from {
-		border-width: 0;
-		font-size: 16px;
-		transform: translate(3px, -7px);
-	}
-}
-.header {
-	font-weight: bold;
-	position: sticky;
-}
-
-.header p {
-	margin: 5px;
-}
-
-/******** Add input*/
-
 /*** Add button*/
 .add-button {
 	margin: 5px;
@@ -152,193 +110,11 @@ input:focus {
 	width: 100%;
 }
 
-.tbody-data {
-	display: flex;
-	flex-direction: column-reverse;
-}
-/** Table **/
-#table {
-	width: 90%;
-	max-width: 1500px;
-	min-width: 600px;
-	display: flex;
-	flex-direction: column;
-	animation: slide-in 0.15s ease-out;
-}
+
 .margin-settings {
 	padding-top: 380px !important;
 }
 
-
-#cell-edit,
-#cell-showHide,
-#cell-delete {
-	padding: 6px;
-	cursor: pointer;
-	height: 28px;
-	border-radius: 5px;
-	position: relative;
-}
-#tbody #tr #cell-edit:active,
-#tbody #tr #cell-showHide:active,
-#tbody #tr #cell-delete:active {
-	transform: scale(0.85);
-	transition: 0.1s ease-out;
-}
-#controls {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-
-.padding-zero {
-	padding: 0;
-}
-
-@keyframes slide-in {
-	0% {
-		transform: translateY(-48px);
-		opacity: 0;
-	}
-}
-
-.tbody-data div {
-	animation: slide-in 0.25s ease-out;
-	padding: 5px;
-}
-
-.tbody-data #tr:hover {
-	background: var(--row-hover);
-}
-.tbody-animation {
-	animation: slide-in 0.25s ease-out;
-}
-
-#table-type,
-#table-service,
-#table-email,
-#table-password {
-	width: calc(100% - 5px);
-	margin: 2px;
-}
-
-#thead {
-	padding-top: 70px;
-	position: sticky;
-	top: 0;
-	backdrop-filter: blur(5px);
-	border-bottom: var(--primary-thead-border);
-	z-index: 1; /* Important for blur affect to cover controls column*/
-}
-#type,
-#service,
-#email,
-#password {
-	width: calc(25%);
-	text-align: center;
-	overflow: hidden;
-	overflow-x: visible;
-	border-radius: 5px !important;
-	display: flex;
-	flex-direction: column;
-}
-#type {
-	text-transform: capitalize;
-}
-#password {
-	user-select: none;
-	overflow-x: hidden !important;
-}
-#password #password-content:not(.edit-on) {
-	overflow: auto hidden;
-	height: 35px;
-}
-#password div {
-	padding: 1px;
-}
-#strength-text {
-	font-size: 10px;
-	text-align: left;
-	padding-bottom: 1px;
-}
-#strength-bar {
-	height: 4px;
-	border-radius: 2px;
-	padding: 0;
-}
-#tbody #type:active,
-#tbody #service:active,
-#tbody #email:active,
-#tbody #password:active {
-	transform: scale(0.9);
-	transition: 0.1s ease-out;
-}
-#tbody .tr-edit #type:active,
-#tbody .tr-edit #service:active,
-#tbody .tr-edit #email:active,
-#tbody .tr-edit #password:active {
-	transform: scale(1);
-}
-
-
-#type:hover:not(.header),
-#service:hover:not(.header),
-#email:hover:not(.header),
-#password:hover:not(.header),
-#cell-edit:hover,
-#cell-showHide:hover,
-#cell-delete:hover {
-	background: var(--cell-hover);
-}
-
-#tbody .tr-edit #type:hover,
-#tbody .tr-edit #service:hover,
-#tbody .tr-edit #email:hover,
-#tbody .tr-edit #password:hover {
-	background: transparent;
-}
-
-#type::-webkit-scrollbar,
-#service::-webkit-scrollbar,
-#email::-webkit-scrollbar,
-#password #password-content::-webkit-scrollbar {
-	height: 7px;
-	border-radius: 5px;
-}
-
-.header {
-	padding: 5px;
-	height: 35px;
-}
-#tr {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	animation: tr-draw-in 0.25s ease-out;
-	border-radius: 5px;
-	border: 1px solid transparent;
-}
-.tbody-data #tr {
-	height: 80px;
-}
-@keyframes tr-draw-in {
-	0% {
-		transform: scale(0.5);
-	}
-}
-/******* draw out animation*/
-.draw-out-animation {
-	animation: tr-draw-out 0.3s ease-in !important;
-	animation-direction: reverse !important;
-	animation-fill-mode: forwards !important;
-}
-@keyframes tr-draw-out {
-	0% {
-		opacity: 0;
-		transform: scale(0.2) translateY(-48px);
-		height: 0;
-	}
-}
 .toast {
 	font-size: 12px;
 	background: none;
@@ -415,48 +191,4 @@ input:focus {
 	60% {
 		transform: translateX(20px);
 	}
-}
-
-
-/** gridlines **/
-#tr.gridlinesOn {
-	border-color: var(--secondary-color) !important;
-}
-
-#service-icon {
-	width: 20px;
-	margin: 5px;
-	border-radius: 5px;
-}
-#service-content {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-/* Serach popup */
-.search-window {
-	position: absolute;
-	top: 30px;
-	left: 0;
-	padding: 2px;
-	border-radius: 0 0 10px 0;
-	background: var(--toggle-controls-opaque);
-	backdrop-filter: blur(4px);
-	z-index: 10;
-	animation: searchbar-draw-in 0.2s ease-out;
-	width: 300px;
-}
-
-@keyframes searchbar-draw-in {
-	from {
-		opacity: 0;
-		transform: translateY(-100%);
-	}
-}
-
-
-.search-window-draw-out {
-	transform: translateY(-100%);
-	opacity: 0;
 }

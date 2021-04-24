@@ -92,7 +92,13 @@ function addData() {
 			class: 'cell-' + data.cellIndex,
 			hidden: true
 		};
-		let row = addRow(inputs.type.value, inputs.service.value, inputs.email.value, inputs.password.value, data.cellIndex);
+		let row = addRow(
+			{
+				type: inputs.type.value,
+				service:  inputs.service.value,
+				email: inputs.email.value,
+				password: inputs.password.value
+			}, data.cellIndex);
 
 		// turn on gridlines if it is on
 		if (config.gridlinesOn) row.classList.add('gridlinesOn');
