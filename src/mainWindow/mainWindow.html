@@ -2,29 +2,36 @@
 <html lang="en">
   <head>
     <title>Vault</title>
-    <script>const $ = require( "jquery" );</script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="../assets/js/config.js"></script>
-    <script src='../assets/js/themeLoader.js'></script>
+    <script src="../assets/components/config.js"></script>
+    
     <!-- Libraries -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/windowBar.css"/>
-    <link rel="stylesheet" type="text/css" href="../assets/css/scrollBar.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/addParameter.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/addSection.css"/>
-    <link rel="stylesheet" type="text/css" href="../assets/css/richInput.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/popup.css"/>
+    <script src="../assets/components/icons.js"></script>
+    <script src="../assets/libraries/addElement.js"></script>
+    <script src="../assets/libraries/addParameter/addParameter.js"></script>
+    <link rel="stylesheet" href="../assets/libraries/addParameter/addParameter.css"/>
+    <script src="../assets/libraries/addSection/addSection.js"></script>
+    <link rel="stylesheet" href="../assets/libraries/addSection/addSection.css"/>
+    <script src="../assets/libraries/addPopup/addPopup.js"></script>
+    <link rel="stylesheet" href="../assets/libraries/addPopup/popup.css"/>
+    <script src="../assets/libraries/RichInput/richInput.js"></script>
+    <link rel="stylesheet" href="../assets/libraries/RichInput/richInput.css"/>
+    <script src="../assets/libraries/tooltip/tooltip.js"></script>
+    <link rel="stylesheet" href="../assets/libraries/tooltip/tooltip.css"/>
+    <script src='../assets/components/themeLoader/themeLoader.js'></script>
+
+    <link rel="stylesheet" href="../assets/components/windowBar/windowBar.css"/>
+    <link rel="stylesheet" href="../assets/components/scrollBar.css"/>
 
     <!-- Components -->
-    <link rel="stylesheet" type="text/css" href="assets/css/startup.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/filters.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/tooltip.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/panel.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/search.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/addMenu.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/settingsMenu.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/dialog.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/mainWindow.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/table.css"/>
+    <link rel="stylesheet" href="assets/components/startup/startup.css"/>
+    <link rel="stylesheet" href="assets/components/panelComponents/filters/filters.css"/>
+    <link rel="stylesheet" href="assets/components/panelComponents/panel/panel.css"/>
+    <link rel="stylesheet" href="assets/components/panelComponents/search/search.css"/>
+    <link rel="stylesheet" href="assets/components/panelComponents/Menus/addMenu/addMenu.css"/>
+    <link rel="stylesheet" href="assets/components/panelComponents/Menus/settingsMenu/settingsMenu.css"/>
+    <link rel="stylesheet" href="assets/css/dialog.css"/>
+    <link rel="stylesheet" href="assets/css/mainWindow.css"/>
+    <link rel="stylesheet" href="assets/components/tableComponents/table/table.css">
     
   </head>
   <body>  
@@ -115,33 +122,24 @@
         </div>
       </div>
 
-    
-    <!-- Libraries -->
-    <script src="../assets/js/icons.js"></script>
-    <script src="../assets/js/windowControls.js"></script>
-    <script src="../assets/js/libraries/tooltip.js"></script>
-    <script src="../assets/js/libraries/addElement.js"></script>
-    <script src="../assets/js/libraries/addParameter.js"></script>
-    <script src="../assets/js/libraries/addSection.js"></script>
-    <script src="../assets/js/libraries/addPopup.js"></script>
-    <script src="../assets/js/libraries/richInput.js"></script>
-
+       
     <!-- Components -->
+    <script src="../assets/components/windowBar/windowControls.js"></script>
     <script src="assets/js/mainWindow.js"></script>
-    <script src="assets/js/components/search.js"></script>
-    <script src="assets/js/components/panel/panel.js"></script>
-    <script src="assets/js/components/panel/filters.js"></script>
-    <script src="assets/js/components/panel/settingsMenu.js"></script>
-    <script src="assets/js/components/panel/addMenu.js"></script>
+    <script src="assets/components/panelComponents/search/search.js"></script>
+    <script src="assets/components/panelComponents/panel/panel.js"></script>
+    <script src="assets/components/panelComponents/filters/filters.js"></script>
+    <script src="assets/components/panelComponents/Menus/settingsMenu/settingsMenu.js"></script>
+    <script src="assets/components/panelComponents/Menus/addMenu/addMenu.js"></script>
 
-    <!-- Table -->
-    <script src="assets/js/components/table/serviceIcon.js"></script>
-    <script src="assets/js/components/table/table.js"></script>
-    <script src="assets/js/components/table/controls/edit.js"></script>
-    <script src="assets/js/components/table/passwordStrength.js"></script>
+    <!-- Table Components -->
+    <script src="assets/components/tableComponents/serviceIcon.js"></script>
+    <script src="assets/components/tableComponents/table/table.js"></script>
+    <script src="assets/components/tableComponents/controls/edit.js"></script>
+    <script src="assets/components/tableComponents/passwordStrength.js"></script>
 
-    <script src="../assets/js/saveModule.js"></script>
-    <script src="assets/js/components/timeout.js"></script>
-    <script src="assets/js/components/startup.js"></script>
+    <script src="../assets/components/saveModule.js"></script>
+    <script src="assets/components/timeout.js"></script>
+    <script src="assets/components/startup/startup.js"></script>
   </body>
 </html>

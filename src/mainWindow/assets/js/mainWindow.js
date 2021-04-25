@@ -1,6 +1,6 @@
 const { shell } = electron;
 let parentElement;
-const app = $('.app')[0]
+const app = document.querySelector('.app');
 // data object
 let data = {
 	cellIndex: 0
@@ -55,19 +55,6 @@ document.onkeydown = e => {
 
 function capitalize(text) {
 	return text.replace(text.substring(0, 1), text.substring(0, 1).toUpperCase());
-}
-
-
-function toast(message) {
-	if (message != '' && !(message === undefined)) {
-		let span = document.createElement('div');
-		span.setAttribute('class', 'toast');
-		span.textContent = message;
-		document.body.appendChild(span);
-		setTimeout(function() {
-			span.remove();
-		}, 1500);
-	}
 }
 
 

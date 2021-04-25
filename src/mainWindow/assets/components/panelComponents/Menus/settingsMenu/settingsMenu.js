@@ -1,13 +1,13 @@
 function toggleSettings() {
-	$('controls')[0].classList.toggle('enabled');
-  $('#thead')[0].classList.toggle('margin-settings');
+	document.querySelector('controls').classList.toggle('enabled');
+  document.querySelector('#thead').classList.toggle('margin-settings');
 	panel.classList.toggle('toggleSettings');
 
 	// menu transitions
 	menu.classList.toggle('menu-down');
 
 	// rotate icon
-	$('#settings img')[0].classList.toggle('rotate');
+	document.querySelector('#settings img').classList.toggle('rotate');
 
 	// if one of the windows is open
 	if (components.search) toggleSearch();
@@ -96,8 +96,8 @@ function selectTheme(e) {
 	document.querySelector('head').removeChild(document.querySelector('.link-theme'));
 
 	config.theme = theme;
-	initTheme();
 	save('config');
+	loadTheme();
 }
 function openChangePasswordDialog() {
 	let popup = addPopup('change-master-password', 'Change Master Password', '').body;
@@ -125,10 +125,10 @@ function openChangePasswordDialog() {
 
 // Change password function
 function passChangeRequest() {
-	let oldPass = $('#old-password-rich-input')[0];
-	let newPass = $('#new-password-rich-input')[0];
-	let newConfirmPass = $('#confirm-password-rich-input')[0];
-	let p = $('#password-error')[0];
+	let oldPass = document.querySelector('#old-password-rich-input');
+	let newPass = document.querySelector('#new-password-rich-input');
+	let newConfirmPass = document.querySelector('#confirm-password-rich-input');
+	let p = document.querySelector('#password-error');
 	p.classList.remove('confirm');
 	// validate password
 	// check if old password is correct
@@ -163,30 +163,27 @@ function passChangeRequest() {
 					}, 250);
 				}, 1000);
 			} else {
-				console.log('Notice: Old and new passwords match!');
 				// display error
 				error(true);
 				p.innerHTML = 'Old and new passwords match.';
 			}
 		} else {
-			console.log("Notice: New and new-confirm passwords DON'T match!");
 			// display error
 			error(true);
 			p.innerHTML = 'New passwords do not match.';
 		}
 	} else {
-		console.log('Notice: Old password is NOT correct!');
 		// display error
 		error(true);
 		p.innerHTML = 'Old password is not correct.';
 	}
 }
 function error(action) {
-	console.log('error provoked');
+	console.log('Error provoked.');
 	if (action) {
-		$('#password-error')[0].classList.add('error');
+		document.querySelector('#password-error').classList.add('error');
 	} else {
-		$('#password-error')[0].classList.remove('error');
+		document.querySelector('#password-error').classList.remove('error');
 	}
 }
 
@@ -216,7 +213,7 @@ function toggleDevTools() {
 
 // Gridlines
 function toggleGridlines() {
-	let gridlinesTable = $('#tr');
+	let gridlinesTable = document.querySelector('#tr');
 	// Toggle gridlines
 	for (let i = 0; i < gridlinesTable.length; i++) {
 		gridlinesTable[i].classList.toggle('gridlinesOn');

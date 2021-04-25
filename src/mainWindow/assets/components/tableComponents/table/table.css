@@ -145,7 +145,7 @@ input.cell-content {
 	border: 1px solid transparent;
 }
 .tbody-data #tr {
-	height: 80px;
+	height: 62px;
 }
 @keyframes tr-draw-in {
 	0% {

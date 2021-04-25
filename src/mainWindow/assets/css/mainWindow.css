@@ -24,7 +24,7 @@ body {
 
 /** app **/
 .app {
-	padding-top: 30px;
+	margin-top: 30px;
 	display: flex;
 	align-items: center;
 	width: 100%;
@@ -113,50 +113,6 @@ input:focus {
 
 .margin-settings {
 	padding-top: 380px !important;
-}
-
-.toast {
-	font-size: 12px;
-	background: none;
-	padding: 10px;
-	margin-bottom: 20px;
-	border-radius: 20px;
-	max-height: 100px;
-	max-width: 80%;
-	animation: toast-slide-in 1.5s ease-out;
-	color: var(--primary-color);
-	background: var(--secondary-background);
-	position: fixed;
-	bottom: 0;
-	left: 50%;
-	word-break: break-all;
-	transform: translateX(-50%);
-	animation-fill-mode: forwards;
-}
-
-@keyframes toast-slide-in {
-	0% {
-		transform: translate(-50%, 100%);
-		opacity: 0;
-	}
-	10% {
-		transform: translate(-50%, -20%);
-		opacity: 1;
-	}
-	15% {
-		transform: translate(-50%, 0%);
-	}
-	85% {
-		transform: translate(-50%, 0%);
-	}
-	90% {
-		transform: translate(-50%, -20%);
-		opacity: 1;
-	}
-	100% {
-		transform: translate(-50%, 100%);
-		opacity: 0;
-	}
 }
 
 .save {

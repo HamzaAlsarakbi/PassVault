@@ -15,7 +15,7 @@ function toggleSearch() {
 		});
     searchInput.addEventListener('input', search)
   } else {
-    let popup = $('.search-window')[0];
+    let popup = document.querySelector('.search-window');
     popup.classList.add('search-window-draw-out');
     searchInput.blur();
 

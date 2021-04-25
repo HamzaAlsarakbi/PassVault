@@ -3,17 +3,17 @@
   <head>
     <title>Welcome - PassVault</title>
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/windowBar.css">
-    <link rel="stylesheet" href="../assets/css/richInput.css">
+    <link rel="stylesheet" type="text/css" href="../assets/components/windowBar/windowBar.css">
+    <link rel="stylesheet" href="../assets/libraries/RichInput/richInput.css">
     <link rel="stylesheet" href="assets/css/setupWindow.css">
 
     <!-- Scripts -->
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/icons.js"></script>
-    <script src="../assets/js/libraries/addElement.js"></script>
-    <script src="../assets/js/libraries/richInput.js"></script>
-    <script> if(config.masterPassword != undefined) window.location.replace('../loginWindow/loginWindow.html');</script>
-    <script src='../assets/js/themeLoader.js'></script>
+    <script src="../assets/components/config.js"></script>
+    <script src="../assets/components/icons.js"></script>
+    <script src="../assets/libraries/addElement.js"></script>
+    <script src="../assets/libraries/RichInput/richInput.js"></script>
+    <script> if(config.masterPassword) window.location.replace('../loginWindow/loginWindow.html')</script>
+    <script src='../assets/components/themeLoader/themeLoader.js'></script>
   </head>
   <body>
     <header id="titlebar">
