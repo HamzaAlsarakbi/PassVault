@@ -50,18 +50,12 @@ function addRow(tableData, index) {
 		// add control icon
 		addElement('img', { class: `cell-${index} cell-control-icon cell-${control}-icon`, id: `cell-${control}-icon-${index}`, src: controls[control].icon }, '', container);
 	}
-
-	// tbody animation
-	elements.table.classList.add('tbody-animation');
-	setTimeout(function () {
-		table.classList.remove('tbody-animation');
-	}, 250);
 	return row;
 }
 
 function copy(e) {
-	let d = e.id;
 	let c = e.classList[0];
+	let d = e.id.replace(`-${data[c].index}`, '');
 	let copylet = data[c][d];
 
 	let input = addElement('input', { class: 'hidden', style: 'position: absolute; left: -50000px' }, copylet, document.body);
@@ -131,5 +125,5 @@ function togglePasswordVisibility(e) {
 		password.type = 'password';
 		icon.setAttribute('src', icons.eye.eye);
 	}
-		data[c].hidden = !data[c].hidden;
+	data[c].hidden = !data[c].hidden;
 }

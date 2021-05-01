@@ -21,7 +21,10 @@
 	position: relative;
 }
 
-.cell-control-icon {
+.cell-control-icon:not(.cell-hideShow-icon) {
+	width: 15px;
+}
+.cell-hideShow-icon {
 	height: 15px;
 }
 .cell-control:active {
@@ -52,9 +55,6 @@
 
 .tbody-data #tr:hover {
 	background: var(--row-hover);
-}
-.tbody-animation {
-	animation: slide-in 0.25s ease-out;
 }
 
 #thead {
@@ -125,10 +125,6 @@ input.cell-content {
 	background: var(--cell-hover);
 }
 
-.tr-edit .table-cell:hover {
-	background: transparent;
-}
-
 .table-header {
 	padding: 5px;
 	height: 35px;
@@ -149,25 +145,24 @@ input.cell-content {
 }
 @keyframes tr-draw-in {
 	0% {
-		transform: scale(0.5);
-	}
-}
-/******* draw out animation*/
-.draw-out-animation {
-	animation: tr-draw-out 0.3s ease-in !important;
-	animation-direction: reverse !important;
-	animation-fill-mode: forwards !important;
-}
-@keyframes tr-draw-out {
-	0% {
+		transform: translateY(-150%) scale(0.5);
 		opacity: 0;
-		transform: scale(0.2) translateY(-48px);
 		height: 0;
 	}
 }
+/* draw out animation*/
+#tr.draw-out-animation {
+	opacity: 0;
+	transform: translateY(-150%) scale(0.5);
+	height: 0 !important;
+	padding: 0 !important;
+	border: 0;
+}
+
+
 
 /** gridlines **/
-#tr.gridlinesOn {
+#tr.table-gridlines {
 	border-color: var(--secondary-color) !important;
 }
 

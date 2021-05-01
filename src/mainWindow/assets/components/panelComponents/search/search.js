@@ -5,7 +5,7 @@ function toggleSearch() {
 	if (components.settings) toggleSettings();
 	document.querySelector('.control#search img').classList.toggle('toggleSearch');
 
-	if(!components.search) {
+	if(!components.search && !searchInput) {
     let popup = addElement('div', { class: 'search-window' }, '', app);
     let form = new Form({ class: 'search-form' }, popup).form;
     searchInput = new RichInput({ class: 'controls', id: 'search-input', ignoreInvalid: true }, 'Search for keyword', form).input
@@ -14,23 +14,27 @@ function toggleSearch() {
 			if(e.code == 'Escape') toggleSearch();
 		});
     searchInput.addEventListener('input', search)
+		components.search = true;
+		
+		
   } else {
     let popup = document.querySelector('.search-window');
     popup.classList.add('search-window-draw-out');
     searchInput.blur();
-
+		
     // clear input then clear results
     searchInput.value = '';
     search();
-
+		
     // delete element
     setTimeout(() => {
-      app.removeChild(popup);
+			app.removeChild(popup);
+			searchInput = null;
     }, 200);
-
+		
     
+		components.search = false;
   }
-  components.search = !components.search;
 }
 
 

@@ -23,7 +23,7 @@ class RichInput {
     // label needs to be added before this because of the CSS selector
     if(attributes.hidden) {
       // create password hide/show switch
-      this.hideShow = addElement('div', { class: 'hide-show', id: attributes.id + '-hide-show', onclick: 'hideShow(this)' }, '', this.container);
+      this.hideShow = addElement('div', { class: 'hide-show', id: attributes.id + '-hide-show', onclick: 'hideShowRichInput(this)' }, '', this.container);
       addElement('img', { class: 'eye-icon', id: attributes.id + '-eye-icon', src: icons.eye.eye }, '', this.hideShow);
     }
 
@@ -34,7 +34,7 @@ class RichInput {
   }
 }
 
-function hideShow(e) {
+function hideShowRichInput(e) {
   let input = document.querySelector(`input#${e.id.replace('-hide-show', '')}-rich-input`);
   let icon = document.querySelector(`#${e.id} img`);
   if(input.type == 'password') {

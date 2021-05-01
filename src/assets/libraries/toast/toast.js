@@ -1,9 +1,6 @@
 function toast(message) {
 	if (message != '' && !(message === undefined)) {
-		let span = document.createElement('div');
-		span.setAttribute('class', 'toast');
-		span.textContent = message;
-		document.body.appendChild(span);
+		let span = addElement('div', { class: 'toast' }, message, document.body);
 		setTimeout(function() {
 			span.remove();
 		}, 1500);

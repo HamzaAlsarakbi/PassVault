@@ -93,48 +93,38 @@ function decrypt(text) {
 	return decrypted.toString();
 }
 
-checkSaveFile();
-function checkSaveFile() {
-	// check if there is a save file
-	if (fs.existsSync(fullPath)) {
-		console.log('file exists.');
-		parse();
-	} else {
-		console.log("Save Error: File doesn't exist.");
-	}
-}
-
-function unpack(pathOfObject) {
+function unpack() {
 	return JSON.parse(decrypt(JSON.parse(fs.readFileSync(fullPath))));
 }
 
 function parse() {
-	console.log('%c parsing...', orangeColor);
-	data = unpack(fullPath);
-	// add rows
-	for (let cell in data) {
-		if (cell != 'cellIndex') {
-			addRow(
+	if (fs.existsSync(fullPath)) {
+		console.log('file exists.');
+		console.log('%c parsing...', orangeColor);
+		data = unpack(fullPath);
+		// add rows
+		let currentIndex = 0;
+		let rowInterval = setInterval(() => {
+			let row = addRow(
 				{
-					type: data[cell].type,
-					service: data[cell].service,
-					email: data[cell].email,
-					password: data[cell].password
-				}, data[cell].index);
-		}
-	}
+					type: data[`cell-${currentIndex}`].type,
+					service: data[`cell-${currentIndex}`].service,
+					email: data[`cell-${currentIndex}`].email,
+					password: data[`cell-${currentIndex}`].password
+				}, data[`cell-${currentIndex}`].index);
+				if(config.gridlinesOn) row.classList.add('table-gridlines');
+				currentIndex++;
+				if (currentIndex >= data.cellIndex) window.clearInterval(rowInterval);
+		}, 100);
 
-	// Toggle gridlines if enabled
-	if (config.gridlinesOn) {
-		let gridlinesTable = document.querySelectorAll('#tr');
-		for (let i = 0; i < gridlinesTable.length; i++) {
-			gridlinesTable[i].classList.add('gridlinesOn');
+		// disable animations if enabled
+		if (!config.enableAnimations) {
+			addElement('link', { class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../assets/components/disableAnimations.css' }, undefined, document.head);
 		}
-	}
 
-	// disable animations if enabled
-	if (!config.enableAnimations) {
-		addElement('link', { class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../global assets/css/disableAnimations.css' }, undefined, document.head);
+		setInterval(changesChecker, 500);
+	} else {
+		console.log("Save Error: File doesn't exist.");
 	}
 }
 
@@ -172,4 +162,3 @@ function changesChecker() {
 		}
 	}
 }
-setInterval(changesChecker, 500);

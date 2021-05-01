@@ -1,10 +1,10 @@
 panel.toggleAdd {
 	margin-top: 20px;
-	height: 215px;
+	height: 220px;
 	background: var(--toggle-controls);
 }
 #thead.toggleAdd {
-	padding-top: 250px !important;
+	padding-top: 255px !important;
 }
 
 form.add-container {
@@ -33,5 +33,5 @@ form.add-container {
 
 /* expand panel when error is active */
 panel.panel-extend {
-  height: 230px !important;
+  height: 238px !important;
 }

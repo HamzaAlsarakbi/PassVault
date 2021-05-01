@@ -28,7 +28,7 @@ function toggleSettings() {
 		// general section
 		let generalSection = addSection('General', 'general', settingsBody);
 		addParameter(generalSection.body, { text: 'Show gridlines', on: true }, 'switch', 'general-gridlines', 'toggleGridlines()', config.gridlinesOn);
-		addParameter(generalSection.body, { text: 'Animations', on: true }, 'switch', 'enable-animations', 'toggleAnimations()', config.enableAnimations);
+		addParameter(generalSection.body, { text: 'Enable Animations', on: true }, 'switch', 'enable-animations', 'toggleAnimations()', config.enableAnimations);
 		addParameter(generalSection.body, { text: 'Inactivity Timeout', slider: { min: 1, max: 10, value: config.timeout } }, 'slider', 'inactivity-timeout', inactivityTimeout, config.timeout);
 		addParameter(generalSection.body, { text: 'Open icons folder', button: { text: 'Open Folder' } }, 'button', 'open-icons-folder', 'shell.openExternal(path.join(parentDir, "/Data/icons"))');
 		addParameter(generalSection.body, { text: 'Fetch custom icons', button: { text: 'Fetch Icons' } }, 'button', 'fetch-external-icons', 'fetchExternalIcons()');
@@ -77,7 +77,7 @@ function toggleAnimations() {
 	config.enableAnimations = !config.enableAnimations;
 	
 	if(!config.enableAnimations) {
-		addElement('link', {class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../global assets/css/disableAnimations.css'}, undefined, document.head);
+		addElement('link', {class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../assets/components/disableAnimations.css'}, undefined, document.head);
 	} else {
 		document.head.removeChild(document.querySelector('.disable-animations'));
 	}
@@ -213,10 +213,10 @@ function toggleDevTools() {
 
 // Gridlines
 function toggleGridlines() {
-	let gridlinesTable = document.querySelector('#tr');
+	let gridlinesTable = document.querySelectorAll('#tr');
 	// Toggle gridlines
 	for (let i = 0; i < gridlinesTable.length; i++) {
-		gridlinesTable[i].classList.toggle('gridlinesOn');
+		gridlinesTable[i].classList.toggle('table-gridlines');
 	}
 	// toggle gridlines
 	config.gridlinesOn = !config.gridlinesOn;
