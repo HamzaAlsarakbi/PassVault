@@ -1,5 +1,4 @@
 const { shell } = electron;
-let parentElement;
 const app = document.querySelector('.app');
 // data object
 let data = {
@@ -31,11 +30,11 @@ const elements = {
 			icon: document.querySelector('.control-icon')
 		}
 	},
-	table: document.querySelector('.tbody-data')
+	table: document.querySelector('.tbody')
 }
 
 // table
-const id = [ 'type', 'service', 'email', 'password' ];
+const id = ['type', 'service', 'email', 'password'];
 
 // shortcuts
 document.onkeydown = e => {
@@ -67,7 +66,7 @@ function toggleParameters() {
 
 
 function showDialog(titleContent, promptContent, buttons, buttonActions) {
-	if(!components.dialog) {
+	if (!components.dialog) {
 		if (buttons.length == buttonActions.length) {
 			// create overlay
 			let overlay = document.createElement('div');
@@ -77,7 +76,7 @@ function showDialog(titleContent, promptContent, buttons, buttonActions) {
 			let dialogBox = document.createElement('div');
 			dialogBox.setAttribute('class', 'dialog-box');
 			overlay.appendChild(dialogBox);
-	
+
 			// create title
 			let title = document.createElement('p');
 			title.setAttribute('class', 'dialog-box-title');
@@ -110,7 +109,7 @@ function closeDialog() {
 	} else {
 		document.querySelector('.dialog-box').classList.add('dialog-box-close');
 		app.classList.remove('container-freeze');
-		setTimeout(function() {
+		setTimeout(function () {
 			document.querySelector('body').removeChild(document.querySelector('.overlay'));
 		}, 240);
 	}

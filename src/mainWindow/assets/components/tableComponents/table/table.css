@@ -1,7 +1,3 @@
-.tbody-data {
-	display: flex;
-	flex-direction: column-reverse;
-}
 /** Table **/
 #table {
 	width: 90%;
@@ -9,52 +5,6 @@
 	min-width: 600px;
 	display: flex;
 	flex-direction: column;
-	animation: slide-in 0.15s ease-out;
-}
-
-
-.cell-control {
-	padding: 6px;
-	cursor: pointer;
-	height: 28px;
-	border-radius: 5px;
-	position: relative;
-}
-
-.cell-control-icon:not(.cell-hideShow-icon) {
-	width: 15px;
-}
-.cell-hideShow-icon {
-	height: 15px;
-}
-.cell-control:active {
-	transform: scale(0.85);
-	transition: 0.1s ease-out;
-}
-.controls {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-
-.padding-zero {
-	padding: 0;
-}
-
-@keyframes slide-in {
-	0% {
-		transform: translateY(-48px);
-		opacity: 0;
-	}
-}
-
-#tr {
-	animation: slide-in 0.25s ease-out;
-	padding: 5px;
-}
-
-.tbody-data #tr:hover {
-	background: var(--row-hover);
 }
 
 #thead {
@@ -65,71 +15,16 @@
 	border-bottom: var(--primary-thead-border);
 	z-index: 1; /* Important for blur affect to cover controls column*/
 }
-input.cell-content {
-  cursor: pointer;
-  font-size: 16px;
-  height: 100%;
-  margin: 0;
-  width: 100%;
-  text-align: center;
-  padding: 0;
-}
-.tr-edit input.cell-content {
-  cursor: auto; 
-}
-.table-cell,
-.table-header:not(.controls) {
-	width: calc(25%);
-	text-align: center;
-	overflow: hidden;
-	overflow-x: visible;
-	border-radius: 5px !important;
-	display: flex;
-	flex-direction: column;
-  padding: 5px;
-}
-.table-cell.service {
-  flex-direction: row-reverse;
-  align-items: center;
-}
-.table-cell:not(.control)::-webkit-scrollbar {
-	height: 7px;
-	border-radius: 5px;
-}
-
-#password {
-	user-select: none;
-	overflow-x: hidden !important;
-}
-
-#strength-text {
-	font-size: 10px;
-	text-align: left;
-	padding-bottom: 1px;
-}
-#strength-bar {
-	height: 4px;
-	border-radius: 2px;
-	padding: 0;
-}
-.table-cell:active {
-	transform: scale(0.9);
-	transition: 0.1s ease-out;
-}
-.tr-edit .table-cell:active {
-	transform: scale(1);
-}
-
-.table-cell:not(.controls):hover,
-.cell-control:hover {
-	background: var(--cell-hover);
-}
-
 .table-header {
 	padding: 5px;
 	height: 35px;
-  font-weight: bold;
-  text-transform: uppercase;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.tbody {
+	display: flex;
+	flex-direction: column-reverse;
 }
 
 #tr {
@@ -139,9 +34,10 @@ input.cell-content {
 	animation: tr-draw-in 0.25s ease-out;
 	border-radius: 5px;
 	border: 1px solid transparent;
+	padding: 5px;
 }
-.tbody-data #tr {
-	height: 62px;
+.tbody #tr {
+	height: 68px;
 }
 @keyframes tr-draw-in {
 	0% {
@@ -158,12 +54,122 @@ input.cell-content {
 	padding: 0 !important;
 	border: 0;
 }
-
-
-
 /** gridlines **/
 #tr.table-gridlines {
 	border-color: var(--secondary-color) !important;
+}
+/* hovering a row */
+.tbody #tr:hover {
+	background: var(--row-hover);
+}
+
+.table-cell,
+.table-header:not(.controls) {
+	width: calc(33.33% - 72.8px);
+	text-align: center;
+	overflow: auto hidden;
+	border-radius: 5px !important;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 5px;
+}
+.table-cell.password {
+	overflow-x: hidden;
+}
+.cell-content.password {
+	overflow: auto hidden;
+}
+.cell-content.password::-webkit-scrollbar {
+	height: 5px;
+}
+
+.table-cell,
+.table-cell input {
+	cursor: pointer;
+}
+.tr-edit .table-cell,
+.tr-edit .table-cell input {
+	cursor: auto;
+}
+/* hovering a cell */
+.table-cell:not(.controls):hover,
+.cell-control:hover {
+	background: var(--cell-hover);
+}
+.cell-click {
+	animation: cellClick 0.2s ease-out;
+}
+@keyframes cellClick {
+	0% {
+		transform: scale(1);
+	}
+	40% {
+		transform: scale(0.9);
+	}
+	70% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.table-cell:not(.control)::-webkit-scrollbar {
+	height: 7px;
+	border-radius: 5px;
+}
+input.cell-input {
+	font-size: 16px;
+	height: 100%;
+	margin: 0;
+	text-align: center;
+	padding: 0;
+}
+
+.controls {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	width: 95px;
+}
+.cell-control {
+	padding: 6px;
+	cursor: pointer;
+	height: 28px;
+	border-radius: 5px;
+	position: relative;
+}
+.cell-control-icon:not(.cell-hideShow-icon) {
+	width: 15px;
+}
+.cell-hideShow-icon {
+	height: 15px;
+}
+.cell-control:active {
+	transform: scale(0.85);
+	transition: 0.1s ease-out;
+}
+
+.table-cell.service {
+	flex-direction: row-reverse;
+	align-items: center;
+}
+
+#password {
+	user-select: none;
+	overflow-x: hidden !important;
+}
+
+#strength-text {
+	font-size: 10px;
+	text-align: left;
+	padding-bottom: 1px;
+}
+#strength-bar {
+	height: 4px;
+	border-radius: 2px;
+	padding: 0;
 }
 
 #service-icon {

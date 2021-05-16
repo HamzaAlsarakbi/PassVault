@@ -3,9 +3,9 @@ function toggleSearch() {
 	// close other panels
   if (components.add) toggleAdd();
 	if (components.settings) toggleSettings();
-	document.querySelector('.control#search img').classList.toggle('toggleSearch');
-
+	
 	if(!components.search && !searchInput) {
+		document.querySelector('.control#search img').classList.add('toggleSearch');
     let popup = addElement('div', { class: 'search-window' }, '', app);
     let form = new Form({ class: 'search-form' }, popup).form;
     searchInput = new RichInput({ class: 'controls', id: 'search-input', ignoreInvalid: true }, 'Search for keyword', form).input
@@ -18,7 +18,8 @@ function toggleSearch() {
 		
 		
   } else {
-    let popup = document.querySelector('.search-window');
+		document.querySelector('.control#search img').classList.remove('toggleSearch');
+		let popup = document.querySelector('.search-window');
     popup.classList.add('search-window-draw-out');
     searchInput.blur();
 		

@@ -1,6 +1,6 @@
 function toggleSettings() {
 	document.querySelector('controls').classList.toggle('enabled');
-  document.querySelector('#thead').classList.toggle('margin-settings');
+	document.querySelector('#thead').classList.toggle('margin-settings');
 	panel.classList.toggle('toggleSettings');
 
 	// menu transitions
@@ -12,15 +12,15 @@ function toggleSettings() {
 	// if one of the windows is open
 	if (components.search) toggleSearch();
 	if (components.filters) toggleFilters();
-	if(components.add) toggleAdd();
+	if (components.add) toggleAdd();
 
 	if (!components.settings) {
 		// update icons
 		elements.panel.controls.icon.setAttribute('src', icons.gear);
 		elements.panel.controls.icon.setAttribute('height', '30px');
 		elements.panel.controls.text.textContent = 'Settings';
-		
-	
+
+
 		// create settingsBody
 		let settingsBody = document.querySelector('menu.menu-down');
 
@@ -36,17 +36,16 @@ function toggleSettings() {
 
 		// themes section
 		let themeSection = addSection('Themes', 'themes', settingsBody);
-		addParameter(themeSection.body, { radio:{ text: 'Dark theme' }, name: 'theme', on: 'dark'}, 'radio', 'dark-theme', selectTheme,  config.theme);
-		addParameter(themeSection.body, { radio:{ text: 'Light theme' }, name: 'theme', on: 'light'}, 'radio', 'light-theme', selectTheme,  config.theme);
+		addParameter(themeSection.body, { radio: { text: 'Dark theme' }, name: 'theme', on: 'dark' }, 'radio', 'dark-theme', selectTheme, config.theme);
+		addParameter(themeSection.body, { radio: { text: 'Light theme' }, name: 'theme', on: 'light' }, 'radio', 'light-theme', selectTheme, config.theme);
 
 		// about
 		let aboutSection = addSection('About', 'about', settingsBody);
 		let header = addElement('div', { style: 'display: flex; flex-direction: row; align-items: center' }, '', aboutSection.body);
 		addElement('p', { class: 'settings-sub-body-header' }, 'What is PassVault?', header);
-		addElement('img', { class: 'settings-sub-body-header', style: 'margin-left: 4px; height: 26px', src: icons.PassVault.icon}, 'What is PassVault?', header);
-		addElement('p', { class: 'settings-sub-body', innerHTML: true }, `PassVault is an <a href="" onclick="openExternal('github')">open-source tool</a> 
-		developed by Hamza Alsarakbi that stores your encrypted passwords locally and not on the cloud to provide you 
-		with the highest privacy.`, aboutSection.body);
+		addElement('img', { class: 'settings-sub-body-header', style: 'margin-left: 4px; height: 26px', src: icons.PassVault.icon }, 'What is PassVault?', header);
+		addElement('p', { class: 'settings-sub-body', innerHTML: true }, `PassVault is an <a href="" onclick="openExternal('github')">open-source program</a> 
+		developed by Hamza Alsarakbi that stores your encrypted passwords locally and not on the cloud, prioritizing your privacy.`, aboutSection.body);
 		addElement('p', { class: 'settings-sub-body-header' }, 'Support me \u{2665}', aboutSection.body);
 		addElement('p', { class: 'settings-sub-body', innerHTML: true }, `If you enjoy this app, consider following me on Instagram 
 		<a href="" onclick="openExternal('instagram')">@hamza.alsarakbi</a>.
@@ -58,10 +57,10 @@ function toggleSettings() {
 		 Copyright (C) 2020-present Hamza Alsarakbi, licensed under GNU GPL v3
 		 <br>
 		 Version: ` + version, aboutSection.body);
-		
+
 		// developer settings
 		let dangerSection = addSection('Danger Zone', 'danger-zone', settingsBody);
-		addParameter(dangerSection.body, { text: 'Enable Developer Tools (not recommended. Restart for setting to take action)', on: true, important: true }, 'switch', 'enable-devtools', 'toggleDevTools()',  config.devTools);
+		addParameter(dangerSection.body, { text: 'Enable Developer Tools (Not recommended. Restart for setting to take action)', on: true, important: true }, 'switch', 'enable-devtools', 'toggleDevTools()', config.devTools);
 
 
 
@@ -70,14 +69,14 @@ function toggleSettings() {
 		elements.panel.controls.text.textContent = '';
 		menu.innerHTML = '';
 	}
-  components.settings = !components.settings;
+	components.settings = !components.settings;
 }
 
 function toggleAnimations() {
 	config.enableAnimations = !config.enableAnimations;
-	
-	if(!config.enableAnimations) {
-		addElement('link', {class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../assets/components/disableAnimations.css'}, undefined, document.head);
+
+	if (!config.enableAnimations) {
+		addElement('link', { class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../assets/components/disableAnimations.css' }, undefined, document.head);
 	} else {
 		document.head.removeChild(document.querySelector('.disable-animations'));
 	}
@@ -112,8 +111,8 @@ function openChangePasswordDialog() {
 	}
 	addElement('span', { class: 'noerror', id: 'password-error' }, 'ERROR', form);
 	addElement('button', { class: 'change-password-button', onclick: 'passChangeRequest()', type: 'button' }, 'Change Master Password', form);
-	for(let p in passwords) {
-		passwords[p].addEventListener('keydown', (e) => { if(e.keyCode == 13) passChangeRequest(); });
+	for (let p in passwords) {
+		passwords[p].addEventListener('keydown', (e) => { if (e.keyCode == 13) passChangeRequest(); });
 	}
 	passwords.oldPassword.select();
 }
@@ -197,10 +196,10 @@ function openExternal(type) {
 		case 'instagram':
 			shell.openExternal('https://www.instagram.com/hamza.alsarakbi/');
 			break;
-		
+
 		case 'donate':
-		shell.openExternal('https://www.patreon.com/Hamza_Sar');
-		break;
+			shell.openExternal('https://www.patreon.com/Hamza_Sar');
+			break;
 	}
 }
 

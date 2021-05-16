@@ -4,22 +4,26 @@ function addRow(tableData, index) {
 	for (let dataType in tableData) {
 
 		let cell = addElement('div', { class: `cell-${index} table-cell ${dataType}`, id: `${dataType}-${index}`, onclick: 'copy(this)' }, '', row);
-		let content = addElement('input', { class: `cell-${index} cell-content ${dataType}`, id: `${dataType}-content`, readonly: '' }, tableData[dataType], cell);
+		let content = addElement('div', { class: `cell-${index} cell-content ${dataType}`, id: `${dataType}-content` }, '', cell);
+		let input = addElement('input', { class: `cell-${index} cell-input ${dataType}`, id: `${dataType}-input`, readonly: '' }, tableData[dataType], content);
+
 		// set the content text to bullets if data type is passwor and is set to hidden
 		if (dataType == 'password') {
-			content.type = data[`cell-${index}`].hidden ? 'password' : 'text';
+			input.type = data[`cell-${index}`].hidden ? 'password' : 'text';
 			// get strength and append to html
 			let strength = getStrengthOf(tableData[dataType]);
 			strength.container = addElement('div', { class: `cell-${index} strength-container`, id: 'strength-div' }, '', cell);
+			// strength text and bar
 			addElement('p', { class: `cell-${index} strength-text`, id: 'strength-text' }, strength.tier, strength.container);
 			let strengthBar = addElement('div', { class: `cell-${index} strength-bar`, id: 'strength-bar' }, '', strength.container);
 			strengthBar.style.background = strength.bar.background;
 			strengthBar.style.width = strength.bar.width;
 
-
 			// add event listener
-			content.addEventListener('input', updateStrength);
+			input.addEventListener('input', updateStrength);
 		}
+		input.addEventListener('keydown', updateSize);
+		updateSize({ target: input });
 
 		// add icon if its a service icon
 		if (dataType == 'service') iconChecker(cell, tableData[dataType]);
@@ -43,10 +47,10 @@ function addRow(tableData, index) {
 			tooltip: 'Delete'
 		}
 	}
-	for(let control in controls) {
+	for (let control in controls) {
 		// add control
 		let container = addElement('div', { class: `cell-${index} cell-control cell-${control}`, id: `cell-${control}-${index}`, onmouseover: `addTooltip(this, "${controls[control].tooltip}", true)`, onclick: controls[control].onclick }, '', controlsCell);
-		
+
 		// add control icon
 		addElement('img', { class: `cell-${index} cell-control-icon cell-${control}-icon`, id: `cell-${control}-icon-${index}`, src: controls[control].icon }, '', container);
 	}
@@ -58,6 +62,8 @@ function copy(e) {
 	let d = e.id.replace(`-${data[c].index}`, '');
 	let copylet = data[c][d];
 
+	e.classList.add('cell-click');
+	setTimeout(() => { e.classList.remove('cell-click'); }, 200);
 	let input = addElement('input', { class: 'hidden', style: 'position: absolute; left: -50000px' }, copylet, document.body);
 	input.select();
 	try {
@@ -114,11 +120,11 @@ function deleteRow(e) {
 
 function togglePasswordVisibility(e) {
 	let c = e.classList[0];
-	let password = document.querySelector(`.${c}.cell-content.password`);
+	let password = document.querySelector(`.${c}.cell-input.password`);
 	let icon = document.querySelector(`.${c}.cell-hideShow-icon`);
-	
+
 	// toggle password visibility
-	if(password.type == 'password') {
+	if (password.type == 'password') {
 		password.type = 'text';
 		icon.setAttribute('src', icons.eye.crossed);
 	} else {
@@ -126,4 +132,8 @@ function togglePasswordVisibility(e) {
 		icon.setAttribute('src', icons.eye.eye);
 	}
 	data[c].hidden = !data[c].hidden;
+}
+
+function updateSize(e) {
+	e.target.setAttribute('size', e.target.value.length);
 }
