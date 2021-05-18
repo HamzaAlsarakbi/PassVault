@@ -34,7 +34,13 @@ function addParameter(parent, info, type, id, onclick, config) {
 			addElement('span', { class: 'slider-span', id: `span-${id}` }, Math.round(info.slider.value), parameterContainer);
 			break;
 		case 'button':
-			addElement('button', { class: 'parameter-button', id: 'parameter-button-' + id, onclick: onclick }, info.button.text, parameter);
+			addElement('button', { class: 'parameter-button', id: `parameter-button-${id}`, onclick: onclick }, info.button.text, parameter);
+			break;
+		case 'buttons':
+			let collection = addElement('div', { class: 'buttons-collection', id: `buttons-collection-${id}` }, '', parameter)
+			for (let button in info.buttons) {
+				addElement('button', { class: 'parameter-buttons', id: `parameter-buttons-${button}`, onclick: info.buttons[button].onclick }, info.buttons[button].text, collection);
+			}
 			break;
 		case 'radio':
 			let radio = addElement('label', { id: id + '-radio', class: 'parameter-radio' }, info.radio.text, parameter);

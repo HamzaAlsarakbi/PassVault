@@ -12,8 +12,8 @@ overlay {
 
 .window {
   background: var(--primary-background);
-  min-width: 500px;
-  min-height: 200px;
+  min-width: 200px;
+  min-height: 100px;
   max-width: 90%;
   border-radius: 0.7em;
   display: flex;

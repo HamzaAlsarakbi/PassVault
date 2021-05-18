@@ -1,6 +1,6 @@
 function addPopup(id, title, icon) {
   // create overlay
-  let overlay = addElement('overlay', {id: id + '-overlay' }, '', document.body);
+  let overlay = addElement('overlay', { id: id + '-overlay' }, '', document.body);
 
   // create window
   let window = addElement('div', { class: 'popup window', id: id + '-window' }, '', overlay);
@@ -13,16 +13,16 @@ function addPopup(id, title, icon) {
 
   // create icon and text
   let img = addElement('img', { class: 'window-icon icon', id: id + '-window-icon', src: icon.src }, '', info);
-  if(icon.rotate) img.classList.add('rotate');
+  if (icon.rotate) img.classList.add('rotate');
   addElement('div', { class: 'window-title', id: id + '-window-title' }, title, info);
 
   // create controls
-  let controls = addElement('div', { class: 'window-controls controls', id: id + '-window-controls', onclick: `removePopup('${id}')` }, '', titlebar);
+  let controls = addElement('div', { class: 'window-controls', id: id + '-window-controls', onclick: `removePopup('${id}')` }, '', titlebar);
   addElement('img', { class: 'window-controls-item window-close', id: id + '-window-close', src: '../../src/assets/img/window_icons/close.png' }, '', controls);
 
   // create window body
   let body = addElement('div', { class: 'window-body', id: id + '-window-body' }, '', window);
-  return {overlay: overlay, body: body}
+  return { overlay: overlay, body: body }
 }
 function removePopup(id) {
   document.querySelector('#' + id + '-window').classList.add('popup-draw-out');

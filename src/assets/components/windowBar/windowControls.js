@@ -10,7 +10,7 @@ document.onreadystatechange = () => {
 };
 function updateTitle(text) {
 	let suffix = '';
-	if(isDev) suffix = ' - Dev Build';
+	if (isDev) suffix = ' - Dev Build';
 	document.title = text + suffix;
 	document.querySelector('.window-title').textContent = text + suffix;
 }
@@ -33,12 +33,25 @@ function handleWindowControls() {
 
 	document.getElementById('close-button').addEventListener('click', (event) => {
 		if (saved) {
-			showDialog(
-				'Confirmation',
-				'Do you want to save changes?',
-				[ 'Save', "Don't save", 'Cancel' ],
-				[ "save('close')", 'win.close()', 'closeDialog()' ]
-			);
+			let popup = addPopup('confirm-logout', 'Confirmation', '').body;
+			let container = addElement('div', { class: 'logout-container' }, '', popup);
+			addParameter(container, {
+				text: 'Save changes?',
+				buttons: {
+					save: {
+						text: 'Save',
+						onclick: `save('all')`
+					},
+					dontSave: {
+						text: `Don't Save`,
+						onclick: 'quit()'
+					},
+					cancel: {
+						text: `Cancel`,
+						onclick: 'removePopup("confirm-logout")'
+					}
+				}
+			}, 'buttons', 'confirm-logout-buttons');
 		} else {
 			win.close();
 		}
@@ -60,20 +73,40 @@ function handleWindowControls() {
 
 
 function lockVault() {
+	let popup = addPopup('confirm-logout', 'Confirmation', '').body;
+	let container = addElement('div', { class: 'logout-container' }, '', popup);
 	if (saved) {
-		showDialog(
-			'Confirmation',
-			'Save changes?',
-			[ 'Save', "Don't save", 'Cancel' ],
-			[ "save('all'); quit()", 'quit()', 'closeDialog()' ]
-		);
+		addParameter(container, {
+			text: 'Save changes?',
+			buttons: {
+				save: {
+					text: 'Save',
+					onclick: `save('all')`
+				},
+				dontSave: {
+					text: `Don't Save`,
+					onclick: 'quit()'
+				},
+				cancel: {
+					text: `Cancel`,
+					onclick: 'removePopup("confirm-logout")'
+				}
+			}
+		}, 'buttons', 'confirm-logout-buttons');
 	} else {
-		showDialog(
-			'Confirmation',
-			'Lock the vault?',
-			[ 'Lock', 'Cancel' ],
-			[ "quit()", 'closeDialog()' ]
-		);
+		addParameter(container, {
+			text: 'Lock vault?',
+			buttons: {
+				lock: {
+					text: 'Lock',
+					onclick: 'quit()'
+				},
+				cancel: {
+					text: 'Cancel',
+					onclick: 'removePopup("confirm-logout")'
+				},
+			}
+		}, 'buttons', 'confirm-logout-buttons');
 	}
 }
 

@@ -18,20 +18,42 @@ function resetTimer() {
 }
 let timeoutDialog = null;
 function timeoutAction() {
+	let popup = addPopup('timeout-warning', 'Timeout Warning', '').body;
+	let container = addElement('div', { class: 'timeout-container' }, '', popup);
+
+
 	if (saved) {
-		timeoutDialog = showDialog(
-			'Timeout Warning',
-			'You have been inactive for ' + config.timeout + ' minute(s). Discarding changes in 1 minute',
-			[ 'Save', "Don't save", 'Cancel' ],
-			[ "save('close')", 'win.close()', 'closeDialog()' ]
-		);
+		timeoutDialog = addParameter(container, {
+			text: `You have been inactive for ${config.timeout} minute(s). Discarding changes in 1 minute`,
+			buttons: {
+				save: {
+					text: 'Save',
+					onclick: `save('all')`
+				},
+				dontSave: {
+					text: `Don't Save`,
+					onclick: 'quit()'
+				},
+				cancel: {
+					text: `Cancel`,
+					onclick: 'removePopup("timeout-warning")'
+				}
+			}
+		}, 'buttons', 'timeout-buttons');
 	} else {
-		timeoutDialog = showDialog(
-			'Timeout Warning',
-			'You have been inactive for ' + config.timeout + ' minute(s). Locking vault in 1 minute',
-			[ 'Close', 'Cancel' ],
-			[ 'win.close()', 'closeDialog()' ]
-		);
+		timeoutDialog = addParameter(container, {
+			text: `You have been inactive for ${config.timeout} minute(s). Discarding changes in 1 minute`,
+			buttons: {
+				close: {
+					text: 'Close',
+					onclick: `win.close()`
+				},
+				cancel: {
+					text: `Cancel`,
+					onclick: 'removePopup("timeout-warning")'
+				}
+			}
+		}, 'buttons', 'timeout-buttons');
 	}
 	autoClose = startTimeout(60 * 1000, 'quit');
 	console.log('started autoclose timeout');

@@ -91,7 +91,6 @@ html {
 	background-color: rgb(238, 37, 30);
 }
 
-
 #min-button {
 	grid-column: 2;
 }
@@ -131,4 +130,8 @@ html {
 
 .window-icon {
 	width: 10px;
+}
+
+.logout-container {
+	padding: 10px;
 }
