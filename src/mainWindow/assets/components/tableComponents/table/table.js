@@ -9,7 +9,7 @@ function addRow(tableData, index) {
 
 		// set the content text to bullets if data type is passwor and is set to hidden
 		if (dataType == 'password') {
-			input.type = data[`cell-${index}`].hidden ? 'password' : 'text';
+			input.type = 'password';
 			// get strength and append to html
 			let strength = getStrengthOf(tableData[dataType]);
 			strength.container = addElement('div', { class: `cell-${index} strength-container`, id: 'strength-div' }, '', cell);
@@ -38,7 +38,7 @@ function addRow(tableData, index) {
 		},
 		hideShow: {
 			onclick: 'togglePasswordVisibility(this)',
-			icon: data[`cell-${index}`].hidden ? icons.eye.eye : icons.eye.crossed,
+			icon: icons.eye.eye,
 			tooltip: 'Hide/Show'
 		},
 		delete: {
@@ -131,7 +131,6 @@ function togglePasswordVisibility(e) {
 		password.type = 'password';
 		icon.setAttribute('src', icons.eye.eye);
 	}
-	data[c].hidden = !data[c].hidden;
 }
 
 function updateSize(e) {
