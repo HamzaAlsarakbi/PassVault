@@ -1,18 +1,20 @@
-const { app, BrowserWindow, Menu,  ipcMain, autoUpdater } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, autoUpdater } = require('electron');
 const isDev = require('electron-is-dev');
 const url = require('url');
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
 let popWindow, mainWindow, loadFile;
+const INSTANCE_RUNNING = !app.requestSingleInstanceLock();
+
 
 function getUserHome() {
 	return process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME'];
 }
 
 let parentRelDir = '/PassVault';
-if(isDev) parentRelDir += 'Dev';
-if(process.platform == 'win32') parentRelDir = '/AppData/Local' + parentRelDir;
+if (isDev) parentRelDir += 'Dev';
+if (process.platform == 'win32') parentRelDir = '/AppData/Local' + parentRelDir;
 
 let parentDir = path.join(getUserHome(), parentRelDir);
 
@@ -68,7 +70,7 @@ function decryptConfig(text) {
 	let encryptedText = Buffer.from(text.encryptedData, 'hex');
 	let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
 	let decrypted = decipher.update(encryptedText);
-	decrypted = Buffer.concat([ decrypted, decipher.final() ]);
+	decrypted = Buffer.concat([decrypted, decipher.final()]);
 	return decrypted.toString();
 }
 
@@ -88,7 +90,15 @@ function loadConfig() {
 	loadFile = config.firstTime ? 'setupWindow' : 'loginWindow';
 }
 
-app.on('ready', createPopWindow);
+app.on('ready', () => {
+	if (INSTANCE_RUNNING) {
+		app.quit();
+	} else {
+		createPopWindow();
+	}
+});
+
+
 function createPopWindow() {
 	loadConfig();
 	// Create new window
@@ -112,8 +122,8 @@ function createPopWindow() {
 			slashes: true
 		})
 	);
-	if(!isDev && !config.devTools) Menu.setApplicationMenu(null);
-	
+	if (!isDev && !config.devTools) Menu.setApplicationMenu(null);
+
 	popWindow.on('close', () => {
 		popWindow = null;
 	})
@@ -121,7 +131,7 @@ function createPopWindow() {
 	// Receive confirmation
 	ipcMain.on('login', e => {
 		console.log('received login request.');
-		if(!mainWindow) createMainWindow();
+		if (!mainWindow) createMainWindow();
 	});
 }
 
@@ -155,9 +165,9 @@ function createMainWindow() {
 
 
 	// Receive logout confirmation
-	ipcMain.on('logout', function() {
+	ipcMain.on('logout', function () {
 		console.log('received logout request.');
-		if(!popWindow) createPopWindow();
+		if (!popWindow) createPopWindow();
 	});
 }
 
