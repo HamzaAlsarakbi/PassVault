@@ -1,6 +1,6 @@
 function toggleAdd() {
-	document.querySelector('controls').classList.toggle('enabled');
-	document.querySelector('#add img').classList.toggle('rotate');
+	document.querySelector('controls').classList.toggle('panel-active');
+	document.querySelector('.control#add').classList.toggle('panel-active');
 	panel.classList.toggle('toggleAdd');
 	document.querySelector('#thead').classList.toggle('toggleAdd');
 	menu.classList.toggle('menu-down');
@@ -19,7 +19,7 @@ function toggleAdd() {
 		elements.panel.controls.icon.setAttribute('height', '20px');
 		elements.panel.controls.text.textContent = 'Add';
 		panelTitle('add');
-		
+
 		let addContainer = new Form({ class: 'add-container' }, menu).form;
 		// Create inputs
 		let inputs = {
@@ -31,7 +31,7 @@ function toggleAdd() {
 		addElement('span', { class: 'noerror', id: 'add-error' }, 'At least one field is empty.', addContainer);
 		addElement('button', { class: 'add-button', onclick: 'addData()', type: 'button' }, 'Add', addContainer);
 
-		for(input in inputs) {
+		for (input in inputs) {
 			inputs[input].input.addEventListener('keydown', addEnter);
 		}
 		inputs.type.input.select();
@@ -41,9 +41,9 @@ function toggleAdd() {
 		panelTitle('remove');
 		panel.classList.remove('panel-extend');
 		menu.innerHTML = '';
-  }
-  
-  components.add = !components.add;
+	}
+
+	components.add = !components.add;
 }
 function addEnter(e) {
 	if (e.keyCode === 13) {
@@ -64,8 +64,8 @@ function addData() {
 	// verify that all entries are full
 	let empty = false;
 	let invalidInputs = [];
-	for(let input in inputs) {
-		if(inputs[input].value == '') {
+	for (let input in inputs) {
+		if (inputs[input].value == '') {
 			invalidInputs.push(inputs[input]);
 			span.classList.add('error');
 			panel.classList.add('panel-extend');
@@ -74,7 +74,7 @@ function addData() {
 			empty = true;
 		}
 	}
-	if(empty) {
+	if (empty) {
 		invalidInputs[0].select();
 
 
@@ -95,7 +95,7 @@ function addData() {
 		let row = addRow(
 			{
 				type: inputs.type.value,
-				service:  inputs.service.value,
+				service: inputs.service.value,
 				email: inputs.email.value,
 				password: inputs.password.value
 			}, data.cellIndex);
@@ -104,9 +104,9 @@ function addData() {
 		if (config.gridlinesOn) row.classList.add('gridlinesOn');
 
 		// empty input fields
-		for(let input in inputs) inputs[input].value = '';
+		for (let input in inputs) inputs[input].value = '';
 		data.cellIndex++;
-		
+
 		// select first input
 		inputs.type.select();
 		search();

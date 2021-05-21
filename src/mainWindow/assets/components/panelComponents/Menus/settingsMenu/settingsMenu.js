@@ -1,5 +1,5 @@
 function toggleSettings() {
-	document.querySelector('controls').classList.toggle('enabled');
+	document.querySelector('controls').classList.toggle('panel-active');
 	document.querySelector('#thead').classList.toggle('margin-settings');
 	panel.classList.toggle('toggleSettings');
 
@@ -7,7 +7,7 @@ function toggleSettings() {
 	menu.classList.toggle('menu-down');
 
 	// rotate icon
-	document.querySelector('#settings img').classList.toggle('rotate');
+	document.querySelector('.control#settings').classList.toggle('panel-active');
 
 	// if one of the windows is open
 	if (components.search) toggleSearch();

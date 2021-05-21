@@ -15,6 +15,9 @@
 	border-bottom: var(--primary-thead-border);
 	z-index: 1; /* Important for blur affect to cover controls column*/
 }
+.margin-settings {
+	padding-top: 380px !important;
+}
 .table-header {
 	padding: 5px;
 	height: 35px;

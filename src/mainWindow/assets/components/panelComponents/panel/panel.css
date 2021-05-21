@@ -23,7 +23,7 @@ controls {
 	border-radius: 10px 10px 0 0;
 	border-bottom: 2px solid transparent;
 }
-controls.enabled {
+controls.panel-active {
 	background: var(--controls-background);
 	border-bottom-color: var(--primary-accent);
 }
@@ -48,7 +48,7 @@ menu.menu-down {
 }
 .controls-label {
 	opacity: 1;
-	transform: translateX(0%)
+	transform: translateX(0%);
 }
 
 .controls-buttons {
@@ -66,6 +66,26 @@ menu.menu-down {
 	align-items: center;
 }
 
+.control,
+.parameter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+}
+
+.control {
+	padding: 5px;
+	height: 30px;
+	width: 30px;
+	border-radius: 15.5px;
+	font-size: 20px;
+}
+.control:hover {
+	background: var(--primary-hover);
+	cursor: pointer;
+}
+
 .control-icon {
 	animation: rotation 2s linear;
 	animation-fill-mode: forwards;
@@ -73,10 +93,10 @@ menu.menu-down {
 	margin-right: 10px;
 }
 /** rotate icon in each menu **/
-.rotate {
-	font-size: 20px;
+.control.panel-active img {
 	transform: rotate(45deg);
 }
+
 .control-text {
 	font-size: 24px;
 	text-transform: uppercase;

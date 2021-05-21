@@ -16,6 +16,13 @@ form.add-container {
   margin: 3px;
 }
 
+/*** Add button*/
+.add-button {
+	margin: 5px;
+	padding: 5px;
+	width: 100%;
+}
+
 
 /**** Add icon*/
 .add {
