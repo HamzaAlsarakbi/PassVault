@@ -7,7 +7,7 @@ function addRow(tableData, index) {
 		let content = addElement('div', { class: `cell-${index} cell-content ${dataType}`, id: `${dataType}-content` }, '', cell);
 		let input = addElement('input', { class: `cell-${index} cell-input ${dataType}`, id: `${dataType}-input`, readonly: '' }, tableData[dataType], content);
 
-		// set the content text to bullets if data type is passwor and is set to hidden
+		// set the content text to bullets if data type is password and is set to hidden
 		if (dataType == 'password') {
 			input.type = 'password';
 			// get strength and append to html

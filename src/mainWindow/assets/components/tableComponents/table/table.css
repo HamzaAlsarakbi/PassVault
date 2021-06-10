@@ -147,7 +147,7 @@ input.cell-input {
 	width: 15px;
 }
 .cell-hideShow-icon {
-	height: 15px;
+	width: 21px;
 }
 .cell-control:active {
 	transform: scale(0.85);
