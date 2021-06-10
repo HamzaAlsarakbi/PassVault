@@ -6,7 +6,7 @@ const path = require('path');
 
 if (!isDev) {
 	// log warning messages
-	console.log('%cWarning!', 'color: rgb(200, 50, 50); font-size: 72px; font-weight: bold; ');
+	console.log('%cWarning!', 'color: red; font-size: 72px; font-weight: bold; ');
 	console.log('%cIf someone told you to paste any code here, there is a high chance you are being scammed. Pasting anything here could compromise your data! Close this window unless if you know what you are doing.', 'font-size: 24px; font-weight: bold;');
 }
 
@@ -23,10 +23,9 @@ if (process.platform == 'win32') appName = '/AppData/Local' + appName;
 let parentDir = path.join(getUserHome(), appName);
 
 
-const paths = {
-	param: path.join(parentDir, '/Data/param.json'),
-	config: path.join(parentDir, '/Data/config.json')
-}
+
+const PARAM_PATH = path.join(parentDir, '/Data/param.json');
+const CONFIG_PATH = path.join(parentDir, '/Data/config.json');
 let key = crypto.randomBytes(32);
 let iv = crypto.randomBytes(16);
 let param = {
@@ -35,27 +34,10 @@ let param = {
 };
 
 function unpackConfig() {
-	try {
-		param = JSON.parse(fs.readFileSync(paths.param));
-		key = new Buffer.from(param.keyO);
-		iv = new Buffer.from(param.ivO);
-	} catch (err) {
-		console.error(err);
-		throw new Error('Failed to parse param');
-	}
-
 	let config = {
 		theme: 'dark',
 		gridlinesOn: false,
 		firstTime: true,
-		enableAnimations: true,
-		timeout: 2,
-		devTools: false,
-		login: {
-			cooldown: 0,
-			cooldowns: 1,
-			attempts: 0
-		}
 	};
 
 	let newComponents = {
@@ -69,18 +51,27 @@ function unpackConfig() {
 		timeout: 2
 	}
 
+	try {
+		param = JSON.parse(fs.readFileSync(PARAM_PATH));
+		key = new Buffer.from(param.keyO);
+		iv = new Buffer.from(param.ivO);
+	} catch (err) {
+		console.error(err);
+		console.log('%cFailed to parse param', 'color: orange');
+	}
+
 	// read config
 	try {
-		config = JSON.parse(decryptConfig(JSON.parse(fs.readFileSync(paths.config))));
+		config = JSON.parse(decryptConfig(JSON.parse(fs.readFileSync(CONFIG_PATH))));
 		console.log('%cNOTICE: config parsed!', 'color: lime');
 	} catch (err) {
 		console.error(err);
-		throw new Error('Failed to parse object');
+		console.log('%cFailed to parse object. Using default config', 'color: orange');
 	}
 	// check if any new components are missing
 	for (let component in newComponents) {
 		if (!config[component]) {
-			console.log(`%cAppending missing component "${component}".`, 'color: orange');
+			console.log(`%cAppending missing component "${component}".`, 'color: blue');
 			config[component] = newComponents[component];
 		}
 	}

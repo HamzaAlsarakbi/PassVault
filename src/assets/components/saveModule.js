@@ -1,10 +1,4 @@
-const fullPath = path.join(parentDir, '/Data/data.json');
-
-// console colors
-const errorColor = 'color: rgb(200, 50, 50);';
-const greenColor = 'color: rgb(50, 200, 50);';
-const orangeColor = 'color: rgb(255, 150, 0);';
-const blueColor = 'color: rgb(0, 150, 255);';
+const DATA_PATH = path.join(parentDir, '/Data/data.json');
 
 var configData;
 var saved;
@@ -15,20 +9,12 @@ function save(type) {
 
 	if (type == 'config') {
 		// encrypt config
-		configStringified = JSONstringify(config);
-		configEncrypted = encrypt(configStringified);
-		configStringified = JSONstringify(configEncrypted);
-
-		// save encrypted config
-		package(configStringified, configFullPath);
+		pack(config, CONFIG_PATH);
 	} else if (type == 'show') {
 		// if changes are made
 		saved = true;
-		var saveButton = document.createElement('button');
-		saveButton.setAttribute('class', 'save');
-		saveButton.setAttribute('onclick', "save('all')");
-		saveButton.textContent = 'Save';
-		container.appendChild(saveButton);
+		addElement('button', { class: 'save', onclick: `save('all')` }, 'Save', container);
+
 	} else if (type == 'all') {
 		// if no changes are made
 		// save data.json
@@ -36,21 +22,18 @@ function save(type) {
 		iv = crypto.randomBytes(16);
 		param.keyO = key;
 		param.ivO = iv;
-		var stringifiedParam = JSON.stringify(param);
-		fs.writeFileSync(paramPath, stringifiedParam, function (err) {
+		let stringifiedParam = JSON.stringify(param);
+		fs.writeFileSync(PARAM_PATH, stringifiedParam, function (err) {
 			if (err) throw err;
 			console.log('Saved ' + param + '!');
 		});
 
-		dataStringified = JSONstringify(data);
-		dataEncrypted = encrypt(dataStringified);
-		dataStringified = JSONstringify(dataEncrypted);
-		package(dataStringified, fullPath);
+		pack(data);
 		// save config.json
 		save('config');
 
 		saved = false;
-		var saveButtonDOM = document.querySelector('.save');
+		let saveButtonDOM = document.querySelector('.save');
 		saveButtonDOM.classList.toggle('button-slide-out');
 		setTimeout(function () {
 			saveButtonDOM.remove();
@@ -63,13 +46,6 @@ function save(type) {
 	}
 }
 
-function JSONstringify(object) {
-	return JSON.stringify(object);
-}
-function JSONparse(object) {
-	return JSON.parse(object);
-}
-
 function encrypt(text) {
 	// encrypt string
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
@@ -77,12 +53,14 @@ function encrypt(text) {
 	encrypted = Buffer.concat([encrypted, cipher.final()]);
 	return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 }
-function package(object, pathOfObject) {
-	fs.writeFileSync(pathOfObject, object, function (err) {
+
+function pack(object, path)  {
+	fs.writeFileSync(path, JSON.stringify(encrypt(JSON.stringify(object))), function (err) {
 		if (err) throw err;
 		console.log('Saved ' + object + '!');
 	});
 }
+
 
 function decrypt(text) {
 	let iv = Buffer.from(text.iv, 'hex');
@@ -94,71 +72,73 @@ function decrypt(text) {
 }
 
 function unpack() {
-	return JSON.parse(decrypt(JSON.parse(fs.readFileSync(fullPath))));
+	return JSON.parse(decrypt(JSON.parse(fs.readFileSync(DATA_PATH))));
 }
 
 function parse() {
-	if (fs.existsSync(fullPath)) {
-		console.log('file exists.');
-		console.log('%c parsing...', orangeColor);
-		data = unpack(fullPath);
-		// add rows
-		let currentIndex = 0;
-		let rowInterval = setInterval(() => {
-			let row = addRow(
-				{
-					type: data[`cell-${currentIndex}`].type,
-					service: data[`cell-${currentIndex}`].service,
-					email: data[`cell-${currentIndex}`].email,
-					password: data[`cell-${currentIndex}`].password
-				}, data[`cell-${currentIndex}`].index);
-				if(config.gridlinesOn) row.classList.add('table-gridlines');
-				currentIndex++;
-				if (currentIndex >= data.cellIndex) window.clearInterval(rowInterval);
-		}, 100);
-
-		// disable animations if enabled
-		if (!config.enableAnimations) {
-			addElement('link', { class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../assets/components/disableAnimations.css' }, undefined, document.head);
+	if (fs.existsSync(DATA_PATH)) {
+		if(data.cellIndex != 0) {
+			console.log('file exists.');
+			console.log('%c parsing...', 'color: orange');
+			data = unpack(DATA_PATH);
+			// add rows
+			let currentIndex = 0;
+			let rowInterval = setInterval(() => {
+				let row = addRow(
+					{
+						type: data[`cell-${currentIndex}`].type,
+						service: data[`cell-${currentIndex}`].service,
+						email: data[`cell-${currentIndex}`].email,
+						password: data[`cell-${currentIndex}`].password
+					}, data[`cell-${currentIndex}`].index);
+					if(config.gridlinesOn) row.classList.add('table-gridlines');
+					currentIndex++;
+					if (currentIndex >= data.cellIndex) window.clearInterval(rowInterval);
+			}, 100);
+	
+			// disable animations if enabled
+			if (!config.enableAnimations) {
+				addElement('link', { class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../assets/components/disableAnimations.css' }, undefined, document.head);
+			}
+	
 		}
-
-		setInterval(changesChecker, 500);
 	} else {
-		console.log("Save Error: File doesn't exist.");
+		console.log("%cSave Error: data doesn't exist. Creating one.", 'color: orange');
+		pack(data, DATA_PATH);
 	}
+	setInterval(changesChecker, 500);
 }
 
 function changesChecker() {
+	let savedData;
 	try {
-		var rawData = fs.readFileSync(fullPath);
-		var dataSaveParsed = JSON.parse(rawData);
-		var dataSave = decrypt(dataSaveParsed);
+		savedData = JSON.stringify(unpack(DATA_PATH));
 		var currentData = JSON.stringify(data);
 	} catch (err) {
-		console.log("%c ERROR: data.json doesn't exist.", errorColor);
+		console.log("%c ERROR: data.json doesn't exist.", 'color: red');
 		save('all');
 	}
 
 	// compare two objects
-	if (dataSave == currentData) {
-		// console.log('%c dataSave & data are equal.', greenColor);
+	if (savedData == currentData) {
+		// console.log('%c saved & current data are equal.', 'color: lime');
 		updateTitle(windowTitle);
 		if (saved) {
 			// if the user reversed changes, has a side effect when triggering save from console
 			saved = false;
 			var saveButtonDOM = document.querySelector('.save');
-			saveButtonDOM.classList.toggle('button-slide-out');
+			saveButtonDOM.classList.toggle('bu	tton-slide-out');
 			setTimeout(function () {
 				saveButtonDOM.remove();
 			}, 300);
 		}
 	} else {
 		if (!saved) {
-			console.log('%c dataSave & data are NOT equal.', errorColor);
+			console.log('%c saved & current data are NOT equal.', 'color: orange');
 			save('show');
 			updateTitle(windowTitle + '*');
 		} else {
-			// console.log('%c ERROR: caught in stalemate.', orangeColor);
+			// console.log('%c ERROR: caught in stalemate.', 'color: orange');
 		}
 	}
 }

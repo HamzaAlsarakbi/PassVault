@@ -39,7 +39,7 @@ function save() {
   configEncrypted = encrypt(JSON.stringify(config));
 
   // save encrypted config
-  package(JSON.stringify(configEncrypted), paths.config);
+  package(JSON.stringify(configEncrypted), CONFIG_PATH);
 }
 
 function encrypt(text) {

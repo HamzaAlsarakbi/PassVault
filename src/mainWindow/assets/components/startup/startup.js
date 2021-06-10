@@ -3,7 +3,7 @@ function loaded() {
   console.log('loaded');
   setTimeout(function() {
     // loading overlay draw-out animation
-    console.log('%c NOTICE: content loaded.', greenColor);
+    console.log('%c NOTICE: content loaded.', 'color: lime');
     document.querySelector('.loading-overlay').classList.add('loading-overlay-draw-out');
     // update icon
     document.querySelector('#loading-backdrop').src = path.join(__dirname, '../assets/img/icon-backdrop-green.png');

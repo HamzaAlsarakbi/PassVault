@@ -30,8 +30,11 @@ let serviceIcons = {
 }
 
 // fetch icons
-fetchInternalIcons();
-fetchExternalIcons();
+function fetchAllIcons() {
+	fetchInternalIcons();
+	fetchExternalIcons();
+}
+fetchAllIcons();
 
 
 function iconChecker(cell, text) {

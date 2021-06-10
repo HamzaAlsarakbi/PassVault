@@ -26,7 +26,10 @@ function addRow(tableData, index) {
 		updateSize({ target: input });
 
 		// add icon if its a service icon
-		if (dataType == 'service') iconChecker(cell, tableData[dataType]);
+		if (dataType == 'service') {
+			fetchExternalIcons();
+			iconChecker(cell, tableData[dataType]);
+		}
 	}
 	let controlsCell = addElement('div', { class: `cell-${index} controls`, id: `controls-${index}` }, '', row);
 

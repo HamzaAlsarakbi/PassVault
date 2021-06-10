@@ -84,7 +84,7 @@ function exit() {
 	param.keyO = key;
 	param.ivO = iv;
 	let stringifiedParam = JSON.stringify(param);
-	fs.writeFileSync(paramPath, stringifiedParam, function(err) {
+	fs.writeFileSync(PARAM_PATH, stringifiedParam, function(err) {
 		if (err) throw err;
 		console.log('Saved param!');
 	});
@@ -95,7 +95,7 @@ function exit() {
 	let configEncrypted = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 	
 
-	fs.writeFileSync(configFullPath, JSON.stringify(configEncrypted), function(err) {
+	fs.writeFileSync(CONFIG_PATH, JSON.stringify(configEncrypted), function(err) {
 		if (err) throw err;
 		console.log('Saved config !');
 	});

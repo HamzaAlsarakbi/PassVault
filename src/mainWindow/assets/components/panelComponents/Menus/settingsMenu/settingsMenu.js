@@ -31,7 +31,6 @@ function toggleSettings() {
 		addParameter(generalSection.body, { text: 'Enable Animations', on: true }, 'switch', 'enable-animations', 'toggleAnimations()', config.enableAnimations);
 		addParameter(generalSection.body, { text: 'Inactivity Timeout', slider: { min: 1, max: 10, value: config.timeout } }, 'slider', 'inactivity-timeout', inactivityTimeout, config.timeout);
 		addParameter(generalSection.body, { text: 'Open icons folder', button: { text: 'Open Folder' } }, 'button', 'open-icons-folder', 'shell.openExternal(path.join(parentDir, "/Data/icons"))');
-		addParameter(generalSection.body, { text: 'Fetch custom icons', button: { text: 'Fetch Icons' } }, 'button', 'fetch-external-icons', 'fetchExternalIcons()');
 		addParameter(generalSection.body, { text: 'Change Master Password', button: { text: 'Change' } }, 'button', 'change-master-password', 'openChangePasswordDialog()');
 
 		// themes section

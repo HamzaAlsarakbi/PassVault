@@ -58,8 +58,9 @@ function confirmEdits(e) {
 		for (let input in inputs) {
 			data[c][input] = inputs[input].value;
 			inputs[input].setAttribute('readonly', '');
+			window.getSelection().removeAllRanges();
 		}
-
+		fetchExternalIcons();
 		iconChecker(document.querySelector(`.${c}.table-cell.service`), inputs.service.value);
 	}
 	search();
@@ -80,6 +81,7 @@ function cancelEdits(e) {
 	for (let input in inputs) {
 		inputs[input].value = data[c][input];
 		inputs[input].setAttribute('readonly', '');
+		window.getSelection().removeAllRanges();
 		updateSize({ target: inputs[input] });
 	}
 
