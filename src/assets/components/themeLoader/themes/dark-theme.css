@@ -10,7 +10,7 @@
 	--tertiary-color: rgb(190, 190, 190);
 	--primary-hover: rgb(60, 60, 60);
 	--primary-shadow: rgb(50, 50, 50);
-	
+
 	--primary-accent: rgb(50, 130, 250);
 	--primary-accent-transparent: rgba(45, 85, 170, 0.8);
 	--secondary-accent: rgb(32, 32, 32);
@@ -43,6 +43,7 @@
 	--row-hover: rgb(45, 45, 45);
 	--cell-hover: rgb(60, 60, 60);
 	--copy-color: rgb(150, 150, 150);
+	--row-edit: rgb(219, 143, 81);
 
 	/** password **/
 	--strength-0: rgb(200, 50, 50);
@@ -51,14 +52,10 @@
 	--strength-3: rgb(142, 200, 50);
 	--strength-4: rgb(50, 200, 50);
 
-
-
 	/* settings */
 	--settings-body-backdrop-filter: brightness(1);
 
 	--dialog-background: rgb(30, 30, 30);
-
-
 
 	/* radio buttons */
 	--radio-background: rgb(50, 50, 50);
@@ -66,11 +63,9 @@
 	--radio-background-active: var(--primary-accent);
 	--radio-checkmark: rgb(50, 50, 50);
 
-
 	/* tooltips */
 	--tooltip-background: rgb(35, 35, 35);
 	--tooltip-shadow: rgb(10, 10, 10);
-
 
 	/* checkmark */
 	--checkmark-background: var(--primary-hover);

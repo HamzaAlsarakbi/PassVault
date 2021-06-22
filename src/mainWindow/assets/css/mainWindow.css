@@ -101,3 +101,7 @@ input:focus {
 		transform: translateX(20px);
 	}
 }
+
+#confirm-logout-overlay {
+	z-index: 999;
+}

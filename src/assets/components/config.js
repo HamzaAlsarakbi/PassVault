@@ -55,23 +55,25 @@ function unpackConfig() {
 		param = JSON.parse(fs.readFileSync(PARAM_PATH));
 		key = new Buffer.from(param.keyO);
 		iv = new Buffer.from(param.ivO);
+		console.log('Using saved parameters.');
 	} catch (err) {
 		console.error(err);
-		console.log('%cFailed to parse param', 'color: orange');
+		console.log('%cFailed to parse param. Using random parameters', 'color: orange');
 	}
 
 	// read config
 	try {
-		config = JSON.parse(decryptConfig(JSON.parse(fs.readFileSync(CONFIG_PATH))));
+		let parsedConfig = JSON.parse(fs.readFileSync(CONFIG_PATH));
+		config = JSON.parse(decryptConfig(parsedConfig));
 		console.log('%cNOTICE: config parsed!', 'color: lime');
 	} catch (err) {
 		console.error(err);
-		console.log('%cFailed to parse object. Using default config', 'color: orange');
+		console.log('%cFailed to parse saved config. Using default config', 'color: orange');
 	}
 	// check if any new components are missing
 	for (let component in newComponents) {
 		if (!config[component]) {
-			console.log(`%cAppending missing component "${component}".`, 'color: blue');
+			console.log(`%cAppending missing component "${component}".`, 'color: cyan');
 			config[component] = newComponents[component];
 		}
 	}

@@ -1,7 +1,7 @@
 const DATA_PATH = path.join(parentDir, '/Data/data.json');
 
-var configData;
-var saved;
+let configData;
+let saved;
 
 // save function
 function save(type) {
@@ -10,62 +10,66 @@ function save(type) {
 	if (type == 'config') {
 		// encrypt config
 		pack(config, CONFIG_PATH);
+		console.log('%cSaved config', 'color: green');
 	} else if (type == 'show') {
 		// if changes are made
 		saved = true;
-		addElement('button', { class: 'save', onclick: `save('all')` }, 'Save', container);
+		addElement('button', { class: 'save', onclick: `save()` }, 'Save', container);
 
-	} else if (type == 'all') {
-		// if no changes are made
-		// save data.json
-		key = crypto.randomBytes(32);
-		iv = crypto.randomBytes(16);
-		param.keyO = key;
-		param.ivO = iv;
-		let stringifiedParam = JSON.stringify(param);
-		fs.writeFileSync(PARAM_PATH, stringifiedParam, function (err) {
-			if (err) throw err;
-			console.log('Saved ' + param + '!');
-		});
+	} else {
+		// generate new key
+		generateKey();
+		console.log("Generated new key");
 
-		pack(data);
+		// save param
+		fs.writeFileSync(PARAM_PATH, JSON.stringify(param));
+		console.log('%cSaved param', 'color: lime');
+
+		// save data
+		pack(data, DATA_PATH);
+		console.log('%cSaved data', 'color: lime');
+
 		// save config.json
 		save('config');
 
+
 		saved = false;
-		let saveButtonDOM = document.querySelector('.save');
-		saveButtonDOM.classList.toggle('button-slide-out');
-		setTimeout(function () {
-			saveButtonDOM.remove();
-		}, 300);
+		let saveButton = document.querySelector('button.save');
+		if (saveButton) {
+			saveButton.classList.toggle('button-slide-out');
+			setTimeout(function () {
+				saveButton.remove();
+			}, 300);
+		}
 		if (type == 'close') {
 			win.close();
 		}
-	} else {
-		console.log('invalid save type');
 	}
+}
+function generateKey() {
+
+	param.keyO = crypto.randomBytes(32);
+	param.ivO = crypto.randomBytes(16);
 }
 
 function encrypt(text) {
 	// encrypt string
-	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(param.keyO), Buffer.from(param.ivO));
 	let encrypted = cipher.update(text);
 	encrypted = Buffer.concat([encrypted, cipher.final()]);
-	return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+	return { iv: param.ivO.toString('hex'), encryptedData: encrypted.toString('hex') };
 }
 
-function pack(object, path)  {
-	fs.writeFileSync(path, JSON.stringify(encrypt(JSON.stringify(object))), function (err) {
+function pack(object, path) {
+	fs.writeFile(path, JSON.stringify(encrypt(JSON.stringify(object))), function (err) {
 		if (err) throw err;
-		console.log('Saved ' + object + '!');
 	});
 }
 
 
 function decrypt(text) {
-	let iv = Buffer.from(text.iv, 'hex');
 	let encryptedText = Buffer.from(text.encryptedData, 'hex');
-	let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+	let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(param.keyO), Buffer.from(text.iv, 'hex'));
 	let decrypted = decipher.update(encryptedText);
 	decrypted = Buffer.concat([decrypted, decipher.final()]);
 	return decrypted.toString();
@@ -76,11 +80,12 @@ function unpack() {
 }
 
 function parse() {
+	if (config.gridlinesOn) document.querySelector('.row-header').classList.add('table-gridlines');
 	if (fs.existsSync(DATA_PATH)) {
-		if(data.cellIndex != 0) {
-			console.log('file exists.');
-			console.log('%c parsing...', 'color: orange');
-			data = unpack(DATA_PATH);
+		console.log('data.json exists.');
+		console.log('%cParsing data.json ...', 'color: orange');
+		data = unpack(DATA_PATH);
+		if (data.cellIndex != 0) {
 			// add rows
 			let currentIndex = 0;
 			let rowInterval = setInterval(() => {
@@ -91,32 +96,33 @@ function parse() {
 						email: data[`cell-${currentIndex}`].email,
 						password: data[`cell-${currentIndex}`].password
 					}, data[`cell-${currentIndex}`].index);
-					if(config.gridlinesOn) row.classList.add('table-gridlines');
-					currentIndex++;
-					if (currentIndex >= data.cellIndex) window.clearInterval(rowInterval);
+				if (config.gridlinesOn) row.classList.add('table-gridlines');
+				currentIndex++;
+				if (currentIndex >= data.cellIndex) window.clearInterval(rowInterval);
 			}, 100);
-	
+
 			// disable animations if enabled
 			if (!config.enableAnimations) {
 				addElement('link', { class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../assets/components/disableAnimations.css' }, undefined, document.head);
 			}
-	
+
 		}
 	} else {
 		console.log("%cSave Error: data doesn't exist. Creating one.", 'color: orange');
-		pack(data, DATA_PATH);
+		save()
 	}
 	setInterval(changesChecker, 500);
 }
 
 function changesChecker() {
-	let savedData;
+	let savedData, currentData;
 	try {
 		savedData = JSON.stringify(unpack(DATA_PATH));
-		var currentData = JSON.stringify(data);
+		currentData = JSON.stringify(data);
 	} catch (err) {
 		console.log("%c ERROR: data.json doesn't exist.", 'color: red');
-		save('all');
+		console.error(err);
+		// save('all');
 	}
 
 	// compare two objects
@@ -126,7 +132,7 @@ function changesChecker() {
 		if (saved) {
 			// if the user reversed changes, has a side effect when triggering save from console
 			saved = false;
-			var saveButtonDOM = document.querySelector('.save');
+			let saveButtonDOM = document.querySelector('.save');
 			saveButtonDOM.classList.toggle('bu	tton-slide-out');
 			setTimeout(function () {
 				saveButtonDOM.remove();

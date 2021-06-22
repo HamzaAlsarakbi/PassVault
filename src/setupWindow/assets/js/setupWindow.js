@@ -75,27 +75,27 @@ function setTheme() {
 }
 function toggleTheme(theme) {
 	config.theme = theme;
-	initTheme();
+	loadTheme();
 }
 function exit() {
 	config.firstTime = false;
-	key = crypto.randomBytes(32);
-	iv = crypto.randomBytes(16);
+	let key = crypto.randomBytes(32);
+	let iv = crypto.randomBytes(16);
 	param.keyO = key;
 	param.ivO = iv;
 	let stringifiedParam = JSON.stringify(param);
-	fs.writeFileSync(PARAM_PATH, stringifiedParam, function(err) {
+	fs.writeFileSync(PARAM_PATH, stringifiedParam, function (err) {
 		if (err) throw err;
 		console.log('Saved param!');
 	});
 
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
 	let encrypted = cipher.update(JSON.stringify(config));
-	encrypted = Buffer.concat([ encrypted, cipher.final() ]);
+	encrypted = Buffer.concat([encrypted, cipher.final()]);
 	let configEncrypted = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-	
 
-	fs.writeFileSync(CONFIG_PATH, JSON.stringify(configEncrypted), function(err) {
+
+	fs.writeFileSync(CONFIG_PATH, JSON.stringify(configEncrypted), function (err) {
 		if (err) throw err;
 		console.log('Saved config !');
 	});

@@ -59,7 +59,7 @@
 }
 /** gridlines **/
 #tr.table-gridlines {
-	border-color: var(--secondary-color) !important;
+	border-color: var(--secondary-color);
 }
 /* hovering a row */
 .tbody #tr:hover {
@@ -90,6 +90,9 @@
 .table-cell,
 .table-cell input {
 	cursor: pointer;
+}
+.tr-edit {
+	border-left: 5px solid var(--row-edit) !important;
 }
 .tr-edit .table-cell,
 .tr-edit .table-cell input {
@@ -177,6 +180,6 @@ input.cell-input {
 
 #service-icon {
 	width: 30px;
-	margin: 5px;
+	margin: 2px;
 	border-radius: 5px;
 }

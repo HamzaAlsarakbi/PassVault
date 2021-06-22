@@ -39,6 +39,7 @@
 	--row-hover: rgb(210, 210, 210);
 	--cell-hover: rgb(190, 190, 190);
 	--copy-color: rgb(75, 75, 75);
+	--row-edit: rgba(219, 182, 81, 0.4);
 
 	/** password **/
 	--strength-0: rgb(200, 50, 50);
