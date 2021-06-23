@@ -9,7 +9,7 @@
 	backdrop-filter: blur(4px);
 	z-index: 10;
 	animation: searchbar-draw-in 0.2s ease-out;
-	width: 300px;
+	width: 400px;
 }
 
 @keyframes searchbar-draw-in {

@@ -57,7 +57,7 @@ function encrypt(text) {
 	let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(param.keyO), Buffer.from(param.ivO));
 	let encrypted = cipher.update(text);
 	encrypted = Buffer.concat([encrypted, cipher.final()]);
-	return { iv: param.ivO.toString('hex'), encryptedData: encrypted.toString('hex') };
+	return { iv: Buffer.from(param.ivO).toString('hex'), encryptedData: encrypted.toString('hex') };
 }
 
 function pack(object, path) {

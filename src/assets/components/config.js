@@ -55,7 +55,7 @@ function unpackConfig() {
 		param = JSON.parse(fs.readFileSync(PARAM_PATH));
 		key = new Buffer.from(param.keyO);
 		iv = new Buffer.from(param.ivO);
-		console.log('Using saved parameters.');
+		console.log('Using saved key.');
 	} catch (err) {
 		console.error(err);
 		console.log('%cFailed to parse param. Using random parameters', 'color: orange');

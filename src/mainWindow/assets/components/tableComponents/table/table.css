@@ -179,8 +179,9 @@ input.cell-input {
 }
 
 #service-icon {
-	width: 30px;
+	max-width: 30px;
+	max-height: 30px;
 	margin: 2px;
 	border-radius: 5px;
-	transform: translateX(14px);
+	transform: translateX(12px);
 }
