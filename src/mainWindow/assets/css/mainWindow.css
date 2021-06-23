@@ -1,0 +1,110 @@
+/** Global Settings **/
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	outline: none;
+	transition: 0.2s ease-out;
+	backface-visibility: hidden;
+	-webkit-user-drag: none;
+}
+html,
+body {
+	height: 100%;
+}
+body {
+	font-family: "Segoe UI", sans-serif;
+	background: var(--body);
+	color: var(--primary-color);
+	display: flex;
+	justify-content: center;
+	user-select: none;
+	overflow: hidden;
+}
+
+.app {
+	margin-top: 30px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	flex-direction: column;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+a {
+	color: var(--primary-a);
+}
+
+button {
+	background: var(--primary-button);
+	padding: 5px;
+	margin: 10px;
+	border-radius: 5px;
+	min-height: 30px;
+	color: var(--primary-color);
+	cursor: pointer;
+}
+button:hover {
+	color: var(--secondary-color);
+	background-color: var(--secondary-button);
+}
+button:active {
+	transform: scale(0.95);
+	transition: 0.1s;
+}
+input {
+	background: transparent;
+	font-family: "Segoe UI", sans-serif;
+	font-size: 14px;
+	color: var(--secondary-color);
+}
+input:hover {
+	border-bottom-color: var(--primary-accent);
+}
+input:focus {
+	border-color: var(--primary-accent);
+}
+
+/* Save Module */
+.save {
+	position: fixed;
+	bottom: 10px;
+	left: 10px;
+	width: 100px;
+	animation: button-slide-in 0.3s ease-out;
+}
+
+.button-slide-out {
+	animation: button-slide-out 0.3s ease-out !important;
+	animation-direction: reverse !important;
+	animation-fill-mode: forwards !important;
+}
+
+@keyframes button-slide-in {
+	0% {
+		transform: translateX(-150px);
+		opacity: 0;
+	}
+	60% {
+		transform: translateX(20px);
+	}
+}
+
+@keyframes button-slide-out {
+	0% {
+		transform: translateX(-150px);
+		opacity: 0;
+	}
+	60% {
+		transform: translateX(20px);
+	}
+}
+
+#confirm-logout-overlay {
+	z-index: 999;
+}
+collection.dialog-collection {
+	float: right;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome - PassVault</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../assets/components/windowBar/windowBar.css">
+    <link rel="stylesheet" href="../assets/libraries/RichInput/richInput.css">
+    <link rel="stylesheet" href="assets/css/setupWindow.css">
+
+    <!-- Scripts -->
+    <script src="../assets/components/config.js"></script>
+    <script src="../assets/components/icons.js"></script>
+    <script src="../assets/libraries/addElement.js"></script>
+    <script src="../assets/libraries/RichInput/richInput.js"></script>
+    <script> if(config.masterPassword) window.location.replace('../loginWindow/loginWindow.html')</script>
+    <script src='../assets/components/themeLoader/themeLoader.js'></script>
+  </head>
+  <body>
+    <header id="titlebar">
+      <div id="drag-region">
+        <div id="window-title">
+          <img src="../assets/img/icon.png" height="20px">
+          <span style="padding-left: 10px;">Welcome</span>
+        </div>
+        <div id="window-controls">
+          <div class="button dialog" id="min-button">
+            <img src="../assets/img/window_icons/minimize.png" class="window-icon">
+            </div>
+            <div class="button" id="close-button">
+              <img src="../assets/img/window_icons/close.png" class="window-icon">
+            </div>
+        </div>
+      </div>
+    </header>
+    <!-- Content -->
+    <content>
+      <container class="welcome">
+          <div class="loading-icons">
+          <img class="loading-icon" id="loading-backdrop" src="../assets/img/icon-backdrop.png" height="100px">
+          <img class="loading-icon" id="loading-cog" src="../assets/img/icon-cog.png" height="55px">
+          </div>
+        <div class="header">Welcome to:</div>
+        <div class="pass-vault">PassVault</div>
+        <button class="start" id="start" onclick="start()">Get Started! →</button>
+      </container>
+      <container class="master-password">
+        <div class="header">Set Master Password</div>
+        <form class="masterpassword-form">
+
+        </form>
+        <div class="noerror"></div>
+        <nav>
+          <button class="nav-button" onclick="back('welcome')">← Back</button>
+          <button class="nav-button" onclick="setTheme()">Set Theme →</button>
+        </nav>
+        
+
+      </container>
+      <container class="theme">
+        <div class="header">Choose Your Theme</div>
+        <div class="theme-list">
+          <button class="theme-button" id="dark-theme" onclick="toggleTheme('dark')">Dark Theme</button>
+          <button class="theme-button" id="light-theme" onclick="toggleTheme('light')">Light Theme</button>
+        </div>
+        <nav>
+          <button class="nav-button" onclick="back('password')">← Back</button>
+          <button class="nav-button" onclick="exit()">Start! →</button>
+        </nav>
+      </container>
+    </content>
+    <script src="assets/js/setupWindow.js"></script>
+  </body>
+</html>

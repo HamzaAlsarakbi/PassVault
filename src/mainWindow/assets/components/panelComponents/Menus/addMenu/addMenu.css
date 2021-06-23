@@ -1,0 +1,44 @@
+panel.toggleAdd {
+	margin-top: 20px;
+	height: 220px;
+	background: var(--toggle-controls);
+}
+#thead.toggleAdd {
+	padding-top: 255px !important;
+}
+
+form.add-container {
+  width: 100%;
+  justify-content: space-between
+}
+.add-input {
+  width: calc(50% - 6px);
+  margin: 3px;
+}
+
+/*** Add button*/
+.add-button {
+	margin: 5px;
+	padding: 5px;
+	width: 100%;
+}
+
+
+/**** Add icon*/
+.add {
+  padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+}
+.add-container {
+  display: flex;
+	flex-direction: row;
+	padding-bottom: 5px;
+	width: 100%;
+  flex-wrap: wrap;
+}
+
+/* expand panel when error is active */
+panel.panel-extend {
+  height: 238px !important;
+}

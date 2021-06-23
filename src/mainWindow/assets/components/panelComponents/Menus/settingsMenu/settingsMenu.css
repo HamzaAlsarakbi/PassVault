@@ -1,0 +1,40 @@
+/* Menu Animation */
+.toggleSettings {
+	height: 355px;
+	margin-top: 20px;
+	background: var(--toggle-controls);
+}
+
+.toggleSettings menu.menu-down {
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	height: calc(100% - 50px);
+	border-radius: 10px;
+}
+
+/* change password */
+.password-change {
+	padding: 10px;
+}
+/* span confirmation css */
+.confirm-password-change {
+	height: 18px;
+	opacity: 1;
+	color: var(--primary-green);
+}
+/* change password button */
+.change-password-button {
+	width: calc(100% - 20px);
+}
+
+/** about **/
+.settings-sub-body-header {
+	font-size: 16px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+.settings-sub-body {
+	font-size: 14px;
+}

@@ -1,0 +1,15 @@
+div.tooltip {
+  background: var(--tooltip-background);
+  padding: 10px !important;
+  font-size: 12px;
+  border-radius: 5px;
+  position: absolute;
+  transform: translateY(120%);
+  box-shadow: -2px 2px 2px var(--tooltip-shadow);
+  z-index: 2;
+}
+
+div.control-tooltip {
+  transform: translate(-50%, 20%);
+  animation: none !important;
+}

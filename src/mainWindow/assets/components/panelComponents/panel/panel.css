@@ -1,0 +1,122 @@
+/** controls **/
+panel {
+	margin-top: 0px;
+	border-radius: 10px;
+	width: 100px;
+	height: 50px;
+	width: 75%;
+	max-width: 1000px;
+	min-width: 600px;
+	position: fixed;
+	z-index: 2;
+	backdrop-filter: blur(10px);
+	margin-top: 10px;
+}
+
+controls {
+	display: flex;
+	height: 50px;
+	justify-content: space-between;
+	align-items: center;
+	padding: 13px;
+	padding-bottom: 10px;
+	border-radius: 10px 10px 0 0;
+	border-bottom: 2px solid transparent;
+}
+controls.panel-active {
+	background: var(--controls-background);
+	border-bottom-color: var(--primary-accent);
+}
+.control:not(#controls):active {
+	transform: scale(0.9);
+	transition: 0.1s;
+}
+
+menu {
+	opacity: 0;
+	transform: translateY(-100%);
+}
+menu.menu-down {
+	opacity: 1;
+	transform: translateY(0%);
+	padding: 10px;
+	overflow-y: auto;
+}
+.controls-label {
+	transform: translateX(-100px);
+	opacity: 0;
+}
+.controls-label {
+	opacity: 1;
+	transform: translateX(0%);
+}
+
+.controls-buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+.controls-label {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.control,
+.parameter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+}
+
+.control {
+	padding: 5px;
+	height: 30px;
+	width: 30px;
+	border-radius: 15.5px;
+	font-size: 20px;
+}
+.control:hover {
+	background: var(--primary-hover);
+	cursor: pointer;
+}
+
+.control-icon {
+	animation: rotation 2s linear;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	margin-right: 10px;
+}
+/** rotate icon in each menu **/
+.control.panel-active img {
+	transform: rotate(45deg);
+}
+
+.control-text {
+	font-size: 24px;
+	text-transform: uppercase;
+}
+@keyframes rotation {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* error for form span */
+.noerror {
+	font-size: 12px;
+	color: var(--error);
+	transform: translateX(-100%);
+	opacity: 0;
+	height: 0px;
+}
+.error {
+	transform: translateX(0%);
+	opacity: 1;
+	height: 18px;
+}

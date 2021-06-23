@@ -1,0 +1,81 @@
+:root {
+	/** Global Settings **/
+	--body: rgb(230, 230, 230);
+	--primary-background: var(--body);
+	--secondary-background: rgb(200, 200, 200);
+	--error: rgb(250, 50, 50);
+
+	--primary-color: black;
+	--secondary-color: rgb(30, 30, 30);
+	--tertiary-color: rgb(75, 75, 75);
+	--primary-hover: rgb(190, 190, 190);
+	--primary-accent: rgb(66, 107, 196);
+	--primary-accent-transparent: rgba(45, 85, 170, 0.5);
+	--primary-shadow: rgb(207, 207, 207);
+	--primary-important: rgb(250, 100, 100);
+
+	/** Scrollbar **/
+	--scrollbar-track: rgb(190, 190, 190);
+	--scrollbar-thumb: var(--primary-accent);
+	--scrollbar-thumb-hover: var(--primary-accent-transparent);
+
+	/** Controls **/
+	--toggle-controls: rgba(190, 190, 190, 0.4);
+	--toggle-controls-opaque: rgba(230, 230, 230, 0.9);
+	--primary-a: var(--primary-accent);
+	--controls-background: rgba(187, 187, 187, 0.7);
+
+	/** Button **/
+	--primary-button: rgb(64, 124, 255);
+	--secondary-button: rgb(64, 124, 255);
+	--primary-green: rgb(40, 161, 50);
+
+	/** Input **/
+	--primary-input: rgb(80, 80, 80);
+	--secondary-input: rgb(64, 124, 255);
+
+	/** Table **/
+	--primary-thead-border: 2px solid black;
+	--row-hover: rgb(210, 210, 210);
+	--cell-hover: rgb(190, 190, 190);
+	--copy-color: rgb(75, 75, 75);
+	--row-edit: rgba(219, 182, 81, 0.4);
+
+	/** password **/
+	--strength-0: rgb(200, 50, 50);
+	--strength-1: rgb(200, 92, 50);
+	--strength-2: rgb(200, 185, 50);
+	--strength-3: rgb(142, 200, 50);
+	--strength-4: rgb(50, 200, 50);
+
+	/* settings */
+	--settings-body-backdrop-filter: brightness(1.3);
+
+	--dialog-background: rgb(200, 200, 200);
+	
+	/* radio buttons */
+	--radio-background: rgb(220, 220, 220);
+	--radio-background-hover: rgb(210, 210, 210);
+	--radio-background-active: var(--primary-accent);
+	--radio-checkmark: rgb(220, 220, 220);
+
+
+	/* tooltips */
+	--tooltip-background: rgb(240, 240, 240);
+	--tooltip-shadow: rgb(200, 200, 200);
+
+	
+	/* checkmark */
+	--checkmark-background: var(--primary-hover);
+	
+	/* form */
+	--form-invalid: var(--error);
+}
+/** Icons **/
+img:not(#service-icon) {
+	filter: invert(1);
+}
+
+a:hover {
+	filter: brightness(0.8);
+}

@@ -1,0 +1,48 @@
+/** Loading Menu **/
+.overlay {
+	position: fixed;
+	z-index: 3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	backdrop-filter: brightness(0.8) grayscale(0.5);
+}
+
+/** Loading Menu **/
+.loading-overlay {
+	background: var(--body);
+	position: fixed;
+	z-index: 50;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.loading-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.loading-icons {
+	height: 40vh;
+	display: flex;
+	transform: scale(0.5);
+	align-items: center;
+	flex-direction: column;
+}
+.loading-icon {
+	position: relative;
+}
+#loading-cog {
+	animation: rotation 1.5s infinite;
+	top: -320px;
+	left: -2px;
+}
+.loading-overlay-draw-out {
+	opacity: 0;
+	transform: scale(1.5);
+}

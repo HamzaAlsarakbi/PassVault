@@ -1,0 +1,83 @@
+:root {
+	/** Global colors **/
+	--body: rgb(20, 20, 20);
+	--primary-background: var(--body);
+	--secondary-background: rgb(60, 60, 60);
+	--error: rgb(250, 50, 50);
+
+	--primary-color: rgb(240, 240, 240);
+	--secondary-color: rgb(220, 220, 220);
+	--tertiary-color: rgb(190, 190, 190);
+	--primary-hover: rgb(60, 60, 60);
+	--primary-shadow: rgb(50, 50, 50);
+
+	--primary-accent: rgb(50, 130, 250);
+	--primary-accent-transparent: rgba(45, 85, 170, 0.8);
+	--secondary-accent: rgb(32, 32, 32);
+	--secondary-accent-transparent: rgba(32, 32, 32, 0.5);
+	--primary-important: rgb(200, 50, 50);
+
+	/** Scrollbar **/
+	--scrollbar-track: rgb(40, 40, 40);
+	--scrollbar-thumb: var(--primary-accent);
+	--scrollbar-thumb-hover: var(--primary-accent-transparent);
+
+	/** Controls **/
+	--toggle-controls: rgba(50, 50, 50, 0.4);
+	--toggle-controls-opaque: rgb(30, 30, 30);
+	--primary-a: rgb(64, 124, 255);
+	--controls-background: rgba(20, 20, 20, 0.7);
+
+	/** Buttons **/
+	--primary-button: linear-gradient(-45deg, rgb(10, 66, 189), rgb(61, 118, 243));
+	--secondary-button: linear-gradient(45deg, rgb(10, 66, 189), rgb(61, 118, 243));
+	--secondary-button: rgb(45, 85, 170);
+	--primary-green: rgb(50, 200, 50);
+
+	/** Input **/
+	--primary-input: rgb(80, 80, 80);
+	--secondary-input: var(--primary-accent);
+
+	/** Table **/
+	--primary-thead-border: 2px solid white;
+	--row-hover: rgb(45, 45, 45);
+	--cell-hover: rgb(60, 60, 60);
+	--copy-color: rgb(150, 150, 150);
+	--row-edit: rgb(219, 143, 81);
+
+	/** password **/
+	--strength-0: rgb(200, 50, 50);
+	--strength-1: rgb(200, 92, 50);
+	--strength-2: rgb(200, 185, 50);
+	--strength-3: rgb(142, 200, 50);
+	--strength-4: rgb(50, 200, 50);
+
+	/* settings */
+	--settings-body-backdrop-filter: brightness(1);
+
+	--dialog-background: rgb(30, 30, 30);
+
+	/* radio buttons */
+	--radio-background: rgb(50, 50, 50);
+	--radio-background-hover: rgb(60, 60, 60);
+	--radio-background-active: var(--primary-accent);
+	--radio-checkmark: rgb(50, 50, 50);
+
+	/* tooltips */
+	--tooltip-background: rgb(35, 35, 35);
+	--tooltip-shadow: rgb(10, 10, 10);
+
+	/* checkmark */
+	--checkmark-background: var(--primary-hover);
+
+	/* form */
+	--form-invalid: var(--error);
+}
+
+a:hover {
+	filter: brightness(0.9);
+}
+
+img:not(#service-icon) {
+	filter: invert(0);
+}

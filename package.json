@@ -1,24 +1,24 @@
 {
 	"name": "passvault",
-	"version": "1.0.0",
-	"description": "Password Vault.",
-	"main": "index.js",
+	"version": "1.2.0",
+	"description": "Password Manager.",
+	"main": "src/index.js",
 	"scripts": {
-		"start": "electron .",
-		"package-mac": "electron-packager . --overwrite --platform=darwgiin --arch=x64 --icon=global assets/img/icon.png --prune=true --out=release-builds",
-		"package-win32": "electron-packager . PassVault --overwrite --asar=true --platform=win32 --arch=ia32 --icon=appIcon/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"PassVault\"",
-		"package-win64": "electron-packager . PassVault --overwrite --asar=true --platform=win32 --arch=x64 --icon=appIcon/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"PassVault\"",
-		"package-linux": "electron-packager . PassVault --overwrite --asar=true --platform=linux --arch=x64 --icon=global assets/img/icon.png --prune=true --out=release-builds"
+		"start": "electron . --inspect=5858",
+		"package-mac": "electron-packager . --overwrite --platform=darwgiin --arch=x64 --icon=icon/icon.png --prune=true --out=bin",
+		"package-win32": "electron-packager . PassVault --overwrite --asar=true --platform=win32 --arch=ia32 --icon=icon/icon.ico --prune=false --out=bin --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"PassVault\"",
+		"package-win64": "electron-packager . PassVault --overwrite --asar=true --platform=win32 --arch=x64 --icon=icon/icon.ico --prune=false --out=bin --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"PassVault\"",
+		"package-linux": "electron-packager . PassVault --overwrite --asar=true --platform=linux --arch=x64 --icon=icon/icon.png --prune=true --out=bin"
 	},
 	"author": "Hamza",
-	"license": "ISC",
+	"license": "GPL-3.0 License",
 	"dependencies": {
 		"crypto": "^1.0.1",
 		"electron-is-dev": "^1.2.0"
 	},
 	"devDependencies": {
 		"devtron": "^1.4.0",
-		"electron": "^9.4.0",
+		"electron": "^9.4.3",
 		"electron-packager": "^15.0.0"
 	}
 }
