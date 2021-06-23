@@ -22,7 +22,7 @@ function addRow(tableData, index) {
 			// add event listener
 			input.addEventListener('input', updateStrength);
 		}
-		input.addEventListener('keydown', updateSize);
+		input.addEventListener('input', updateSize);
 		updateSize({ target: input });
 
 		// add icon if its a service icon
@@ -135,7 +135,6 @@ function togglePasswordVisibility(e) {
 		icon.setAttribute('src', icons.eye.eye);
 	}
 }
-
 function updateSize(e) {
-	e.target.setAttribute('size', e.target.value.length);
+	e.target.setAttribute('size', clamp(e.target.value.length, 1, 100));
 }

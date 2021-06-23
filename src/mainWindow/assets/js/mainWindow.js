@@ -1,14 +1,16 @@
 const { shell } = electron;
-const app = document.querySelector('.app');
+const app = $('.app');
 // data object
 let data = {
 	cellIndex: 0
 };
 
-
+function $(query) {
+	return document.querySelector(query);
+}
 // menu
-const panel = document.querySelector('panel');
-const menu = document.querySelector('menu');
+const panel = $('panel');
+const menu = $('menu');
 
 // settings
 let components = {
@@ -25,12 +27,12 @@ let components = {
 const elements = {
 	panel: {
 		controls: {
-			label: document.querySelector('.controls-label'),
-			text: document.querySelector('.control-text'),
-			icon: document.querySelector('.control-icon')
+			label: $('.controls-label'),
+			text: $('.control-text'),
+			icon: $('.control-icon')
 		}
 	},
-	table: document.querySelector('.tbody')
+	table: $('.tbody')
 }
 
 // table
@@ -51,67 +53,18 @@ document.onkeydown = e => {
 	}
 };
 
-
-function capitalize(text) {
-	return text.replace(text.substring(0, 1), text.substring(0, 1).toUpperCase());
-}
-
-
 // Toggle parameters
 function toggleParameters() {
 	// Parameters
-	document.querySelector('.settings-parameters').classList.toggle('settingsToggle');
+	$('.settings-parameters').classList.toggle('settingsToggle');
 }
 
 
-
-function showDialog(titleContent, promptContent, buttons, buttonActions) {
-	if (!components.dialog) {
-		if (buttons.length == buttonActions.length) {
-			// create overlay
-			let overlay = document.createElement('div');
-			overlay.setAttribute('class', 'overlay');
-			document.body.appendChild(overlay);
-			// create dialog box
-			let dialogBox = document.createElement('div');
-			dialogBox.setAttribute('class', 'dialog-box');
-			overlay.appendChild(dialogBox);
-
-			// create title
-			let title = document.createElement('p');
-			title.setAttribute('class', 'dialog-box-title');
-			title.textContent = titleContent;
-			dialogBox.appendChild(title);
-			// create prompt
-			let prompt = document.createElement('p');
-			prompt.setAttribute('class', 'dialog-box-prompt');
-			prompt.textContent = promptContent;
-			dialogBox.appendChild(prompt);
-			// create buttons
-			for (i = 0; i < buttons.length; i++) {
-				let button = document.createElement('button');
-				button.setAttribute('class', 'dialog-box-button');
-				button.setAttribute('id', 'dialog-box-button-' + i);
-				button.setAttribute('onclick', buttonActions[i]);
-				button.textContent = buttons[i];
-				dialogBox.appendChild(button);
-			}
-			app.classList.add('container-freeze');
-			components.dialog = true;
-			return overlay;
-		}
-	}
+// general functions
+function capitalize(text) {
+	return text.replace(text.substring(0, 1), text.substring(0, 1).toUpperCase());
 }
-function closeDialog() {
-	let overlay = document.querySelector('.overlay');
-	if (overlay === undefined) {
-		// throw error
-	} else {
-		document.querySelector('.dialog-box').classList.add('dialog-box-close');
-		app.classList.remove('container-freeze');
-		setTimeout(function () {
-			document.querySelector('body').removeChild(document.querySelector('.overlay'));
-		}, 240);
-	}
-	components.dialog = false;
+function clamp(value, min, max) {
+	// clamp value
+	return value < min ? min : value > max ? max : value;
 }

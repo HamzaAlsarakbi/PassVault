@@ -20,40 +20,48 @@ let timeoutDialog = null;
 function timeoutAction() {
 	let popup = addPopup('timeout-warning', 'Timeout Warning', '').body;
 	let container = addElement('div', { class: 'timeout-container' }, '', popup);
+	container.style = 'padding: 10px';
 
 
 	if (saved) {
-		timeoutDialog = addParameter(container, {
-			text: `You have been inactive for ${config.timeout} minute(s). Discarding changes in 1 minute`,
-			buttons: {
-				save: {
-					text: 'Save',
-					onclick: `save('all')`
-				},
-				dontSave: {
-					text: `Don't Save`,
-					onclick: 'quit()'
-				},
-				cancel: {
-					text: `Cancel`,
-					onclick: 'removePopup("timeout-warning")'
-				}
+		addElement('p', { class: 'dialog-prompt timeout-prompt', id: 'timeout-unsaved' }, `You have been inactive for ${config.timeout} minute(s). Discarding changes in 1 minute`, container);
+		let collection = addElement('collection', { class: 'dialog-collection timeout-collection', id: 'timeout-unsaved' }, '', container);
+		let buttons = {
+			save: {
+				text: 'Save',
+				onclick: `save('all')`
+			},
+			dontSave: {
+				text: `Don't Save`,
+				onclick: 'quit()'
+			},
+			cancel: {
+				text: `Cancel`,
+				onclick: 'removePopup("timeout-warning")'
 			}
-		}, 'buttons', 'timeout-buttons');
+		}
+		for (let button in buttons) {
+			addElement('button', { class: `dialog-button timeout-button`, id: `${button}-button`, onclick: buttons[button].onclick }, buttons[button].text, collection);
+		}
 	} else {
-		timeoutDialog = addParameter(container, {
-			text: `You have been inactive for ${config.timeout} minute(s). Discarding changes in 1 minute`,
-			buttons: {
-				close: {
-					text: 'Close',
-					onclick: `win.close()`
-				},
-				cancel: {
-					text: `Cancel`,
-					onclick: 'removePopup("timeout-warning")'
-				}
+		addElement('p', { class: 'dialog-prompt timeout-prompt', id: 'timeout-unsaved' }, `You have been inactive for ${config.timeout} minute(s). Closing vault in 1 minute`, container);
+		let collection = addElement('collection', { class: 'dialog-collection timeout-collection', id: 'timeout-unsaved' }, '', container);
+
+		let buttons = {
+			close: {
+				text: 'Close',
+				onclick: `win.close()`
+			},
+			cancel: {
+				text: `Cancel`,
+				onclick: 'removePopup("timeout-warning")'
 			}
-		}, 'buttons', 'timeout-buttons');
+		}
+
+		for (let button in buttons) {
+			addElement('button', { class: `dialog-button timeout-button`, id: `${button}-button`, onclick: buttons[button].onclick }, buttons[button].text, collection);
+		}
+
 	}
 	autoClose = startTimeout(60 * 1000, 'quit');
 	console.log('started autoclose timeout');

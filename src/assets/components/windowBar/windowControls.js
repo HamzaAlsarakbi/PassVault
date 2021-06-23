@@ -35,23 +35,29 @@ function handleWindowControls() {
 		if (saved) {
 			let popup = addPopup('confirm-logout', 'Confirmation', '').body;
 			let container = addElement('div', { class: 'logout-container' }, '', popup);
-			addParameter(container, {
-				text: 'Save changes?',
-				buttons: {
-					save: {
-						text: 'Save',
-						onclick: `save('all')`
-					},
-					dontSave: {
-						text: `Don't Save`,
-						onclick: 'quit()'
-					},
-					cancel: {
-						text: `Cancel`,
-						onclick: 'removePopup("confirm-logout")'
-					}
+
+
+			addElement('p', { class: 'dialog-prompt timeout-prompt', id: 'timeout-unsaved' }, `Do you want to save changes?`, container);
+			let collection = addElement('collection', { class: 'dialog-collection timeout-collection', id: 'timeout-unsaved' }, '', container);
+
+			let buttons = {
+				save: {
+					text: 'Save',
+					onclick: `save('all')`
+				},
+				dontSave: {
+					text: `Don't Save`,
+					onclick: 'quit()'
+				},
+				cancel: {
+					text: `Cancel`,
+					onclick: 'removePopup("confirm-logout")'
 				}
-			}, 'buttons', 'confirm-logout-buttons');
+			}
+
+			for (let button in buttons) {
+				addElement('button', { class: `dialog-button timeout-button`, id: `${button}-button`, onclick: buttons[button].onclick }, buttons[button].text, collection);
+			}
 		} else {
 			win.close();
 		}
@@ -76,37 +82,46 @@ function lockVault() {
 	let popup = addPopup('confirm-logout', 'Confirmation', '').body;
 	let container = addElement('div', { class: 'logout-container' }, '', popup);
 	if (saved) {
-		addParameter(container, {
-			text: 'Save changes?',
-			buttons: {
-				save: {
-					text: 'Save',
-					onclick: `save('all')`
-				},
-				dontSave: {
-					text: `Don't Save`,
-					onclick: 'quit()'
-				},
-				cancel: {
-					text: `Cancel`,
-					onclick: 'removePopup("confirm-logout")'
-				}
+		addElement('p', { class: 'dialog-prompt timeout-prompt', id: 'timeout-unsaved' }, `Do you want to save changes?`, container);
+		let collection = addElement('collection', { class: 'dialog-collection timeout-collection', id: 'timeout-unsaved' }, '', container);
+
+		let buttons = {
+			save: {
+				text: 'Save',
+				onclick: `save('all')`
+			},
+			dontSave: {
+				text: `Don't Save`,
+				onclick: 'quit()'
+			},
+			cancel: {
+				text: `Cancel`,
+				onclick: 'removePopup("confirm-logout")'
 			}
-		}, 'buttons', 'confirm-logout-buttons');
+		}
+
+		for (let button in buttons) {
+			addElement('button', { class: `dialog-button timeout-button`, id: `${button}-button`, onclick: buttons[button].onclick }, buttons[button].text, collection);
+		}
 	} else {
-		addParameter(container, {
-			text: 'Lock vault?',
-			buttons: {
-				lock: {
-					text: 'Lock',
-					onclick: 'quit()'
-				},
-				cancel: {
-					text: 'Cancel',
-					onclick: 'removePopup("confirm-logout")'
-				},
-			}
-		}, 'buttons', 'confirm-logout-buttons');
+		addElement('p', { class: 'dialog-prompt timeout-prompt', id: 'timeout-unsaved' }, `Do you want to lock vault?`, container);
+		let collection = addElement('collection', { class: 'dialog-collection timeout-collection', id: 'timeout-unsaved' }, '', container);
+
+		let buttons = {
+			lock: {
+				text: 'Lock',
+				onclick: 'quit()'
+			},
+			cancel: {
+				text: 'Cancel',
+				onclick: 'removePopup("confirm-logout")'
+			},
+		}
+
+
+		for (let button in buttons) {
+			addElement('button', { class: `dialog-button timeout-button`, id: `${button}-button`, onclick: buttons[button].onclick }, buttons[button].text, collection);
+		}
 	}
 }
 

@@ -105,3 +105,6 @@ input:focus {
 #confirm-logout-overlay {
 	z-index: 999;
 }
+collection.dialog-collection {
+	float: right;
+}
