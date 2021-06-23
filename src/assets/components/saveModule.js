@@ -10,7 +10,7 @@ function save(type) {
 	if (type == 'config') {
 		// encrypt config
 		pack(config, CONFIG_PATH);
-		console.log('%cSaved config', 'color: green');
+		console.log('%cSaved config', 'color: lime');
 	} else if (type == 'show') {
 		// if changes are made
 		saved = true;
@@ -31,6 +31,7 @@ function save(type) {
 
 		// save config.json
 		save('config');
+		console.log('%c--------SAVED--------', 'color: red');
 
 
 		saved = false;
@@ -140,7 +141,7 @@ function changesChecker() {
 		}
 	} else {
 		if (!saved) {
-			console.log('%c saved & current data are NOT equal.', 'color: orange');
+			console.log('%cSaved & current data are NOT equal.', 'color: orange');
 			save('show');
 			updateTitle(windowTitle + '*');
 		} else {

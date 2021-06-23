@@ -4,6 +4,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const path = require('path');
 
+console.log(`Using ${isDev ? 'developer' : 'production'} build version: ${version}.`);
 if (!isDev) {
 	// log warning messages
 	console.log('%cWarning!', 'color: red; font-size: 72px; font-weight: bold; ');
