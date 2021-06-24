@@ -100,7 +100,7 @@ function parse() {
 				if (config.gridlinesOn) row.classList.add('table-gridlines');
 				currentIndex++;
 				if (currentIndex >= data.cellIndex) window.clearInterval(rowInterval);
-			}, 100);
+			}, clamp(1000 / data.cellIndex, 20, 75));
 
 			// disable animations if enabled
 			if (!config.enableAnimations) {

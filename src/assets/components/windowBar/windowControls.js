@@ -43,11 +43,11 @@ function handleWindowControls() {
 			let buttons = {
 				save: {
 					text: 'Save',
-					onclick: `save('all')`
+					onclick: `save(); removePopup("confirm-logout")`
 				},
 				dontSave: {
 					text: `Don't Save`,
-					onclick: 'quit()'
+					onclick: 'win.close()'
 				},
 				cancel: {
 					text: `Cancel`,

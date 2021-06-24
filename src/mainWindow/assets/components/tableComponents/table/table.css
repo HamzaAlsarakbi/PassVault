@@ -133,6 +133,10 @@ input.cell-input {
 	padding: 0;
 }
 
+.cell-input.service {
+	text-align: left;
+}
+
 .controls {
 	display: flex;
 	flex-direction: row;
@@ -183,5 +187,4 @@ input.cell-input {
 	max-height: 30px;
 	margin: 2px;
 	border-radius: 5px;
-	transform: translateX(12px);
 }
