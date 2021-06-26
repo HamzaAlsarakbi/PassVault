@@ -2,7 +2,6 @@ function addRow(tableData, index) {
 	let row = addElement('div', { class: `row-${index}`, id: 'tr' }, '', elements.table);
 	// append data values
 	for (let dataType in tableData) {
-
 		let cell = addElement('div', { class: `cell-${index} table-cell ${dataType}`, id: `${dataType}-${index}`, onclick: 'copy(this)' }, '', row);
 		let content = addElement('div', { class: `cell-${index} cell-content ${dataType}`, id: `${dataType}-content` }, '', cell);
 		let input = addElement('input', { class: `cell-${index} cell-input ${dataType}`, id: `${dataType}-input`, readonly: '' }, tableData[dataType], content);
@@ -28,7 +27,7 @@ function addRow(tableData, index) {
 		// add icon if its a service icon
 		if (dataType == 'service') {
 			fetchExternalIcons();
-			iconChecker(cell, tableData[dataType]);
+			iconChecker(content, tableData[dataType]);
 		}
 	}
 	let controlsCell = addElement('div', { class: `cell-${index} controls`, id: `controls-${index}` }, '', row);
@@ -84,7 +83,7 @@ function deleteRow(e) {
 	let c = e.classList[0];
 	let index = data[c].index;
 	let row = `row-${index}`;
-	row = document.querySelector(`.row-${index}`);
+	row = $(`.row-${index}`);
 	row.classList.toggle('draw-out-animation');
 	setTimeout(() => {
 		let removedIndex = Number(c.replace('cell-', ''));
@@ -104,7 +103,7 @@ function deleteRow(e) {
 			};
 
 			// update class name of cells
-			let rowCells = document.querySelectorAll('.cell-' + i);
+			let rowCells = $All('.cell-' + i);
 			let rowLength = rowCells.length;
 			for (let x = 0; x < rowLength; x++) {
 				let element = rowCells[x];
@@ -113,7 +112,7 @@ function deleteRow(e) {
 			}
 
 			// update class name of rows
-			document.querySelector(`.row-${i}`).setAttribute('class', `row-${(i - 1)}`);
+			$(`.row-${i}`).setAttribute('class', `row-${(i - 1)}`);
 		}
 		data.cellIndex--;
 		delete data[`cell-${data.cellIndex}`];
@@ -123,8 +122,8 @@ function deleteRow(e) {
 
 function togglePasswordVisibility(e) {
 	let c = e.classList[0];
-	let password = document.querySelector(`.${c}.cell-input.password`);
-	let icon = document.querySelector(`.${c}.cell-hideShow-icon`);
+	let password = $(`.${c}.cell-input.password`);
+	let icon = $(`.${c}.cell-hideShow-icon`);
 
 	// toggle password visibility
 	if (password.type == 'password') {

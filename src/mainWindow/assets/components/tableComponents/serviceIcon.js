@@ -37,10 +37,10 @@ function fetchAllIcons() {
 fetchAllIcons();
 
 
-function iconChecker(cell, text) {
-	let cellClass = cell.classList[0];
+function iconChecker(parent, text) {
+	let cellClass = parent.classList[0];
 	try {
-		cell.removeChild(document.querySelector(`.${cellClass}#service-icon`));
+		parent.removeChild($(`.${cellClass}#service-icon`));
 	} catch (err) { }
 	text = text.toLowerCase();
 	let defaultList = serviceIcons.internalIcons;
@@ -51,7 +51,7 @@ function iconChecker(cell, text) {
 		for (let i = 0; i < list.length; i++) {
 			if (text.includes(list[i].substring(0, list[i].length - 4))) {
 				console.log('Using custom icon');
-				addElement('img', { class: cellClass, id: 'service-icon', src: path.join(parentDir, `/Data/icons/${list[i]}`) }, '', cell);
+				addElement('img', { class: cellClass, id: 'service-icon', src: path.join(parentDir, `/Data/icons/${list[i]}`) }, '', parent);
 			} else {
 				defaultAdd();
 			}
@@ -64,7 +64,7 @@ function iconChecker(cell, text) {
 	function defaultAdd() {
 		for (let i = 0; i < defaultList.length; i++) {
 			if (text.includes(defaultList[i].substring(0, defaultList[i].length - 4))) {
-				addElement('img', { class: cellClass, id: 'service-icon', src: path.join(__dirname, `../assets/img/icons/${defaultList[i]}`) }, '', cell);
+				addElement('img', { class: cellClass, id: 'service-icon', src: path.join(__dirname, `../assets/img/icons/${defaultList[i]}`) }, '', parent);
 			}
 		}
 	}

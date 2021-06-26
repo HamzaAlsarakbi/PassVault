@@ -61,7 +61,7 @@ function confirmEdits(e) {
 			window.getSelection().removeAllRanges();
 		}
 		fetchExternalIcons();
-		iconChecker(document.querySelector(`.${c}.table-cell.service`), inputs.service.value);
+		iconChecker(document.querySelector(`.${c}.cell-icon-wrapper`), inputs.service.value);
 	}
 	search();
 }
@@ -87,7 +87,7 @@ function cancelEdits(e) {
 
 	removeEditMode(index, c);
 
-	iconChecker(document.querySelector(`.${c}.table-cell.service`), inputs.service.value);
+	iconChecker(document.querySelector(`.${c}.cell-icon-wrapper`), inputs.service.value);
 	// check strength
 	updateStrength({ target: inputs.password });
 }

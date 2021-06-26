@@ -100,7 +100,7 @@ function parse() {
 				if (config.gridlinesOn) row.classList.add('table-gridlines');
 				currentIndex++;
 				if (currentIndex >= data.cellIndex) window.clearInterval(rowInterval);
-			}, clamp(1000 / data.cellIndex, 20, 75));
+			}, clamp(1000 / data.cellIndex, 40, 75));
 
 			// disable animations if enabled
 			if (!config.enableAnimations) {
@@ -128,15 +128,16 @@ function changesChecker() {
 
 	// compare two objects
 	if (savedData == currentData) {
-		// console.log('%c saved & current data are equal.', 'color: lime');
+		// console.log('%cSaved & current data are equal.', 'color: lime');
 		updateTitle(windowTitle);
 		if (saved) {
 			// if the user reversed changes, has a side effect when triggering save from console
 			saved = false;
 			let saveButtonDOM = document.querySelector('.save');
-			saveButtonDOM.classList.toggle('bu	tton-slide-out');
+			saveButtonDOM.classList.toggle('button-slide-out');
 			setTimeout(function () {
 				saveButtonDOM.remove();
+				console.log('%cSaved & current data are now equal.', 'color: lime');
 			}, 300);
 		}
 	} else {

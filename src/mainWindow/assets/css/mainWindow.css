@@ -108,3 +108,8 @@ input:focus {
 collection.dialog-collection {
 	float: right;
 }
+
+@font-face {
+	font-family: ubuntu-monospace;
+	src: url("../../../assets/fonts/UbuntuMono-R.ttf");
+}
