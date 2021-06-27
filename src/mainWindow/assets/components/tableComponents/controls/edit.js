@@ -46,7 +46,7 @@ function confirmEdits(e) {
 	for (let input in inputs) {
 		if (inputs[input].value == '') {
 			empty = true;
-			inptus[input].select();
+			inputs[input].select();
 			break;
 		}
 	}
@@ -56,12 +56,16 @@ function confirmEdits(e) {
 
 		// when confirm button is clicked
 		for (let input in inputs) {
-			data[c][input] = inputs[input].value;
+			// trim inputs and update data and cell
+			let trimmed = inputs[input].value.trim();
+			data[c][input] = trimmed;
+			inputs[input].size = trimmed.length;
+			inputs[input].value = trimmed;
 			inputs[input].setAttribute('readonly', '');
 			window.getSelection().removeAllRanges();
 		}
 		fetchExternalIcons();
-		iconChecker(document.querySelector(`.${c}.cell-icon-wrapper`), inputs.service.value);
+		iconChecker(document.querySelector(`.${c}.cell-content.service`), inputs.service.value);
 	}
 	search();
 }
@@ -87,7 +91,7 @@ function cancelEdits(e) {
 
 	removeEditMode(index, c);
 
-	iconChecker(document.querySelector(`.${c}.cell-icon-wrapper`), inputs.service.value);
+	iconChecker(document.querySelector(`.${c}.cell-content.service`), inputs.service.value);
 	// check strength
 	updateStrength({ target: inputs.password });
 }

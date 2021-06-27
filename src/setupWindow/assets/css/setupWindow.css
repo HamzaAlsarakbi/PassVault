@@ -136,13 +136,12 @@ nav {
 	margin-top: 0;
 	opacity: 0;
 	font-size: 12px;
-	height: 0;
 }
 .error {
 	margin-top: 5px;
 	opacity: 1;
 	color: rgb(252, 61, 61);
-	height: 12px;
+	white-space: initial;
 }
 .theme-list {
 	display: flex;
@@ -153,4 +152,9 @@ nav {
 	font-size: 14px;
 	height: 40px;
 	width: calc(100% - 20px);
+}
+.hint {
+	white-space: initial;
+	color: orange;
+	font-size: 12px;
 }

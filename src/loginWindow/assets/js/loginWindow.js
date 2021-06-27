@@ -3,7 +3,7 @@ const remote = electron.remote;
 const { ipcRenderer } = electron;
 function updateTitle(text) {
 	let suffix = '';
-	if(isDev) suffix = ' - Dev Build';
+	if (isDev) suffix = ' - Dev Build';
 	document.title = text + suffix;
 	document.querySelector('.window-title').textContent = text + suffix;
 }
@@ -53,21 +53,22 @@ passDOM.addEventListener('keydown', e => {
 
 // Password verification
 function unlock() {
-	if(config.login.cooldown == 0) {
-		if (passDOM.value == config.masterPassword) {
+	let password = passDOM.value.trim();
+	if (config.login.cooldown == 0) {
+		if (password == config.masterPassword) {
 			// Hide span if it were activated
 			error.classList.remove('error');
-			
+
 			// reset cooldowns 
 			config.login.cooldown = 0;
 			config.login.cooldowns = 1;
 			config.login.attempts = 0;
-	
+
 			// send confirmation
 			save();
 			ipcRenderer.send('login');
 			win.close();
-		} else if (passDOM.value == '') {
+		} else if (password == '') {
 			// If password is empty
 			// Display span
 			error.classList.add('error');
@@ -76,10 +77,10 @@ function unlock() {
 			// If password is wrong
 			// Display span
 			error.classList.add('error');
-	
+
 			error.textContent = 'Password is incorrect.';
 			updateAttempts();
-	
+
 			passDOM.value = '';
 		}
 	}

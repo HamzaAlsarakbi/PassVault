@@ -12,7 +12,10 @@
 	height: calc(100% - 50px);
 	border-radius: 10px;
 }
-
+#change-master-password-window {
+	width: 90%;
+	max-width: 500px;
+}
 /* change password */
 .password-change {
 	padding: 10px;

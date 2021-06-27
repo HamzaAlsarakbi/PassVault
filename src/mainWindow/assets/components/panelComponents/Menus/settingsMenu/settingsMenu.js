@@ -1,13 +1,13 @@
 function toggleSettings() {
-	document.querySelector('controls').classList.toggle('panel-active');
-	document.querySelector('#thead').classList.toggle('margin-settings');
+	$('controls').classList.toggle('panel-active');
+	$('#thead').classList.toggle('margin-settings');
 	panel.classList.toggle('toggleSettings');
 
 	// menu transitions
 	menu.classList.toggle('menu-down');
 
 	// rotate icon
-	document.querySelector('.control#settings').classList.toggle('panel-active');
+	$('.control#settings').classList.toggle('panel-active');
 
 	// if one of the windows is open
 	if (components.search) toggleSearch();
@@ -22,7 +22,7 @@ function toggleSettings() {
 
 
 		// create settingsBody
-		let settingsBody = document.querySelector('menu.menu-down');
+		let settingsBody = $('menu.menu-down');
 
 
 		// general section
@@ -77,7 +77,7 @@ function toggleAnimations() {
 	if (!config.enableAnimations) {
 		addElement('link', { class: 'disable-animations', type: 'text/css', rel: 'stylesheet', href: '../assets/components/disableAnimations.css' }, undefined, document.head);
 	} else {
-		document.head.removeChild(document.querySelector('.disable-animations'));
+		document.head.removeChild($('.disable-animations'));
 	}
 	save('config');
 }
@@ -91,7 +91,7 @@ function inactivityTimeout(e) {
 
 function selectTheme(e) {
 	let theme = e.target.id.replace('-theme-radio', '').replace('-input', '');
-	document.querySelector('head').removeChild(document.querySelector('.link-theme'));
+	$('head').removeChild($('.link-theme'));
 
 	config.theme = theme;
 	save('config');
@@ -123,83 +123,87 @@ function openChangePasswordDialog() {
 
 // Change password function
 function passChangeRequest() {
-	let oldPass = document.querySelector('#old-password-rich-input');
-	let newPass = document.querySelector('#new-password-rich-input');
-	let newConfirmPass = document.querySelector('#confirm-password-rich-input');
-	let p = document.querySelector('#password-error');
+	let inputs = {
+		old: $('#old-password-rich-input'),
+		new: $('#new-password-rich-input'),
+		newConfirm: $('#confirm-password-rich-input')
+	}
+	let p = $('#password-error');
 	p.classList.remove('confirm');
 	// validate password
 	// check if old password is correct
-	if (oldPass.value == '' || newPass.value == '' || newConfirmPass.value == '') {
-		// display error
-		error(true);
-		p.innerHTML = 'One or more of the fields is empty.';
-		if (oldPass.value == '') {
-			oldPass.select();
-		} else if (newPass.value == '') {
-			newPass.select();
-		} else {
-			newConfirmPass.select();
+	let trimmed = {}
+	for (let input in inputs) {
+		let trimmedPassword = inputs[input].value.trim();
+		trimmed[input] = trimmedPassword;
+		if (trimmedPassword == '') {
+			error(true, 'Input fields must not be empty.');
+			inputs[input].select();
+			return;
 		}
-	} else if (oldPass.value == config.masterPassword) {
-		if (newPass.value == newConfirmPass.value) {
-			if (newPass.value != oldPass.value) {
+	}
+	if (trimmed.old == config.masterPassword) {
+		if (trimmed.old != trimmed.new) {
+			if (trimmed.new == trimmed.newConfirm) {
+				let strength = getStrengthOf(trimmed.new).strength;
+				// if password is below "Very Strong" level
+				if (strength < 4) {
+					error(true, "Your password is too weak. You need upper and lower case letters, numbers and symbols for a strong password.");
+					inputs.new.value = '';
+					inputs.new.select();
+					inputs.newConfirm.value = '';
+				} else {
+					// save changes and show confirmation
+					config.masterPassword = trimmed.new;
+					save('config');
+					p.classList.add('confirm-password-change');
+					p.textContent = "Password Changed!";
 
-				p.classList.add('confirm-password-change');
-				p.innerHTML = 'Password Changed!';
-				config.masterPassword = newPass.value;
-				oldPass.value = '';
-				newPass.value = '';
-				newConfirmPass.value = '';
-				oldPass.select();
-				error(false);
-				save('config');
-				setTimeout(() => {
-					p.classList.remove('confirm-password-change');
+
+					// clear inputs and deselect them
+					for (input in inputs) {
+						inputs[input].value = "";
+						inputs[input].blur();
+					}
 					setTimeout(() => {
 						removePopup('change-master-password');
-					}, 250);
-				}, 1000);
+					}, 1250);
+				}
+
 			} else {
-				// display error
-				error(true);
-				p.innerHTML = 'Old and new passwords match.';
+				// highglight error, clear new inputs and select new password
+				error(true, "New passwords don't match.");
+				inputs.new.value = '';
+				inputs.new.select();
+				inputs.newConfirm.value = '';
 			}
 		} else {
-			// display error
-			error(true);
-			p.innerHTML = 'New passwords do not match.';
+			error(true, 'Master password matches the new password.');
+			inputs.new.value = '';
+			inputs.new.select();
+			inputs.newConfirm.value = '';
 		}
 	} else {
-		// display error
-		error(true);
-		p.innerHTML = 'Old password is not correct.';
+		error(true, 'Master password is incorrect.');
+		inputs.old.value = '';
+		inputs.old.select();
 	}
 }
-function error(action) {
-	console.log('Error provoked.');
-	if (action) {
-		document.querySelector('#password-error').classList.add('error');
-	} else {
-		document.querySelector('#password-error').classList.remove('error');
-	}
+function error(action, text) {
+	let span = $('#password-error');
+	span.classList[action ? 'add' : 'remove']('error');
+	span.textContent = text;
 }
 
 
 function openExternal(type) {
-	switch (type) {
-		case 'github':
-			shell.openExternal('https://github.com/Electr0d');
-			break;
-
-		case 'instagram':
-			shell.openExternal('https://www.instagram.com/hamza.alsarakbi/');
-			break;
-
-		case 'donate':
-			shell.openExternal('https://www.patreon.com/Hamza_Sar');
-			break;
+	// type can be instagram, github, or donate
+	let types = {
+		github: 'https://github.com/Electr0d',
+		instagram: 'https://www.instagram.com/hamza.alsarakbi/',
+		donate: 'https://www.patreon.com/Hamza_Sar'
 	}
+	shell.openExternal(types[type]);
 }
 
 function toggleDevTools() {
@@ -211,7 +215,7 @@ function toggleDevTools() {
 
 // Gridlines
 function toggleGridlines() {
-	let gridlinesTable = document.querySelectorAll('#tr');
+	let gridlinesTable = $$('#tr');
 	// Toggle gridlines
 	for (let i = 0; i < gridlinesTable.length; i++) {
 		gridlinesTable[i].classList.toggle('table-gridlines');

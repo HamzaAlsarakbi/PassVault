@@ -7,9 +7,13 @@ const remote = require('electron').remote,
 	themeContainer = document.querySelector('.theme');
 
 let win = remote.getCurrentWindow();
+
+// for password strength component
+const components = {
+	strengthMeterOn: true
+}
+
 // create a master password input
-
-
 let input = new RichInput({ hidden: 'true' }, 'Master Password', masterPasswordForm).input;
 
 
@@ -59,13 +63,17 @@ function back(type) {
 }
 
 function setTheme() {
-	let password = input.value;
-	if (password === undefined || password == '') {
+	let password = input.value.trim();
+	let strength = getStrengthOf(password).strength;
+	console.log(password, strength);
+	input.select();
+	if (password == '') {
 		errorDOM.classList.add('error');
 		errorDOM.textContent = 'Enter password.';
-	} else if (password.length < 8) {
+	} else if (strength < 4) {
 		errorDOM.classList.add('error');
-		errorDOM.textContent = 'Password must be over 8 characters long.';
+		errorDOM.textContent = 'Your password is too weak, master password must contain upper and lower case letters, numbers and symbols.';
+		input.value = '';
 	} else {
 		errorDOM.classList.remove('error');
 		config.masterPassword = password;

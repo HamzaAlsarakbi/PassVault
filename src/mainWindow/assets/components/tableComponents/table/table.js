@@ -103,7 +103,7 @@ function deleteRow(e) {
 			};
 
 			// update class name of cells
-			let rowCells = $All('.cell-' + i);
+			let rowCells = $$('.cell-' + i);
 			let rowLength = rowCells.length;
 			for (let x = 0; x < rowLength; x++) {
 				let element = rowCells[x];

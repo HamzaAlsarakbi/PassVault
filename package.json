@@ -8,7 +8,8 @@
 		"package-mac": "electron-packager . --overwrite --platform=darwgiin --arch=x64 --icon=icon/icon.png --prune=true --out=bin",
 		"package-win32": "electron-packager . PassVault --overwrite --asar=true --platform=win32 --arch=ia32 --icon=icon/icon.ico --prune=false --out=bin --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"PassVault\"",
 		"package-win64": "electron-packager . PassVault --overwrite --asar=true --platform=win32 --arch=x64 --icon=icon/icon.ico --prune=false --out=bin --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"PassVault\"",
-		"package-linux": "electron-packager . PassVault --overwrite --asar=true --platform=linux --arch=x64 --icon=icon/icon.png --prune=true --out=bin"
+		"package-linux": "electron-packager . PassVault --overwrite --asar=true --platform=linux --arch=x64 --icon=icon/icon.png --prune=true --out=bin",
+		"make-installer": "node src/build_installer.js"
 	},
 	"author": "Hamza",
 	"license": "GPL-3.0 License",
@@ -19,6 +20,7 @@
 	"devDependencies": {
 		"devtron": "^1.4.0",
 		"electron": "^9.4.3",
-		"electron-packager": "^15.0.0"
+		"electron-packager": "^15.0.0",
+		"electron-wix-msi": "^3.2.0"
 	}
 }

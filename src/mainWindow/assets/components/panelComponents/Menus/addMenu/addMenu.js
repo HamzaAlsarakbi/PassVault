@@ -65,10 +65,12 @@ function addData() {
 	let empty = false;
 	let invalidInputs = [];
 	for (let input in inputs) {
+		// send an error if one or more of the inputs is empty
 		if (inputs[input].value == '') {
 			invalidInputs.push(inputs[input]);
 			span.classList.add('error');
 			panel.classList.add('panel-extend');
+			// highlight input
 			inputs[input].select();
 			inputInvalid(inputs[input], 'add');
 			empty = true;
@@ -84,20 +86,20 @@ function addData() {
 		panel.classList.remove('panel-extend');
 
 		data['cell-' + data.cellIndex] = {
-			type: inputs.type.value,
-			service: inputs.service.value,
-			email: inputs.email.value,
-			password: inputs.password.value,
+			type: inputs.type.value.trim(),
+			service: inputs.service.value.trim(),
+			email: inputs.email.value.trim(),
+			password: inputs.password.value.trim(),
 			index: data.cellIndex,
 			class: 'cell-' + data.cellIndex,
 			hidden: true
 		};
 		let row = addRow(
 			{
-				type: inputs.type.value,
-				service: inputs.service.value,
-				email: inputs.email.value,
-				password: inputs.password.value
+				type: inputs.type.value.trim(),
+				service: inputs.service.value.trim(),
+				email: inputs.email.value.trim(),
+				password: inputs.password.value.trim()
 			}, data.cellIndex);
 
 		// turn on gridlines if it is on

@@ -8,6 +8,9 @@ let data = {
 function $(query) {
 	return document.querySelector(query);
 }
+function $$(query) {
+	return document.querySelectorAll(query);
+}
 // menu
 const panel = $('panel');
 const menu = $('menu');

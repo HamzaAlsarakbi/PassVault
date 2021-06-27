@@ -143,6 +143,7 @@ input.cell-input {
 	flex-direction: row;
 	justify-content: center;
 	width: 95px;
+	align-items: center;
 }
 .cell-control {
 	padding: 6px;
