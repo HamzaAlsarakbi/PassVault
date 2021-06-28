@@ -5,20 +5,22 @@ const { MSICreator } = require('electron-wix-msi');
 const path = require('path');
 
 // 2. Define input and output directory.
-const BIN_DIR = path.resolve(__dirname, '../bin/');
-const APP_DIR = path.join(BIN_DIR, '/PassVault-win32-x64');
-console.log(BIN_DIR, APP_DIR)
+const BIN_COLLECTION = path.resolve(__dirname, '../bin/');
+const BIN_DIR = path.join(BIN_COLLECTION, '/PassVault-win32-x64');
+const ICON_DIR = path.join(BIN_DIR, '/icon.ico');
+
 
 // outputDirectory: "C:\\Users\sdkca\Desktop\windows_installer", 
-const OUT_DIR = path.resolve(BIN_DIR, './installer');
+const OUT_DIR = path.resolve(BIN_COLLECTION, './installer');
+
 
 // 3. Instantiate the MSICreator
 const msiCreator = new MSICreator({
-  appDirectory: APP_DIR,
+  appDirectory: BIN_DIR,
   outputDirectory: OUT_DIR,
   shortcutName: 'PassVault',
   shortcutFolderName: 'PassVault',
-  icon: path.join(APP_DIR, 'icon.ico'),
+  icon: ICON_DIR,
 
 
   // Configure metadata
