@@ -1,4 +1,3 @@
-const { shell } = electron;
 const app = $('.app');
 // data object
 let data = {

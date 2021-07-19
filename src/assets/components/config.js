@@ -1,6 +1,6 @@
-const version = 'v1.2.0';
 const isDev = require('electron-is-dev');
 const fs = require('fs');
+const version = 'v1.3.0';
 const crypto = require('crypto');
 const path = require('path');
 

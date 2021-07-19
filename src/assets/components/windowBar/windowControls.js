@@ -1,6 +1,3 @@
-const electron = require('electron');
-const { ipcRenderer } = electron;
-let win = electron.remote.getCurrentWindow();
 let windowTitle = document.title;
 // When document has loaded, initialise
 document.onreadystatechange = () => {
@@ -9,8 +6,9 @@ document.onreadystatechange = () => {
 	}
 };
 function updateTitle(text) {
+	const IS_DEV = window.api.dev;
 	let suffix = '';
-	if (isDev) suffix = ' - Dev Build';
+	if (IS_DEV) suffix = ' - Dev Build';
 	document.title = text + suffix;
 	document.querySelector('.window-title').textContent = text + suffix;
 }
@@ -18,17 +16,18 @@ updateTitle(windowTitle);
 
 
 function handleWindowControls() {
+	const WINDOW = window.api.window;
 	// Make minimise/maximise/restore/close buttons work when they are clicked
-	document.getElementById('min-button').addEventListener('click', (event) => {
-		win.minimize();
+	document.getElementById('min-button').addEventListener('click', () => {
+		WINDOW.minimize();
 	});
 
-	document.getElementById('max-button').addEventListener('click', (event) => {
-		win.maximize();
+	document.getElementById('max-button').addEventListener('click', () => {
+		WINDOW.maximize();
 	});
 
-	document.getElementById('restore-button').addEventListener('click', (event) => {
-		win.unmaximize();
+	document.getElementById('restore-button').addEventListener('click', () => {
+		WINDOW.maximize();
 	});
 
 	document.getElementById('close-button').addEventListener('click', (event) => {
@@ -59,17 +58,17 @@ function handleWindowControls() {
 				addElement('button', { class: `dialog-button timeout-button`, id: `${button}-button`, onclick: buttons[button].onclick }, buttons[button].text, collection);
 			}
 		} else {
-			win.close();
+			WINDOW.close();
 		}
 	});
 
 	// Toggle maximise/restore buttons when maximisation/unmaximisation occurs
 	toggleMaxRestoreButtons();
-	win.on('maximize', toggleMaxRestoreButtons);
-	win.on('unmaximize', toggleMaxRestoreButtons);
+	WINDOW.on('maximize', toggleMaxRestoreButtons);
+	WINDOW.on('unmaximize', toggleMaxRestoreButtons);
 
 	function toggleMaxRestoreButtons() {
-		if (win.isMaximized()) {
+		if (WINDOW.isMaximized()) {
 			document.body.classList.add('maximized');
 		} else {
 			document.body.classList.remove('maximized');

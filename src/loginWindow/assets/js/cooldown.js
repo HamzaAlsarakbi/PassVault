@@ -1,21 +1,23 @@
 function updateAttempts() {
+  let config = window.api.configHandler.getConfig();
   config.login.attempts++;
   if (config.login.attempts >= 5) {
-    startCooldown();
+    startCooldown(config);
   }
-  save();
+  window.api.configHandler.setConfig('login', config.login);
 }
 
 
-if (config.login.cooldown > 0) startCooldown();
-function startCooldown() {
+if (window.api.configHandler.getConfig().login.cooldown > 0) startCooldown(window.api.configHandler.getConfig());
+function startCooldown(config) {
   console.log('started cooldown');
   config.login.cooldown = 5 * 60 * config.login.cooldowns;
   error.classList.add('error');
   error.textContent = 'Login disabled. Please wait ' + ((config.login.cooldown - (config.login.cooldown % 60)) / 60) + ' minute(s) and 0 second(s)';
+  window.api.configHandler.setConfig('login', config.login);
+  // save()
 
-  // save
-  save();
+
 
   let cooldown = setInterval(() => {
     config.login.cooldown--;
@@ -28,31 +30,7 @@ function startCooldown() {
       config.login.attempts = 0;
       error.classList.remove('error');
       error.textContent = '';
-      save();
+      window.api.configHandler.setConfig('login', config.login);
     }
   }, 1000);
-}
-
-function save() {
-
-  // encrypt config
-  configEncrypted = encrypt(JSON.stringify(config));
-
-  // save encrypted config
-  package(JSON.stringify(configEncrypted), CONFIG_PATH);
-}
-
-function encrypt(text) {
-  // encrypt string
-  let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-  let encrypted = cipher.update(text);
-  encrypted = Buffer.concat([encrypted, cipher.final()]);
-  return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-}
-
-function package(object, pathOfObject) {
-  fs.writeFileSync(pathOfObject, object, function (err) {
-    if (err) throw err;
-    console.log('Saved ' + object + '!');
-  });
 }

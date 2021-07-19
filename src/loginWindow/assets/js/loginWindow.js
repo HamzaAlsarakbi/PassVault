@@ -1,7 +1,5 @@
-const electron = require('electron');
-const remote = electron.remote;
-const { ipcRenderer } = electron;
 function updateTitle(text) {
+	const isDev = window.api.dev;
 	let suffix = '';
 	if (isDev) suffix = ' - Dev Build';
 	document.title = text + suffix;
@@ -21,20 +19,14 @@ const crossedEye = '../global assets/img/dark/crossed-eye.png';
 const eye = '../global assets/img/dark/eye.png';
 
 
-// Window controls
-let win = remote.getCurrentWindow();
-
-
 function init() {
+	const WINDOW = window.api.window
 	// Make minimise/maximise/restore/close buttons work when they are clicked
 	document.getElementById('close-button').addEventListener('click', (event) => {
-		win.close();
-		win.on('closed', () => {
-			win = null;
-		});
+		WINDOW.close();
 	});
 	document.getElementById('min-button').addEventListener('click', (event) => {
-		win.minimize();
+		WINDOW.minimize();
 	});
 
 	// add form
@@ -53,6 +45,7 @@ passDOM.addEventListener('keydown', e => {
 
 // Password verification
 function unlock() {
+	let config = window.api.configHandler.getConfig();
 	let password = passDOM.value.trim();
 	if (config.login.cooldown == 0) {
 		if (password == config.masterPassword) {
@@ -64,10 +57,12 @@ function unlock() {
 			config.login.cooldowns = 1;
 			config.login.attempts = 0;
 
+			// save
+			window.api.configHandler.setConfig('login', config.login);
+
 			// send confirmation
-			save();
-			ipcRenderer.send('login');
-			win.close();
+			window.api.events.login();
+			window.api.window.close();
 		} else if (password == '') {
 			// If password is empty
 			// Display span
