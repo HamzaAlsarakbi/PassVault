@@ -14,7 +14,6 @@
 	"author": "Hamza",
 	"license": "GPL-3.0 License",
 	"dependencies": {
-		"crypto": "^1.0.1",
 		"electron-is-dev": "^1.2.0"
 	},
 	"devDependencies": {
