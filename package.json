@@ -20,7 +20,6 @@
 		"devtron": "^1.4.0",
 		"electron": "^9.4.3",
 		"electron-packager": "^15.0.0",
-		"electron-wix-msi": "^3.2.0",
-		"exe-icon-extractor": "^1.0.8"
+		"electron-wix-msi": "^3.2.0"
 	}
 }
