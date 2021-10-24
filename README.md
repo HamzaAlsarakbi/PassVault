@@ -131,6 +131,7 @@ After a set period of time. User will be warned, then sent back to the login men
 ## Installation
 ```
 git clone https://www.github.com/Electr0d/PassVault
+cd PassVault
 npm install
 npm start
 ```
