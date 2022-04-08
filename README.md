@@ -1,6 +1,9 @@
 # PassVault
 A simple program that stores your passwords, locally, and encrypted. Unlike other solutions that store them on someone else's computer.
 
+# Archived project. [Successor](https://github.com/HamzaAlsarakbi/OpenVault)
+
+
 
 ## Features
 ### Add Menu
